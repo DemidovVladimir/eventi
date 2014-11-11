@@ -1,0 +1,211 @@
+{{info}}
+
+<h3 class="text-center">Welcome to our project {{info.name}}...</h3>
+<div class="text-center">
+    <img ng-show="info.ava" src="/uploaded/{{info._id}}/mini_{{info.ava}}">
+    <!--<img ng-show="newAva" src="/uploaded/{{info._id}}/mini_{{newAva}}">-->
+    <form role="form">
+        <div ng-show="info.ava">
+            <div class="form-group">
+                <label for="inputAva">Change picture...</label>
+                <input type="file" ng-file-select="onAvaChange($files)" class="form-control" id="inputAva"/>
+            </div>
+            <div class="form-group">
+                <button type="button" ng-click="deleteAva()" class="form-control btn btn-success btn-sm">Delete this picture...</button>
+            </div>
+        </div>
+        <div ng-show="!info.ava" class="form-group">
+            <label for="inputAva">Insert picture representing you...</label>
+            <input type="file" ng-file-select="onAvaInsert($files)" class="form-control" id="inputAva"/>
+        </div>
+        <div ng-show="progress">
+            <div class="row clear-both text-center">
+                <h3>Loading:</h3>
+            </div>
+            <div class="row">
+                <div class="progress col-sm-6 col-sm-offset-3">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                        {{progress}}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="text-center">Your gender(if empty):</h3>
+        <div class="form-group text-center">
+            <input type="radio" ng-model="gender" name="gender" id="gender" value="male">Male
+            <input type="radio" ng-model="gender" name="gender" id="gender" value="female">Female
+        </div>
+        <div ng-show="!emailError" class="form-group">
+            <label for="exampleInputEmail">Change email</label>
+            <input ng-blur="checkEmailFormat()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
+        </div>
+        <div ng-show="emailError" class="form-group has-error">
+            <label for="exampleInputEmail">Change email</label>
+            <input ng-blur="checkEmailFormat()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputSkype">Your skype Id</label>
+            <input type="text" class="form-control" id="exampleInputSkype" placeholder="ID:{{info.skype}} (It is not necessary)" ng-model="skype">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPhone">Your phone</label>
+            <input type="text" class="form-control" id="exampleInputPhone" placeholder="Phone:{{info.phone}} (It is not necessary)" ng-model="phone">
+        </div>
+        <div ng-show="!selectedLanguagesError" class="form-group">
+            <label for="exampleInputLanguages">Languages you speak</label>
+            <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
+            <input type="text" ng-blur="checkLanguagesInput()" auto-complete items="languages" placeholder="{{languagesPlaceholder}}" ng-model="selectedLanguage">
+            <h4>Selected languages:</h4>
+            <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}<a type="button" ng-click="deleteLanguage(lang)"><span class="glyphicon glyphicon-minus"></span></a>, </span></h4>
+        </div>
+        <div ng-show="selectedLanguagesError" class="form-group">
+            <label for="exampleInputLanguages">Languages you speak</label>
+            <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
+            <input type="text" ng-blur="checkLanguagesInput()" auto-complete items="languages" placeholder="{{languagesPlaceholder}}" ng-model="selectedLanguage">
+            <h4 style="color: red">You have to select at least one language you able to speak!</h4>
+            <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}, </span></h4>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputAbout">Additional information about yourself</label>
+            <textarea id="exampleInputAbout" ng-model="about" class="form-control" placeholder="{{about}}" rows="3"></textarea>
+        </div>
+<hr>
+        <h2>Pictures manipulations...</h2>
+        <div class="form-group">
+            <label for="exampleInputFolderPhoto">Paste pictures to the folder(png, jpeg, bmp, gif file format only)</label>
+            <input type="text" class="form-control" id="exampleInputFolderPhoto" placeholder="{{currentPicFolder}}" ng-model="currentPicFolder"/>
+        </div>
+
+        <h4 ng-show="resFolders.length!=0" class="text-center">Or choose from created...</h4>
+        <ul class="list-group">
+            <div data-ng-repeat="folder in resFolders">
+                <li class="list-group-item">
+                    <span class="badge">Photoes: {{folder.summ}}</span>
+                    <a ng-click="closeFolder()"><span style="float: left">Close</span></a>
+                    <a ng-click="selectFolder(folder.folder)"> {{folder.folder}} </a>
+                </li>
+                <div ng-show="folderPics[0]._id==folder.folder" class="row">
+                    <div data-ng-repeat="pic in folderPics[0].photos" class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img ng-src="/uploaded/{{info._id}}/{{folderPics[0]._id}}/mini_{{pic}}" alt="mini_{{pic}}">
+                            <div class="caption">
+                                <p><button type="button" ng-click="deletePic(pic,folder.folder)" class="btn btn-sm btn-danger">Удалить</button></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+        <div class="form-group">
+            <input type="file" ng-file-select="onPicSelect($files)" class="form-control" id="inputPic"/>
+        </div>
+<hr>
+        <h2>Video manipulations...</h2>
+        <div class="form-group">
+            <label for="exampleInputFolderVideo">Paste video to the folder</label>
+            <input type="text" class="form-control" id="exampleInputFolderVideo" placeholder="{{currentVideoFolder}}" ng-model="currentVideoFolder"/>
+        </div>
+        <h4 ng-show="resFoldersVideo.length!=0" class="text-center">Or choose from created...</h4>
+        <ul class="list-group">
+            <div data-ng-repeat="folder in resFoldersVideo">
+                <li class="list-group-item">
+                    <span class="badge">Videos: {{folder.summ}}</span>
+                    <a ng-click="closeFolderVideo()"><span style="float: left">Close</span></a>
+                    <a ng-click="selectFolderVideo(folder.folder)"> {{folder.folder}} </a>
+                </li>
+                <div ng-show="folderVideos[0]._id==folder.folder" class="row">
+                    <div data-ng-repeat="video in folderVideos[0].videos" class="col-sm-6 col-md-4">
+
+                            <custom-video></custom-video>
+                            <div class="caption text-center">
+                                <p><button type="button" ng-click="deleteVideo(video,folder.folder)" class="btn btn-sm btn-danger">Удалить</button></p>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </ul>
+        <div class="form-group">
+            <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="inputVideo"/>
+        </div>
+<hr>
+        <h2>I am now in:</h2>
+        <h4 ng-show="info.destination">{{info.destination}}</h4>
+        <div class="form-group">
+            <input type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" placeholder="{{info.destination}}" ng-model="destination">
+        </div>
+<hr>
+        <h2>Search for a person:</h2>
+        <div class="form-group">
+            <label for="inputPerson">Name:</label>
+            <input type="text" class="form-control" id="inputPerson" placeholder="{{personName}}" ng-model="personName">
+        </div>
+        <div class="form-group">
+            <label for="inputPerson">Second name:</label>
+            <input type="text" class="form-control" id="inputPerson" placeholder="{{personSecondName}}" ng-model="personSecondName">
+        </div>
+        <div class="form-group">
+            <label for="inputPlaceOfBirth">Place of birth:</label>
+            <input type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="inputPlaceOfBirth" placeholder="{{personPlaceOfBirth}}" ng-model="personPlaceOfBirth">
+        </div>
+<hr>
+        <h3>Filter by destination:</h3>
+        <div class="form-group">
+            <input type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="inputDestination" ng-model="destinationFilter">
+        </div>
+<hr>
+        <h3>Filter by gender:</h3>
+        <div class="form-group text-center">
+            <input type="radio" ng-model="genderFilter" name="genderFilter" id="genderFilter" value="male">Male
+            <input type="radio" ng-model="genderFilter" name="genderFilter" id="genderFilter" value="female">Female
+        </div>
+<hr>
+        <h3>Filter by languages:</h3>
+        <div class="form-group">
+            <input type="text" auto-complete-filter items="languages" ng-model="filteredLanguage">
+            <h4>Selected languages:</h4>
+            <h4><span data-ng-repeat="lang in filteredLanguages">{{lang}}<a type="button" ng-click="deleteFilterLanguage(lang)"><span class="glyphicon glyphicon-minus"></span></a>, </span></h4>
+        </div>
+<hr>
+        <h3>Filter by date:</h3>
+        <div class="form-group" ng-show="!dateError">
+            <label for="datepicker">Date of birth:</label>
+            <input type="text" class="form-control datepicker" id="datepicker" placeholder="{{personDateOfBirth}}" ng-model="personDateOfBirth">
+        </div>
+        <div class="form-group has-error" ng-show="dateError">
+            <label for="datepicker">Date of birth:</label>
+            <input type="text" class="form-control datepicker" id="datepicker" placeholder="{{dateOfBirthPlaceholder}}" ng-model="personDateOfBirth">
+        </div>
+<hr>
+        <h3>Or filter by age range</h3>
+        <div class="form-group">
+            <label for="ageFrom">From age:</label>
+            <input type="text" class="form-control" id="ageFrom" placeholder="{{ageFrom}}" ng-model="ageFrom">
+        </div>
+        <div class="form-group">
+            <label for="ageTill">Till age:</label>
+            <input type="text" class="form-control" id="ageTill" placeholder="{{ageTill}}" ng-model="ageTill">
+        </div>
+
+        <div class="form-group">
+            <button type="button" ng-click="searchPerson()" class="btn btn-sm btn-success">Search...</button>
+        </div>
+<hr>
+        <h3>Found:</h3>
+        <div ng-show="resPersons.result!='empty'" masonry>
+            <div class="thumbnail masonry-brick" data-ng-repeat="person in resPersons.result">
+                <img ng-show="person.ava" ng-src="/uploaded/{{person._id}}/mini_{{person.ava}}" alt="mini_{{person.ava}}">
+                <div class="caption">
+                    <h4>{{person.name}} {{person.second_name}}</h4>
+                    <p><button ng-show="info.friends.indexOf(person._id)=='-1'" type="button" ng-click="addToFriends(person._id)" class="btn btn-sm btn-info">Add to friends</button></p>
+                    <div ng-show="info.friends.indexOf(person._id)!='-1'" class="alert alert-success" role="alert">This person is your friend!</div>
+                    <p ng-show="info.friends.indexOf(person._id)!='-1'"><button ng-click="deleteFromFriends(person._id)" type="button">Delete this person from friends list</button></p>
+                </div>
+            </div>
+        </div>
+<hr>
+        <div class="text-center">
+            <button class="btn btn-success" ng-click="submit()" type="button">Make changes</button>
+        </div>
+    </form>
+</div>
