@@ -9,9 +9,6 @@ var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
-var auth = require('./api/auth.js');
-var pass = require('./api/passport.js');
-var routes = require('./api/routes.js');
 
 
 var options = {
@@ -96,16 +93,7 @@ app.post('/makeChangesUser', api.makeChangesUser);
 
 //auth
 //app.get('/users', api.auth, user.list); If user loged in he is able to see this
-app.get('/loggedin', function(req, res) {
-    res.send(req.isAuthenticated() ? req.user : '0');
-}); // route to log in
-app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.send(req.user);
-}); // route to log out
-app.post('/logout', function(req, res){
-    req.logOut();
-    res.send(200);
-})
+
 //auth
 app.get('*',function(req, res) {
     res.sendfile('index.html');
