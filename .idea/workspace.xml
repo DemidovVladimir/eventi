@@ -32,10 +32,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="10" selection-start="518" selection-end="518" vertical-scroll-proportion="-12.192307" vertical-offset="28" max-vertical-offset="14490">
+            <state line="21" column="29" selection-start="444" selection-end="444" vertical-scroll-proportion="0.495283" vertical-offset="0" max-vertical-offset="14490">
               <folding />
             </state>
           </provider>
@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="6" selection-start="238" selection-end="238" vertical-scroll-proportion="0.21159874" vertical-offset="0" max-vertical-offset="1770">
+            <state line="22" column="0" selection-start="253" selection-end="253" vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="1770">
               <folding />
             </state>
           </provider>
@@ -103,8 +103,8 @@
         <option value="$PROJECT_DIR$/check_git" />
         <option value="$PROJECT_DIR$/check.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/parts/home.html" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -604,13 +604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="10" selection-start="518" selection-end="518" vertical-scroll-proportion="-12.192307" vertical-offset="28" max-vertical-offset="14490">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
@@ -620,7 +613,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="238" selection-end="238" vertical-scroll-proportion="0.21159874" vertical-offset="0" max-vertical-offset="1770">
+        <state line="22" column="0" selection-start="253" selection-end="253" vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="1770">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="29" selection-start="444" selection-end="444" vertical-scroll-proportion="0.495283" vertical-offset="0" max-vertical-offset="14490">
           <folding />
         </state>
       </provider>
