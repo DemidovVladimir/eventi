@@ -15,7 +15,7 @@ var passport = require('passport')
 passport.use(new FacebookStrategy({
         clientID: '717804074963172',
         clientSecret: 'fbd6d7cbae2e252b62cb737a0249d4b5',
-        callbackURL: "http://128.199.136.218/auth/facebook/callback"
+        callbackURL: "http://128.199.136.218/succes"
     },
     function(accessToken, refreshToken, profile, done) {
         console.log('profile');
@@ -105,6 +105,7 @@ app.post('/makeChangesUser', api.makeChangesUser);
 
 //auth
 app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/succes',res.send('Biatch'));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/succes',
         failureRedirect: '/' }));
