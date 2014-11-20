@@ -919,7 +919,9 @@ app.controller('manageEvent',function($scope){
 
 });
 
+app.controller('succes',function($scope){
 
+});
 
 
 
