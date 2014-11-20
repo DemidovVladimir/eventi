@@ -18,7 +18,8 @@ passport.use(new FacebookStrategy({
         callbackURL: "http://128.199.136.218/succes"
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log('profile');
+        console.log(profile);
+        return profile;
     }
 ));
 
@@ -106,7 +107,6 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //auth
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/succes',function(req,res,next){
-    console.log(res);
     res.send('Biatch');
 });
 app.get('/auth/facebook/callback',
