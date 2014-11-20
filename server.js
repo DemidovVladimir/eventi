@@ -15,10 +15,10 @@ var passport = require('passport')
 passport.use(new FacebookStrategy({
         clientID: '717804074963172',
         clientSecret: 'fbd6d7cbae2e252b62cb737a0249d4b5',
-        callbackURL: "http://128.199.136.218/succes"
+        callbackURL: "http://128.199.136.218/"
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log('profile');
+        return profile;
     }
 ));
 
@@ -109,8 +109,8 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
     res.send('Biatch');
 });*/
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/succes',
-        failureRedirect: '/' }));
+    passport.authenticate('facebook', { successRedirect: '/',
+        failureRedirect: '/succes' }));
 //auth
 app.get('*',function(req, res) {
     res.sendfile('index.html');

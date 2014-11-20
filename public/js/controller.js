@@ -17,7 +17,11 @@ app.controller('total',function($scope,$resource,$window){
 app.controller('home',function($scope,$resource,$window,$document){
 
     $scope.authFace = function(path){
-        $window.location.href = path;
+        var adr = $resource('/auth/facebook');
+        var que = adr.get(function(accessToken, refreshToken, profile, done){
+            $scope.test = profile;
+        });
+        //$window.location.href = path;
     }
 
     /*$scope.submitSecond = function(){
