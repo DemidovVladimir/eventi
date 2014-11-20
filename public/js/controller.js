@@ -18,7 +18,7 @@ app.controller('home',function($scope,$resource,$window,$document){
 
     $scope.authFace = function(path){
         var adr = $resource('/auth/facebook');
-        var que = adr.get(que){
+        var que = adr.get(function(que){
             $scope.test = que;
         });
         //$window.location.href = path;
