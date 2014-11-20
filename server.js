@@ -18,8 +18,14 @@ passport.use(new FacebookStrategy({
         callbackURL: "http://128.199.136.218/succes"
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log(profile);
-        return profile;
+        process.nextTick(function () {
+
+            // To keep the example simple, the user's Facebook profile is returned to
+            // represent the logged-in user.  In a typical application, you would want
+            // to associate the Facebook account with a user record in your database,
+            // and return that user instead.
+            return done(null, profile);
+        });
     }
 ));
 
@@ -106,13 +112,26 @@ app.post('/makeChangesUser', api.makeChangesUser);
 
 //auth
 app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/succes',function(req,res,next){
+/*app.get('/succes',function(req,res,next){
     res.send('Biatch');
-});
-app.get('/auth/facebook/callback',
+});*/
+/*app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/succes',
-        failureRedirect: '/' }));
+        failureRedirect: '/' }));*/
 //auth
+
+
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    function(req, res) {
+        console.log(req);
+        console.log(' -------------------------------------------------- ')
+        console.log(res);
+        res.send('Ready')
+    });
+
+
+
 app.get('*',function(req, res) {
     res.sendfile('index.html');
 });
