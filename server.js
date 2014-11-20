@@ -105,7 +105,9 @@ app.post('/makeChangesUser', api.makeChangesUser);
 
 //auth
 app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/succes',res.send('Biatch'));
+app.get('/succes',function(req,res,next){
+    res.send('Biatch');
+});
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/succes',
         failureRedirect: '/' }));
