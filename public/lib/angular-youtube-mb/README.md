@@ -30,8 +30,7 @@ myApp.controller('MyCtrl', function ($scope) {
 
 ```html
 <!-- Use 'youtube-video' as an element or attribute. -->
-<!-- Must have an ID -->
-<youtube-video id="best-vid" video-id="theBestVideo"></youtube-video>
+<youtube-video video-id="theBestVideo"></youtube-video>
 ```
 
 It's that simple. [See it in action.](http://brandly.github.io/angular-youtube-embed/)
@@ -45,7 +44,7 @@ $scope.anotherGoodOne = 'https://www.youtube.com/watch?v=18-xvIjH8T4';
 ```
 
 ```html
-<youtube-video id="good-vid" video-url="anotherGoodOne"></youtube-video>
+<youtube-video video-url="anotherGoodOne"></youtube-video>
 ```
 
 ## Is that it?
@@ -74,7 +73,7 @@ myApp.controller('MyCtrl', function ($scope) {
 });
 ```
 
-A full list of `$youtube.player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
+A full list of `player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
 
 ### Utilities
 
@@ -101,7 +100,7 @@ YouTube's embedded player can take a number of optional parameters. You can find
 For example, you could hide the player's controls and have it start automatically. Add `player-vars` to your embedded player.
 
 ```html
-<youtube-video id="best-vid" video-id="theBestVideo" player-vars="playerVars"></youtube-video>
+<youtube-video video-id="theBestVideo" player-vars="playerVars"></youtube-video>
 ```
 
 And define `playerVars` in your controller.
@@ -113,11 +112,44 @@ $scope.playerVars = {
 };
 ```
 
-### Tests
+Note: `autoplay` won't work on mobile devices.
 
-I should write more of them.
+### Player Size
 
+You can set both `player-width` and `player-height` on the element.
+
+```html
+<youtube-video video-id="theBestVideo" player-width="'100%'" player-height="'300px'"></youtube-video>
+```
+
+Both values are treated as expressions, which is why the inner single-quotes are need.
+
+Check out [the demo](http://brandly.github.io/angular-youtube-embed) and [the code behind it](https://github.com/brandly/angular-youtube-embed/blob/master/src/demo/the.js).
+
+### Development
+
+First, make sure you have the necessary dependencies installed locally and [gulp](http://gulpjs.com/) installed globally
 ```shell
 $ npm install
-$ npm test
+$ npm install --global gulp
+```
+
+To build a minfied version to `dist/`
+```shell
+$ gulp dist
+```
+
+To host the demo on a local server
+```shell
+$ gulp host
+```
+
+To run a couple tests
+```shell
+$ gulp test
+```
+
+And if you want to do all the aforementioned tasks
+```shell
+$ gulp
 ```

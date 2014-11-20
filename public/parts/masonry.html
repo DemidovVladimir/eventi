@@ -1,0 +1,12 @@
+<div class="testing" masonry load-images="true">
+        <div class="masonry-brick" data-ng-repeat="pic in resultPics">
+                    <div class="thumbnail">
+                        <a href="uploaded/{{userId}}/{{pic}}" data-lightbox="cert" target="_blank">
+                            <img ng-src="uploaded/{{userId}}/mini{{pic}}" alt="">
+                        </a>
+                        <div class="text-center">
+                            <button ng-click="deletePic(pic)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>
+                        </div>
+                    </div>
+        </div>
+</div>

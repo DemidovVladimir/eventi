@@ -1,5 +1,6 @@
-angular.module("google-maps.directives.api")
-.factory "Polylines", ["IPolyline", "$timeout", "array-sync", "PolylinesParentModel",
+angular.module('uiGmapgoogle-maps.directives.api')
+.factory 'uiGmapPolylines', [
+  'uiGmapIPolyline', '$timeout', 'uiGmaparray-sync', 'uiGmapPolylinesParentModel',
     (IPolyline, $timeout, arraySync, PolylinesParentModel) ->
         class Polylines extends IPolyline
             constructor:() ->
@@ -12,14 +13,14 @@ angular.module("google-maps.directives.api")
             link: (scope, element, attrs, mapCtrl) =>
                 # Validate required properties
                 if angular.isUndefined(scope.path) or scope.path is null
-                    @$log.error "polylines: no valid path attribute found"
+                    @$log.error 'polylines: no valid path attribute found'
                     return
 
                 unless scope.models
-                    @$log.error "polylines: no models found to create from"
+                    @$log.error 'polylines: no models found to create from'
                     return
 
                 # Wrap polyline initialization inside a $timeout() call to make sure the map is created already
-                $timeout =>
-                    new PolylinesParentModel scope, element, attrs, mapCtrl.getMap(), @DEFAULTS
+                mapCtrl.getScope().deferred.promise.then (map) =>
+                    new PolylinesParentModel scope, element, attrs, map, @DEFAULTS
     ]

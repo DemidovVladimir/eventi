@@ -84,16 +84,8 @@ angular.module('youtube-embed', ['ng'])
 
     // Inject YouTube's iFrame API
     (function () {
-        var validProtocols = ['http:', 'https:'];
-        var url = '//www.youtube.com/iframe_api';
-
-        // We'd prefer a protocol relative url, but let's
-        // fallback to `http:` for invalid protocols
-        if (validProtocols.indexOf(window.location.protocol) < 0) {
-            url = 'http:' + url;
-        }
         var tag = document.createElement('script');
-        tag.src = url;
+        tag.src = 'https://www.youtube.com/iframe_api';
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }());
@@ -170,11 +162,13 @@ angular.module('youtube-embed', ['ng'])
             }
 
             function createPlayer () {
+                var playerVars = angular.copy(scope.playerVars);
+                playerVars.start = playerVars.start || scope.urlStartTime;
                 var player = new YT.Player(playerId, {
                     height: scope.playerHeight,
                     width: scope.playerWidth,
                     videoId: scope.videoId,
-                    playerVars: scope.playerVars,
+                    playerVars: playerVars,
                     events: {
                         onReady: onPlayerReady,
                         onStateChange: onPlayerStateChange
@@ -187,7 +181,8 @@ angular.module('youtube-embed', ['ng'])
 
             function loadPlayer () {
                 if (playerId && scope.videoId) {
-                    if (scope.player && typeof scope.player.destroy === 'function') {
+                    if (scope.player && scope.player.d &&
+                        typeof scope.player.destroy === 'function') {
                         scope.player.destroy();
                     }
 
@@ -210,9 +205,7 @@ angular.module('youtube-embed', ['ng'])
                         if (typeof scope.videoUrl !== 'undefined') {
                             scope.$watch('videoUrl', function (url) {
                                 scope.videoId = scope.utils.getIdFromURL(url);
-
-                                var start = scope.utils.getTimeFromURL(url);
-                                scope.playerVars.start = scope.playerVars.start || start;
+                                scope.urlStartTime = scope.utils.getTimeFromURL(url);
 
                                 loadPlayer();
                             });
@@ -220,10 +213,21 @@ angular.module('youtube-embed', ['ng'])
                         // otherwise, watch the id
                         } else {
                             scope.$watch('videoId', function (id) {
+                                scope.urlStartTime = null;
                                 loadPlayer();
                             });
                         }
                     }
+            });
+
+            scope.$watchCollection(['playerHeight', 'playerWidth'], function() {
+                if (scope.player) {
+                    scope.player.setSize(scope.playerWidth, scope.playerHeight);
+                }
+            });
+
+            scope.$on('$destroy', function () {
+                scope.player && scope.player.destroy();
             });
         }
     };

@@ -1,29 +1,27 @@
-###
-	- interface directive for all window(s) to derrive from
-###
-angular.module("google-maps.directives.api")
-.factory "IWindow",[ "BaseObject","ChildEvents", "Logger", (BaseObject, ChildEvents, Logger) ->
+angular.module('uiGmapgoogle-maps.directives.api')
+.factory 'uiGmapIWindow', [
+  'uiGmapBaseObject', 'uiGmapChildEvents', 'uiGmapLogger', 'uiGmapCtrlHandle',
+  (BaseObject, ChildEvents, Logger, CtrlHandle) ->
     class IWindow extends BaseObject
-        @include ChildEvents
-        constructor: (@$timeout, @$compile, @$http, @$templateCache) ->
-            self = @
-            @restrict = 'ECMA'
-            @template = undefined
-            @transclude = true
-            @priority = -100
-            @require = undefined
-            @replace = true
-            @scope = {
-                coords: '=coords',
-                show: '=show',
-                templateUrl: '=templateurl',
-                templateParameter: '=templateparameter',
-                isIconVisibleOnClick: '=isiconvisibleonclick',
-                closeClick: '&closeclick', #scope glue to gmap InfoWindow closeclick
-                options: '=options'
-            }
-            @$log = Logger
-
-        link: (scope, element, attrs, ctrls) =>
-            throw new Exception("Not Implemented!!")
+      @include ChildEvents
+      @extend CtrlHandle
+      constructor:  ->
+        @restrict = 'EMA'
+        @template = undefined
+        @transclude = true
+        @priority = -100
+        @require = '^' + 'uiGmapGoogleMap'
+        @replace = true
+        @scope = {
+          coords: '=coords',
+          template: '=template',
+          templateUrl: '=templateurl',
+          templateParameter: '=templateparameter',
+          isIconVisibleOnClick: '=isiconvisibleonclick',
+          closeClick: '&closeclick',
+          options: '=options'
+          control: '=control'
+          show: '=show'
+        }
+        @$log = Logger
 ]

@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['ngRoute','ngResource','angularFileUpload','google-maps','ngAnimate','youtube-embed','ngAutocomplete','wu.masonry']);
+var app = angular.module('myApp',['ngRoute','ngResource','angularFileUpload','ngAnimate','youtube-embed','uiGmapgoogle-maps','ngAutocomplete','wu.masonry']);
 
 
 
@@ -22,6 +22,18 @@ var app = angular.module('myApp',['ngRoute','ngResource','angularFileUpload','go
             .when('/loginUser',{
                 templateUrl:'parts/login.html',
                 controller:'loginUser'
+            })
+            .when('/succes',{
+                templateUrl:'parts/succes.html',
+                controller:'succes'
+            })
+            .when('/createEvent',{
+                templateUrl:'parts/createEvent.html',
+                controller:'createEvent'
+            })
+            .when('/manageEvent',{
+                templateUrl:'parts/manageEvent.html',
+                controller:'manageEvent'
             })
             .otherwise({
                 redirectTo: '/'

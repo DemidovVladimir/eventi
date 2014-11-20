@@ -377,8 +377,57 @@ app.directive('customVideo',function($resource,$routeParams,$sce){
     }
 });
 
+app.directive('customVideoEvent',function($resource,$routeParams,$sce){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+
+            scope.videoSafe = $sce.trustAsResourceUrl('/uploaded/'+sessionStorage.userId+'/'+scope.video);
+                element.masonry({
+                    itemSelector : '.masonry-brick',
+                    columnwidth: 300,
+                    gutter: 20,
+                    isFitWidth: true,
+                    isAnimated: !Modernizr.csstransitions
+                });
+            /*if(video[0].videoLink.length!=1){
+             video[0].videoLink.forEach(function(item){
+             var trusted = $sce.trustAsResourceUrl(item);
+             scope.videoLinks.push(trusted);
+             });
+             }else{
+             var trusted = $sce.trustAsResourceUrl(video[0].videoLink);
+             scope.videoLinks.push(trusted);
+             }*/
 
 
+
+
+
+
+        },
+        templateUrl:'parts/customVideo.html'
+    }
+});
+
+app.directive('masonGrid',function(){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+
+            element.imagesLoaded( function() {
+                element.masonry({
+                    itemSelector : '.masonry-brick',
+                    columnwidth: 300,
+                    gutter: 20,
+                    isFitWidth: true,
+                    isAnimated: !Modernizr.csstransitions
+                });
+            });
+        },
+        templateUrl:'parts/masonry.html'
+    }
+});
 
 
 

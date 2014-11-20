@@ -1,24 +1,25 @@
-angular.module("google-maps.directives.api")
-.factory "IPolyline", ["GmapUtil", "BaseObject", "Logger", (GmapUtil, BaseObject, Logger) ->
-    class IPolyline extends BaseObject
-        @include GmapUtil
-        constructor: ()->
-            self = @
-        restrict: "ECA"
-        replace: true
-        require: "^googleMap"
-        scope:
-            path: "="
-            stroke: "="
-            clickable: "="
-            draggable: "="
-            editable: "="
-            geodesic: "="
-            icons: "="
-            visible: "="
-            static: "="
-            fit: "="
+angular.module('uiGmapgoogle-maps.directives.api')
+.factory 'uiGmapIPolyline', ['uiGmapGmapUtil', 'uiGmapBaseObject', 'uiGmapLogger', 'uiGmapCtrlHandle', (GmapUtil, BaseObject, Logger, CtrlHandle) ->
+  class IPolyline extends BaseObject
+    @include GmapUtil
+    @extend CtrlHandle
+    constructor: ()->
+    restrict: 'EMA'
+    replace: true
+    require: '^' + 'uiGmapGoogleMap'
+    scope:
+      path: '='
+      stroke: '='
+      clickable: '='
+      draggable: '='
+      editable: '='
+      geodesic: '='
+      icons: '='
+      visible: '='
+      static: '='
+      fit: '='
+      events: '='
 
-        DEFAULTS: {}
-        $log: Logger
+    DEFAULTS: {}
+    $log: Logger
 ]

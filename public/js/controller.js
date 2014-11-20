@@ -3,6 +3,7 @@
 
 
 app.controller('total',function($scope,$resource,$window){
+    $scope.test = 'Kuku';
     $scope.logout = function(){
         sessionStorage.userId = undefined;
         $window.location.href = '/';
@@ -15,7 +16,9 @@ app.controller('total',function($scope,$resource,$window){
 
 app.controller('home',function($scope,$resource,$window,$document){
 
-
+    $scope.authFace = function(path){
+        $window.location.href = path;
+    }
 
     /*$scope.submitSecond = function(){
         var saveTo = $resource('/saveToUser');
@@ -839,7 +842,82 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 });
 
+app.controller('createEvent',function($scope,$resource,$upload,$window){
+    if(sessionStorage.userId){
+        $scope.resultPics = [];
+        $scope.resultVids = [];
+        $scope.userId = sessionStorage.userId;
+        $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd/mm/yy',
+            yearRange: "1920:2014",
+            onClose:function(){
+                $scope.checkDateFormat();
+            }
+        });
+        $scope.onPicSelect = function($files){
+            var miss = $scope.resultPics.indexOf('wrong format');
+            if(miss!='-1') $scope.resultPics.splice(miss,1);
+            var files = $files;
+                files.forEach(function(item){
+                    $scope.upload = $upload.upload({
+                        url: '/insertPicturesEvent',
+                        data: {userId: sessionStorage.userId,
+                            eventTitle: $scope.title
+                        },
+                        file: item
+                    }).progress(function(evt) {
+                            var progress = parseInt(100.0 * evt.loaded / evt.total);
+                            $scope.progress = progress;
 
+                        }).success(function(data, status, headers, config) {
+                            $scope.resultPics.push(data);
+                        });
+                });
+        };
+        $scope.deletePic = function(pic){
+                var adr = $resource('/deletePicEvent');
+                var que = new adr();
+                que.userId = sessionStorage.userId;
+                que.picture = pic;
+                que.title = $scope.title;
+                que.$save(function(){
+                    var oop = $scope.resultPics.indexOf(pic);
+                    $scope.resultPics.splice(oop,1);
+                });
+        }
+        $scope.onVideoSelect = function($files){
+            var miss = $scope.resultVids.indexOf('wrong format');
+            if(miss!='-1') $scope.resultVids.splice(miss,1);
+            var files = $files;
+            files.forEach(function(item){
+                $scope.upload = $upload.upload({
+                    url: '/insertVideosEvent',
+                    data: {userId: sessionStorage.userId,
+                        eventTitle: $scope.title
+                    },
+                    file: item
+                }).progress(function(evt) {
+                        var progress = parseInt(100.0 * evt.loaded / evt.total);
+                        $scope.progress = progress;
+
+                    }).success(function(data, status, headers, config) {
+                        $scope.resultVids.push(data);
+                    });
+            });
+        };
+
+
+
+    }else{
+        $window.location.href='/login';
+    }
+});
+
+app.controller('manageEvent',function($scope){
+
+});
 
 
 

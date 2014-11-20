@@ -1,12 +1,23 @@
 {
-  "name": "starter-node-angular",
-  "version": "1.0.0",
+  "name": "enveti",
+  "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "latest",
-    "font-awesome": "latest",
-    "animate.css": "latest",
-    "angular": "latest",
-    "angular-route": "latest",
-    "angular-youtube-mb": "~0.1.0"
+      "jquery":"latest",
+      "jquery-ui":"latest",
+      "ng-file-upload":"latest",
+      "lightbox":"latest",
+      "swipe":"latest",
+      "bootstrap":"latest",
+      "angular":"latest",
+      "angular-route":"latest",
+      "angular-resource":"latest",
+      "lodash":"latest",
+      "angular-google-maps":"latest",
+      "angular-animate":"latest",
+      "angular-youtube-mb":"latest",
+      "imagesloaded":"latest",
+      "masonry":"latest",
+      "angular-masonry":"latest",
+      "font-awesome":"latest"
   }
 }

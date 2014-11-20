@@ -9,6 +9,18 @@ var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
+var passport = require('passport')
+    , FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+        clientID: '717804074963172',
+        clientSecret: 'fbd6d7cbae2e252b62cb737a0249d4b5',
+        callbackURL: "http://www.example.com/auth/facebook/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        console.log('profile');
+    }
+));
 
 
 var options = {
@@ -92,14 +104,18 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //testZoneEnd
 
 //auth
-//app.get('/users', api.auth, user.list); If user loged in he is able to see this
-
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/succes',
+        failureRedirect: '/' }));
 //auth
 app.get('*',function(req, res) {
     res.sendfile('index.html');
 });
 
-
+app.post('/insertPicturesEvent',api.insertPicturesEvent);
+app.post('/deletePicEvent',api.deletePicEvent);
+app.post('/insertVideosEvent',api.insertVideosEvent);
 
 
 http.listen(80, function(){

@@ -6,29 +6,30 @@
  			- icon
 		- implementation needed on watches
 ###
-angular.module("google-maps.directives.api")
-.factory "IMarker", [ "Logger", "BaseObject", (Logger, BaseObject)->
+angular.module('uiGmapgoogle-maps.directives.api')
+.factory 'uiGmapIMarker', [ 'uiGmapLogger', 'uiGmapBaseObject', 'uiGmapCtrlHandle',
+ (Logger, BaseObject, CtrlHandle)->
     class IMarker extends BaseObject
-      constructor: ($timeout) ->
-        self = @
+
+      IMarker.scopeKeys =
+        coords: '=coords'
+        icon: '=icon'
+        click: '&click'
+        options: '=options'
+        events: '=events'
+        fit: '=fit'
+        idKey: '=idkey'
+        control: '=control'
+
+      IMarker.keys = _.keys IMarker.scopeKeys
+
+      @extend CtrlHandle
+      constructor: ->
         @$log = Logger
-        @$timeout = $timeout
-        @restrict = 'ECMA'
-        @require = '^googleMap'
+        @restrict = 'EMA'
+        @require = '^' + 'uiGmapGoogleMap'
         @priority = -1
         @transclude = true
         @replace = true
-        @scope =
-          coords: '=coords',
-          icon: '=icon',
-          click: '&click',
-          options: '=options',
-          events: '=events',
-          fit: '=fit'
-
-      controller: ['$scope', '$element', ($scope, $element) ->
-        throw new Exception("Not Implemented!!")
-      ]
-      link: (scope, element, attrs, ctrl) =>
-        throw new Exception("Not implemented!!")
-  ]
+        @scope = IMarker.scopeKeys
+]
