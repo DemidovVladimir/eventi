@@ -122,13 +122,13 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    function(req, res) {
+    passport.authenticate('facebook', { failureRedirect: '/login' },
+    function(req,res) {
         console.log(req);
-        console.log(' -------------------------------------------------- ')
+        console.log(' -------------------------------------------------- ');
         console.log(res);
-        res.send('Ready')
-    });
+        res.send('Ready');
+    }));
 
 
 
@@ -147,7 +147,7 @@ http.listen(80, function(){
 
 https.listen(443,function(){
     console.log('listening on 443');
-})
+});
 
 
 //handlers
