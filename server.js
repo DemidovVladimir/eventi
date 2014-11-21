@@ -40,8 +40,6 @@ var options = {
 };
 var https = require('https').Server(options,app);
 
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -55,6 +53,8 @@ app.use(session({
     secret: 'MEANdevelopment'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(app.router);
 app.use(logErrors);
 app.use(clientErrorHandler);
