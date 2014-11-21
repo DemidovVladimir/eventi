@@ -121,8 +121,8 @@ app.get('/auth/facebook',
     passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
     function(req, res) {
+        passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
         // Successful authentication, redirect home.
         res.send('checked!');
     });
