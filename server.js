@@ -123,7 +123,7 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
     function(req, res, next){
         passport.authenticate('facebook', { successRedirect: '/succes',
-            failureRedirect: '/loginUser' })(req, res, next);
+            failureRedirect: '/loginUser' });
     });
 //auth
 
