@@ -28,7 +28,7 @@ passport.use(new FacebookStrategy({
         });
     }*/
     function(accessToken, refreshToken, profile, done) {
-        return done(err,profile.id);
+        res.send('callback problem');
     }
 ));
 
