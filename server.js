@@ -135,7 +135,9 @@ app.get('/auth/facebook/callback',
 //auth
 
 app.get('/success',function(req,res,next){
-    console.log(req.query._passport);
+    console.log(req.query);
+    console.log(req.body);
+    console.log(req.params);
    res.redirect('/succes');
 });
 
