@@ -31,7 +31,7 @@ passport.use(new FacebookStrategy({
         //console.log(profile);
         //return done(null,profile);
         api.pasteUserFace(profile);
-        return done(null,'Done');
+        return done(null,profile.id);
     }
 ));
 passport.serializeUser(function(user, done) {
@@ -130,7 +130,7 @@ app.get('/auth/facebook',
 );
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/succes',
+    passport.authenticate('facebook', { successRedirect: '/succes/'+profile.id,
         failureRedirect: '/loginUser' }));
 //auth
 
