@@ -122,14 +122,13 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //testZoneEnd
 
 //auth
-app.get('succes',function(req,res,next){
-    res.send('Fuck you!!!');
-});
-
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/succes',
+    passport.authenticate('facebook', { successRedirect: function(req,res){
+        console.log('best');
+        res.redirect('/succes');
+    },
         failureRedirect: '/loginUser' }));
 //auth
 
