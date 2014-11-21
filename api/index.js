@@ -798,7 +798,8 @@ exports.getUserWithFacebook = function(req,res,next){
     var facebookId = req.body.id;
     db.userDBModel.find({facebook:facebookId},function(err,data){
         if(err) return next(err);
-        console.log(data);
-        res.send(data);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
     });
 }
