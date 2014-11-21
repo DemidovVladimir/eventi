@@ -117,24 +117,18 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //testZoneEnd
 
 //auth
-app.get('/auth/facebook', passport.authenticate('facebook'));
-/*app.get('/succes',function(req,res,next){
-    res.send('Biatch');
-});*/
-/*app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/succes',
-        failureRedirect: '/' }));*/
-//auth
 
+app.get('/auth/facebook',
+    passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' },
-    function(req,res) {
-        console.log(req);
-        console.log(' -------------------------------------------------- ');
-        console.log(res);
-        res.send('Ready');
-    }));
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
+//auth
+
 
 
 
