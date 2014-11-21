@@ -919,8 +919,8 @@ app.controller('manageEvent',function($scope){
 
 });
 
-app.controller('succes',function($scope){
-
+app.controller('succes',function($scope,$routeParams){
+    var test = $routeParams.faceId;
 });
 
 
