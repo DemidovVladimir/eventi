@@ -42,10 +42,10 @@ var https = require('https').Server(options,app);
 
 
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 app.use(favicon(path.join(__dirname, 'public/img/mini_logo.ico')));
 app.use(logger('dev'));
 app.use(express.bodyParser());
