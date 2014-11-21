@@ -31,7 +31,7 @@ passport.use(new FacebookStrategy({
         //console.log(profile);
         //return done(null,profile);
         api.pasteUserFace(profile);
-        return done(null);
+        return done(null,'Done');
     }
 ));
 passport.serializeUser(function(user, done) {
