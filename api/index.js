@@ -788,10 +788,16 @@ exports.deletePicEvent = function(req,res,next){
 }
 
 exports.pasteUserFace = function(profile){
-    console.log(profile);
     db.userDBModel.update({name:profile.name.givenName},{facebook:profile.id},{upsert:true},function(err){
         if(err) return next(err);
-        console.log("Inserted user with name - "+profile.name.givenName);
         //res.send(200);
     })
+}
+
+exports.getUserWithFacebook = function(req,res,next){
+    var facebookId = req.body.id;
+    db.userDBModel.find({facebook:facebookId},function(err,data){
+        if(err) return next(err);
+        res.send(data);
+    });
 }

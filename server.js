@@ -63,8 +63,10 @@ app.use(session({
     secret: 'MEANdevelopment'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(app.router);
 app.use(logErrors);
 app.use(clientErrorHandler);
@@ -128,16 +130,15 @@ app.post('/makeChangesUser', api.makeChangesUser);
 app.get('/auth/facebook',
     passport.authenticate('facebook', { scope: 'read_stream' })
 );
-
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/success',
         failureRedirect: '/loginUser' }));
-//auth
-
 app.get('/success',function(req,res,next){
    res.redirect('/succes'+req._passport.session.user);
 });
+//auth
 
+app.post('/getUserWithFacebook',api.getUserWithFacebook);
 
 app.get('*',function(req, res) {
     res.sendfile('index.html');
