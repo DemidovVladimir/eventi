@@ -28,8 +28,10 @@ passport.use(new FacebookStrategy({
         });
     }*/
     function(accessToken, refreshToken, profile, done) {
-        console.log(profile);
-        return done(null,profile.id);
+        //console.log(profile);
+        //return done(null,profile);
+        api.pasteUserFace(profile);
+        return done(null);
     }
 ));
 passport.serializeUser(function(user, done) {
