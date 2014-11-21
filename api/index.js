@@ -794,10 +794,9 @@ exports.pasteUserFace = function(profile){
 }
 
 exports.pasteUserVkontakte = function(profile){
-    db.userDBModel.update({name:profile.name.givenName},{vk:profile.id},{upsert:true},function(err){
-        //if(err) return next(err);
-        //res.send(200);
-    })
+    console.log(profile);
+    /*db.userDBModel.update({name:profile.name.givenName},{vk:profile.id},{upsert:true},function(err){
+    })*/
 }
 
 exports.getUserWithFacebook = function(req,res,next){

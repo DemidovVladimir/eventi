@@ -172,6 +172,7 @@ app.get('/success/:sn',function(req,res,next){
 });
 
 app.post('/getUserWithFacebook',api.getUserWithFacebook);
+//app.post('/getUserWithVkontakte',api.getUserWithFacebook);
 
 app.get('*',function(req, res) {
     res.sendfile('index.html');
