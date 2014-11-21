@@ -34,10 +34,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="137" column="44" selection-start="4108" selection-end="4108" vertical-scroll-proportion="0.0" vertical-offset="1808" max-vertical-offset="2790">
+                <state line="137" column="24" selection-start="4088" selection-end="4088" vertical-scroll-proportion="0.3865415" vertical-offset="1808" max-vertical-offset="2790">
                   <folding />
                 </state>
               </provider>
@@ -79,10 +79,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="succes.html" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="succes.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="1" column="10" selection-start="28" selection-end="28" vertical-scroll-proportion="0.02388535" vertical-offset="0" max-vertical-offset="628">
+                <state line="1" column="10" selection-start="28" selection-end="28" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="105">
                   <folding />
                 </state>
               </provider>
@@ -137,10 +137,10 @@
         <option value="$PROJECT_DIR$/public/parts/home.html" />
         <option value="$PROJECT_DIR$/views/error.html" />
         <option value="$PROJECT_DIR$/api/index.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/js/app.js" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/parts/succes.html" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -594,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="44" selection-start="4108" selection-end="4108" vertical-scroll-proportion="0.0" vertical-offset="1808" max-vertical-offset="2790">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="33" selection-start="933" selection-end="933" vertical-scroll-proportion="0.43353474" vertical-offset="88" max-vertical-offset="750">
@@ -617,7 +610,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="10" selection-start="28" selection-end="28" vertical-scroll-proportion="0.02388535" vertical-offset="0" max-vertical-offset="628">
+        <state line="1" column="10" selection-start="28" selection-end="28" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="24" selection-start="4088" selection-end="4088" vertical-scroll-proportion="0.3865415" vertical-offset="1808" max-vertical-offset="2790">
           <folding />
         </state>
       </provider>
