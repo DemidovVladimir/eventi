@@ -28,9 +28,10 @@ passport.use(new FacebookStrategy({
         });
     }*/
     function(accessToken, refreshToken, profile, done) {
-        return done();
+        return done(null);
     }
 ));
+
 
 
 var options = {
@@ -117,14 +118,12 @@ app.post('/makeChangesUser', api.makeChangesUser);
 app.get('succes',function(req,res,next){
     res.send('Fuck you!!!');
 });
-app.get('/auth/facebook',
-    passport.authenticate('facebook'));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-    function(req, res, next){
-        passport.authenticate('facebook', { successRedirect: '/succes',
-            failureRedirect: '/loginUser' });
-    });
+    passport.authenticate('facebook', { successRedirect: '/succes',
+        failureRedirect: '/loginUser' }));
 //auth
 
 
