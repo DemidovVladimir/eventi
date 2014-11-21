@@ -117,7 +117,9 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //testZoneEnd
 
 //auth
-
+app.get('succes',function(req,res,next){
+    res.send('Fuck you!!!');
+});
 app.get('/auth/facebook',
     passport.authenticate('facebook'));
 
