@@ -46,7 +46,7 @@
           <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/api/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="797" column="6" selection-start="28506" selection-end="28647" vertical-scroll-proportion="0.5350734" vertical-offset="11627" max-vertical-offset="12255">
+                <state line="797" column="48" selection-start="28550" selection-end="28550" vertical-scroll-proportion="0.5350734" vertical-offset="11627" max-vertical-offset="12255">
                   <folding />
                 </state>
               </provider>
@@ -95,7 +95,7 @@
           <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/public/js/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="36" column="14" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.68277943" vertical-offset="88" max-vertical-offset="750">
+                <state line="35" column="40" selection-start="1312" selection-end="1312" vertical-scroll-proportion="0.66012084" vertical-offset="88" max-vertical-offset="750">
                   <folding />
                 </state>
               </provider>
@@ -596,13 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="14" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.68277943" vertical-offset="88" max-vertical-offset="750">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/db.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="4" selection-start="990" selection-end="998" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="3525">
@@ -617,9 +610,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="40" selection-start="1312" selection-end="1312" vertical-scroll-proportion="0.66012084" vertical-offset="88" max-vertical-offset="750">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="797" column="6" selection-start="28506" selection-end="28647" vertical-scroll-proportion="0.5350734" vertical-offset="11627" max-vertical-offset="12255">
+        <state line="797" column="48" selection-start="28550" selection-end="28550" vertical-scroll-proportion="0.5350734" vertical-offset="11627" max-vertical-offset="12255">
           <folding />
         </state>
       </provider>
