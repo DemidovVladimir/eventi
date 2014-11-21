@@ -29,7 +29,6 @@ passport.use(new FacebookStrategy({
     }*/
     function(accessToken, refreshToken, profile, done) {
         User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-            console.log(user);
             return done(err, user);
         });
     }
@@ -124,7 +123,7 @@ app.get('/auth/facebook',
     passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',function(req,res){
-        res.send('Kuku');
+        res.send(req.user);
     }
     /*passport.authenticate('facebook', { failureRedirect: '/login' }),
     function(req, res) {
