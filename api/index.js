@@ -791,6 +791,6 @@ exports.pasteUserFace = function(profile){
     db.userDBModel.update({name:profile.name.givenName},{facebook:profile.id},{upsert:true},function(err){
         if(err) return next(err);
         console.log("Inserted user with name - "+profile.name.givenName);
-        res.send(200);
+        //res.send(200);
     })
 }
