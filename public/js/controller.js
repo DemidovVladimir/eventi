@@ -920,13 +920,14 @@ app.controller('manageEvent',function($scope){
 });
 
 app.controller('succes',function($scope,$routeParams,$resource){
-    $scope.test = $routeParams.faceId;
-    var adr = $resource('/getUserWithFacebook');
+    $scope.test = $routeParams.id;
+    $scope.net = $routeParams.sn;
+    /*var adr = $resource('/getUserWithFacebook');
     var que = new adr();
     que.id = $scope.test;
     que.$save(function(data){
         $scope.test = data;
-    });
+    });*/
 });
 
 

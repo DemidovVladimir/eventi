@@ -23,7 +23,7 @@ var app = angular.module('myApp',['ngRoute','ngResource','angularFileUpload','ng
                 templateUrl:'parts/login.html',
                 controller:'loginUser'
             })
-            .when('/succes:faceId',{
+            .when('/succes/:sn/:id',{
                 templateUrl:'parts/succes.html',
                 controller:'succes'
             })

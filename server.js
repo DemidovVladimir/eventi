@@ -10,7 +10,9 @@ var session      = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
 var passport = require('passport')
-    , FacebookStrategy = require('passport-facebook').Strategy;
+    , FacebookStrategy = require('passport-facebook').Strategy,
+        VKontakteStrategy = require('passport-vkontakte').Strategy;
+
 
 passport.use(new FacebookStrategy({
         clientID: '717804074963172',
@@ -34,6 +36,26 @@ passport.use(new FacebookStrategy({
         return done(null,profile.id);
     }
 ));
+passport.use(new VKontakteStrategy({
+        clientID:     '4644030', // VK.com docs call it 'API ID'
+        clientSecret: 'tJmVp55OE7trwiEg6UID',
+        callbackURL:  "http://128.199.136.218/auth/vkontakte/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        api.pasteUserVkontakte(profile);
+        return done(null,profile.id);
+    }
+));
+
+
+
+
+
+
+
+
+
+
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -127,16 +149,27 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //testZoneEnd
 
 //auth
+//faceBook
 app.get('/auth/facebook',
     passport.authenticate('facebook', { scope: 'read_stream' })
 );
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/success',
+    passport.authenticate('facebook', { successRedirect: '/success/facebook',
         failureRedirect: '/loginUser' }));
-app.get('/success',function(req,res,next){
-   res.redirect('/succes'+req._passport.session.user);
-});
+//VK
+app.get('/auth/vkontakte',
+    passport.authenticate('vkontakte', { scope: 'read_stream' })
+);
+app.get('/auth/vkontakte/callback',
+    passport.authenticate('vkontakte', { successRedirect: '/success/vk',
+        failureRedirect: '/loginUser' }));
+
 //auth
+
+app.get('/success/:sn',function(req,res,next){
+    var sn = req.param('sn');
+    res.redirect('/succes/'+sn+'/'+req._passport.session.user);
+});
 
 app.post('/getUserWithFacebook',api.getUserWithFacebook);
 
