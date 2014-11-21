@@ -122,13 +122,12 @@ app.post('/makeChangesUser', api.makeChangesUser);
 //testZoneEnd
 
 //auth
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook',
+    passport.authenticate('facebook', { scope: 'read_stream' })
+);
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: function(req,res){
-        console.log('best');
-        res.redirect('/succes');
-    },
+    passport.authenticate('facebook', { successRedirect: '/succes',
         failureRedirect: '/loginUser' }));
 //auth
 
