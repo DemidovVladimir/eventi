@@ -28,9 +28,7 @@ passport.use(new FacebookStrategy({
         });
     }*/
     function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-            return done(err, user);
-        });
+        return done(err, profile.id);
     }
 ));
 
@@ -126,7 +124,7 @@ app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
     function(req, res) {
         // Successful authentication, redirect home.
-        console.log(req.user);
+        console.log(req);
         res.redirect('/succes');
     });
 //auth
