@@ -125,7 +125,7 @@ app.get('/auth/facebook/callback',
     function(req, res) {
         // Successful authentication, redirect home.
         console.log(req);
-        res.redirect('/succes');
+        res.send('checked!');
     });
 //auth
 
