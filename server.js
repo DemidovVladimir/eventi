@@ -122,15 +122,13 @@ app.get('succes',function(req,res,next){
 app.get('/auth/facebook',
     passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback',function(req,res){
-        res.send(req.user);
-    }
-    /*passport.authenticate('facebook', { failureRedirect: '/login' }),
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
     function(req, res) {
         // Successful authentication, redirect home.
         console.log(req.user);
         res.redirect('/succes');
-    }*/);
+    });
 //auth
 
 
