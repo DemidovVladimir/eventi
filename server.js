@@ -28,7 +28,7 @@ passport.use(new FacebookStrategy({
         });
     }*/
     function(accessToken, refreshToken, profile, done) {
-        res.send('callback problem');
+        return done(err,profile.id);
     }
 ));
 
@@ -121,7 +121,7 @@ app.get('/auth/facebook',
     passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
+    //passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
     function(req, res) {
         // Successful authentication, redirect home.
         console.log(req);
