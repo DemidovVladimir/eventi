@@ -17,7 +17,7 @@ passport.use(new FacebookStrategy({
         clientSecret: 'fbd6d7cbae2e252b62cb737a0249d4b5',
         callbackURL: "http://128.199.136.218/succes"
     },
-    function(accessToken, refreshToken, profile, done) {
+   /* function(accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
 
             // To keep the example simple, the user's Facebook profile is returned to
@@ -25,6 +25,11 @@ passport.use(new FacebookStrategy({
             // to associate the Facebook account with a user record in your database,
             // and return that user instead.
             return done(null, profile);
+        });
+    }*/
+    function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+            return done(err, user);
         });
     }
 ));
