@@ -39,8 +39,7 @@ passport.use(new FacebookStrategy({
 passport.use(new VKontakteStrategy({
         clientID:     '4644030', // VK.com docs call it 'API ID'
         clientSecret: 'tJmVp55OE7trwiEg6UID',
-        callbackURL:  "http://128.199.136.218/auth/vkontakte/callback",
-        profileFields: ['email']
+        callbackURL:  "http://128.199.136.218/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
@@ -159,7 +158,7 @@ app.get('/auth/facebook/callback',
         failureRedirect: '/loginUser' }));
 //VK
 app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: ['email'] })
+    passport.authenticate('vkontakte', { scope: 'read_stream' })
 );
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',

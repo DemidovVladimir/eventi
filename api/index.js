@@ -787,7 +787,7 @@ exports.deletePicEvent = function(req,res,next){
     });
 }
 exports.pasteUserFace = function(profile){
-    db.userDBModel.update({name:profile.name.givenName},{facebook:profile.id},{upsert:true},function(err){
+    db.userDBModel.update({facebook:profile.id},{name:profile.name.givenName},{upsert:true},function(err){
         //if(err) return next(err);
         //res.send(200);
     })
@@ -795,9 +795,9 @@ exports.pasteUserFace = function(profile){
 
 exports.pasteUserVkontakte = function(profile){
     console.log(profile);
-    /*db.userDBModel.update({name:profile.username},{vk:profile.id},{upsert:true},function(err){
+    db.userDBModel.update({vk:profile.id},{name:profile.username},{upsert:true},function(err){
         if(err) console.log(err);
-    })*/
+    })
 }
 
 exports.getUserWithFacebook = function(req,res,next){
