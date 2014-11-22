@@ -794,7 +794,8 @@ exports.pasteUserFace = function(profile){
 }
 
 exports.pasteUserVkontakte = function(profile){
-    console.log(profile);
+    console.log(profile.id);
+    console.log(profile.username);
     db.userDBModel.update({name:profile.username},{vk:profile.id},{upsert:true},function(err){
         if(err) console.log(err);
     })
