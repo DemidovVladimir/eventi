@@ -27,7 +27,7 @@ var usersDB = new mongoose.Schema({
     languages_able: [],
     banned: Boolean,
     date_ofRegister: {type: Date, default: Date.now},
-    email: {type: String, unique: true},
+    email: {type: String, unique: false},
     about: String,
     skype: String,
     phone: String,
