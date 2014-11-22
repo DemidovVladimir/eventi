@@ -39,7 +39,8 @@ passport.use(new FacebookStrategy({
 passport.use(new VKontakteStrategy({
         clientID:     '4644030', // VK.com docs call it 'API ID'
         clientSecret: 'tJmVp55OE7trwiEg6UID',
-        callbackURL:  "http://128.199.136.218/auth/vkontakte/callback"
+        callbackURL:  "http://128.199.136.218/auth/vkontakte/callback",
+        profileFields: ['email']
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
