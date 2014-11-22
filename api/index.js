@@ -787,14 +787,14 @@ exports.deletePicEvent = function(req,res,next){
     });
 }
 exports.pasteUserFace = function(profile){
-    db.userDBModel.update({facebookId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:gender,facebook:profileUrl,ava:_json.photo},{upsert:true},function(err){
+    db.userDBModel.update({facebookId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:profile.gender,facebook:profile.profileUrl,ava:profile._json.photo},{upsert:true},function(err){
         if(err) console.log(err);
     })
 }
 
 exports.pasteUserVkontakte = function(profile){
     console.log(profile);
-    db.userDBModel.update({vkId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:gender,vk:profileUrl,ava:_json.photo},{upsert:true},function(err){
+    db.userDBModel.update({vkId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:profile.gender,vk:profile.profileUrl,ava:profile._json.photo},{upsert:true},function(err){
         if(err) console.log(err);
     })
 }
