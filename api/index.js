@@ -788,9 +788,9 @@ exports.deletePicEvent = function(req,res,next){
 }
 exports.pasteUserFace = function(profile){
     console.log(profile);
-    /*db.userDBModel.update({facebookId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:profile.gender,facebook:profile.profileUrl,ava:profile._json.photo},{upsert:true},function(err){
+    db.userDBModel.update({facebookId:profile._json.id},{name:profile._json.first_name,second_name:profile._json.last_name,gender:profile._json.gender,facebook:profile._json.link,email:profile._json.email},{upsert:true},function(err){
         if(err) console.log(err);
-    })*/
+    })
 }
 
 exports.pasteUserVkontakte = function(profile){

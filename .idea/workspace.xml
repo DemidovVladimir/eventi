@@ -22,7 +22,7 @@
     <favorites_list name="topstore" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5456026">
+    <splitter split-orientation="horizontal" split-proportion="0.88691586">
       <split-first>
         <leaf>
           <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
@@ -46,7 +46,7 @@
           <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/api/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="790" column="4" selection-start="28280" selection-end="28280" vertical-scroll-proportion="0.43353474" vertical-offset="11563" max-vertical-offset="12240">
+                <state line="801" column="53" selection-start="28907" selection-end="28907" vertical-scroll-proportion="0.66012084" vertical-offset="11578" max-vertical-offset="12240">
                   <folding />
                 </state>
               </provider>
@@ -95,7 +95,7 @@
           <file leaf-file-name="db.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/data/db.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="54" column="42" selection-start="1677" selection-end="1677" vertical-scroll-proportion="0.929003" vertical-offset="195" max-vertical-offset="3525">
+                <state line="21" column="39" selection-start="696" selection-end="696" vertical-scroll-proportion="0.18779343" vertical-offset="195" max-vertical-offset="3525">
                   <folding />
                 </state>
               </provider>
@@ -146,7 +146,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1424" />
+    <option name="width" value="1266" />
     <option name="height" value="815" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -298,11 +298,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1424" height="815" extended-state="0" />
+    <frame x="0" y="22" width="1266" height="815" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12473272" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14056225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -618,14 +618,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/db.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="42" selection-start="1677" selection-end="1677" vertical-scroll-proportion="0.929003" vertical-offset="195" max-vertical-offset="3525">
+        <state line="21" column="39" selection-start="696" selection-end="696" vertical-scroll-proportion="0.18779343" vertical-offset="195" max-vertical-offset="3525">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="790" column="4" selection-start="28280" selection-end="28280" vertical-scroll-proportion="0.43353474" vertical-offset="11563" max-vertical-offset="12240">
+        <state line="801" column="53" selection-start="28907" selection-end="28907" vertical-scroll-proportion="0.66012084" vertical-offset="11578" max-vertical-offset="12240">
           <folding />
         </state>
       </provider>
