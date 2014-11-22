@@ -19,7 +19,7 @@ var usersDB = new mongoose.Schema({
     password: String,
     gender:String,
     facebookId: {type: String, unique: true, sparse: true },
-    vkId: {type: String, unique: true},
+    vkId: {type: String, unique: true, sparse: true },
     twitterId: {type: String, unique: true, sparse: true },
     second_name: String,
     date_ofBirth: Date,
