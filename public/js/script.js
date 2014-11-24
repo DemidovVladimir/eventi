@@ -11,14 +11,14 @@ $(document).ready(function(){
 
 
     /* backstretch slider */
-    $('.header-slide').backstretch([
+    /*$('.header-slide').backstretch([
       "slide/bg01.jpg",
       "slide/bg02.jpg",
       "slide/bg03.jpg"
       ], {
         fade: 850,
         duration: 4000
-    });
+    });*/
 
 
     /* navbar */
