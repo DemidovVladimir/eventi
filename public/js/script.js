@@ -3,11 +3,11 @@ $(document).ready(function(){
 	var header_height = $('#header').height();
 
 	/* parallax header */
-	function parallax(){
+	/*function parallax(){
 	  var scrolled = $(window).scrollTop();
 	  $('#header .backstretch img').css('top',''+-(scrolled*0.6)+'px');
       $('.heading').css('background-position', 'center '+-(scrolled*0.5)+'px');
-	}
+	}*/
 
     /* navbar */
 	$(window).scroll(function(){
