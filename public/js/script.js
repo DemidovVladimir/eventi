@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	var header_height = $('#header').height();
 
 	/* parallax header */
@@ -10,14 +9,14 @@ $(document).ready(function(){
 	}
 
     /* navbar */
-	$(window).scroll(function(){
+	/*$(window).scroll(function(){
 		parallax();
 		if($(window).scrollTop() > header_height){
             //$('.navbar').css('border-bottom-color', '#e9573f');
 		}else{
             //$('.navbar').css('border-bottom-color', '#fff');
 		}
-	});
+	});*/
 
     /* scrolltop */
     $('.scroltop').on('click', function(event) {
@@ -35,16 +34,6 @@ $(document).ready(function(){
         $container.masonry();
     });
 
-
-    /* modal */
-    $('.modal').on('shown.bs.modal', function () {
-        var curModal = this;
-        $('.modal').each(function(){
-            if(this != curModal){
-                $(this).modal('hide');
-            }
-        });
-    });
 
 
     /* tooltip */

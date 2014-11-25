@@ -14,12 +14,39 @@ app.controller('total',function($scope,$resource,$window){
 
 
 
-app.controller('home',function($scope,$resource,$window,$document){
-
+app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll){
+    $('#carousel_1').carousel({
+        interval: 5000
+    })
+    $scope.registerUser = function(){
+        $window.location.href = 'registerUser';
+    }
+    $scope.scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
     $scope.authFace = function(path){
         $window.location.href = path;
     }
-
+    $scope.login = function(){
+        if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
+            var address = $resource('/loginUser:443');
+            var query = new address();
+            query.email = $scope.email;
+            query.pwd = $scope.pwd;
+            query.$save(function(data){
+                if(data._id){
+                    sessionStorage.userId = data._id;
+                    $window.location.href='/maintainUser'+data._id;
+                }else{
+                    $window.location.href = '/';
+                }
+            });
+        }else{
+            $window.location.href = '/';
+        }
+    }
     /*$scope.submitSecond = function(){
         var saveTo = $resource('/saveToUser');
         var todo = new saveTo({title:$scope.titi});
@@ -112,9 +139,16 @@ app.controller('home',function($scope,$resource,$window,$document){
     }*/
 });
 
-app.controller('registerUser',function($scope,$resource,$compile,$upload,$window){
+app.controller('registerUser',function($scope,$resource,$compile,$upload,$window,$location,$anchorScroll){
+    $('#carousel_reg').carousel({
+        interval: 5000
+    })
+    $scope.scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
     //necessary
-
     $( "#datepicker1" ).datepicker({
         changeMonth: true,
         changeYear: true,
