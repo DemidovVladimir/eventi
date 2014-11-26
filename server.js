@@ -10,8 +10,10 @@ var session      = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
 var passport = require('passport')
-    , FacebookStrategy = require('passport-facebook').Strategy,
-        VKontakteStrategy = require('passport-vkontakte').Strategy;
+    , FacebookStrategy = require('passport-facebook').Strategy
+        ,VKontakteStrategy = require('passport-vkontakte').Strategy
+            , TwitterStrategy = require('passport-twitter').Strategy
+                , GoogleStrategy = require('passport-google').Strategy;
 
 
 passport.use(new FacebookStrategy({
@@ -43,6 +45,15 @@ passport.use(new VKontakteStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
+        return done(null,profile.id);
+    }
+));
+
+passport.use(new GoogleStrategy({
+        returnURL: 'http://128.199.136.218/auth/google/return',
+        realm: 'http://128.199.136.218'
+    },
+    function(identifier, profile, done) {
         return done(null,profile.id);
     }
 ));
@@ -163,7 +174,10 @@ app.get('/auth/vkontakte',
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
         failureRedirect: '/loginUser' }));
-
+app.get('/auth/google', passport.authenticate('google'));
+app.get('/auth/google/return',
+    passport.authenticate('google', { successRedirect: '/success/google',
+        failureRedirect: '/loginUser' }));
 //auth
 
 app.get('/success/:sn',function(req,res,next){
