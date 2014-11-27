@@ -956,14 +956,15 @@ app.controller('manageEvent',function($scope){
 app.controller('succes',function($scope,$routeParams,$resource){
     var net = $routeParams.sn;
     net = net.split('-');
-    $scope.net = net;
+    $scope.idSoc = net[0];
+    $scope.net = net[1];
 
-    /*var adr = $resource('/getUser'+$scope.net);
+    var adr = $resource('/getUser'+$scope.net);
     var que = new adr();
     que.id = $scope.idSoc;
     que.$save(function(data){
         $scope.data = data;
-    });*/
+    });
 });
 
 
