@@ -958,6 +958,7 @@ app.controller('succes',function($scope,$routeParams,$resource){
     var net = $routeParams.sn;
     net = net.split(' ');
     $scope.net = net[1];
+    $scope.nnet = net[2];
 
     var adr = $resource('/getUser'+$scope.net);
     var que = new adr();
