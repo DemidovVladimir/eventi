@@ -44,7 +44,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="6" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="825">
+            <state line="43" column="6" selection-start="3007" selection-end="3007" vertical-scroll-proportion="-19.625" vertical-offset="174" max-vertical-offset="825">
               <folding />
             </state>
           </provider>
@@ -53,7 +53,7 @@
       <file leaf-file-name="succes.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="13" selection-start="2634" selection-end="2634" vertical-scroll-proportion="0.9308756" vertical-offset="159" max-vertical-offset="855">
+            <state line="49" column="12" selection-start="2594" selection-end="2609" vertical-scroll-proportion="0.8847926" vertical-offset="159" max-vertical-offset="855">
               <folding />
             </state>
           </provider>
@@ -583,13 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="6" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="14" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="750">
@@ -625,9 +618,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="6" selection-start="3007" selection-end="3007" vertical-scroll-proportion="-19.625" vertical-offset="174" max-vertical-offset="825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="13" selection-start="2634" selection-end="2634" vertical-scroll-proportion="0.9308756" vertical-offset="159" max-vertical-offset="855">
+        <state line="49" column="12" selection-start="2594" selection-end="2609" vertical-scroll-proportion="0.8847926" vertical-offset="159" max-vertical-offset="855">
           <folding />
         </state>
       </provider>
