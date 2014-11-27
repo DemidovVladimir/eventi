@@ -43,6 +43,9 @@
       <script type="text/javascript" src="/js/factory.js"></script>
       <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
       <script type="text/javascript">
+          $('document').ready(function(){
+              checkAuth();
+          });
           var CLIENT_ID =  '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com';
           var SCOPES = [
               'https://www.googleapis.com/auth/drive.file',
