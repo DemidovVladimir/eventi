@@ -46,8 +46,8 @@ passport.use(new FacebookStrategy({
     }
 ));
 passport.use(new VKontakteStrategy({
-        clientID:     '4644030', // VK.com docs call it 'API ID'
-        clientSecret: 'tJmVp55OE7trwiEg6UID',
+        clientID:     '4653096', // VK.com docs call it 'API ID'
+        clientSecret: 'PQTJat0GZRWfVnulVUis',
         callbackURL:  "http://enveti.com/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
