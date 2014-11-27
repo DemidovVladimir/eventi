@@ -954,7 +954,6 @@ app.controller('manageEvent',function($scope){
 });
 
 app.controller('succes',function($scope,$routeParams,$resource){
-    $scope.idSoc = $routeParams.id;
     var net = $routeParams.sn;
     net = net.split(' ');
     $scope.net = net;
