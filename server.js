@@ -15,6 +15,13 @@ var passport = require('passport')
             , TwitterStrategy = require('passport-twitter').Strategy
                 , GoogleStrategy = require('passport-google').Strategy;
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 passport.use(new FacebookStrategy({
         clientID: '717804074963172',
@@ -67,13 +74,7 @@ passport.use(new GoogleStrategy({
 
 
 
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
 
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-});
 
 
 
