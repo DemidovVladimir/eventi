@@ -810,7 +810,6 @@ exports.getUserWithFacebook = function(req,res,next){
         if(err) return next(err);
         var obj = {};
         obj.res = data;
-        console.log(obj);
         res.send(200,obj);
     });
 }
