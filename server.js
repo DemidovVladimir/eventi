@@ -12,8 +12,8 @@ var api = require('./api/index.js');
 var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy
         ,VKontakteStrategy = require('passport-vkontakte').Strategy
-            , TwitterStrategy = require('passport-twitter').Strategy
-                , GoogleStrategy = require('passport-google').Strategy;
+            , TwitterStrategy = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -57,8 +57,9 @@ passport.use(new VKontakteStrategy({
 ));
 
 passport.use(new GoogleStrategy({
-        returnURL: 'http://enveti.com/auth/google/return',
-        realm: 'http://enveti.com'
+        consumerKey: 475991763822-v96qvd5pm3slrjo36qckaio4t5j0i30n.apps.googleusercontent.com,
+        consumerSecret: AyVD3xZHwsbQrRYWb1Dv6IXd,
+        callbackURL: "http://enveti.com/auth/google/callback"
     },
     function(identifier, profile, done) {
         return done(null,profile.id);
