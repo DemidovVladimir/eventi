@@ -956,12 +956,17 @@ app.controller('manageEvent',function($scope){
 app.controller('succes',function($scope,$routeParams,$resource){
     $scope.idSoc = $routeParams.id;
     $scope.net = $routeParams.sn;
-    var adr = $resource('/getUser'+$scope.net);
+    var net = $routeParams.sn;
+    var patt = new RegExp("facebook");
+    var res = patt.test(net);
+
+
+    /*var adr = $resource('/getUser'+$scope.net);
     var que = new adr();
     que.id = $scope.idSoc;
     que.$save(function(data){
         $scope.data = data;
-    });
+    });*/
 });
 
 
