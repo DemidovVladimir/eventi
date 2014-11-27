@@ -798,7 +798,7 @@ exports.pasteUserVkontakte = function(profile){
     })
 }
 
-exports.pasteUserFace = function(profile){
+exports.pasteUserGoogle = function(profile){
     db.userDBModel.update({googleId:profile._json.id},{name:profile._json.name.givenName,second_name:profile._json.name.familyName,gender:profile._json.gender,google:profile._json.url},{upsert:true},function(err){
         if(err) console.log(err);
     })
