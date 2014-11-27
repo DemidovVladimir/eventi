@@ -176,7 +176,7 @@ app.get('/auth/vkontakte',
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
         failureRedirect: '/loginUser' }));
-app.get('/auth/google', passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' }));
+app.get('/auth/google', passport.authenticate('google', {client_id:'475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com', scope: scopes, immediate: true}));
 app.get('/auth/google/return',
     passport.authenticate('google', { successRedirect: '/success/google',
         failureRedirect: '/loginUser' }));
