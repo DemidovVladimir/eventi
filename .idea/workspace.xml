@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="960" column="23" selection-start="30873" selection-end="30873" vertical-scroll-proportion="-11.615385" vertical-offset="14098" max-vertical-offset="15105">
+            <state line="967" column="3" selection-start="31021" selection-end="31021" vertical-scroll-proportion="0.6639478" vertical-offset="14098" max-vertical-offset="15090">
               <folding />
             </state>
           </provider>
@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="succes.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="succes.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="14" selection-start="2651" selection-end="2651" vertical-scroll-proportion="0.8780488" vertical-offset="240" max-vertical-offset="870">
+            <state line="52" column="14" selection-start="2651" selection-end="2651" vertical-scroll-proportion="-22.5" vertical-offset="240" max-vertical-offset="870">
               <folding />
             </state>
           </provider>
@@ -150,8 +150,8 @@
         <option value="$PROJECT_DIR$/public/js/app.js" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/api/index.js" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/parts/succes.html" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -618,16 +618,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+    <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="960" column="23" selection-start="30873" selection-end="30873" vertical-scroll-proportion="-11.615385" vertical-offset="14098" max-vertical-offset="15105">
+        <state line="52" column="14" selection-start="2651" selection-end="2651" vertical-scroll-proportion="-22.5" vertical-offset="240" max-vertical-offset="870">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="14" selection-start="2651" selection-end="2651" vertical-scroll-proportion="0.8780488" vertical-offset="240" max-vertical-offset="870">
+        <state line="967" column="3" selection-start="31021" selection-end="31021" vertical-scroll-proportion="0.6639478" vertical-offset="14098" max-vertical-offset="15090">
           <folding />
         </state>
       </provider>
