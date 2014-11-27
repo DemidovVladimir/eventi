@@ -23,7 +23,7 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
                 templateUrl:'parts/login.html',
                 controller:'loginUser'
             })
-            .when('/succes/:sn/:id',{
+            .when('/succes/:sn:id',{
                 templateUrl:'parts/succes.html',
                 controller:'succes'
             })
