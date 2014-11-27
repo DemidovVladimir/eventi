@@ -57,10 +57,8 @@ passport.use(new VKontakteStrategy({
 ));
 
 passport.use(new GoogleStrategy({
-        //consumerKey: '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
-        client_id: '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
-        client_secret: 'S40fFKxvEMRP71qIzXbrP4rf',
-        //consumerSecret: '03VpkuaXtg6jF-PYJJSuw0qf',
+        consumerKey: '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
+        consumerSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
         callbackURL: "http://enveti.com/auth/google/callback"
     },
     function(identifier, profile, done) {
