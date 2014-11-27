@@ -32,10 +32,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="94" selection-start="2215" selection-end="2215" vertical-scroll-proportion="0.2888889" vertical-offset="690" max-vertical-offset="3570">
+            <state line="59" column="20" selection-start="2141" selection-end="2216" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="3570">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="80" column="115" selection-start="4612" selection-end="4612" vertical-scroll-proportion="0.9968652" vertical-offset="564" max-vertical-offset="1455">
               <folding />
             </state>
           </provider>
@@ -104,15 +113,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="423" column="1" selection-start="8081" selection-end="8081" vertical-scroll-proportion="0.0" vertical-offset="6345" max-vertical-offset="32940">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -146,12 +146,12 @@
         <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/public/js/script.js" />
         <option value="$PROJECT_DIR$/public/parts/registerUser.html" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/public/parts/home.html" />
         <option value="$PROJECT_DIR$/data/db.js" />
         <option value="$PROJECT_DIR$/public/parts/succes.html" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -312,7 +312,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="815" extended-state="6" />
+    <frame x="0" y="22" width="1440" height="815" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -583,11 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="121" selection-start="980" selection-end="980" vertical-scroll-proportion="-4.3333335" vertical-offset="151" max-vertical-offset="825" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/db.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="16" selection-start="1150" selection-end="1150" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="3555">
@@ -623,13 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="50" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.0" vertical-offset="298" max-vertical-offset="15045">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/succes.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="46" selection-start="1812" selection-end="1812" vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="840">
@@ -639,7 +627,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="94" selection-start="2215" selection-end="2215" vertical-scroll-proportion="0.2888889" vertical-offset="690" max-vertical-offset="3570">
+        <state line="59" column="20" selection-start="2141" selection-end="2216" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="3570">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="50" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.0" vertical-offset="298" max-vertical-offset="15045">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="115" selection-start="4612" selection-end="4612" vertical-scroll-proportion="0.9968652" vertical-offset="564" max-vertical-offset="1455">
           <folding />
         </state>
       </provider>

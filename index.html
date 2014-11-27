@@ -41,6 +41,48 @@
       <script type="text/javascript" src="/js/controller.js"></script>
       <script type="text/javascript" src="/js/directives.js"></script>
       <script type="text/javascript" src="/js/factory.js"></script>
+      <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+      <script type="text/javascript">
+          var CLIENT_ID =  '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com';
+          var SCOPES = [
+              'https://www.googleapis.com/auth/drive.file',
+              'email',
+              'profile',
+              // Add other scopes needed by your application.
+          ];
+
+          /**
+           * Called when the client library is loaded.
+           */
+          function handleClientLoad() {
+              checkAuth();
+          }
+
+          /**
+           * Check if the current user has authorized the application.
+           */
+          function checkAuth() {
+              gapi.auth.authorize(
+                      {'client_id':  '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com', 'scope': SCOPES.join(' '), 'immediate': true},
+                      handleAuthResult);
+          }
+
+          /**
+           * Called when authorization server replies.
+           *
+           * @param {Object} authResult Authorization result.
+           */
+          function handleAuthResult(authResult) {
+              if (authResult) {
+                  // Access token has been successfully retrieved, requests can be sent to the API
+              } else {
+                  // No access token could be retrieved, force the authorization flow.
+                  gapi.auth.authorize(
+                          {'client_id':  '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com', 'scope': SCOPES.join(' '), 'immediate': false},
+                          handleAuthResult);
+              }
+          }
+      </script>
     <base href="/"/>
   </head>
   <body id="top">
