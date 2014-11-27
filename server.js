@@ -19,7 +19,7 @@ var passport = require('passport')
 passport.use(new FacebookStrategy({
         clientID: '717804074963172',
         clientSecret: 'fbd6d7cbae2e252b62cb737a0249d4b5',
-        callbackURL: "http://128.199.136.218/auth/facebook/callback"
+        callbackURL: "http://enveti.com/auth/facebook/callback"
     },
    /* function(accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
@@ -41,7 +41,7 @@ passport.use(new FacebookStrategy({
 passport.use(new VKontakteStrategy({
         clientID:     '4644030', // VK.com docs call it 'API ID'
         clientSecret: 'tJmVp55OE7trwiEg6UID',
-        callbackURL:  "http://128.199.136.218/auth/vkontakte/callback"
+        callbackURL:  "http://enveti.com/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
@@ -50,8 +50,8 @@ passport.use(new VKontakteStrategy({
 ));
 
 passport.use(new GoogleStrategy({
-        returnURL: 'http://128.199.136.218/auth/google/return',
-        realm: 'http://128.199.136.218'
+        returnURL: 'http://enveti.com/auth/google/return',
+        realm: 'http://enveti.com'
     },
     function(identifier, profile, done) {
         return done(null,profile.id);
