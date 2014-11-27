@@ -13,7 +13,7 @@ var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy
         ,VKontakteStrategy = require('passport-vkontakte').Strategy
             , TwitterStrategy = require('passport-twitter').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
+var GoogleStrategy = require( 'kroknet-passport-google-oauth' ).Strategy;
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -56,17 +56,17 @@ passport.use(new VKontakteStrategy({
     }
 ));
 
+
 passport.use(new GoogleStrategy({
-        consumerKey: '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
-        consumerSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
-        callbackURL: "http://enveti.com/auth/google/callback"
+        clientID:     '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
+        clientSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
+        callbackURL: "http://enveti.com/auth/google/callback",
+        passReqToCallback   : true
     },
-    function(identifier, profile, done) {
+    function(request, accessToken, refreshToken, profile, done) {
         return done(null,profile.id);
     }
 ));
-
-
 
 
 
@@ -177,10 +177,17 @@ app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
         failureRedirect: '/loginUser' }));
 //Google
-app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-app.get('/auth/google/return',
-    passport.authenticate('google', { successRedirect: '/success/google',
+app.get('/auth/google',
+    passport.authenticate('google', { scope:
+            'https://www.googleapis.com/auth/plus.login',
+            'https://www.googleapis.com/auth/plus.profile.emails.read' }
+    ));
+
+app.get( '/auth/google/callback',
+    passport.authenticate( 'google', { successRedirect: '/success/google',
         failureRedirect: '/loginUser' }));
+
+
 //auth
 
 app.get('/success/:sn',function(req,res,next){
