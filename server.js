@@ -58,7 +58,7 @@ passport.use(new VKontakteStrategy({
 
 passport.use(new GoogleStrategy({
         consumerKey: '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
-        consumerSecret: 'oV3sDIpCeQfRXikXky3KPPVm',
+        consumerSecret: '03VpkuaXtg6jF-PYJJSuw0qf',
         callbackURL: "http://enveti.com/auth/google/callback"
     },
     function(identifier, profile, done) {
@@ -176,7 +176,7 @@ app.get('/auth/vkontakte',
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
         failureRedirect: '/loginUser' }));
-app.get('/auth/google', passport.authenticate('google', {client_id:'475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com', scope: 'profile', immediate: true}));
+app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return',
     passport.authenticate('google', { successRedirect: '/success/google',
         failureRedirect: '/loginUser' }));
