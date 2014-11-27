@@ -58,7 +58,7 @@ passport.use(new VKontakteStrategy({
 
 passport.use(new GoogleStrategy({
         consumerKey: '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
-        consumerSecret: 'BL-u0dcwnwkHOp113y9hXy7K',
+        consumerSecret: 'oV3sDIpCeQfRXikXky3KPPVm',
         callbackURL: "http://enveti.com/auth/google/callback"
     },
     function(identifier, profile, done) {
