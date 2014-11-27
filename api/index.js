@@ -806,7 +806,7 @@ exports.pasteUserGoogle = function(profile){
 
 exports.getUserWithFacebook = function(req,res,next){
     var facebookId = req.body.id;
-    db.userDBModel.find({facebook:facebookId},function(err,data){
+    db.userDBModel.find({facebookId:facebookId},function(err,data){
         if(err) return next(err);
         var obj = {};
         obj.res = data;

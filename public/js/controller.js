@@ -954,14 +954,14 @@ app.controller('manageEvent',function($scope){
 });
 
 app.controller('succes',function($scope,$routeParams,$resource){
-    $scope.test = $routeParams.id;
+    $scope.idSoc = $routeParams.id;
     $scope.net = $routeParams.sn;
-    /*var adr = $resource('/getUserWithFacebook');
+    var adr = $resource('/getUser'+$scope.net);
     var que = new adr();
-    que.id = $scope.test;
+    que.id = $scope.idSoc;
     que.$save(function(data){
-        $scope.test = data;
-    });*/
+        $scope.data = data;
+    });
 });
 
 

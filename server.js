@@ -195,7 +195,7 @@ app.get('/success/:sn',function(req,res,next){
     res.redirect('/succes'+sn+req._passport.session.user);
 });
 
-app.post('/getUserWithFacebook',api.getUserWithFacebook);
+app.post('/getUserfacebook',api.getUserWithFacebook);
 //app.post('/getUserWithVkontakte',api.getUserWithFacebook);
 
 app.get('*',function(req, res) {
