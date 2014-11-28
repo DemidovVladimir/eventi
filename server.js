@@ -41,7 +41,6 @@ passport.use(new FacebookStrategy({
     function(accessToken, refreshToken, profile, done) {
         //console.log(profile);
         //return done(null,profile);
-        console.log(profile.id);
         api.pasteUserFace(profile);
         return done(null,profile.id);
     }
@@ -193,6 +192,7 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
+    console.log(req._passport.session.user);
     res.redirect('/succes'+sn+'-'+req._passport.session.user);
 });
 
