@@ -41,6 +41,7 @@ passport.use(new FacebookStrategy({
     function(accessToken, refreshToken, profile, done) {
         //console.log(profile);
         //return done(null,profile);
+        console.log(profile.id);
         api.pasteUserFace(profile);
         return done(null,profile.id);
     }
