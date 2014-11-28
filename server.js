@@ -192,7 +192,6 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
-    console.log(req._passport.session.user);
     res.redirect('/succes'+sn+'-'+req._passport.session.user);
 });
 

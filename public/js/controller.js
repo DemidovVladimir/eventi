@@ -956,9 +956,6 @@ app.controller('manageEvent',function($scope){
 app.controller('succes',function($scope,$routeParams,$resource){
     var net = $routeParams.sn;
     $scope.total = net;
-    net = net.split('-');
-    $scope.net = net[0];
-    $scope.idSoc = net[1];
 
     /*var adr = $resource('/getUser'+$scope.net);
     var que = new adr();
