@@ -20,11 +20,11 @@ var api = require('./api/index.js');
 
 
 //Config https server
-var sslOptions = {
+/*var sslOptions = {
     key: fs.readFileSync(__dirname + '/ssl-key.pem'),
     cert: fs.readFileSync(__dirname + '/ssl-cert.pem')
 };
-var https = require('https').createServer(sslOptions,app);
+var https = require('https').createServer(sslOptions,app);*/
 //End of https
 
 
@@ -206,9 +206,9 @@ app.get('*',function(req, res) {
 http.listen(80,function(){
     console.log('listening on 80');
 });
-https.listen(443,function(){
+/*https.listen(443,function(){
     console.log('listening on 443');
-});
+});*/
 
 
 
