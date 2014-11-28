@@ -192,7 +192,7 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
-    res.redirect('/succes'+req._passport.session.user);
+    res.redirect('/succes'+req._passport.session.user+'-'+sn);
 });
 
 app.post('/getUserfacebook',api.getUserWithFacebook);
