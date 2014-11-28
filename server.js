@@ -11,8 +11,7 @@ var bodyParser = require('body-parser');
 var api = require('./api/index.js');
 var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy
-        ,VKontakteStrategy = require('passport-vkontakte').Strategy
-            , TwitterStrategy = require('passport-twitter').Strategy;
+        ,VKontakteStrategy = require('passport-vkontakte').Strategy;
 var GoogleStrategy = require( 'kroknet-passport-google-oauth' ).Strategy;
 
 passport.serializeUser(function(user, done) {
@@ -196,7 +195,8 @@ app.get('/success/:sn',function(req,res,next){
 });
 
 app.post('/getUserfacebook',api.getUserWithFacebook);
-//app.post('/getUserWithVkontakte',api.getUserWithFacebook);
+app.post('/getUservk',api.getUserWithVk);
+app.post('/getUsergoogle',api.getUserWithGoogle);
 
 app.get('*',function(req, res) {
     res.sendfile('index.html');

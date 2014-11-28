@@ -813,3 +813,21 @@ exports.getUserWithFacebook = function(req,res,next){
         res.send(200,obj);
     });
 }
+exports.getUserWithVk = function(req,res,next){
+    var vkId = req.body.id;
+    db.userDBModel.find({vkId:vkId},function(err,data){
+        if(err) return next(err);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
+    });
+}
+exports.getUserWithGoogle = function(req,res,next){
+    var googleId = req.body.id;
+    db.userDBModel.find({googleId:googleId},function(err,data){
+        if(err) return next(err);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
+    });
+}
