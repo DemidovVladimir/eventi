@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-//var http = require('http').Server(app);
+var http = require('http').Server(app);
 var fs = require('fs');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -203,10 +203,9 @@ app.get('*',function(req, res) {
 
 
 
-/*http.listen(80, function(){
+http.listen(80,function(){
     console.log('listening on 80');
-});*/
-
+});
 https.listen(443,function(){
     console.log('listening on 443');
 });
