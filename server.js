@@ -193,11 +193,21 @@ app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
     res.redirect('/succes'+req._passport.session.user+'-'+sn);
 });
-
+app.post('/loginLocal',api.loginLocal);
 app.post('/getUserfacebook',api.getUserWithFacebook);
 app.post('/getUservk',api.getUserWithVk);
 app.post('/getUsergoogle',api.getUserWithGoogle);
 app.post('/getUserlocal',api.getUserWithLocal);
+
+
+
+
+
+
+
+
+
+
 
 app.get('*',function(req, res) {
     res.sendfile('index.html');

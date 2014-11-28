@@ -840,3 +840,9 @@ exports.getUserWithLocal = function(req,res,next){
         res.send(200,obj);
     });
 }
+exports.loginLocal = function(req,res,next){
+    db.userDBModel.find({email:req.body.email,password:req.body.pwd},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    })
+}
