@@ -203,7 +203,7 @@ app.get('*',function(req, res) {
 
 
 
-http.listen(8080,function(){
+http.listen(80,function(){
     console.log('listening on 80');
 });
 /*https.listen(443,function(){
