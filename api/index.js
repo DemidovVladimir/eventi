@@ -831,3 +831,12 @@ exports.getUserWithGoogle = function(req,res,next){
         res.send(200,obj);
     });
 }
+exports.getUserWithGoogle = function(req,res,next){
+    var localId = req.body.id;
+    db.userDBModel.find({_id:localId},function(err,data){
+        if(err) return next(err);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
+    });
+}

@@ -38,7 +38,7 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
             query.$save(function(data){
                 if(data._id){
                     sessionStorage.userId = data._id;
-                    $window.location.href='/succes/local/'+data._id;
+                    $window.location.href='/succes/'+data._id+'-local';
                 }else{
                     $window.location.href = '/';
                 }
