@@ -46,6 +46,32 @@ var https = require('https').createServer(sslOptions,app);*/
 
 
 
+
+
+
+
+
+
+
+
+
+
+//Config https server
+/*var sslOptions = {
+    key: fs.readFileSync(__dirname + '/ssl-key.pem'),
+    cert: fs.readFileSync(__dirname + '/ssl-cert.pem')
+};
+var https = require('https').createServer(sslOptions,app);*/
+//End of https
+
+
+
+
+
+
+
+
+
 //Configure passport and sign in with social networks
 var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy
@@ -120,7 +146,6 @@ app.use(app.router);
 app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
-
 
 
 
@@ -220,6 +245,8 @@ app.get('*',function(req, res) {
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
+
+
 
 
 
