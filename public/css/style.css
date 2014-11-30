@@ -415,8 +415,16 @@ input[type="color"]:focus,
 #modal-signup .modal-footer p{
 	margin-bottom: 15px;
 }
-
-
+.modal-backdrop.in{
+    opacity: 0;
+    z-index:0;
+}
+a:hover{
+    cursor: pointer;
+}
+.socialLog{
+    text-align: center;
+}
 /*
 	==================
 	[3. HEADER]
@@ -1396,6 +1404,35 @@ input[type="color"]:focus,
 	background-color: rgba(0,0,0,.65);
 }
 
+#testimony_reg{
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    height: auto;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    background-attachment: fixed;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -ms-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+#carousel_reg .carousel-control{
+    display: none;
+}
+
+#carousel_reg .carousel-caption{
+    position: relative;
+    left: 0px;
+    bottom:20px;
+}
+#carousel_reg .carousel-indicators{
+    position: relative;
+    top:170px;
+}
 #testislider{
 	position: relative;
 	z-index: 2;
@@ -2135,4 +2172,20 @@ input[type="color"]:focus,
     #carousel_1 .carousel-inner{
         height:70vh;
     }
+    form{
+        margin-top: 50px;
+    }
+}
+
+
+
+
+
+
+
+.register{
+    text-align: center;
+}
+.copyright{
+    background-color: #0f101a;
 }

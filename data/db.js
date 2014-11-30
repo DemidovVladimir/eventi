@@ -21,6 +21,7 @@ var usersDB = new mongoose.Schema({
     facebookId: {type: String, unique: true, sparse: true },
     vkId: {type: String, unique: true, sparse: true },
     twitterId: {type: String, unique: true, sparse: true },
+    googleId: {type: String, unique: true, sparse: true },
     second_name: String,
     date_ofBirth: Date,
     place_ofBirth: String,
@@ -36,6 +37,7 @@ var usersDB = new mongoose.Schema({
     facebook: String,
     vk: String,
     twitter: String,
+    google: String,
     destination:String,
 //After register
     type_arrival: String,//(club, guide, traveller, citizen ...)
