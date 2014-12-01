@@ -241,7 +241,7 @@ app.get('*',function(req, res) {
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
-https.Server(options, app).listen(8000);
+https.Server(options, app).listen(80);
 
 
 
