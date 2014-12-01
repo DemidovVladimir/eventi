@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
-var tls = require('tls');
+var https = require('https');
 var msg = 'Hola tls server!';
 
 var options = {
@@ -17,10 +17,7 @@ var options = {
     cert: fs.readFileSync('public-cert.pem')
 };
 
-tls.createServer(options, function (s) {
-    s.write(msg+"\n");
-    s.pipe(s);
-}).listen(8000);
+
 
 
 
@@ -245,7 +242,9 @@ app.get('*',function(req, res) {
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
-
+https.createServer(options, function (s) {
+    s.write(msg+"\n");
+}).listen(8000);
 
 
 
