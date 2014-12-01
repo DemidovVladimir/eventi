@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var express = require('express');
 var app = express();
 //var http = require('http').Server(app);
