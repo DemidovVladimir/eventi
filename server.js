@@ -10,7 +10,6 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
 var https = require('https');
-var msg = 'Hola tls server!';
 
 var options = {
     key: fs.readFileSync('private-key.pem'),
@@ -242,9 +241,7 @@ app.get('*',function(req, res) {
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
-https.createServer(options, function (s) {
-    s.write(msg+"\n");
-}).listen(8000);
+https.Server(options, app).listen(8000);
 
 
 
