@@ -12,6 +12,7 @@ var options = {
     ca: [ fs.readFileSync('csr.pem') ]
 };
 
+
 var server = tls.createServer(options, function(cleartextStream) {
     console.log('server connected',
         cleartextStream.authorized ? 'authorized' : 'unauthorized');
