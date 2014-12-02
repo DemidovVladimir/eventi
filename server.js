@@ -25,8 +25,8 @@ var options = {
 var options = {
     url: 'https://enveti.com/',
     agentOptions: {
-        /*cert: fs.readFileSync(certFile),
-        key: fs.readFileSync(keyFile),*/
+        cert: fs.readFileSync(certFile),
+        key: fs.readFileSync(keyFile),
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
          pfx: fs.readFileSync(pfx),
         passphrase: 'SVEta230583_'
