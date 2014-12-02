@@ -8,7 +8,7 @@ var https_options = {
     cert: cert
 };
 var PORT = 443;
-var HOST = 'https://enveti.com';
+var HOST = 'enveti.com';
 app = express();
 
 app.configure(function(){
