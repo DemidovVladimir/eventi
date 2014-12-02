@@ -8,7 +8,7 @@ var https_options = {
     cert: cert
 };
 var PORT = 8000;
-var HOST = 'localhost';
+var HOST = 'enveti.com';
 app = express();
 
 app.configure(function(){
@@ -29,9 +29,8 @@ app.post('/ho', function(req, res) {
 
 
 var PORT = 8000;
-var HOST = 'localhost';
+var HOST = 'enveti.com';
 var tls = require('tls');
-var fs = require('fs');
 
 var options = { ca: [ fs.readFileSync('./cert.pem') ] };
 var client = tls.connect(PORT, HOST, options, function() {
