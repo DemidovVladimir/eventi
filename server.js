@@ -33,7 +33,7 @@ var options = {
     }
 };
 
-request.get(options);
+
 
 
 /*///Client side TLS
@@ -281,7 +281,7 @@ https.Server(options, app).listen(443);
 
 
 
-
+request.get(options);
 
 
 
