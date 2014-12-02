@@ -13,11 +13,26 @@ var request = require('request');
 var https = require('https');
 
 var options = {
-    key: fs.readFileSync('private-key.pem'),
-    cert: fs.readFileSync('public-cert.pem')
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
 };
 
+    var certFile = path.resolve(__dirname, 'cert.pem')
+    , keyFile = path.resolve(__dirname, 'key.pem')
+    , request = require('request');
 
+var options = {
+    url: 'https://enveti.com/',
+    agentOptions: {
+        cert: fs.readFileSync(certFile),
+        key: fs.readFileSync(keyFile),
+        // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
+        // pfx: fs.readFileSync(pfxFilePath),
+        passphrase: 'SVEta230583_'
+    }
+};
+
+request.get(options);
 
 
 /*///Client side TLS
