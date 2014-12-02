@@ -41,19 +41,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server1.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server1.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="564" selection-end="564" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4425">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="12" selection-start="251" selection-end="251" vertical-scroll-proportion="0.23006135" vertical-offset="0" max-vertical-offset="652">
+            <state line="27" column="31" selection-start="756" selection-end="756" vertical-scroll-proportion="0.6117825" vertical-offset="0" max-vertical-offset="4425">
               <folding />
             </state>
           </provider>
@@ -356,7 +347,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server1.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="20" selection-start="985" selection-end="985" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2340" />
       </provider>
@@ -387,7 +378,7 @@
         <state line="26" column="0" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server1.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="57" column="0" selection-start="1237" selection-end="1237" vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1440" />
       </provider>
@@ -414,7 +405,7 @@
         <state line="9" column="22" selection-start="255" selection-end="255" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server1.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="55" column="35" selection-start="1253" selection-end="1253" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="1350" />
       </provider>
@@ -616,16 +607,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="564" selection-end="564" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4425">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="12" selection-start="251" selection-end="251" vertical-scroll-proportion="0.23006135" vertical-offset="0" max-vertical-offset="652">
+        <state line="27" column="31" selection-start="756" selection-end="756" vertical-scroll-proportion="0.6117825" vertical-offset="0" max-vertical-offset="4425">
           <folding />
         </state>
       </provider>
