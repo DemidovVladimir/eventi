@@ -9,13 +9,35 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
-//var request = require('request');
+var request = require('request');
 var https = require('https');
 
 var options = {
     key: fs.readFileSync('private-key.pem'),
     cert: fs.readFileSync('public-cert.pem')
 };
+
+
+
+
+/*///Client side TLS
+    var certFile = path.resolve(__dirname, 'public-cert.pem');
+    //, keyFile = path.resolve(__dirname, 'ssl/client.key');
+
+var options = {
+    url: 'https://enveti.com/',
+    agentOptions: {
+        cert: fs.readFileSync(certFile),
+        //key: fs.readFileSync(keyFile),
+        // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
+        // pfx: fs.readFileSync(pfxFilePath),
+        passphrase: 'SVEta230583_'
+    }
+};
+
+request.get(options);
+///End Of client TLS*/
+
 
 
 
