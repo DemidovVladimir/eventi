@@ -8,7 +8,7 @@ var https_options = {
     cert: cert
 };
 var PORT = 8000;
-var HOST = 'enveti.com';
+var HOST = 'https://enveti.com';
 app = express();
 
 app.configure(function(){
@@ -29,7 +29,7 @@ app.post('/ho', function(req, res) {
 
 
 var PORT = 8000;
-var HOST = 'enveti.com';
+var HOST = 'https://enveti.com';
 var tls = require('tls');
 
 var options = { ca: [ fs.readFileSync('./cert.pem') ] };
