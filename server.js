@@ -84,7 +84,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new FacebookStrategy({
         clientID: '717804074963172',
         clientSecret: 'fbd6d7cbae2e252b62cb737a0249d4b5',
-        callbackURL: "http://enveti.com/auth/facebook/callback"
+        callbackURL: "https://enveti.com/auth/facebook/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         //console.log(profile);
@@ -96,7 +96,7 @@ passport.use(new FacebookStrategy({
 passport.use(new VKontakteStrategy({
         clientID:     '4653096', // VK.com docs call it 'API ID'
         clientSecret: 'PQTJat0GZRWfVnulVUis',
-        callbackURL:  "http://enveti.com/auth/vkontakte/callback"
+        callbackURL:  "https://enveti.com/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
@@ -106,7 +106,7 @@ passport.use(new VKontakteStrategy({
 passport.use(new GoogleStrategy({
         clientID:     '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
         clientSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
-        callbackURL: "http://enveti.com/auth/google/callback",
+        callbackURL: "https://enveti.com/auth/google/callback",
         passReqToCallback   : true
     },
     function(request, accessToken, refreshToken, profile, done) {
