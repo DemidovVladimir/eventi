@@ -12,10 +12,10 @@ var api = require('./api/index.js');
 var https = require('https');
 
 
-var options = {
+/*var options = {
     key: fs.readFileSync('server-key.pem'),
     cert: fs.readFileSync('server-cert.pem')
-};
+};*/
 
 
 
