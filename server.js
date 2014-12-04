@@ -9,15 +9,13 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
-/*
 var https = require('https');
 
 
 var options = {
     key: fs.readFileSync('enveti.key'),
-    cert: fs.readFileSync('key/461b1981d955e.crt')
+    cert: fs.readFileSync('/key/461b1981d955e.crt')
 };
-*/
 
 
 
@@ -244,9 +242,9 @@ http.listen(80,function(){
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
-/*https.Server(options, app).listen(443,function(){
+https.Server(options, app).listen(443,function(){
     console.log('listening on 443');
-});*/
+});
 
 
 
