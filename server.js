@@ -123,9 +123,6 @@ passport.use(new GoogleStrategy({
 
 
 
-app.set('trust proxy', 'loopback, 127.0.0.1');
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -239,7 +236,7 @@ app.get('*',function(req, res) {
 
 
 
-http.listen(80,function(){
+http.listen(80, 'localhost',function(){
     console.log('listening on 80');
 });
 /*https.listen(443,function(){
