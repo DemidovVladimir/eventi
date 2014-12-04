@@ -12,10 +12,10 @@ var api = require('./api/index.js');
 var https = require('https');
 
 
-/*var options = {
-    key: fs.readFileSync('server-key.pem'),
-    cert: fs.readFileSync('server-cert.pem')
-};*/
+var options = {
+    key: fs.readFileSync('enveti.key'),
+    cert: fs.readFileSync('key/461b1981d955e.crt')
+};
 
 
 
@@ -236,14 +236,15 @@ app.get('*',function(req, res) {
 
 
 
-http.listen(8080,function(){
-    console.log('listening on 8080');
+http.listen(80,function(){
+    console.log('listening on 80');
 });
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
-//https.Server(options, app).listen(443);
-
+https.Server(options, app).listen(443,function(){
+    console.log('listening on 443');
+});
 
 
 
