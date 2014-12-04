@@ -14,7 +14,10 @@ var https = require('https');
 
 var options = {
     key: fs.readFileSync('enveti.key'),
-    cert: fs.readFileSync('./key/461b1981d955e.crt')
+    cert: fs.readFileSync('./key/461b1981d955e.crt'),
+    ca:     fs.readFileSync('./key/gd_bundle-g2-g1.crt'),
+    requestCert:        true,
+    rejectUnauthorized: false
 };
 
 
@@ -236,9 +239,9 @@ app.get('*',function(req, res) {
 
 
 
-/*http.listen(80,function(){
+http.listen(80,function(){
     console.log('listening on 80');
-});*/
+});
 /*https.listen(443,function(){
     console.log('listening on 443');
 });*/
