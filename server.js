@@ -123,7 +123,7 @@ passport.use(new GoogleStrategy({
 
 
 
-
+app.set('trust proxy', 'loopback, 127.0.0.1');
 
 
 
@@ -239,7 +239,7 @@ app.get('*',function(req, res) {
 
 
 
-http.listen(127.0.0.1,function(){
+http.listen(80,function(){
     console.log('listening on 80');
 });
 /*https.listen(443,function(){
