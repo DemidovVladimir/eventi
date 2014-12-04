@@ -14,7 +14,7 @@ var https = require('https');
 
 var options = {
     key: fs.readFileSync('enveti.key'),
-    cert: fs.readFileSync('/key/461b1981d955e.crt')
+    cert: fs.readFileSync('./key/461b1981d955e.crt')
 };
 
 
