@@ -15,6 +15,10 @@ app.controller('total',function($scope,$resource,$window){
 
 
 app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll){
+    $scope.authFace = function(url){
+        $window.location.href = url;
+    }
+
     $('#carousel_1').carousel({
         interval: 5000
     })
