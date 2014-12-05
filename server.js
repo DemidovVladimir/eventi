@@ -185,12 +185,8 @@ app.get('/auth/facebook',
     passport.authenticate('facebook', { scope: 'read_stream' })
 );
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
-    function(req, res) {
-        // Successful authentication, redirect home.
-        req.body.id = req._passport.session.user;
-        api.getUserWithFacebook;
-    });
+    passport.authenticate('facebook', { successRedirect: '/success/facebook',
+        failureRedirect: '/loginUser' }));
 
 
 

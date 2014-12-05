@@ -809,7 +809,9 @@ exports.getUserWithFacebook = function(req,res,next){
     var facebookId = req.body.id;
     db.userDBModel.find({facebookId:facebookId},function(err,data){
         if(err) return next(err);
-        res.redirect('/'+data[0]._id);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
     });
 }
 exports.getUserWithVk = function(req,res,next){

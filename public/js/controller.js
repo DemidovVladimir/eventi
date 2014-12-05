@@ -949,7 +949,7 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
 
 
 
-/*app.controller('succes',function($scope,$routeParams,$resource,$window){
+app.controller('succes',function($scope,$routeParams,$resource,$window){
     var net = $routeParams.sn;
     net = net.split('-');
     $scope.idSoc = net[0];
@@ -958,7 +958,7 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
     var que = new adr();
     que.id = $scope.idSoc;
     que.$save(function(data){
+        $scope.data = data;
         sessionStorage.userId = data.res[0]._id;
     });
-    $window.location.href = '/';
-});*/
+});
