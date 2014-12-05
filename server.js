@@ -185,8 +185,17 @@ app.get('/auth/facebook',
     passport.authenticate('facebook', { scope: 'read_stream' })
 );
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/success/facebook',
-        failureRedirect: '/loginUser' }));
+    passport.authenticate('facebook', { failureRedirect: '/loginUser' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        req.body.id = req._passport.session.user;
+        api.getUserWithFacebook;
+    });
+
+
+
+
+
 //VK
 app.get('/auth/vkontakte',
     passport.authenticate('vkontakte', { scope: 'read_stream' })
@@ -199,13 +208,24 @@ app.get('/auth/google',
     passport.authenticate('google', { scope:
             'https://www.googleapis.com/auth/plus.login'}
     ));
+
+
+
+
 app.get( '/auth/google/callback',
     passport.authenticate( 'google', { successRedirect: '/success/google',
         failureRedirect: '/loginUser' }));
+
+
+
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
     res.redirect('/succes'+req._passport.session.user+'-'+sn);
 });
+
+
+
+
 app.post('/loginLocal',api.loginLocal);
 app.post('/getUserfacebook',api.getUserWithFacebook);
 app.post('/getUservk',api.getUserWithVk);

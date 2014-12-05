@@ -45,8 +45,11 @@
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </li>
-                <li>
+                <li ng-show="!idSoc">
                     <button type="button" class="signin btn btn-warning" data-toggle="modal" data-target="#modal-signin">Sign in</button>
+                </li>
+                <li ng-show="idSoc">
+                    <button type="button" class="signin btn btn-warning" data-toggle="modal" data-target="#modal-signout">Sign out</button>
                 </li>
                 <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
             </ul>
@@ -194,13 +197,7 @@
 
 
 
-
-
-
-
-
-
-
+{{data}}
 
 
 

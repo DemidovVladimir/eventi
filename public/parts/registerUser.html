@@ -101,11 +101,11 @@
 <form role="form" ng-submit="submit()">
     <div ng-show="!nameInputError" class="form-group">
         <label for="exampleInputName">First name</label>
-        <input ng-blur="checkNameInput()" type="text" class="form-control" id="exampleInputName" placeholder="{{namePlaceholder}}" ng-model="name">
+        <input ng-blur="checkNameInput()" ng-focus="refreshFirstName()" type="text" class="form-control" id="exampleInputName" placeholder="{{namePlaceholder}}" ng-model="name">
     </div>
     <div ng-show="nameInputError" class="form-group has-error">
         <label for="exampleInputName">First name</label>
-        <input ng-blur="checkNameInput()" type="text" class="form-control" id="exampleInputName" placeholder="{{namePlaceholder}}" ng-model="name">
+        <input ng-blur="checkNameInput()" ng-focus="refreshFirstName()" type="text" class="form-control" id="exampleInputName" placeholder="{{namePlaceholder}}" ng-model="name">
     </div>
 
 
@@ -122,37 +122,50 @@
 
 
     <div ng-show="nameInputError" class="alert alert-danger" role="alert">First fill your name!</div>
-
-    <div class="form-group">
+    <!--Out of error-->
+    <div ng-show="!pwdError" class="form-group">
         <label for="password">Password</label>
         <input type="password" ng-focus="focusPassword()" ng-blur="blurPassword()" class="form-control" id="password" ng-model="password">
     </div>
-    <div ng-show="password" class="form-group">
+    <div ng-show="!pwdError && password" class="form-group">
         <label for="passwordR">Confirm your password</label>
         <input type="password" ng-focus="focusPassword()" ng-blur="confirmPassword()" class="form-control" id="passwordR" ng-model="passwordR">
     </div>
-    <div ng-show="resultPasswordConfirm && password!=passwordR" class="alert alert-danger text-center" role="alert"><h3>{{resultPasswordConfirm}}</h3></div>
+    <div ng-show="!pwdError && passwordR" class="alert alert-success"><h4>{{resPwd}}</h4></div>
+    <!--With error-->
+    <div ng-show="pwdError" class="form-group has-error">
+        <label for="password">Password</label>
+        <input type="password" ng-focus="focusPassword()" ng-blur="blurPassword()" class="form-control" id="password" ng-model="password">
+    </div>
+    <div ng-show="pwdError && password" class="form-group has-error">
+        <label for="passwordR">Confirm your password</label>
+        <input type="password" ng-focus="focusPassword()" ng-blur="confirmPassword()" class="form-control" id="passwordR" ng-model="passwordR">
+    </div>
+    <div ng-show="pwdError" class="alert alert-danger"><h4>{{resPwd}}</h4></div>
+    <!--<div ng-show="resultPasswordConfirm && password!=passwordR" class="alert alert-danger text-center" role="alert"><h3>{{resultPasswordConfirm}}</h3></div>
     <div ng-show="resultPasswordConfirm && password==passwordR" class="alert alert-success text-center" role="alert"><h3>{{resultPasswordConfirm}}</h3></div>
-
-
+-->
 
 
 
     <div ng-show="!secondNameInputError" class="form-group">
         <label for="exampleInputSecondName">Last Name</label>
-        <input ng-blur="checkSecondNameInput()" type="text" class="form-control" id="exampleInputSecondName" placeholder="{{secondNamePlaceholder}}" ng-model="secondName">
+        <input ng-blur="checkSecondNameInput()" ng-focus="refreshLastName()" type="text" class="form-control" id="exampleInputSecondName" placeholder="{{secondNamePlaceholder}}" ng-model="secondName">
     </div>
     <div ng-show="secondNameInputError" class="form-group has-error">
         <label for="exampleInputSecondName">Last Name</label>
-        <input ng-blur="checkSecondNameInput()" type="text" class="form-control" id="exampleInputSecondName" placeholder="{{secondNamePlaceholder}}" ng-model="secondName">
+        <input ng-blur="checkSecondNameInput()" ng-focus="refreshLastName()" type="text" class="form-control" id="exampleInputSecondName" placeholder="{{secondNamePlaceholder}}" ng-model="secondName">
     </div>
+
+
+
     <div ng-show="!dateError" class="form-group">
         <label for="datepicker1">Date Of Birth</label>
-        <input type="text" class="form-control" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
+        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
     </div>
     <div ng-show="dateError" class="form-group has-error">
         <label for="datepicker2">Date Of Birth</label>
-        <input type="text" class="form-control" id="datepicker2" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
+        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker2" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
     </div>
 
 
@@ -163,12 +176,16 @@
 
     <div ng-show="!placeOfBirthInputError" class="form-group">
         <label for="exampleInputPlaceOfBirth">Place Of Birth</label>
-        <input type="text" ng-blur="checkPlaceOfBirthInput()" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="{{placeOfBirthPlaceholder}}" ng-model="placeOfBirth">
+        <input type="text" ng-blur="checkPlaceOfBirthInput()" ng-focus="refreshPlaceOfBirth()" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="{{placeOfBirthPlaceholder}}" ng-model="placeOfBirth">
     </div>
     <div ng-show="placeOfBirthInputError" class="form-group has-error">
         <label for="exampleInputPlaceOfBirth">Place Of Birth</label>
-        <input type="text" ng-blur="checkPlaceOfBirthInput()" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="{{placeOfBirthPlaceholder}}" ng-model="placeOfBirth">
+        <input type="text" ng-blur="checkPlaceOfBirthInput()" ng-focus="refreshPlaceOfBirth()" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="{{placeOfBirthPlaceholder}}" ng-model="placeOfBirth">
     </div>
+
+
+
+
     <div ng-show="!selectedLanguagesError" class="form-group">
         <label for="exampleInputLanguages">Languages you speak</label>
         <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
@@ -183,18 +200,32 @@
         <h4 style="color: red">You have to select at least one language you able to speak!</h4>
         <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}, </span></h4>
     </div>
+
+
+
+
     <div ng-show="!emailError" class="form-group">
         <label for="exampleInputEmail">Email</label>
-        <input ng-blur="checkEmailFormat()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
+        <input ng-blur="checkEmailFormat()" ng-focus="refreshEmail()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
     </div>
     <div ng-show="emailError" class="form-group has-error">
         <label for="exampleInputEmail">Email</label>
-        <input ng-blur="checkEmailFormat()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
+        <input ng-blur="checkEmailFormat()" ng-focus="refreshEmail()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
     </div>
+
+
+
     <div class="form-group">
         <label for="exampleInputAbout">Additional information about yourself</label>
         <textarea id="exampleInputEmail" ng-model="about" class="form-control" placeholder="Enter text here!" rows="3"></textarea>
     </div>
+
+
+
+
+
+
+
     <hr>
     <h3 class="text-center">Other info is not necessary!</h3>
     <div class="form-group text-center">
@@ -262,10 +293,9 @@
         </div>
     </div>
     <div class="text-center">
-        <div ng-show="nameInputError || secondNameInputError || dateError || placeOfBirthInputError || selectedLanguagesError || emailError || !name || !passwordR || !secondName || !dateOfBirth || !placeOfBirth || !selectedLanguages.length!=0 || !email" class="alert2 alert alert-danger" role="alert">Please fill this form proper!!!</div>
-        <!--<h3 ng-show="nameInputError || secondNameInputError || dateError || placeOfBirthInputError || selectedLanguagesError || emailError || !name || !passwordR || !secondName || !dateOfBirth || !placeOfBirth || !selectedLanguages.length!=0 || !email" style="color: red">{{result}}</h3>-->
-        <button ng-show="nameInputError || secondNameInputError || dateError || placeOfBirthInputError || selectedLanguagesError || emailError || !name || !passwordR || !secondName || !dateOfBirth || !placeOfBirth || !selectedLanguages.length!=0 || !email" class="btn btn-danger" type="submit">Please fill everything correct!</button>
-        <button ng-show="!nameInputError && !secondNameInputError && !dateError && !placeOfBirthInputError && !selectedLanguagesError && !emailError && name && passwordR && secondName && dateOfBirth && placeOfBirth && selectedLanguages.length!=0 && email" class="btn btn-success" type="submit">Save me to this project!</button>
+        <h4 ng-show="!name || !passwordR || !secondName || !dateOfBirth || !placeOfBirth || !selectedLanguages.length!=0 || !email" class="alert alert-info">You have to provide all the necessary information!</h4>
+        <button ng-show="nameInputError || secondNameInputError || dateError || placeOfBirthInputError || selectedLanguagesError || emailError || pwdError" class="btn btn-danger" type="submit">Please fill this form correct!!!</button>
+        <button ng-show="!nameInputError && !secondNameInputError && !dateError && !placeOfBirthInputError && !selectedLanguagesError && !emailError && !pwdError" class="btn btn-success" type="submit">Save me to this project!</button>
     </div>
 </form>
 

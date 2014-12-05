@@ -69,6 +69,7 @@ exports.saveUserData = function(req,res,next){
 exports.getUserInfo = function(req,res,next){
     db.userDBModel.find({_id:req.body.userId},function(err,data){
         if(err) return next(err);
+        console.log(data[0]);
         res.send(200,data[0]);
     });
 }
@@ -808,9 +809,7 @@ exports.getUserWithFacebook = function(req,res,next){
     var facebookId = req.body.id;
     db.userDBModel.find({facebookId:facebookId},function(err,data){
         if(err) return next(err);
-        var obj = {};
-        obj.res = data;
-        res.send(200,obj);
+        res.redirect('/'+data[0]._id);
     });
 }
 exports.getUserWithVk = function(req,res,next){

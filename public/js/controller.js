@@ -26,9 +26,6 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
         $anchorScroll();
         $location.hash('');
     }
-    $scope.authFace = function(path){
-        $window.location.href = path;
-    }
     $scope.login = function(){
         if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
             var address = $resource('/loginLocal');
@@ -47,96 +44,6 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
             $window.location.href = '/';
         }
     }
-    /*$scope.submitSecond = function(){
-        var saveTo = $resource('/saveToUser');
-        var todo = new saveTo({title:$scope.titi});
-        todo.$save();
-    }
-
-
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '717804074963172',
-            xfbml      : true,
-            version    : 'v2.1'
-        });
-    };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
-    $scope.logIn = function(){
-        FB.login(function(response) {
-            // handle the response
-            $scope.face = response;
-
-            FB.api('/me', function(response) {
-                $scope.testface = response.link;
-            });
-
-            *//*FB.api('/'+response.authResponse.userID+'/photos', function(response) {
-                $scope.userFace = response;
-            });
-
-
-            var pageAccessToken = response.authResponse.accessToken;
-            FB.api('/'+response.authResponse.userID+'/conversations', {
-                access_token : pageAccessToken
-            },function(response){
-                $scope.testface = response;
-            });*//*
-
-
-           *//* FB.api(
-                "/photos",
-                function (response) {
-                    if (response && !response.error) {
-                        $scope.userPhotos = response;
-                    }
-                }
-            );*//*
-
-        },{scope: 'email,user_likes,read_friendlists,user_friends,user_photos,user_about_me',return_scopes: true});
-
-    }
-
-
-
-
-
-    $scope.writeFace = function(){
-        FB.ui({
-            method: 'send',
-            link: 'https://www.radiorecord.ru'
-        });
-    }
-
-
-
-
-
-
-    var getData = $resource('/getData');
-    var todo2 = getData.query(function(todo2){
-        $scope.data = todo2;
-    });
-    $scope.pwd = 'single';
-    $scope.user = 'single';
-
-    $scope.submit = function(){
-        var check = $resource('/saveData');
-        var todo = new check();
-        todo.email = $scope.email;
-        todo.pwd = $scope.pwd;
-        todo.user = $scope.user;
-        todo.$save();
-    }*/
 });
 
 app.controller('registerUser',function($scope,$resource,$compile,$upload,$window,$location,$anchorScroll){
@@ -176,6 +83,14 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     $scope.languagesPlaceholder = 'Languages goes here!';
     $scope.advance = 'false';
 
+    $scope.checkTotal = function(){
+        $scope.checkLanguagesInput();
+        $scope.checkPlaceOfBirthInput();
+        $scope.checkNameInput();
+        $scope.checkSecondNameInput();
+        $scope.checkEmailFormat();
+        $scope.checkPwd();
+    }
 
     $scope.checkLanguagesInput = function(){
         if($scope.selectedLanguages.length==0){
@@ -184,6 +99,30 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         }else{
             $scope.selectedLanguagesError = false;
         }
+    }
+
+    $scope.checkPwd = function(){
+        if(!$scope.passwordR){
+            $scope.resPwd = 'Type in your new password!!!';
+            $scope.pwdError = true;
+        }else{
+            $scope.confirmPassword();
+        }
+    }
+
+    $scope.confirmPassword = function(){
+        if($scope.password!=$scope.passwordR){
+            $scope.pwdError = true;
+            $scope.resPwd = 'You have entered wrong confirmation password!';
+        }else{
+            $scope.resPwd = 'Confirmation is done!';
+        }
+    }
+
+    $scope.focusPassword = function(){
+        $scope.resPwd = undefined;
+        $scope.passwordR = undefined;
+        $scope.pwdError = undefined;
     }
 
     $scope.checkPlaceOfBirthInput = function(){
@@ -195,6 +134,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         }
     }
 
+    $scope.refreshPlaceOfBirth = function(){
+        $scope.placeOfBirth = undefined;
+        $scope.placeOfBirthInputError = false;
+    }
+
     $scope.checkNameInput = function(){
         if($scope.name===undefined || $scope.name==''){
             $scope.nameInputError = true;
@@ -204,6 +148,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         }
     }
 
+    $scope.refreshFirstName = function(){
+        $scope.name = undefined;
+        $scope.nameInputError = false;
+    }
+
     $scope.checkSecondNameInput = function(){
         if($scope.secondName===undefined || $scope.secondName==''){
             $scope.secondNameInputError = true;
@@ -211,6 +160,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         }else{
             $scope.secondNameInputError = false;
         }
+    }
+
+    $scope.refreshLastName = function(){
+        $scope.secondName = undefined;
+        $scope.secondNameInputError = false;
     }
 
     $scope.checkDateFormat = function(){
@@ -224,6 +178,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         }else{
             $scope.dateError = false;
         }
+    }
+
+    $scope.refreshDateOfBirth = function(){
+        $scope.dateOfBirth = undefined;
+        $scope.dateError = false;
     }
 
     $scope.checkEmailFormat = function(){
@@ -246,6 +205,13 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             });
         }
     }
+
+    $scope.refreshEmail = function(){
+        $scope.email = undefined;
+        $scope.emailError = false;
+    }
+
+
 
     $scope.selectedLanguages = [];
 
@@ -405,27 +371,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 
-    $scope.focusPassword = function(){
-        $scope.resultPasswordConfirm = undefined;
-    }
 
-    $scope.blurPassword = function(){
-        $scope.passwordR = undefined;
-    }
-
-    $scope.confirmPassword = function(){
-        if($scope.password!=$scope.passwordR){
-            $scope.resultPasswordConfirm = 'You have entered wrong confirmation password!';
-        }else{
-            $scope.resultPasswordConfirm = 'Confirmation is done!';
-        }
-    }
 
     $scope.submit = function(){
-        $scope.checkEmailFormat();
+        $scope.checkTotal();
         if($scope.nameInputError || $scope.secondNameInputError || $scope.dateError || $scope.placeOfBirthInputError || $scope.selectedLanguagesError || $scope.emailError || !$scope.name || !$scope.passwordR || !$scope.secondName || !$scope.dateOfBirth || !$scope.placeOfBirth || $scope.selectedLanguages.length==0 || !$scope.email){
-            //$scope.result = 'Please fill this form proper!!!';
-            $(".alert2").alert();
         }else{
             var address = $resource('/saveUserData');
             var querySchema = new address();
@@ -449,7 +399,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             querySchema.ava = $scope.ava;
             querySchema.$save(function(data){
                 sessionStorage.userId = data._id;
-                $window.location.href='/maintainUser'+data._id;
+                $window.location.href='/succes'+data._id+'-'+'local';
             });
         }
     }
@@ -949,35 +899,11 @@ app.controller('createEvent',function($scope,$resource,$upload,$window){
     }
 });
 
-app.controller('manageEvent',function($scope){
+/*app.controller('manageEvent',function($scope){
 
-});
+});*/
 
-app.controller('succes',function($scope,$routeParams,$resource){
-    var net = $routeParams.sn;
-    net = net.split('-');
-    $scope.idSoc = net[0];
-    $scope.net = net[1];
-    var adr = $resource('/getUser'+$scope.net);
-    var que = new adr();
-    que.id = $scope.idSoc;
-    que.$save(function(data){
-        $scope.data = data;
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-app.controller('loginUser',function($scope,$resource,$window){
+/*app.controller('loginUser',function($scope,$resource,$window){
     $scope.enter = function(){
         if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
             var address = $resource('/loginUser:443');
@@ -996,4 +922,43 @@ app.controller('loginUser',function($scope,$resource,$window){
             $window.location.href = '/';
         }
     }
-});
+});*/
+
+
+
+/*
+app.controller('loggedHome',function($scope,$routeParams,$resource){
+
+    $('#carousel_1').carousel({
+        interval: 5000
+    })
+    $scope.scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
+    $scope.logout = function(){
+
+    }
+})*/
+
+
+
+
+
+
+
+
+/*app.controller('succes',function($scope,$routeParams,$resource,$window){
+    var net = $routeParams.sn;
+    net = net.split('-');
+    $scope.idSoc = net[0];
+    $scope.net = net[1];
+    var adr = $resource('/getUser'+$scope.net);
+    var que = new adr();
+    que.id = $scope.idSoc;
+    que.$save(function(data){
+        sessionStorage.userId = data.res[0]._id;
+    });
+    $window.location.href = '/';
+});*/
