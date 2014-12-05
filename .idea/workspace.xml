@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="36" selection-start="396" selection-end="396" vertical-scroll-proportion="0.14681892" vertical-offset="180" max-vertical-offset="14610">
+            <state line="18" column="36" selection-start="396" selection-end="396" vertical-scroll-proportion="-3.4615386" vertical-offset="180" max-vertical-offset="14610">
               <folding />
             </state>
           </provider>
@@ -77,10 +77,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="home.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="928" column="61" selection-start="40235" selection-end="40273" vertical-scroll-proportion="-9.02" vertical-offset="13469" max-vertical-offset="14760">
+            <state line="932" column="36" selection-start="40515" selection-end="40515" vertical-scroll-proportion="0.8675721" vertical-offset="13469" max-vertical-offset="14760">
               <folding />
             </state>
           </provider>
@@ -151,8 +151,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/public/parts/home.html" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
+        <option value="$PROJECT_DIR$/public/parts/home.html" />
       </list>
     </option>
   </component>
@@ -660,16 +660,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/home.html">
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="928" column="61" selection-start="40235" selection-end="40273" vertical-scroll-proportion="-9.02" vertical-offset="13469" max-vertical-offset="14760">
+        <state line="18" column="36" selection-start="396" selection-end="396" vertical-scroll-proportion="-3.4615386" vertical-offset="180" max-vertical-offset="14610">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+    <entry file="file://$PROJECT_DIR$/public/parts/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="36" selection-start="396" selection-end="396" vertical-scroll-proportion="0.14681892" vertical-offset="180" max-vertical-offset="14610">
+        <state line="932" column="36" selection-start="40515" selection-end="40515" vertical-scroll-proportion="0.8675721" vertical-offset="13469" max-vertical-offset="14760">
           <folding />
         </state>
       </provider>
