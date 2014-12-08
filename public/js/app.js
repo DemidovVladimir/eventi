@@ -8,27 +8,27 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
         // Register routes with the $routeProvider
         $routeProvider
             .when('/', {
-                templateUrl:"/parts/home.html",
+                templateUrl:"parts/home.html",
                 controller:'home'
             })
             .when('/registerUser',{
-                templateUrl:'/parts/registerUser.html',
+                templateUrl:'parts/registerUser.html',
                 controller:'registerUser'
             })
             .when('/maintainUser:user',{
-                templateUrl: '/parts/maintainUser.html',
+                templateUrl: 'parts/maintainUser.html',
                 controller:'maintainUser'
             })
             .when('/loggedUser:sn',{
-                templateUrl:'/parts/succes.html',
+                templateUrl:'parts/succes.html',
                 controller:'succes'
             })
             .when('/createEvent',{
-                templateUrl:'/parts/createEvent.html',
+                templateUrl:'parts/createEvent.html',
                 controller:'createEvent'
             })
             .when('/manageEvent',{
-                templateUrl:'/parts/manageEvent.html',
+                templateUrl:'parts/manageEvent.html',
                 controller:'manageEvent'
             })
             .otherwise({
