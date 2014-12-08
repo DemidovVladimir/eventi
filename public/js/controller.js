@@ -403,7 +403,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             querySchema.ava = $scope.ava;
             querySchema.$save(function(data){
                 sessionStorage.userId = data._id;
-                $window.location.href='/succes'+data._id+'-'+'local';
+                $window.location.href='/logged'+data._id+'-'+'local';
             });
         }
     }
