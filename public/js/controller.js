@@ -174,7 +174,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
     $scope.checkDateFormat = function(){
         $scope.dateRes = undefined;
-        if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.dateOfBirth)){
+        if($scope.dateOfBirth){
             $scope.dateRes = 'Hura';
         }else{
             $scope.dateRes = 'Fuck';
