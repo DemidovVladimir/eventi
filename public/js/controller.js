@@ -188,7 +188,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             $scope.dateError = true;
             $scope.dateOfBirthPlaceholder = 'Date of birth must be filled!';
         }else if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.dateOfBirth)){
-            $scope.dateOfBirth = '';
+            $scope.dateOfBirth = undefined;
             $scope.dateError = true;
             $scope.dateOfBirthPlaceholder = 'Wrong format of data! Format is 00/00/0000';
         }else{
