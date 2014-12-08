@@ -60,16 +60,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $location.hash('');
     }
     //necessary
-    $( "#datepicker1" ).datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'dd/mm/yy',
-        yearRange: "1920:2014",
-        onSelect:function(){
-            $scope.checkDateFormat();
-        }
-    });
-    /*$( "#datepicker2" ).datepicker({
+    $( "#datepicker" ).datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: 'dd/mm/yy',
@@ -77,7 +68,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         onClose:function(){
             $scope.checkDateFormat();
         }
-    });*/
+    });
 
     $scope.dateOfBirthPlaceholder = 'Enter date of birth format 00/00/0000 (day/month/year)';
     $scope.emailPlaceholder = 'Enter here your email address!';
@@ -180,26 +171,17 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $scope.secondNameInputError = false;
     }
 
-
-    $scope.startDate = true;
+    $scope.dateRes = undefined;
     $scope.checkDateFormat = function(){
-        $scope.startDate = false;
-        if($scope.dateOfBirth===undefined || $scope.dateOfBirth==null){
-            $scope.dateError = true;
-            $scope.dateOfBirthPlaceholder = 'Date of birth must be filled!';
-        }else if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.dateOfBirth)){
-            $scope.dateOfBirth = undefined;
-            $scope.dateError = true;
-            $scope.dateOfBirthPlaceholder = 'Wrong format of data! Format is 00/00/0000';
+        if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.dateOfBirth)){
+            $scope.dateRes = 'Hura';
         }else{
-            $scope.dateError = false;
+            $scope.dateRes = 'Fuck';
         }
     }
 
     $scope.refreshDateOfBirth = function(){
-        $scope.startDate = false;
-        $scope.dateOfBirth = undefined;
-        $scope.dateError = false;
+        $scope.dateRes = 'Refreshed'
     }
 
     $scope.checkEmailFormat = function(){

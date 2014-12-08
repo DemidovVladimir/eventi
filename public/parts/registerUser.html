@@ -162,14 +162,15 @@
 
 
     <div ng-show="!dateError" class="form-group">
-        <label for="datepicker1">Date Of Birth</label>
-        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
+        <label for="datepicker">Date Of Birth</label>
+        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
     </div>
     <div ng-show="dateError" class="form-group has-error">
-        <label for="datepicker1">Date Of Birth</label>
-        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
+        <label for="datepicker">Date Of Birth</label>
+        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
     </div>
-    <div ng-show="!dateOfBirth && !startDate" class="alert alert-danger" role="alert">When do you celebrate your birthday party?</div>
+
+    <div ng-show="!dateOfBirth && !startDate" class="alert alert-danger" role="alert">{{dateRes}}</div>
 
 
 
