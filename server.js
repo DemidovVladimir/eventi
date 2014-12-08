@@ -186,7 +186,7 @@ app.get('/auth/facebook',
 );
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/success/facebook',
-        failureRedirect: '/' }));
+        failureRedirect: '/loginUser' }));
 
 
 
@@ -198,7 +198,7 @@ app.get('/auth/vkontakte',
 );
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
-        failureRedirect: '/' }));
+        failureRedirect: '/loginUser' }));
 
 
 
@@ -210,7 +210,7 @@ app.get('/auth/google',
     ));
 app.get( '/auth/google/callback',
     passport.authenticate( 'google', { successRedirect: '/success/google',
-        failureRedirect: '/' }));
+        failureRedirect: '/loginUser' }));
 
 
 
@@ -218,7 +218,7 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
-    res.redirect('/logged'+req._passport.session.user+'-'+sn);
+    res.redirect('/succes'+req._passport.session.user+'-'+sn);
 });
 
 
