@@ -195,7 +195,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
     $scope.refreshDateOfBirth = function(){
         $scope.dateOfBirth = undefined;
-        $scope.dateError = false;
+        $scope.dateError = true;
     }
 
     $scope.checkEmailFormat = function(){
