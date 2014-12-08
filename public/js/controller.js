@@ -180,7 +180,10 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $scope.secondNameInputError = false;
     }
 
+
+    $scope.startDate = true;
     $scope.checkDateFormat = function(){
+        $scope.startDate = false;
         if($scope.dateOfBirth===undefined || $scope.dateOfBirth==''){
             $scope.dateError = true;
             $scope.dateOfBirthPlaceholder = 'Date of birth must be filled!';
@@ -194,6 +197,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     }
 
     $scope.refreshDateOfBirth = function(){
+        $scope.startDate = false;
         $scope.dateOfBirth = undefined;
         $scope.dateError = false;
     }
