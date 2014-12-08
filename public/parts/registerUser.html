@@ -163,11 +163,11 @@
 
     <div ng-show="!dateError" class="form-group">
         <label for="datepicker">Date Of Birth</label>
-        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
+        <input type="text" class="form-control" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
     </div>
     <div ng-show="dateError" class="form-group has-error">
         <label for="datepicker">Date Of Birth</label>
-        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
+        <input type="text" class="form-control" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
     </div>
 
     <div class="alert alert-danger" role="alert">{{dateRes}}</div>

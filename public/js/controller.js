@@ -180,10 +180,6 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         }
     }
 
-    $scope.refreshDateOfBirth = function(){
-        $scope.dateRes = 'Refreshed'
-    }
-
     $scope.checkEmailFormat = function(){
         if($scope.email===undefined || $scope.email==''){
             $scope.emailError = true;
