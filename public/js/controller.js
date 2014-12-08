@@ -88,6 +88,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     $scope.advance = 'false';
 
     $scope.checkTotal = function(){
+        $scope.checkDateFormat();
         $scope.checkLanguagesInput();
         $scope.checkPlaceOfBirthInput();
         $scope.checkNameInput();
