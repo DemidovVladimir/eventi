@@ -39,7 +39,7 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
             query.$save(function(data){
                 if(data._id){
                     sessionStorage.userId = data._id;
-                    $window.location.href='/succes'+data._id+'-local';
+                    $window.location.href='/loggedUser'+data._id+'-local';
                 }else{
                     $window.location.href = '/';
                 }
@@ -403,7 +403,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             querySchema.ava = $scope.ava;
             querySchema.$save(function(data){
                 sessionStorage.userId = data._id;
-                $window.location.href='/succes'+data._id+'-'+'local';
+                $window.location.href='/loggedUser'+data._id+'-'+'local';
             });
         }
     }
@@ -953,7 +953,7 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
 
 
 
-app.controller('succes',function($scope,$routeParams,$resource,$window){
+app.controller('loggedUser',function($scope,$routeParams,$resource,$window){
     var net = $routeParams.sn;
     net = net.split('-');
     $scope.idSoc = net[0];
