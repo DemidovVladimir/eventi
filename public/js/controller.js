@@ -94,6 +94,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $scope.checkSecondNameInput();
         $scope.checkEmailFormat();
         $scope.checkPwd();
+        $scope.checkGender();
     }
 
     $scope.checkGender = function(){
