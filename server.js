@@ -199,6 +199,10 @@ app.get('/auth/vkontakte',
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
         failureRedirect: '/loginUser' }));
+
+
+
+
 //Google
 app.get('/auth/google',
     passport.authenticate('google', { scope:
@@ -207,6 +211,8 @@ app.get('/auth/google',
 app.get( '/auth/google/callback',
     passport.authenticate( 'google', { successRedirect: '/success/google',
         failureRedirect: '/loginUser' }));
+
+
 
 
 
