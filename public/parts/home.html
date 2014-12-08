@@ -6,9 +6,7 @@
 
 <a ng-href="/auth/facebook" ng-click="authFace('/auth/vkontakte')">Login with vKontakte</a>-->
 <!-- begin:navbar -->
-
-
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -47,29 +45,18 @@
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </li>
-                <li><a href="#modal-signin" class="signin" data-toggle="modal" data-target="#modal-signin">Sign in</a></li>
-                <li><a href="#" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>
+                <li ng-show="!idSoc">
+                    <button type="button" class="signin btn btn-warning" data-toggle="modal" data-target="#modal-signin">Sign in</button>
+                </li>
+                <li ng-show="idSoc">
+                    <button type="button" class="signin btn btn-warning" data-toggle="modal" data-target="#modal-signout">Sign out</button>
+                </li>
+                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
 </nav>
 <!-- end:navbar -->
-
-<!-- begin:header -->
-<!--<div id="header" class="header-slide">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="quick-search">
-                    <div class="row">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
-<!-- end:header -->
 
 <div id="carousel_1" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -210,17 +197,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+{{data}}
 
 
 
@@ -229,7 +206,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Best Real Estate Deals <small>You need to do is very simple just join us</small></h2>
+                <h2>Event Emitter <small>First ever party manager!</small></h2>
             </div>
         </div>
         <div class="row">
@@ -288,6 +265,8 @@
     </div>
 </div>
 <!-- end:service -->
+
+
 
 <!-- begin:content -->
 <div id="content">
@@ -551,7 +530,7 @@
 <!-- end:content -->
 
 <!-- begin:testimony -->
-<div id="testimony" style="background-image: url(img/img17.jpg);">
+<div id="testimony" style="background-image: url(img/bg04.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -559,7 +538,7 @@
                     <div class="carousel-inner">
                         <div class="item active">
                             <div class="testimony-container">
-                                <div class="testimony-image" style="background: url(img/team01.jpg)"></div>
+                                <div class="testimony-image" style="background: url(img/bg01.jpg)"></div>
                                 <div class="testimony-content">
                                     <h3>Jane Doe</h3>
                                     <blockquote>
@@ -570,7 +549,7 @@
                         </div>
                         <div class="item">
                             <div class="testimony-container">
-                                <div class="testimony-image" style="background: url(img/team02.jpg)"></div>
+                                <div class="testimony-image" style="background: url(img/bg02.jpg)"></div>
                                 <div class="testimony-content">
                                     <h3>Cen Lung</h3>
                                     <blockquote>
@@ -582,7 +561,7 @@
                         </div>
                         <div class="item">
                             <div class="testimony-container">
-                                <div class="testimony-image" style="background: url(img/team03.jpg)"></div>
+                                <div class="testimony-image" style="background: url(img/bg03.jpg)"></div>
                                 <div class="testimony-content">
                                     <h3>Julia</h3>
                                     <blockquote>
@@ -830,41 +809,6 @@
 </div>
 <!-- end:subscribe -->
 
-<!-- begin:partner -->
-<div id="partner">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading-title bg-white">
-                    <h2>Our Partnership</h2>
-                </div>
-            </div>
-        </div>
-        <!-- break -->
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="jcarousel-wrapper">
-                    <div class="jcarousel">
-                        <ul>
-                            <li><a href="#"><img src="img/img01.jpg" alt="partner of arillo responsive real estate theme"></a></li>
-                            <li><a href="#"><img src="img/img02.jpg" alt="partner of arillo responsive real estate theme"></a></li>
-                            <li><a href="#"><img src="img/img03.jpg" alt="partner of arillo responsive real estate theme"></a></li>
-                            <li><a href="#"><img src="img/img04.jpg" alt="partner of arillo responsive real estate theme"></a></li>
-                            <li><a href="#"><img src="img/img05.jpg" alt="partner of arillo responsive real estate theme"></a></li>
-                            <li><a href="#"><img src="img/img06.jpg" alt="partner of arillo responsive real estate theme"></a></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="jcarousel-control-prev"><i class="fa fa-angle-left"></i></a>
-                    <a href="#" class="jcarousel-control-next"><i class="fa fa-angle-right"></i></a>
-                    <!-- <p class="jcarousel-pagination"></p> -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end:partner -->
-
 <!-- begin:footer -->
 <div id="footer">
     <div class="container">
@@ -924,12 +868,26 @@
         </div>
         <!-- break -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- begin:copyright -->
         <div class="row">
             <div class="col-md-12 copyright">
                 <p>Copyright &copy; 2014 Company, Inc. All Right Reserved.</p>
                 <p>Theme : Arillo 1.0 Designed by <strong>avriqqlabs.</strong></p>
-                <a href="#top" class="btn btn-warning scroltop"><i class="fa fa-angle-up"></i></a>
+                <a  ng-click="scrollTo('top')" class="btn btn-warning scroltop"><i class="fa fa-angle-up"></i></a>
                 <ul class="list-inline social-links">
                     <li><a href="#" class="icon-twitter" rel="tooltip" title="" data-placement="bottom" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#" class="icon-facebook" rel="tooltip" title="" data-placement="bottom" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -952,25 +910,33 @@
                 <h4 class="modal-title">Sign in</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="emailAddress">Email address</label>
-                        <input type="email" class="form-control input-lg" placeholder="Enter email">
+                <div class="jumbotron">
+                    <h1>Log in</h1>
+                    <form role="form" ng-submit="login()">
+                        <div class="form-group">
+                            <label for="inputEmail">Your email</label>
+                            <input type="text"  class="form-control" id="inputEmail" ng-model="email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Your password</label>
+                            <input type="password"  class="form-control" id="inputEmail" ng-model="pwd"/>
+                        </div>
+                        <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign in" ng-click="login()">
+                    </form>
+                    <div class="socialLog">
+                        <h4>Sign in with social</h4>
+                        <p>
+                            <span><a ng-click="authFace('/auth/facebook')"><i class="fa fa-facebook"></i></a></span>
+                            &nbsp;
+                            <span><a ng-click="authFace('/auth/google')"><i class="fa fa-google-plus"></i></a></span>
+                            &nbsp;
+                            <span><a ng-click="authFace('/auth/vkontakte')"><i class="fa fa-vk"></i></a></span>
+                        </p>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control input-lg" placeholder="Password">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="forget"> Keep me logged in
-                        </label>
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <p>Don't have account ? <a href="#modal-signup"  data-toggle="modal" data-target="#modal-signup">Sign up here.</a></p>
-                <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign in">
+                <p>Don't have account ? <a ng-click="registerUser()">Sign up here.</a></p>
             </div>
         </div>
     </div>
@@ -978,7 +944,7 @@
 <!-- end:modal-signin -->
 
 <!-- begin:modal-signup -->
-<div class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="modal-signup" aria-hidden="true">
+<!--<div class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="modal-signup" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -1009,5 +975,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- end:modal-signup -->

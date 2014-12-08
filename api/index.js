@@ -69,6 +69,7 @@ exports.saveUserData = function(req,res,next){
 exports.getUserInfo = function(req,res,next){
     db.userDBModel.find({_id:req.body.userId},function(err,data){
         if(err) return next(err);
+        console.log(data[0]);
         res.send(200,data[0]);
     });
 }
@@ -798,12 +799,51 @@ exports.pasteUserVkontakte = function(profile){
     })
 }
 
+exports.pasteUserGoogle = function(profile){
+    db.userDBModel.update({googleId:profile._json.id},{name:profile._json.name.givenName,second_name:profile._json.name.familyName,gender:profile._json.gender,google:profile._json.url},{upsert:true},function(err){
+        if(err) console.log(err);
+    })
+}
+
 exports.getUserWithFacebook = function(req,res,next){
     var facebookId = req.body.id;
-    db.userDBModel.find({facebook:facebookId},function(err,data){
+    db.userDBModel.find({facebookId:facebookId},function(err,data){
         if(err) return next(err);
         var obj = {};
         obj.res = data;
         res.send(200,obj);
     });
+}
+exports.getUserWithVk = function(req,res,next){
+    var vkId = req.body.id;
+    db.userDBModel.find({vkId:vkId},function(err,data){
+        if(err) return next(err);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
+    });
+}
+exports.getUserWithGoogle = function(req,res,next){
+    var googleId = req.body.id;
+    db.userDBModel.find({googleId:googleId},function(err,data){
+        if(err) return next(err);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
+    });
+}
+exports.getUserWithLocal = function(req,res,next){
+    var localId = req.body.id;
+    db.userDBModel.find({_id:localId},function(err,data){
+        if(err) return next(err);
+        var obj = {};
+        obj.res = data;
+        res.send(200,obj);
+    });
+}
+exports.loginLocal = function(req,res,next){
+    db.userDBModel.find({email:req.body.email,password:req.body.pwd},function(err,data){
+        if(err) return next(err);
+        res.send(200,data[0]);
+    })
 }
