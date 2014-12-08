@@ -113,9 +113,10 @@
 
     <label for="gender">Gender</label>
     <div class="form-group text-center">
-        <input type="radio" ng-model="gender" name="gender" id="gender" value="male">Male
-        <input type="radio" ng-model="gender" name="gender" id="gender" value="female">Female
+        <input type="radio" ng-model="gender" name="gender" id="gender" value="male">Mr
+        <input type="radio" ng-model="gender" name="gender" id="gender" value="female">Ms
     </div>
+    <div ng-show="genderError" class="alert alert-danger" role="alert">{{genderPlaceholder}}</div>
 
 
 

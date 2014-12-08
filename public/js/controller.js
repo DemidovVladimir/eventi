@@ -96,6 +96,13 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $scope.checkPwd();
     }
 
+    $scope.checkGender = function(){
+        if(!$scope.gender){
+            $scope.genderPlaceholder = 'Please check your gender! It is necessary!';
+            $scope.genderError = true;
+        }
+    }
+
     $scope.checkLanguagesInput = function(){
         if($scope.selectedLanguages.length==0){
             $scope.selectedLanguagesError = true;
