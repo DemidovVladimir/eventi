@@ -19,13 +19,9 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
                 templateUrl: 'parts/maintainUser.html',
                 controller:'maintainUser'
             })
-            .when('/loginUser',{
-                templateUrl:'parts/login.html',
-                controller:'loginUser'
-            })
-            .when('/succes:sn',{
-                templateUrl:'parts/succes.html',
-                controller:'succes'
+            .when('/logged:sn',{
+                templateUrl:'parts/logged.html',
+                controller:'logged'
             })
             .when('/createEvent',{
                 templateUrl:'parts/createEvent.html',

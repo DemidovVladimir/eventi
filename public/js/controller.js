@@ -39,7 +39,7 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
             query.$save(function(data){
                 if(data._id){
                     sessionStorage.userId = data._id;
-                    $window.location.href='/succes'+data._id+'-local';
+                    $window.location.href='/logged'+data._id+'-local';
                 }else{
                     $window.location.href = '/';
                 }
@@ -953,7 +953,7 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
 
 
 
-app.controller('succes',function($scope,$routeParams,$resource,$window){
+app.controller('logged',function($scope,$routeParams,$resource,$window){
     var net = $routeParams.sn;
     net = net.split('-');
     $scope.idSoc = net[0];
