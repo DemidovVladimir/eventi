@@ -171,8 +171,9 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $scope.secondNameInputError = false;
     }
 
-    $scope.dateRes = undefined;
+
     $scope.checkDateFormat = function(){
+        $scope.dateRes = undefined;
         if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.dateOfBirth)){
             $scope.dateRes = 'Hura';
         }else{
