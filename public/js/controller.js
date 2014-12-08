@@ -65,7 +65,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         changeYear: true,
         dateFormat: 'dd/mm/yy',
         yearRange: "1920:2014",
-        onClose:function(){
+        onSelect:function(){
             $scope.checkDateFormat();
         }
     });
@@ -184,7 +184,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     $scope.startDate = true;
     $scope.checkDateFormat = function(){
         $scope.startDate = false;
-        if($scope.dateOfBirth===undefined || $scope.dateOfBirth==''){
+        if($scope.dateOfBirth===undefined || $scope.dateOfBirth==null){
             $scope.dateError = true;
             $scope.dateOfBirthPlaceholder = 'Date of birth must be filled!';
         }else if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.dateOfBirth)){
