@@ -69,7 +69,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             $scope.checkDateFormat();
         }
     });
-    $( "#datepicker2" ).datepicker({
+    /*$( "#datepicker2" ).datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: 'dd/mm/yy',
@@ -77,7 +77,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         onClose:function(){
             $scope.checkDateFormat();
         }
-    });
+    });*/
 
     $scope.dateOfBirthPlaceholder = 'Enter date of birth format 00/00/0000 (day/month/year)';
     $scope.emailPlaceholder = 'Enter here your email address!';

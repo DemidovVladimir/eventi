@@ -163,11 +163,11 @@
 
     <div ng-show="!dateError" class="form-group">
         <label for="datepicker1">Date Of Birth</label>
-        <input type="text" class="form-control" ng-blur="checkDateFormat()" ng-focus="refreshDateOfBirth()" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
+        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
     </div>
     <div ng-show="dateError" class="form-group has-error">
-        <label for="datepicker2">Date Of Birth</label>
-        <input type="text" class="form-control" ng-blur="checkDateFormat()" ng-focus="refreshDateOfBirth()" id="datepicker2" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
+        <label for="datepicker1">Date Of Birth</label>
+        <input type="text" class="form-control" ng-focus="refreshDateOfBirth()" id="datepicker1" placeholder="{{dateOfBirthPlaceholder}}" ng-model="dateOfBirth">
         <div ng-show="!dateOfBirth" class="alert alert-danger" role="alert">When do you celebrate your birthday party?</div>
     </div>
 
