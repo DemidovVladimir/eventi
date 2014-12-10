@@ -14,10 +14,10 @@ app.controller('total',function($scope,$resource,$window){
 
 
 
-app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll,$localStorage,$sessionStorage){
-    $scope.$storage = $sessionStorage;
-    if($scope.$storage.userId){
-        $window.location.href = "/loggedUser"+$scope.$storage.userId+'-local';
+app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll){
+    $scope.storage = $window.sessionStorage.getItem('userId');
+    if($scope.storage){
+        $window.location.href = "/loggedUser"+$scope.storage+'-local';
     }else{
         $scope.authFace = function(url){
             $window.location.href = url;
@@ -42,8 +42,9 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
                 query.pwd = $scope.pwd;
                 query.$save(function(data){
                     if(data._id){
-                        sessionStorage.userId = data._id;
-                        $window.location.href='/loggedUser'+data._id+'-local';
+                        $window.sessionStorage.setItem('userId', JSON.stringify(data._id))
+                        //$scope.$storage.userId = data._id;
+                        $window.location.href = '/loggedUser'+data._id+'-local';
                     }else{
                         $window.location.href = '/';
                     }
@@ -275,11 +276,17 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             querySchema.twitterLink = $scope.twitterLink;
             querySchema.ava = $scope.ava;
             querySchema.$save(function(data){
-                sessionStorage.userId = data._id;
+                $window.sessionStorage.setItem('userId', JSON.stringify(data._id));
                 $window.location.href='/loggedUser'+data._id+'-'+'local';
             });
     }
 });
+
+
+
+
+
+
 
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route){
@@ -812,35 +819,39 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
 
 
 app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$localStorage,$sessionStorage,$q,$timeout){
-    $scope.$storage = $sessionStorage;
-    var net = $routeParams.sn;
-    net = net.split('-');
-    $scope.idSoc = net[0];
-    $scope.net = net[1];
-    var adr = $resource('/getUser'+$scope.net);
-    var que = new adr();
-    que.id = $scope.idSoc;
-    que.$save(function(data){
-        $scope.data = data;
-        $scope.$storage.userId = data.res[0]._id;
-    });
-
-    $scope.test = $sessionStorage.userId;
-
-$scope.signOut = function(){
 
 
+        var net = $routeParams.sn;
+        net = net.split('-');
+        $scope.idSoc = net[0];
+        $scope.net = net[1];
+        var adr = $resource('/getUser'+$scope.net);
+        var que = new adr();
+        que.id = $scope.idSoc;
+        que.$save(function(data){
+            $scope.data = data;
+            $window.sessionStorage.setItem('userId',JSON.stringify(data.res[0]._id));
+        });
 
-    var session = $timeout(function(){
-        $sessionStorage.$reset();
-        return 'first';
-    });
-    var reload = $timeout(function(){
-        $window.location.href = '/';
-        return 'second';
-    },100);
-    $q.all([session.promise, reload.promise]).then(function(values){
+        $scope.test = $window.sessionStorage.getItem('userId');
 
-    });
-}
+        $scope.signOut = function(){
+
+            $window.sessionStorage.clear('userId')
+            $window.location.href = '/';
+
+            /*var session = $timeout(function(){
+             $sessionStorage.$reset();
+             return 'first';
+             });
+             var reload = $timeout(function(){
+             $window.location.href = '/';
+             return 'second';
+             },100);
+             $q.all([session.promise, reload.promise]).then(function(values){
+
+             });*/
+        }
+
+
 });
