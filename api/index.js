@@ -23,11 +23,7 @@ exports.setAvaToUser = function(req,res,next){
 
 exports.saveUserData = function(req,res,next){
     var dateIncome = req.body.dateOfBirth;
-    dateIncome = dateIncome.split('/');
-    var day = dateIncome[0];
-    var month = dateIncome[1]-1;
-    var year = dateIncome[2];
-    var dateOfBirdth = new Date(year, month, day);
+    var dateOfBirdth = new Date(dateIncome);
     db.userDBModel.create({
         name:req.body.name,
         password:req.body.passwordR,
@@ -51,16 +47,20 @@ exports.saveUserData = function(req,res,next){
     },function(err,info){
         if(err) return next(err);
         fs.mkdir('public/uploaded/'+info._id, function(){
-            fs.createReadStream('public/uploaded/'+req.body.ava)
-                .pipe(fs.createWriteStream('public/uploaded/'+info._id+'/'+req.body.ava));
-            gm('public/uploaded/'+info._id+'/'+req.body.ava)
-                .resize(300)
-                .write('public/uploaded/'+info._id+'/mini_'+req.body.ava, function (err) {
-                    fs.unlink('public/uploaded/'+req.body.ava,function(err){
-                        if(err) return next(err);
-                        res.send(200,info);
-                    })
-                });
+            if(req.body.ava){
+                fs.createReadStream('public/uploaded/'+req.body.ava)
+                    .pipe(fs.createWriteStream('public/uploaded/'+info._id+'/'+req.body.ava));
+                gm('public/uploaded/'+info._id+'/'+req.body.ava)
+                    .resize(300)
+                    .write('public/uploaded/'+info._id+'/mini_'+req.body.ava, function (err) {
+                        fs.unlink('public/uploaded/'+req.body.ava,function(err){
+                            if(err) return next(err);
+                            res.send(200,info);
+                        })
+                    });
+            }else{
+                res.send(200,info);
+            }
         });
     })
 }

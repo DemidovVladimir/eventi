@@ -98,127 +98,112 @@
 </div>
 <!-- end:testimony -->
 <!-- end:header -->
-<form role="form" ng-submit="submit()">
-    <div ng-show="!nameInputError" class="form-group">
-        <label for="exampleInputName">First name</label>
-        <input ng-blur="checkNameInput()" ng-focus="refreshFirstName()" type="text" class="form-control" id="exampleInputName" placeholder="{{namePlaceholder}}" ng-model="name">
-    </div>
-    <div ng-show="nameInputError" class="form-group has-error">
-        <label for="exampleInputName">First name</label>
-        <input ng-blur="checkNameInput()" ng-focus="refreshFirstName()" type="text" class="form-control" id="exampleInputName" placeholder="{{namePlaceholder}}" ng-model="name">
-    </div>
-    <div ng-show="nameInputError" class="alert alert-danger" role="alert">Let us know your name please!</div>
-
-
-
-    <label for="gender">Gender</label>
-    <div class="form-group text-center">
-        <input type="radio" ng-model="gender" name="gender" id="gender" value="male">Mr
-        <input type="radio" ng-model="gender" name="gender" id="gender" value="female">Ms
-    </div>
-    <div ng-show="genderError" class="alert alert-danger" role="alert">{{genderPlaceholder}}</div>
-
-
-
-
-
-
-    <!--Out of error-->
-    <div ng-show="!pwdError" class="form-group">
-        <label for="password">Password</label>
-        <input type="password" ng-focus="focusPassword()" ng-blur="blurPassword()" class="form-control" id="password" ng-model="password">
-    </div>
-    <div ng-show="!pwdError && password" class="form-group">
-        <label for="passwordR">Confirm your password</label>
-        <input type="password" ng-focus="focusPassword()" ng-blur="confirmPassword()" class="form-control" id="passwordR" ng-model="passwordR">
-    </div>
-    <div ng-show="!pwdError && passwordR" class="alert alert-success"><h4>{{resPwd}}</h4></div>
-    <!--With error-->
-    <div ng-show="pwdError" class="form-group has-error">
-        <label for="password">Password</label>
-        <input type="password" ng-focus="focusPassword()" ng-blur="blurPassword()" class="form-control" id="password" ng-model="password">
-    </div>
-    <div ng-show="pwdError && password" class="form-group has-error">
-        <label for="passwordR">Confirm your password</label>
-        <input type="password" ng-focus="focusPassword()" ng-blur="confirmPassword()" class="form-control" id="passwordR" ng-model="passwordR">
-    </div>
-    <div ng-show="pwdError" class="alert alert-danger"><h4>{{resPwd}}</h4></div>
-    <!--<div ng-show="resultPasswordConfirm && password!=passwordR" class="alert alert-danger text-center" role="alert"><h3>{{resultPasswordConfirm}}</h3></div>
-    <div ng-show="resultPasswordConfirm && password==passwordR" class="alert alert-success text-center" role="alert"><h3>{{resultPasswordConfirm}}</h3></div>
--->
-
-
-
-    <div ng-show="!secondNameInputError" class="form-group">
-        <label for="exampleInputSecondName">Last Name</label>
-        <input ng-blur="checkSecondNameInput()" ng-focus="refreshLastName()" type="text" class="form-control" id="exampleInputSecondName" placeholder="{{secondNamePlaceholder}}" ng-model="secondName">
-    </div>
-    <div ng-show="secondNameInputError" class="form-group has-error">
-        <label for="exampleInputSecondName">Last Name</label>
-        <input ng-blur="checkSecondNameInput()" ng-focus="refreshLastName()" type="text" class="form-control" id="exampleInputSecondName" placeholder="{{secondNamePlaceholder}}" ng-model="secondName">
-        <div ng-show="!secondName" class="alert alert-danger" role="alert">What is your family name?</div>
-    </div>
-
-
-
-    <div ng-show="!dateError" class="form-group">
-        <label for="datepicker">Date Of Birth</label>
-        <input type="text" class="form-control" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
-    </div>
-    <div ng-show="dateError" class="form-group has-error">
-        <label for="datepicker">Date Of Birth</label>
-        <input type="text" class="form-control" id="datepicker" placeholder="Format is 00/00/0000" ng-model="dateOfBirth">
-    </div>
-
-    <div class="alert alert-danger" role="alert">{{dateRes}}</div>
-
-
-
-
-
-
-
-
-    <div ng-show="!placeOfBirthInputError" class="form-group">
-        <label for="exampleInputPlaceOfBirth">Place Of Birth</label>
-        <input type="text" ng-blur="checkPlaceOfBirthInput()" ng-focus="refreshPlaceOfBirth()" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="{{placeOfBirthPlaceholder}}" ng-model="placeOfBirth">
-    </div>
-    <div ng-show="placeOfBirthInputError" class="form-group has-error">
-        <label for="exampleInputPlaceOfBirth">Place Of Birth</label>
-        <input type="text" ng-blur="checkPlaceOfBirthInput()" ng-focus="refreshPlaceOfBirth()" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="{{placeOfBirthPlaceholder}}" ng-model="placeOfBirth">
-        <div ng-show="!placeOfBirth" class="alert alert-danger" role="alert">Where were you born?</div>
+<form role="form" name="registerForm" ng-submit="submit()">
+    <div ng-class="{'has-error':!name}" class="form-group">
+        <label class="control-label" for="exampleInputName">First name</label>
+        <input type="text" name="firstName" class="form-control" id="exampleInputName" placeholder="Required!" ng-model="name" required>
+        <span class="control-label" ng-show="registerForm.firstName.$error.required">
+        Required!</span><br>
     </div>
 
 
 
 
-    <div ng-show="!selectedLanguagesError" class="form-group">
-        <label for="exampleInputLanguages">Languages you speak</label>
+
+    <div ng-class="{'has-error':!gender}" class="form-group text-center">
+        <label class="control-label" for="gender">Gender</label>
+        <input name="gender" type="radio" ng-model="gender" name="gender" id="gender" value="male" required>Mr
+        <input name="gender" type="radio" ng-model="gender" name="gender" id="gender" value="female" required>Ms
+        <br><span class="control-label" ng-show="registerForm.gender.$error.required">
+        Required!</span>
+    </div>
+
+
+
+
+
+
+    <div ng-class="{'has-error':!password}" class="form-group">
+        <label class="control-label" for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password" ng-model="password" required>
+        <br><span class="control-label" ng-show="registerForm.password.$error.required">
+        Required!</span>
+    </div>
+
+
+
+    <div ng-show="password" ng-class="{'has-error':passwordR!=password}" class="form-group">
+        <label class="control-label" for="passwordR">Confirm your password</label>
+        <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" required ng-pattern="password">
+        <br><span class="control-label" ng-show="registerForm.passwordR.$error.pattern">
+        Password not confirmed, please try again!</span>
+    </div>
+
+
+
+
+
+    <div ng-class="{'has-error':!secondName}" class="form-group">
+        <label class="control-label" for="exampleInputSecondName">Family Name</label>
+        <input name="secondName" type="text" class="form-control" id="exampleInputSecondName" placeholder="Required!" ng-model="secondName" required>
+        <br><span class="control-label" ng-show="registerForm.secondName.$error.required">
+        Required!</span>
+    </div>
+
+
+
+
+    <div class="form-group" ng-class="{'has-error': registerForm.date.$invalid}">
+        <label class="control-label"><i class="fa fa-calendar"></i>Date of Birth for congrats, etc...</label>
+        <input type="text" class="form-control" ng-model="dateOfBirth" data-date-format="yyyy-MM-dd" data-min-date="01/01/60" data-max-date="today" data-autoclose="1" name="date" placeholder="Required!" bs-datepicker required>
+        <br><span class="control-label" ng-show="registerForm.date.$error.required">
+        Required!</span>
+        <span class="control-label" ng-show="registerForm.date.$invalid && !registerForm.date.$error.required">
+        Invalid date format, select from dropdown list!</span>
+    </div>
+
+
+
+
+    <div ng-class="{'has-error':!placeOfBirth}" class="form-group">
+        <label class="control-label" for="exampleInputPlaceOfBirth">Place Of Birth</label>
+        <input name="placeOfBirth" type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="Required!" ng-model="placeOfBirth" required>
+        <br><span class="control-label" ng-show="registerForm.placeOfBirth.$error.required">
+        Required!</span>
+    </div>
+
+
+
+
+
+    <div ng-class="{'has-error':selectedLanguages.length==0}" class="form-group">
+        <label class="control-label" for="exampleInputLanguages">Languages you speak</label>
         <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
-        <input type="text" ng-blur="checkLanguagesInput()" auto-complete items="languages" placeholder="{{languagesPlaceholder}}" ng-model="selectedLanguage">
-        <h4>Selected languages:</h4>
+        <input type="text" auto-complete items="languages" placeholder="Select from drop down list." ng-model="selectedLanguage">
+        <h4 class="control-label">Selected languages:</h4>
         <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}<a type="button" ng-click="deleteLanguage(lang)"><span class="glyphicon glyphicon-minus"></span></a>, </span></h4>
-    </div>
-    <div ng-show="selectedLanguagesError" class="form-group">
-        <label for="exampleInputLanguages">Languages you speak</label>
-        <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
-        <input type="text" ng-blur="checkLanguagesInput()" auto-complete items="languages" placeholder="{{languagesPlaceholder}}" ng-model="selectedLanguage">
-        <div class="alert alert-danger" role="alert">Do you speak any language from our list?</div>
-        <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}, </span></h4>
+        <span class="control-label" ng-show="selectedLanguages.length==0">
+        Required!</span>
     </div>
 
 
 
 
-    <div ng-show="!emailError" class="form-group">
-        <label for="exampleInputEmail">Email</label>
-        <input ng-blur="checkEmailFormat()" ng-focus="refreshEmail()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
+
+    <div ng-class="{'has-error':!email}" class="form-group">
+        <label class="control-label" for="exampleInputEmail">Email</label>
+        <input ng-focus="refreshEmail()" ng-blur="checkEmailFormat()" type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="Required!" ng-model="email" required>
+        <span class="control-label" ng-show="registerForm.email.$invalid && registerForm.email.$error.required && !emailError">
+        Please enter proper email address!</span>
+        <span class="control-label" ng-show="emailError">
+        {{emailPlaceholder}}</span>
     </div>
-    <div ng-show="emailError" class="form-group has-error">
-        <label for="exampleInputEmail">Email</label>
-        <input ng-blur="checkEmailFormat()" ng-focus="refreshEmail()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
-        <div ng-show="!email" class="alert alert-danger" role="alert">Your email is unique info about you?</div>
-    </div>
+
+
+
+
+    <h3 class="text-center">Other info is not necessary!</h3>
+
 
 
 
@@ -230,17 +215,6 @@
 
 
 
-
-
-
-    <hr>
-    <h3 class="text-center">Other info is not necessary!</h3>
-    <div class="form-group text-center">
-        <label class="radio-inline" for="advance">Create advanced info!</label>
-        <input type="radio" ng-model="advance" name="advance" id="advance" value="true">Create!
-        <input type="radio" ng-model="advance" name="advance" id="advance" value="false">Later!
-    </div>
-    <hr>
     <div class="form-group">
         <label for="inputAva">Picture representing you! (png, jpeg, bmp, gif file format only)</label>
         <input type="file" ng-file-select="onFileSelect($files)" class="form-control" id="inputAva"/>
@@ -265,46 +239,31 @@
             <button ng-click="deleteAva(ava)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>
         </div>
     </div>
-    <div ng-show="advance!='false'">
-        <div class="form-group">
-            <label for="exampleInputPhone">Your phone</label>
-            <input type="text" class="form-control" id="exampleInputPhone" placeholder="It is not necessary!" ng-model="phone">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputSkype">Your skype Id</label>
-            <input type="text" class="form-control" id="exampleInputSkype" placeholder="It is not necessary!" ng-model="skype">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputFacebookLink">Your facebook Link</label>
-            <input type="text" class="form-control" id="exampleInputFacebookLink" placeholder="Not necessary" ng-model="facebookLink">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputVKLink">Your vkontakte Link</label>
-            <input type="text" class="form-control" id="exampleInputVKLink" placeholder="Not necessary" ng-model="vkLink">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputTwitterLink">Your twitter Link</label>
-            <input type="text" class="form-control" id="exampleInputTwitterLink" placeholder="Not necessary" ng-model="twitterLink">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputFacebookId">Your facebook Id</label>
-            <input type="text" class="form-control" id="exampleInputFacebookId" placeholder="Not necessary" ng-model="facebookId">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputVKId">Your vkontakte Id</label>
-            <input type="text" class="form-control" id="exampleInputVKId" placeholder="Not necessary" ng-model="vkId">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputTwitterId">Your twitter Id</label>
-            <input type="text" class="form-control" id="exampleInputTwitterId" placeholder="Not necessary" ng-model="twitterId">
-        </div>
-    </div>
-    <div class="text-center">
-        <h4 ng-show="!name || !passwordR || !secondName || !dateOfBirth || !placeOfBirth || !selectedLanguages.length!=0 || !email" class="alert alert-info">You have to provide all the necessary information!</h4>
-        <button ng-show="nameInputError || secondNameInputError || dateError || placeOfBirthInputError || selectedLanguagesError || emailError || pwdError" class="btn btn-danger" type="submit">Please fill this form correct!!!</button>
-        <button ng-show="!nameInputError && !secondNameInputError && !dateError && !placeOfBirthInputError && !selectedLanguagesError && !emailError && !pwdError" class="btn btn-success" type="submit">Save me to this project!</button>
+
+    <div ng-class="{'has-error':registerForm.$invalid || selectedLanguages.length==0 || emailError}" class="form-group">
+        <label ng-show="registerForm.$invalid || selectedLanguages.length==0 || emailError" class="control-label">Button is disabled while all the necessary data is filled!</label>
+        <br>
+        <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid || selectedLanguages.length==0 || emailError">Submit</button>
     </div>
 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- begin:copyright -->
 <div class="row">

@@ -14,38 +14,43 @@ app.controller('total',function($scope,$resource,$window){
 
 
 
-app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll){
-    $scope.authFace = function(url){
-        $window.location.href = url;
-    }
+app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll,$localStorage,$sessionStorage){
+    $scope.$storage = $sessionStorage;
+    if($scope.$storage.userId){
+        $window.location.href = "/loggedUser"+$scope.$storage.userId+'-local';
+    }else{
+        $scope.authFace = function(url){
+            $window.location.href = url;
+        }
 
-    $('#carousel_1').carousel({
-        interval: 5000
-    })
-    $scope.registerUser = function(){
-        $window.location.href = 'registerUser';
-    }
-    $scope.scrollTo = function(id) {
-        $location.hash(id);
-        $anchorScroll();
-        $location.hash('');
-    }
-    $scope.login = function(){
-        if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
-            var address = $resource('/loginLocal');
-            var query = new address();
-            query.email = $scope.email;
-            query.pwd = $scope.pwd;
-            query.$save(function(data){
-                if(data._id){
-                    sessionStorage.userId = data._id;
-                    $window.location.href='/loggedUser'+data._id+'-local';
-                }else{
-                    $window.location.href = '/';
-                }
-            });
-        }else{
-            $window.location.href = '/';
+        $('#carousel_1').carousel({
+            interval: 5000
+        })
+        $scope.registerUser = function(){
+            $window.location.href = 'registerUser';
+        }
+        $scope.scrollTo = function(id) {
+            $location.hash(id);
+            $anchorScroll();
+            $location.hash('');
+        }
+        $scope.login = function(){
+            if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
+                var address = $resource('/loginLocal');
+                var query = new address();
+                query.email = $scope.email;
+                query.pwd = $scope.pwd;
+                query.$save(function(data){
+                    if(data._id){
+                        sessionStorage.userId = data._id;
+                        $window.location.href='/loggedUser'+data._id+'-local';
+                    }else{
+                        $window.location.href = '/';
+                    }
+                });
+            }else{
+                $window.location.href = '/';
+            }
         }
     }
 });
@@ -59,16 +64,6 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         $anchorScroll();
         $location.hash('');
     }
-    //necessary
-    $( "#datepicker" ).datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'dd/mm/yy',
-        yearRange: "1920:2014",
-        onClose:function(){
-            $scope.checkDateFormat();
-        }
-    });
 
     $scope.dateOfBirthPlaceholder = 'Enter date of birth format 00/00/0000 (day/month/year)';
     $scope.emailPlaceholder = 'Enter here your email address!';
@@ -78,118 +73,8 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     $scope.languagesPlaceholder = 'Languages goes here!';
     $scope.advance = 'false';
 
-    $scope.checkTotal = function(){
-        $scope.checkDateFormat();
-        $scope.checkLanguagesInput();
-        $scope.checkPlaceOfBirthInput();
-        $scope.checkNameInput();
-        $scope.checkSecondNameInput();
-        $scope.checkEmailFormat();
-        $scope.checkPwd();
-        $scope.checkGender();
-    }
-
-    $scope.checkGender = function(){
-        if(!$scope.gender){
-            $scope.genderPlaceholder = 'Please check your gender! It is necessary!';
-            $scope.genderError = true;
-        }
-    }
-
-    $scope.checkLanguagesInput = function(){
-        if($scope.selectedLanguages.length==0){
-            $scope.selectedLanguagesError = true;
-            $scope.languagesPlaceholder = 'This field is necessary';
-        }else{
-            $scope.selectedLanguagesError = false;
-        }
-    }
-
-    $scope.checkPwd = function(){
-        if(!$scope.passwordR){
-            $scope.resPwd = 'Type in your new password!!!';
-            $scope.pwdError = true;
-        }else{
-            $scope.confirmPassword();
-        }
-    }
-
-    $scope.confirmPassword = function(){
-        if($scope.password!=$scope.passwordR){
-            $scope.pwdError = true;
-            $scope.resPwd = 'You have entered wrong confirmation password!';
-        }else{
-            $scope.resPwd = 'Confirmation is done!';
-        }
-    }
-
-    $scope.focusPassword = function(){
-        $scope.resPwd = undefined;
-        $scope.passwordR = undefined;
-        $scope.pwdError = undefined;
-    }
-
-    $scope.checkPlaceOfBirthInput = function(){
-        if($scope.placeOfBirth===undefined || $scope.placeOfBirth==''){
-            $scope.placeOfBirthInputError = true;
-            $scope.placeOfBirthPlaceholder = 'This field is necessary!!!';
-        }else{
-            $scope.placeOfBirthInputError = false;
-        }
-    }
-
-    $scope.refreshPlaceOfBirth = function(){
-        $scope.placeOfBirth = undefined;
-        $scope.placeOfBirthInputError = false;
-    }
-
-    $scope.checkNameInput = function(){
-        if($scope.name===undefined || $scope.name==''){
-            $scope.nameInputError = true;
-            $scope.namePlaceholder = 'This field is necessary!!!';
-        }else{
-            $scope.nameInputError = false;
-        }
-    }
-
-    $scope.refreshFirstName = function(){
-        $scope.name = undefined;
-        $scope.nameInputError = false;
-    }
-
-    $scope.checkSecondNameInput = function(){
-        if($scope.secondName===undefined || $scope.secondName==''){
-            $scope.secondNameInputError = true;
-            $scope.secondNamePlaceholder = 'This field is necessary!!!';
-        }else{
-            $scope.secondNameInputError = false;
-        }
-    }
-
-    $scope.refreshLastName = function(){
-        $scope.secondName = undefined;
-        $scope.secondNameInputError = false;
-    }
-
-
-    $scope.checkDateFormat = function(){
-        $scope.dateRes = undefined;
-        if($scope.dateOfBirth){
-            $scope.dateRes = 'Hura';
-        }else{
-            $scope.dateRes = 'Fuck';
-        }
-    }
 
     $scope.checkEmailFormat = function(){
-        if($scope.email===undefined || $scope.email==''){
-            $scope.emailError = true;
-            $scope.emailPlaceholder = 'Register an email address!';
-        }else if(!/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
-            $scope.email = '';
-            $scope.emailError = true;
-            $scope.emailPlaceholder = 'Wrong email format!';
-        }else{
             $scope.emailError = false;
             var address = $resource('/checkEmailExist/'+$scope.email);
             var toDo = address.query(function(){
@@ -199,7 +84,6 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
                     $scope.emailPlaceholder =toDo[0].email +' - This email address is busy!';
                 }
             });
-        }
     }
 
     $scope.refreshEmail = function(){
@@ -370,9 +254,6 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
     $scope.submit = function(){
-        $scope.checkTotal();
-        if($scope.nameInputError || $scope.secondNameInputError || $scope.dateError || $scope.placeOfBirthInputError || $scope.selectedLanguagesError || $scope.emailError || !$scope.name || !$scope.passwordR || !$scope.secondName || !$scope.dateOfBirth || !$scope.placeOfBirth || $scope.selectedLanguages.length==0 || !$scope.email){
-        }else{
             var address = $resource('/saveUserData');
             var querySchema = new address();
             querySchema.name = $scope.name;
@@ -397,38 +278,23 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
                 sessionStorage.userId = data._id;
                 $window.location.href='/loggedUser'+data._id+'-'+'local';
             });
-        }
     }
 });
 
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route){
     if(sessionStorage.userId != $routeParams.user){
-        $window.location.href = '/loginUser'
+        $window.location.href = '/'
     }
 
-    $( ".datepicker" ).datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'dd/mm/yy',
-        yearRange: "1920:2014",
-        onClose:function(){
-            $scope.checkDateFormat();
-        }
-    });
 
-    $scope.checkDateFormat = function(){
-        if($scope.personDateOfBirth===undefined || $scope.personDateOfBirth==''){
-            $scope.dateError = true;
-            $scope.dateOfBirthPlaceholder = 'Date of birth must be filled!';
-        }else if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test($scope.personDateOfBirth)){
-            $scope.dateOfBirth = '';
-            $scope.dateError = true;
-            $scope.dateOfBirthPlaceholder = 'Wrong format of data! Format is 00/00/0000';
-        }else{
-            $scope.dateError = false;
-        }
-    }
+
+
+
+
+
+
+
 
     $scope.userId = $routeParams.user;
     var address = $resource('/getUserInfo');
@@ -945,7 +811,8 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
 
 
 
-app.controller('loggedUser',function($scope,$routeParams,$resource,$window){
+app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$localStorage,$sessionStorage,$q,$timeout){
+    $scope.$storage = $sessionStorage;
     var net = $routeParams.sn;
     net = net.split('-');
     $scope.idSoc = net[0];
@@ -955,6 +822,25 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window){
     que.id = $scope.idSoc;
     que.$save(function(data){
         $scope.data = data;
-        sessionStorage.userId = data.res[0]._id;
+        $scope.$storage.userId = data.res[0]._id;
     });
+
+    $scope.test = $sessionStorage.userId;
+
+$scope.signOut = function(){
+
+
+
+    var session = $timeout(function(){
+        $sessionStorage.$reset();
+        return 'first';
+    });
+    var reload = $timeout(function(){
+        $window.location.href = '/';
+        return 'second';
+    },100);
+    $q.all([session.promise, reload.promise]).then(function(values){
+
+    });
+}
 });

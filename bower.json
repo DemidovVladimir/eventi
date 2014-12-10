@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "latest",
-    "jquery-ui": "latest",
     "ng-file-upload": "latest",
     "lightbox": "latest",
     "swipe": "latest",
@@ -18,6 +17,10 @@
     "imagesloaded": "latest",
     "masonry": "latest",
     "angular-masonry": "latest",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "jqueryui": "~1.11.2",
+    "uninstall": "*",
+    "angular-strap": "~2.1.4",
+    "ngstorage": "~0.3.0"
   }
 }
