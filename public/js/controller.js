@@ -15,7 +15,7 @@ app.controller('total',function($scope,$resource,$window){
 
 
 app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll){
-    $scope.storage = $window.sessionStorage.getItem('userId');
+    $scope.storage = JSON.parse($window.sessionStorage.getItem('userId'));
     if($scope.storage){
         $window.location.href = "/loggedUser"+$scope.storage+'-local';
     }else{
@@ -831,7 +831,7 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
         que.$save(function(data){
             $scope.data = data;
             $window.sessionStorage.setItem('userId',JSON.stringify(data.res[0]._id));
-            $scope.test = $window.sessionStorage.getItem('userId');
+            $scope.test = JSON.parse($window.sessionStorage.getItem('userId'));
         });
 
 
