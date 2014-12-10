@@ -42,7 +42,7 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
                 query.pwd = $scope.pwd;
                 query.$save(function(data){
                     if(data._id){
-                        $window.sessionStorage.setItem('userId', JSON.stringify(data._id))
+                        //$window.sessionStorage.setItem('userId', JSON.stringify(data._id))
                         //$scope.$storage.userId = data._id;
                         $window.location.href = '/loggedUser'+data._id+'-local';
                     }else{
@@ -831,9 +831,10 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
         que.$save(function(data){
             $scope.data = data;
             $window.sessionStorage.setItem('userId',JSON.stringify(data.res[0]._id));
+            $scope.test = $window.sessionStorage.getItem('userId');
         });
 
-        $scope.test = $window.sessionStorage.getItem('userId');
+
 
         $scope.signOut = function(){
 
