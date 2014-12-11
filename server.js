@@ -153,11 +153,15 @@ app.post('/saveUserData', api.saveUserData);
 app.post('/getUserInfo',api.getUserInfo);
 app.post('/changeAvaUser',api.changeAvaUser);
 app.post('/insertAvaUser',api.insertAvaUser);
-app.post('/loginUser:443',api.loginUser);
 app.post('/insertPicturesUser',api.insertPicturesUser);
 app.get('/deleteAva/:file',api.deleteAvaFromUser);
 app.get('/checkEmailExist/:email',api.checkEmailExist);
 app.post('/deleteAva',api.deleteAva);
+
+
+
+
+
 app.get('/foldersList/:userId',api.foldersList);
 app.get('/picsInFolder/:userId/:folder',api.picsInFolder);
 app.get('/deletePic/:userId/:folder/:picture',api.deletePic);

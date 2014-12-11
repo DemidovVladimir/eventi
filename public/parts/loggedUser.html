@@ -8,16 +8,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" ng-click="scrollTo('top')">
                 <img src="img/mini_logo.png">
-                <h4 class="loggedUser">{{data.res[0].name}}</h4>
+                <h4>{{data.res[0].name}}'s page!</h4>
             </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-top">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/">Home</a></li>
+                <li><a  ng-click="scrollTo('top')">Home</a></li>
+                <li><a  ng-href="/maintainUser{{userId}}">Maintain info</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Property <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -187,15 +188,6 @@
 
 
 
-{{test}}
-
-
-
-
-
-
-
-<h3>Hola!!!!</h3>
 {{data}}
 
 

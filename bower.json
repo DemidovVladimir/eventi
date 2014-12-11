@@ -20,7 +20,6 @@
     "font-awesome": "latest",
     "jqueryui": "~1.11.2",
     "uninstall": "*",
-    "angular-strap": "~2.1.4",
-    "ngstorage": "~0.3.0"
+    "angular-strap": "~2.1.4"
   }
 }

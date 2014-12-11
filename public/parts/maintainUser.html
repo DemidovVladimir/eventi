@@ -1,20 +1,76 @@
-<a class="btn btn-sm btn-success" ng-href="createEvent">Create new event!</a>
-<h3 class="text-center">Welcome to our project {{info.name}}...</h3>
+<!-- begin:navbar -->
+<nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="img/mini_logo.png">
+                <h4>{{info.name}}'s page!</h4>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-top">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li class="active"><a ng-click="scrollTo('top')">Maintain info</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Property <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="search.html">Search (Grid View)</a></li>
+                        <li><a href="search_list.html">Search (List View)</a></li>
+                        <li><a href="category.html">Category (Grid View)</a></li>
+                        <li><a href="category_list.html">Category (List View)</a></li>
+                        <li><a href="single.html">Single page</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="blog.html">Blog Archive</a></li>
+                        <li><a href="blog_single.html">Blog Single</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
+                </li>
+                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<!-- end:navbar -->
+
+
+        {{info}}
+
+
+
+
+<h3 class="text-center">Maintain {{info.name}}'s info...</h3>
 <div class="text-center">
     <img ng-show="info.ava" src="/uploaded/{{info._id}}/mini_{{info.ava}}">
     <!--<img ng-show="newAva" src="/uploaded/{{info._id}}/mini_{{newAva}}">-->
-    <form role="form">
+    <form role="form" name="maintainInfo">
         <div ng-show="info.ava">
             <div class="form-group">
-                <label for="inputAva">Change picture...</label>
+                <label class="control-label" for="inputAva">Change main picture</label>
                 <input type="file" ng-file-select="onAvaChange($files)" class="form-control" id="inputAva"/>
             </div>
             <div class="form-group">
-                <button type="button" ng-click="deleteAva()" class="form-control btn btn-success btn-sm">Delete this picture...</button>
+                <button type="button" ng-click="deleteAva()" class="form-control btn btn-success btn-sm">Delete main picture</button>
             </div>
         </div>
         <div ng-show="!info.ava" class="form-group">
-            <label for="inputAva">Insert picture representing you...</label>
+            <label class="control-label" for="inputAva">Insert main picture</label>
             <input type="file" ng-file-select="onAvaInsert($files)" class="form-control" id="inputAva"/>
         </div>
         <div ng-show="progress">
@@ -29,58 +85,48 @@
                 </div>
             </div>
         </div>
-        <h3 class="text-center">Your gender(if empty):</h3>
-        <div class="form-group text-center">
-            <input type="radio" ng-model="gender" name="gender" id="gender" value="male">Male
-            <input type="radio" ng-model="gender" name="gender" id="gender" value="female">Female
-        </div>
-        <div ng-show="!emailError" class="form-group">
-            <label for="exampleInputEmail">Change email</label>
-            <input ng-blur="checkEmailFormat()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
-        </div>
-        <div ng-show="emailError" class="form-group has-error">
-            <label for="exampleInputEmail">Change email</label>
-            <input ng-blur="checkEmailFormat()" type="text" class="form-control" id="exampleInputEmail" placeholder="{{emailPlaceholder}}" ng-model="email">
+        <div ng-class="{'has-error':!email}" class="form-group">
+            <label class="control-label" for="exampleInputEmail">Email</label>
+            <input ng-blur="checkEmailFormat()" type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="{{info.email}}" ng-model="email" required>
+        <span class="control-label" ng-show="maintainInfo.email.$invalid && !emailError">
+        Please enter proper email address!</span>
+        <span class="control-label" ng-show="emailError">
+        {{emailPlaceholder}}</span>
         </div>
         <div class="form-group">
             <label for="exampleInputSkype">Your skype Id</label>
-            <input type="text" class="form-control" id="exampleInputSkype" placeholder="ID:{{info.skype}} (It is not necessary)" ng-model="skype">
+            <input type="text" class="form-control" id="exampleInputSkype" placeholder="{{info.skype}} (It is not necessary)" ng-model="skype">
         </div>
         <div class="form-group">
             <label for="exampleInputPhone">Your phone</label>
-            <input type="text" class="form-control" id="exampleInputPhone" placeholder="Phone:{{info.phone}} (It is not necessary)" ng-model="phone">
+            <input type="text" class="form-control" id="exampleInputPhone" placeholder="{{info.phone}} (It is not necessary)" ng-model="phone">
         </div>
-        <div ng-show="!selectedLanguagesError" class="form-group">
-            <label for="exampleInputLanguages">Languages you speak</label>
+        <div ng-class="{'has-error':selectedLanguages.length==0}" class="form-group">
+            <label class="control-label" for="exampleInputLanguages">Languages you speak</label>
             <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
-            <input type="text" ng-blur="checkLanguagesInput()" auto-complete items="languages" placeholder="{{languagesPlaceholder}}" ng-model="selectedLanguage">
-            <h4>Selected languages:</h4>
+            <input type="text" auto-complete items="languages" placeholder="Select from drop down list." ng-model="selectedLanguage">
             <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}<a type="button" ng-click="deleteLanguage(lang)"><span class="glyphicon glyphicon-minus"></span></a>, </span></h4>
-        </div>
-        <div ng-show="selectedLanguagesError" class="form-group">
-            <label for="exampleInputLanguages">Languages you speak</label>
-            <!--<input type="text" class="form-control" id="exampleInputLanguages" placeholder="Enter languages you speak" ng-model="languages">-->
-            <input type="text" ng-blur="checkLanguagesInput()" auto-complete items="languages" placeholder="{{languagesPlaceholder}}" ng-model="selectedLanguage">
-            <h4 style="color: red">You have to select at least one language you able to speak!</h4>
-            <h4><span data-ng-repeat="lang in selectedLanguages">{{lang}}, </span></h4>
+        <span class="control-label" ng-show="selectedLanguages.length==0">
+        Required at least one!</span>
         </div>
         <div class="form-group">
             <label for="exampleInputAbout">Additional information about yourself</label>
             <textarea id="exampleInputAbout" ng-model="about" class="form-control" placeholder="{{about}}" rows="3"></textarea>
         </div>
-<hr>
-        <h2>Pictures manipulations...</h2>
+        <h2>Adding or deleting pictures</h2>
         <div class="form-group">
             <label for="exampleInputFolderPhoto">Paste pictures to the folder(png, jpeg, bmp, gif file format only)</label>
-            <input type="text" class="form-control" id="exampleInputFolderPhoto" placeholder="{{currentPicFolder}}" ng-model="currentPicFolder"/>
+            <input type="text" class="form-control" id="exampleInputFolderPhoto" ng-model="currentPicFolder"/>
         </div>
-
         <h4 ng-show="resFolders.length!=0" class="text-center">Or choose from created...</h4>
         <ul class="list-group">
             <div data-ng-repeat="folder in resFolders">
                 <li class="list-group-item">
                     <span class="badge">Photoes: {{folder.summ}}</span>
                     <a ng-click="closeFolder()"><span style="float: left">Close</span></a>
+
+
+
                     <a ng-click="selectFolder(folder.folder)"> {{folder.folder}} </a>
                 </li>
                 <div ng-show="folderPics[0]._id==folder.folder" class="row">
@@ -98,6 +144,15 @@
         <div class="form-group">
             <input type="file" ng-file-select="onPicSelect($files)" class="form-control" id="inputPic"/>
         </div>
+
+
+
+
+
+
+
+
+
 <hr>
         <h2>Video manipulations...</h2>
         <div class="form-group">
@@ -204,7 +259,7 @@
         </div>
 <hr>
         <div class="text-center">
-            <button class="btn btn-success" ng-click="submit()" type="button">Make changes</button>
+            <button class="btn btn-success" ng-disabled="maintainInfo.$invalid || emailError || selectedLanguages.length==0" ng-click="submit()" type="button">Make changes</button>
         </div>
     </form>
 </div>
