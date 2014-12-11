@@ -493,14 +493,6 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 }
             });
         }
-
-
-
-
-
-
-
-
         $scope.onPicSelect = function($files){
             var files = $files;
                 files.forEach(function(item){
@@ -518,20 +510,27 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                             var addr = $resource('/foldersList/'+$scope.info._id);
                             var que = addr.query(function(){
                                 $scope.resFolders = que;
+                                $scope.firstPicFolderSelect = 0;
+                                $scope.selectFolder($scope.currentPicFolder);
                             });
                         });
                 });
         };
-        /*$scope.selectFolder = function(folder){
+        $scope.isEven = function(value) {
+            if (value % 2 == 0)
+                return true;
+            else
+                return false;
+        };
+        $scope.firstPicFolderSelect = 0;
+        $scope.selectFolder = function(folder){
             $scope.currentPicFolder = folder;
             var addr = $resource('/picsInFolder/'+$scope.info._id+'/'+folder);
             var que = addr.query(function(){
                 $scope.folderPics = que;
+                ++$scope.firstPicFolderSelect;
             });
-        };*/
-        /*$scope.closeFolder = function(){
-            $scope.folderPics = undefined;
-        }*/
+        };
         $scope.deletePic = function(pic,folder){
             var addr = $resource('/deletePic/'+$scope.info._id+'/'+folder+'/'+pic);
             var que = addr.get(function(){
