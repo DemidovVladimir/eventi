@@ -524,6 +524,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         };
         $scope.firstPicFolderSelect = 0;
         $scope.selectFolder = function(folder){
+            if($scope.currentPicFolder!=folder){
+                $scope.firstPicFolderSelect = 0;
+            }
             $scope.currentPicFolder = folder;
             var addr = $resource('/picsInFolder/'+$scope.info._id+'/'+folder);
             var que = addr.query(function(){
