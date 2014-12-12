@@ -57,7 +57,7 @@
 
 <h3 class="text-center">Maintain {{info.name}}'s info...</h3>
 <div class="text-center">
-    <img ng-show="info.ava" src="/uploaded/{{info._id}}/mini_{{info.ava}}">
+    <img ng-show="info.ava" class="ing-responsive img-thumbnail img-circle" src="/uploaded/{{info._id}}/mini_{{info.ava}}">
     <!--<img ng-show="newAva" src="/uploaded/{{info._id}}/mini_{{newAva}}">-->
     <form role="form" name="maintainInfo">
         <div ng-show="info.ava">
@@ -132,7 +132,9 @@
                 <div ng-show="folderPics[0]._id==folder.folder && !isEven(firstPicFolderSelect)" class="row">
                     <div data-ng-repeat="pic in folderPics[0].photos" class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <img ng-src="/uploaded/{{info._id}}/{{folderPics[0]._id}}/mini_{{pic}}" alt="mini_{{pic}}">
+                            <a href="/uploaded/{{info._id}}/{{folderPics[0]._id}}/{{pic}}" data-lightbox="{{folder.folder}}" data-title="{{folder.folder}}">
+                                <img ng-src="/uploaded/{{info._id}}/{{folderPics[0]._id}}/mini_{{pic}}" alt="mini_{{pic}}">
+                            </a>
                             <div class="caption">
                                 <p><button type="button" ng-click="deletePic(pic,folder.folder)" class="btn btn-sm btn-danger">Удалить</button></p>
                             </div>
@@ -144,17 +146,7 @@
         <div class="form-group">
             <input type="file" ng-file-select="onPicSelect($files)" class="form-control" id="inputPic"/>
         </div>
-
-
-        {{test}}
-
-
-
-
-
-
-<hr>
-        <h2>Video manipulations...</h2>
+        <h2>Adding or deleting video</h2>
         <div class="form-group">
             <label for="exampleInputFolderVideo">Paste video to the folder</label>
             <input type="text" class="form-control" id="exampleInputFolderVideo" placeholder="{{currentVideoFolder}}" ng-model="currentVideoFolder"/>
@@ -164,10 +156,13 @@
             <div data-ng-repeat="folder in resFoldersVideo">
                 <li class="list-group-item">
                     <span class="badge">Videos: {{folder.summ}}</span>
-                    <a ng-click="closeFolderVideo()"><span style="float: left">Close</span></a>
-                    <a ng-click="selectFolderVideo(folder.folder)"> {{folder.folder}} </a>
+                    <a ng-click="selectFolderVideo(folder.folder)"> {{folder.folder}}
+                        <span ng-show="folderVideos[0]._id==folder.folder && !isEven(firstVideoFolderSelect)"><i class="fa fa-caret-up"></i></span>
+                        <span ng-show="isEven(firstVideoFolderSelect)" class="caret"></span>
+                        <span ng-show="folderVideos[0]._id!=folder.folder && !isEven(firstVideoFolderSelect)" class="caret"></span>
+                    </a>
                 </li>
-                <div ng-show="folderVideos[0]._id==folder.folder" class="row">
+                <div ng-show="folderVideos[0]._id==folder.folder && !isEven(firstVideoFolderSelect)" class="row">
                     <div data-ng-repeat="video in folderVideos[0].videos" class="col-sm-6 col-md-4">
 
                             <custom-video></custom-video>
@@ -182,7 +177,24 @@
         <div class="form-group">
             <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="inputVideo"/>
         </div>
-<hr>
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
         <h2>I am now in:</h2>
         <h4 ng-show="info.destination">{{info.destination}}</h4>
         <div class="form-group">

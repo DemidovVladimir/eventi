@@ -545,16 +545,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             var num = $scope.folderPics[0].photos.indexOf(pic);
             $scope.folderPics[0].photos.splice(num,1);
         }
-
-
-
-
-
-
-
-        $scope.onVideoSelect = function($files){
-            var files = $files;
-            if(sessionStorage.userId==$scope.info._id){
+        $scope.onVideoSelect = function(files){
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
                         url: '/insertVideosUser',
@@ -571,40 +562,51 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                             var addr = $resource('/foldersVideo/'+$scope.info._id);
                             var que = addr.query(function(){
                                 $scope.resFoldersVideo = que;
+                                $scope.firstVideoFolderSelect = 0;
+                                $scope.selectFolderVideo($scope.currentVideoFolder);
                             });
                         });
                 });
-            }else{
-                $window.location.href = '/loginUser';
-            }
         };
-
-        $scope.closeFolderVideo = function(){
-            $scope.folderVideos = undefined;
-        }
-
+        $scope.firstVideoFolderSelect = 0;
         $scope.selectFolderVideo = function(folder){
+            if($scope.currentVideoFolder!=folder){
+                $scope.firstVideoFolderSelect = 0;
+            }
             $scope.currentVideoFolder = folder;
             var addr = $resource('/videosInFolder/'+$scope.info._id+'/'+folder);
             var que = addr.query(function(){
                 $scope.folderVideos = que;
+                ++$scope.firstVideoFolderSelect;
             });
         };
-
-        $scope.deletedVideos = [];
         $scope.deleteVideo = function(video,folder){
             var addr = $resource('/deleteVideo/'+$scope.info._id+'/'+folder+'/'+video);
-            var que = addr.query(function(){
-                $scope.deletedVideos.push(video);
+            var que = addr.get(function(){
+                var addr2 = $resource('/foldersVideo/'+$scope.info._id);
+                var que2 = addr2.query(function(){
+                    $scope.resFoldersVideo = que2;
+                });
             });
-        }
-        $scope.deleteVideo = function(video,folder){
-            var addr = $resource('/deleteVideo/'+$scope.info._id+'/'+folder+'/'+video);
-            var que = addr.query();
-
             var num = $scope.folderVideos[0].videos.indexOf(video);
             $scope.folderVideos[0].videos.splice(num,1);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $scope.deleteFilterLanguage = function(lang){
             var ind = $scope.filteredLanguages.indexOf(lang);
             $scope.filteredLanguages.splice(ind,1);
