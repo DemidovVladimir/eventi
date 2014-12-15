@@ -1,19 +1,92 @@
-<h3>Creating event page!!!</h3>
-<form ng-show="userId" role="form">
-    <div class="form-group">
-        <label for="title">Title goes first!</label>
-        <input class="form-control" type="text" ng-model="title">
+<!-- begin:navbar -->
+<nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="img/mini_logo.png">
+                <h4>{{userName}}'s page!</h4>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-top">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li><a ng-href="/maintainUser{{userId}}">Maintain info</a></li>
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/createEvent">Create new</a></li>
+                        <li><a href="/maintainEvents{{userId}}">Maintain created</a></li><!--
+                        <li><a href="category.html">Category (Grid View)</a></li>
+                        <li><a href="category_list.html">Category (List View)</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="blog.html">Blog Archive</a></li>
+                        <li><a href="blog_single.html">Blog Single</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
+                </li>
+                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<!-- end:navbar -->
+
+
+
+<h3 class="text-center">{{userName}}'s new event!</h3>
+<form ng-show="userId" role="form" name="createEvent" class="text-center">
+    <div ng-class="{'has-error':!title}" class="form-group">
+        <label class="control-label" for="title">Title:</label>
+        <input class="form-control" name="title" type="text" ng-model="title" placeholder="Required!" required="required">
+        <br><span class="control-label" ng-show="createEvent.title.$error.required">
+        Required!</span><br>
     </div>
-<hr>
-    <div class="form-group">
-        <label for="datepicker">Execution date!</label>
-        <input type="text" class="form-control datepicker" id="datepicker" ng-model="executionDate">
+    <div class="form-group" ng-class="{'has-error': createEvent.executionDate.$invalid}">
+        <label class="control-label"><i class="fa fa-calendar"></i>Execution date:</label>
+        <input type="text" class="form-control" ng-model="executionDate" data-date-format="yyyy-MM-dd" data-min-date="today" data-max-date="{{expirationMonth}}/{{expirationDay}}/{{expirationYear}}" data-autoclose="1" name="executionDate" placeholder="Required!" bs-datepicker required>
+        <br><span class="control-label" ng-show="createEvent.executionDate.$error.required">
+        Required!</span>
+        <span class="control-label" ng-show="createEvent.executionDate.$invalid && !createEvent.executionDate.$error.required">
+        Invalid date format, select from dropdown list!</span>
     </div>
-<hr>
-    <div class="form-group">
-        <label for="eventLocationCity">Location of this event(city or town title):</label>
-        <input type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity">
+
+
+
+
+    <div ng-class="{'has-error':!eventLocationCity}" class="form-group">
+        <label class="control-label" for="eventLocationCity">Location of event(city or town title):</label>
+        <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity" required>
+        <br><span class="control-label" ng-show="createEvent.eventLocationCity.$error.required">
+        Required!</span>
     </div>
+    {{eventLocationCity}}
+
+
+
+
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+    <hr>
+    {{test}}
+
+
 <hr>
     <div class="form-group">
         <label for="eventLocationStreet">Location of this event(street, house, etc.):</label>

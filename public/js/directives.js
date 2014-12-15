@@ -377,6 +377,7 @@ app.directive('customVideo',function($resource,$routeParams,$sce){
     }
 });
 
+
 app.directive('customVideoEvent',function($resource,$routeParams,$sce){
     return{
         restrict:'E',

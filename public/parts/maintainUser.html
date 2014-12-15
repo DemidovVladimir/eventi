@@ -21,13 +21,13 @@
                 <li><a href="/">Home</a></li>
                 <li class="active"><a ng-click="scrollTo('top')">Maintain info</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Property <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="search.html">Search (Grid View)</a></li>
-                        <li><a href="search_list.html">Search (List View)</a></li>
+                        <li><a href="/createEvent">Create new</a></li>
+                        <li><a href="/maintainEvents">Maintain created</a></li><!--
                         <li><a href="category.html">Category (Grid View)</a></li>
                         <li><a href="category_list.html">Category (List View)</a></li>
-                        <li><a href="single.html">Single page</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -48,13 +48,6 @@
     </div><!-- /.container -->
 </nav>
 <!-- end:navbar -->
-
-
-        {{info}}
-
-
-
-
 <h3 class="text-center">Maintain {{info.name}}'s info...</h3>
 <div class="text-center">
     <img ng-show="info.ava" class="ing-responsive img-thumbnail img-circle" src="/uploaded/{{info._id}}/mini_{{info.ava}}">
@@ -73,7 +66,8 @@
             <label class="control-label" for="inputAva">Insert main picture</label>
             <input type="file" ng-file-select="onAvaInsert($files)" class="form-control" id="inputAva"/>
         </div>
-        <div ng-show="progress">
+        <h5>Please wait until the end of upload. Progress bar 100% label. Otherwise files wont be uploaded!</h5>
+        <div ng-show="progress && avaProcess">
             <div class="row clear-both text-center">
                 <h3>Loading:</h3>
             </div>
@@ -143,6 +137,19 @@
                 </div>
             </div>
         </ul>
+        <h5>Please wait until the end of upload. Progress bar 100% label. Otherwise files wont be uploaded!</h5>
+        <div ng-show="progress && picsProcess">
+            <div class="row clear-both text-center">
+                <h3>Loading:</h3>
+            </div>
+            <div class="row">
+                <div class="progress col-sm-6 col-sm-offset-3">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                        {{progress}}%
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             <input type="file" ng-file-select="onPicSelect($files)" class="form-control" id="inputPic"/>
         </div>
@@ -174,32 +181,31 @@
                 </div>
             </div>
         </ul>
+        <h5>Please wait until the end of upload. Progress bar 100% label. Otherwise files wont be uploaded!</h5>
         <div class="form-group">
             <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="inputVideo"/>
         </div>
-
-
-
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
-
+        <div ng-show="progress && videoProcess">
+            <div class="row clear-both text-center">
+                <h3>Loading:</h3>
+            </div>
+            <div class="row">
+                <div class="progress col-sm-6 col-sm-offset-3">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                        {{progress}}%
+                    </div>
+                </div>
+            </div>
+        </div>
         <h2>I am now in:</h2>
         <h4 ng-show="info.destination">{{info.destination}}</h4>
         <div class="form-group">
             <input type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" placeholder="{{info.destination}}" ng-model="destination">
         </div>
+
+
+
+        <!--
 <hr>
         <h2>Search for a person:</h2>
         <div class="form-group">
@@ -269,7 +275,7 @@
                 </div>
             </div>
         </div>
-<hr>
+<hr>-->
         <div class="text-center">
             <button class="btn btn-success" ng-disabled="maintainInfo.$invalid || emailError || selectedLanguages.length==0" ng-click="submit()" type="button">Make changes</button>
         </div>

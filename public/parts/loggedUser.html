@@ -17,16 +17,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-top">
             <ul class="nav navbar-nav navbar-right">
-                <li><a  ng-click="scrollTo('top')">Home</a></li>
-                <li><a  ng-href="/maintainUser{{userId}}">Maintain info</a></li>
+                <li class="active"><a ng-click="scrollTo('top')">Home</a></li>
+                <li><a ng-href="/maintainUser{{userId}}">Maintain info</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Property <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="search.html">Search (Grid View)</a></li>
-                        <li><a href="search_list.html">Search (List View)</a></li>
+                        <li><a href="/createEvent">Create new</a></li>
+                        <li><a href="/maintainEvents">Maintain created</a></li><!--
                         <li><a href="category.html">Category (Grid View)</a></li>
                         <li><a href="category_list.html">Category (List View)</a></li>
-                        <li><a href="single.html">Single page</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -188,9 +188,7 @@
 
 
 
-{{data}}
-
-
+{{session}}
 
 
 

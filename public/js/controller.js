@@ -15,9 +15,14 @@ app.controller('total',function($scope,$resource,$window){
 
 
 app.controller('home',function($scope,$resource,$window,$document, $location, $anchorScroll){
-    $scope.storage = JSON.parse($window.sessionStorage.getItem('userId'));
-    if($scope.storage){
-        $window.location.href = "/loggedUser"+$scope.storage+'-local';
+    var sess = $window.sessionStorage.getItem('session');
+    if(sess){
+        $scope.sessionId = JSON.parse($window.sessionStorage.getItem('session')).id;
+    }else{
+        $scope.sessionId = undefined;
+    }
+    if($scope.sessionId){
+        $window.location.href = "/loggedUser"+$scope.sessionId+'-local';
     }else{
         $scope.authFace = function(url){
             $window.location.href = url;
@@ -276,7 +281,10 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             querySchema.twitterLink = $scope.twitterLink;
             querySchema.ava = $scope.ava;
             querySchema.$save(function(data){
-                $window.sessionStorage.setItem('userId', JSON.stringify(data._id));
+                var obj = new Object();
+                obj.id = data._id;
+                obj.name = data.name;
+                $window.sessionStorage.setItem('session', JSON.stringify(obj));
                 $window.location.href='/loggedUser'+data._id+'-'+'local';
             });
     }
@@ -290,12 +298,12 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll){
-    $scope.session = JSON.parse($window.sessionStorage.getItem('userId'));
-    if($scope.session != $routeParams.user && !$scope.session){
+    $scope.sessionId = JSON.parse($window.sessionStorage.getItem('session')).id;
+    if($scope.sessionId != $routeParams.user && !$scope.sessionId){
         $window.location.href = '/';
     }else{
         $scope.signOut = function(){
-            $window.sessionStorage.clear('userId')
+            $window.sessionStorage.clear('session')
             $window.location.href = '/';
         }
 
@@ -326,7 +334,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.resFoldersVideo = queVideo;
             });
         });
+        $scope.avaProcess = false;
         $scope.onAvaChange = function(files){
+            $scope.avaProcess = true;
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
                         url: '/changeAvaUser',
@@ -340,6 +350,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
                         }).success(function(data, status, headers, config) {
                             $scope.info.ava = data;
+                            $scope.avaProcess = false;
                         });
                 });
         };
@@ -353,6 +364,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 });
         }
         $scope.onAvaInsert = function(files){
+            $scope.avaProcess = true;
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
                         url: '/insertAvaUser',
@@ -365,7 +377,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
                         }).success(function(data, status, headers, config) {
                             $scope.info.ava = data;
-
+                            $scope.avaProcess = false;
                         });
                 });
         };
@@ -493,7 +505,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 }
             });
         }
+        $scope.picsProcess = false;
         $scope.onPicSelect = function($files){
+            $scope.picsProcess = true;
             var files = $files;
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
@@ -512,6 +526,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                                 $scope.resFolders = que;
                                 $scope.firstPicFolderSelect = 0;
                                 $scope.selectFolder($scope.currentPicFolder);
+                                $scope.picsProcess = false;
                             });
                         });
                 });
@@ -545,7 +560,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             var num = $scope.folderPics[0].photos.indexOf(pic);
             $scope.folderPics[0].photos.splice(num,1);
         }
+        $scope.videoProcess = false;
         $scope.onVideoSelect = function(files){
+            $scope.videoProcess = true;
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
                         url: '/insertVideosUser',
@@ -564,6 +581,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                                 $scope.resFoldersVideo = que;
                                 $scope.firstVideoFolderSelect = 0;
                                 $scope.selectFolderVideo($scope.currentVideoFolder);
+                                $scope.videoProcess = false;
                             });
                         });
                 });
@@ -677,10 +695,64 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 });
 
 app.controller('createEvent',function($scope,$resource,$upload,$window){
-    if(sessionStorage.userId){
+    $scope.session = JSON.parse($window.sessionStorage.getItem('session'));
+    $scope.userId = $scope.session.id;
+    $scope.userName = $scope.session.name;
+
+    $scope.today = new Date();
+    var todayYear = $scope.today.getFullYear();
+    $scope.expirationMonth = $scope.today.getMonth()+1;
+    $scope.expirationDay = $scope.today.getDate();
+    $scope.expirationYear = todayYear +1;
+
+
+//    Map work
+    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+//    End map work
+    $scope.$watch('eventLocationCity', function(newValue, oldValue) {
+        if(newValue!=oldValue){
+            var geocoder =  new google.maps.Geocoder();
+            geocoder.geocode( { 'address': $scope.eventLocationCity}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    $scope.lat = results[0].geometry.location.lat();
+                    $scope.lng = results[0].geometry.location.lng();
+                }
+            });
+            $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lng }, zoom: 8 };
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+//    $scope.expirationDate = new Date(expirationYear,todayMonth,todayDay,0,0,0,0);
+
+
+
+
+        $scope.signOut = function(){
+            $window.sessionStorage.clear('session')
+            $window.location.href = '/';
+        }
+
+        $scope.scrollTo = function(id) {
+            $location.hash(id);
+            $anchorScroll();
+            $location.hash('');
+        }
+
+
+
+
+
         $scope.resultPics = [];
         $scope.resultVids = [];
-        $scope.userId = sessionStorage.userId;
         $( ".datepicker" ).datepicker({
             changeMonth: true,
             changeYear: true,
@@ -741,12 +813,6 @@ app.controller('createEvent',function($scope,$resource,$upload,$window){
                     });
             });
         };
-
-
-
-    }else{
-        $window.location.href='/login';
-    }
 });
 
 /*app.controller('manageEvent',function($scope){
@@ -812,7 +878,11 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
         que.$save(function(data){
             $scope.data = data;
             $scope.userId = data.res[0]._id;
-            $window.sessionStorage.setItem('userId',JSON.stringify(data.res[0]._id));
+            var obj = new Object();
+            obj.id = data.res[0]._id;
+            obj.name = data.res[0].name;
+            $window.sessionStorage.setItem('session',JSON.stringify(obj));
+            $scope.session = JSON.parse($window.sessionStorage.getItem('session'));
         });
 
     $scope.scrollTo = function(id) {
@@ -824,7 +894,7 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
 
         $scope.signOut = function(){
 
-            $window.sessionStorage.clear('userId')
+            $window.sessionStorage.clear('session')
             $window.location.href = '/';
 
         }

@@ -148,6 +148,7 @@ angular.module( "ngAutocomplete", [])
           }
         }
 
+
         controller.$render = function () {
           var location = controller.$viewValue;
           element.val(location);
