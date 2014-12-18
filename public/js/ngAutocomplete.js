@@ -28,14 +28,9 @@
 **/
 
 angular.module( "ngAutocomplete", [])
-  .directive('ngAutocomplete', function() {
+  .directive('ngAutocomplete', function($rootScope) {
     return {
       require: 'ngModel',
-      scope: {
-        ngModel: '=',
-        options: '=?',
-        details: '=?'
-      },
 
       link: function(scope, element, attrs, controller) {
 
@@ -93,6 +88,8 @@ angular.module( "ngAutocomplete", [])
                 scope.details = result;
 
                 controller.$setViewValue(element.val());
+                  //            My implemetation!!!
+                  scope.$emit('mapSearchCenter');
               });
             }
             else {

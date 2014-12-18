@@ -378,12 +378,13 @@ app.directive('customVideo',function($resource,$routeParams,$sce){
 });
 
 
+
 app.directive('customVideoEvent',function($resource,$routeParams,$sce){
     return{
         restrict:'E',
         link:function(scope,element,attrs){
 
-            scope.videoSafe = $sce.trustAsResourceUrl('/uploaded/'+sessionStorage.userId+'/'+scope.video);
+            scope.videoSafe = $sce.trustAsResourceUrl('/uploaded/'+scope.userId+'/'+scope.video);
                 element.masonry({
                     itemSelector : '.masonry-brick',
                     columnwidth: 300,

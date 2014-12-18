@@ -52,7 +52,14 @@
 
 
 <h3 class="text-center">{{userName}}'s new event!</h3>
-<form ng-show="userId" role="form" name="createEvent" class="text-center">
+
+        <div data-ng-repeat="event in eventsExists">
+            {{event}}<br>
+            <button type="button" ng-click="deleteEvent(event.title,event.owner)" class="btn btn-sm btn-warning">Delete event!</button>
+        </div>
+
+
+<form ng-show="userId" role="form" name="createEvent" class="text-center" ng-submit="submit()">
     <div ng-class="{'has-error':!title}" class="form-group">
         <label class="control-label" for="title">Title:</label>
         <input class="form-control" name="title" type="text" ng-model="title" placeholder="Required!" required="required">
@@ -67,42 +74,39 @@
         <span class="control-label" ng-show="createEvent.executionDate.$invalid && !createEvent.executionDate.$error.required">
         Invalid date format, select from dropdown list!</span>
     </div>
-
-
-
-
     <div ng-class="{'has-error':!eventLocationCity}" class="form-group">
         <label class="control-label" for="eventLocationCity">Location of event(city or town title):</label>
         <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity" required>
         <br><span class="control-label" ng-show="createEvent.eventLocationCity.$error.required">
         Required!</span>
     </div>
-    {{eventLocationCity}}
+    <ui-gmap-google-map center='map.center' ng-if="renderMap" zoom='map.zoom' draggable="true" options="options">
+        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+        </ui-gmap-marker>
+    </ui-gmap-google-map>
 
-
-
-
-    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-    <hr>
-    {{test}}
-
-
-<hr>
-    <div class="form-group">
-        <label for="eventLocationStreet">Location of this event(street, house, etc.):</label>
-        <input type="text" class="form-control" id="eventLocationStreet" ng-model="eventLocationStreet">
-    </div>
-<hr>
+<!--<hr>-->
+    <!--<div class="form-group">-->
+        <!--<label for="eventLocationStreet">Location of this event(street, house, etc.):</label>-->
+        <!--<input type="text" class="form-control" id="eventLocationStreet" ng-model="eventLocationStreet">-->
+    <!--</div>-->
+<!--<hr>-->
     <div class="form-group">
         <label for="phone">Phone number if exists(to contact you for details)</label>
         <input type="text" class="form-control" id="phone" ng-model="phone">
     </div>
-<hr>
-    <div class="form-group">
-        <label for="monney">Approximate money amount(invested to create this event):</label>
-        <input type="text" class="form-control" id="monney" ng-model="monney">
+    <div ng-class="{'has-error':createEvent.about.$error.required}" class="form-group">
+        <label for="about">Info about this event</label>
+        <textarea id="about" ng-model="about" name="about" class="form-control" placeholder="Required!" rows="3" required="required"></textarea>
+        <br><span class="control-label" ng-show="createEvent.about.$error.required">
+        Required!</span>
     </div>
-<hr>
+<!--<hr>-->
+    <!--<div class="form-group">-->
+        <!--<label for="monney">Approximate money amount(invested to create this event):</label>-->
+        <!--<input type="text" class="form-control" id="monney" ng-model="monney">-->
+    <!--</div>-->
+<!--<hr>-->
     <div ng-show="title" class="form-group">
         <label for="pics">Paste pictures to advertise your event(png, jpeg, bmp, gif file format only):</label>
         <input type="file" ng-file-select="onPicSelect($files)" placeholder="Only available after title field filled in" class="form-control" id="pics"/>
@@ -125,8 +129,8 @@
     <div ng-show="resultPics.indexOf('wrong format')!=-1">
         <div class="alert alert-danger">Try to use proper image formats(jpeg,png,bmp, etc.)!</div>
     </div>
-<hr>
-    <div class="form-group">
+<!--<hr>-->
+    <div ng-show="title" class="form-group">
         <label for=video">Paste video to this event</label>
         <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="video"/>
     </div>
@@ -139,6 +143,10 @@
         <div class="alert alert-danger">Try to use proper video formats!</div>
     </div>
 
-
+    <div ng-class="{'has-error':createEvent.$invalid}" class="form-group">
+        <label ng-show="createEvent.$invalid" class="control-label">Button is disabled while all the necessary data is filled!</label>
+        <br>
+        <button type="submit" class="btn btn-primary" ng-disabled="createEvent.$invalid">Submit</button>
+    </div>
 
 </form>

@@ -70,17 +70,17 @@ var eventsDB = new mongoose.Schema({
     date_created: {type: Date, default: Date.now},
     date_exec: Date,
     about: String,
-    team: [],//[who created this event]
-    posted_by: String,//(id of the user)
+    owner: String,//[who created this event id]
     party: [],//[who have entered this event]
     photos: [],//{name: who took, photo: url}
     videos: [],//{name: who took, video: url}
-    complaints: [],//{name: who created, msg: body}
-    comments: []//{name: who commented, msg: body, date: when was created}
-
+//    complaints: [],//{name: who created, msg: body}
+//    comments: [],//{name: who commented, msg: body, date: when was created}
+    destination: String,//Destination of event for search engine
+    coords:[]//Coordinates of event
 })
 //Every event exists in DB for a year not longer
-eventsDB.index({ date_created: 1 }, { expireAfterSeconds : 60*60*24*365 });
+eventsDB.index({ date_exec: 1 }, { expireAfterSeconds : 10 });
 
 exports.eventsDBModel = mongoose.model('event',eventsDB);
 

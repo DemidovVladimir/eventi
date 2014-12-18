@@ -173,8 +173,13 @@ app.post('/searchPerson',api.searchPerson);
 app.post('/addToFriends',api.addToFriends);
 app.post('/deleteFromFriends',api.deleteFromFriends);
 app.post('/makeChangesUser', api.makeChangesUser);
+
+app.get('/getMyEvents/:userId',api.getMyEvents);
+app.get('/deleteEvent/:userId/:title',api.deleteMyEvent);
+app.post('/createEvent',api.createEvent);
 app.post('/insertPicturesEvent',api.insertPicturesEvent);
 app.post('/deletePicEvent',api.deletePicEvent);
+app.post('/deleteVideoEvent',api.deleteVideoEvent);
 app.post('/insertVideosEvent',api.insertVideosEvent);
 //End of manipulations
 

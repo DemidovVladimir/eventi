@@ -713,34 +713,6 @@ exports.auth = function(req,res,next){
     }
 }
 
-function insertPicEvent(req,res){
-    var format = req.files.file.type;
-    var patt = /image/i;
-    var formatCheck = patt.test(format);
-    if(formatCheck){
-        var filename = req.files.file.path;
-        filename = filename.split('/');
-        filename = filename.pop();
-        fs.createReadStream(req.files.file.path)
-            .pipe(fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename));
-        gm('public/uploaded/'+req.body.userId+'/'+filename)
-            .resize(300)
-            .write('public/uploaded/'+req.body.userId+'/mini'+filename, function (err) {
-                fs.exists('public/uploaded/'+req.body.userId+'/mini'+filename, function (exists) {
-                    if(exists){
-                        db.eventsDBModel.update({posted_by:req.body.userId,title:req.body.eventTitle},{$push:{photos:filename}},{upsert:true},function(err){
-                            if(err) return next(err);
-                            res.send(200,filename);
-                        });
-                    }else{
-                        insertPicEvent(req,res)
-                    }
-                });
-            });
-    }else{
-        res.send(200,'wrong format');
-    }
-}
 function insertVidsEvent(req,res){
     var format = req.files.file.type;
     var patt = /video/i;
@@ -753,7 +725,7 @@ function insertVidsEvent(req,res){
             .pipe(fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename));
         fs.exists('public/uploaded/'+req.body.userId+'/'+filename, function (exists) {
             if(exists){
-                db.eventsDBModel.update({posted_by:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
+                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
                     if(err) return next(err);
                     res.send(200,filename);
                 });
@@ -766,7 +738,49 @@ function insertVidsEvent(req,res){
     }
 }
 exports.insertPicturesEvent = function(req,res,next){
-    insertPicEvent(req,res);
+    var format = req.files.file.type;
+    var patt = /image/i;
+    var formatCheck = patt.test(format);
+    if(formatCheck){
+        var filename = req.files.file.path;
+        filename = filename.split('/');
+        filename = filename.pop();
+        var r = fs.createReadStream(req.files.file.path);
+        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
+        r.on('end', function() {
+            w.on('finish', function() {
+                var rg = fs.createReadStream('public/uploaded/'+req.body.userId+'/'+filename);
+                var wg =  fs.createWriteStream('public/uploaded/'+req.body.userId+'/mini'+filename);
+                rg.on('end',function(){
+                    wg.on('finish',function(){
+                        db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{photos:filename}},{upsert:true},function(err){
+                            if(err) return next(err);
+                            res.send(200,filename);
+                        });
+                    });
+                });
+                gm(rg).resize(300)
+                    .stream(function (err, stdout, stderr) {
+                        stdout.pipe(wg);
+                        if(err){
+                            res.send(200,'Miniature was not created. Try again.');
+                            console.log('Miniature was not created. Try again.');
+                        }
+                    });
+            });
+        });
+        w.on('error', function() {
+            res.send(200,'Upload failed. Try again.');
+            console.log('Writing failed. Try again.');
+        });
+        r.on('error', function() {
+            res.send(200,'Upload failed. Try again.');
+            console.log('Reading failed. Try again.');
+        });
+        r.pipe(w);
+    }else{
+        res.send(200,'Wrong format.');
+    }
 }
 exports.insertVideosEvent = function(req,res,next){
     insertVidsEvent(req,res);
@@ -775,7 +789,7 @@ exports.deletePicEvent = function(req,res,next){
     var userId = req.body.userId;
     var pic = req.body.picture;
     var title = req.body.title;
-    db.eventsDBModel.update({posted_by:userId,title:title},{$pull:{photos:{$regex:pic,$options:'i'}}},function(err){
+    db.eventsDBModel.update({owner:userId,title:title},{$pull:{photos:{$regex:pic,$options:'i'}}},function(err){
         if(err) return next(err);
         fs.unlink('public/uploaded/'+userId+'/mini'+pic,function(err){
             if(err) return next(err);
@@ -784,6 +798,84 @@ exports.deletePicEvent = function(req,res,next){
                 res.send(200);
             })
         })
+    });
+}
+exports.deleteVideoEvent = function(req,res,next){
+    var userId = req.body.userId;
+    var video = req.body.video;
+    var title = req.body.title;
+    db.eventsDBModel.update({owner:userId,title:title},{$pull:{videos:{$regex:video,$options:'i'}}},function(err){
+        if(err) return next(err);
+            fs.unlink('public/uploaded/'+userId+'/'+video,function(err){
+                if(err) return next(err);
+                res.send(200);
+            })
+    });
+}
+exports.createEvent = function(req,res,next){
+    var today = new Date();
+    db.eventsDBModel.update({owner:req.body.userId,title:req.body.title},{
+        date_created:today,date_exec: req.body.executionDate, about:req.body.about, destination:req.body.eventLocationCity, coords:req.body.coords
+    },{upsert:true},function(err){
+        if(err) console.log(err);
+        res.send(200);
+    });
+}
+exports.deleteMyEvent = function(req,res,next){
+    var userId = req.params.userId;
+    var title = req.params.title;
+
+
+    db.eventsDBModel.find({owner:userId,title:title},function(err,data){
+        if(err) console.log(err);
+        async.series([
+            function(callback){
+                if(data[0].photos.length!=0){
+                    data[0].photos.forEach(function(pic){
+                        fs.unlink('public/uploaded/'+userId+'/mini'+pic,function(err){
+                            if(err) return next(err);
+                            fs.unlink('public/uploaded/'+userId+'/'+pic,function(err){
+                                if(err) return next(err);
+                                callback(null, 'one');
+                            })
+                        })
+                    });
+                }else{
+                    callback(null, 'one');
+                }
+            },
+            function(callback){
+                if(data[0].videos.length!=0){
+                    data[0].videos.forEach(function(video){
+                        fs.unlink('public/uploaded/'+userId+'/'+video,function(err){
+                            if(err) return next(err);
+                            callback(null, 'two');
+                        })
+                    });
+                }else{
+                    callback(null, 'two');
+                }
+            }
+        ],
+// optional callback
+            function(err, results){
+                db.eventsDBModel.remove({owner:userId,title:title},function(err){
+                    if(err) console.log(err);
+                    res.send(200);
+                })
+            });
+    });
+
+
+
+
+
+
+}
+exports.getMyEvents = function(req,res,next){
+    db.eventsDBModel.find({owner:req.params.userId},function(err,data){
+        if(err) console.log(err);
+        res.send(200,data);
     });
 }
 exports.pasteUserFace = function(profile){
