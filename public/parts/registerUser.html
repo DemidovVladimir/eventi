@@ -213,14 +213,13 @@
     </div>
 
 
-
-
+<div ng-show="name && email">
+    <h4>If you have low quality internet connection, try to use only compressed or low quality pictures.</h4>
     <div class="form-group">
         <label for="inputAva">Picture representing you! (png, jpeg, bmp, gif file format only)</label>
         <input type="file" ng-file-select="onFileSelect($files)" class="form-control" id="inputAva"/>
     </div>
     <!--Dilling with ava input!-->
-
     <div ng-show="progress && progress!='100'">
         <div class="row clear-both text-center">
             <h3>Loading:</h3>
@@ -233,20 +232,22 @@
             </div>
         </div>
     </div>
-    <div ng-show="ava">
+    <div ng-show="ava=='wrong' || ava=='error' && !emailError">
+        <div class="alert alert-danger">Try to use proper image formats(jpeg,png,bmp, etc.)!</div>
+    </div>
+    <div ng-show="ava && ava!='wrong' && ava!='error'">
         <img src="uploaded/{{ava}}" width="250px">
         <div class="text-center">
             <button ng-click="deleteAva(ava)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>
         </div>
     </div>
-
+</div>
     <div ng-class="{'has-error':registerForm.$invalid || selectedLanguages.length==0 || emailError}" class="form-group">
         <label ng-show="registerForm.$invalid || selectedLanguages.length==0 || emailError" class="control-label">Button is disabled while all the necessary data is filled!</label>
         <br>
         <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid || selectedLanguages.length==0 || emailError">Submit</button>
     </div>
 </form>
-
 
 
 

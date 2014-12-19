@@ -29,7 +29,7 @@ var usersDB = new mongoose.Schema({
     banned: Boolean,
     date_ofRegister: {type: Date, default: Date.now},
     email: {type: String, unique: true, sparse: true },
-    about: String,
+    about: {type:String},
     skype: String,
     phone: String,
     ava: String,

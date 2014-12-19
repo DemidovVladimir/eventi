@@ -223,12 +223,14 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     var files;
     $scope.onFileSelect = function($files){
         files = $files;
-        $scope.ava;
         if($scope.name){
             files.forEach(function(item){
                 $scope.upload = $upload.upload({
                     url: '/setAva/user',
-                    data: {user: $scope.name},
+                    data: {
+                        user: $scope.name,
+                        email: $scope.email
+                    },
                     file: item
                 }).progress(function(evt) {
                         var progress = parseInt(100.0 * evt.loaded / evt.total);
@@ -257,8 +259,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 
-
-
+    $scope.about = '';
     $scope.submit = function(){
             var address = $resource('/saveUserData');
             var querySchema = new address();
@@ -271,16 +272,17 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
             querySchema.selectedLanguages = $scope.selectedLanguages;
             querySchema.email = $scope.email;
             querySchema.about = $scope.about;
-            querySchema.phone = $scope.phone;
+            /*querySchema.phone = $scope.phone;
             querySchema.skype = $scope.skype;
             querySchema.facebookId = $scope.facebookId;
             querySchema.facebookLink = $scope.facebookLink;
             querySchema.vkId = $scope.vkId;
             querySchema.vkLink = $scope.vkLink;
             querySchema.twitterId = $scope.twitterId;
-            querySchema.twitterLink = $scope.twitterLink;
+            querySchema.twitterLink = $scope.twitterLink;*/
             querySchema.ava = $scope.ava;
             querySchema.$save(function(data){
+                $scope.test = data;
                 var obj = new Object();
                 obj.id = data._id;
                 obj.name = data.name;
@@ -297,11 +299,12 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 
-app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll){
+app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
     $scope.sessionId = JSON.parse($window.sessionStorage.getItem('session')).id;
-    if($scope.sessionId != $routeParams.user && !$scope.sessionId){
+    if($scope.sessionId != $routeParams.user){
         $window.location.href = '/';
     }else{
+        $scope.madeChanges = 0;
         $scope.signOut = function(){
             $window.sessionStorage.clear('session')
             $window.location.href = '/';
@@ -347,10 +350,18 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     }).progress(function(evt) {
                             var progress = parseInt(100.0 * evt.loaded / evt.total);
                             $scope.progress = progress;
+                            $scope.avaProcess = true;
+                            $scope.info.ava = undefined;
 
                         }).success(function(data, status, headers, config) {
-                            $scope.info.ava = data;
-                            $scope.avaProcess = false;
+                            if(data!='wrong' && data!='error'){
+                                $scope.info.ava = data;
+                                $scope.avaProcess = false;
+                                $scope.avaError = false;
+                            }else{
+                                $scope.avaProcess = false;
+                                $scope.avaError = data;
+                            }
                         });
                 });
         };
@@ -363,8 +374,8 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     $scope.info.ava = undefined;
                 });
         }
+        $scope.avaProcess = false;
         $scope.onAvaInsert = function(files){
-            $scope.avaProcess = true;
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
                         url: '/insertAvaUser',
@@ -374,10 +385,18 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     }).progress(function(evt) {
                             var progress = parseInt(100.0 * evt.loaded / evt.total);
                             $scope.progress = progress;
+                            $scope.avaProcess = true;
 
                         }).success(function(data, status, headers, config) {
-                            $scope.info.ava = data;
-                            $scope.avaProcess = false;
+                            $scope.test = data;
+                            if(data!='wrong' && data!='error'){
+                                $scope.info.ava = data;
+                                $scope.avaProcess = false;
+                                $scope.avaError = false;
+                            }else{
+                                $scope.avaError = data;
+                                $scope.avaProcess = false;
+                            }
                         });
                 });
         };
@@ -519,8 +538,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     }).progress(function(evt) {
                             var progress = parseInt(100.0 * evt.loaded / evt.total);
                             $scope.progress = progress;
+                            $scope.picsProcess = true;
                         }).success(function(data, status, headers, config) {
                             //make result visible
+                            $scope.resultInputPicture = data;
                             var addr = $resource('/foldersList/'+$scope.info._id);
                             var que = addr.query(function(){
                                 $scope.resFolders = que;
@@ -573,9 +594,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     }).progress(function(evt) {
                             var progress = parseInt(100.0 * evt.loaded / evt.total);
                             $scope.progress = progress;
-
+                            $scope.videoProcess = true;
                         }).success(function(data, status, headers, config) {
                             //make result visible
+                            $scope.resultInputVideo = data;
                             var addr = $resource('/foldersVideo/'+$scope.info._id);
                             var que = addr.query(function(){
                                 $scope.resFoldersVideo = que;
@@ -788,6 +810,7 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
         }
         $scope.resultPics = [];
         $scope.resultVids = [];
+        $scope.pictureProgress = false;
         $scope.onPicSelect = function($files){
             var miss = $scope.resultPics.indexOf('wrong format');
             if(miss!='-1') $scope.resultPics.splice(miss,1);
@@ -802,9 +825,11 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
                     }).progress(function(evt) {
                             var progress = parseInt(100.0 * evt.loaded / evt.total);
                             $scope.progress = progress;
+                            $scope.pictureProgress = true;
 
                         }).success(function(data, status, headers, config) {
                             $scope.resultPics.push(data);
+                            $scope.pictureProgress = false;
                         });
                 });
         };
@@ -819,9 +844,9 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
                     $scope.resultPics.splice(oop,1);
                 });
         }
+
+        $scope.videoProgress = false;
         $scope.onVideoSelect = function($files){
-            var miss = $scope.resultVids.indexOf('wrong format');
-            if(miss!='-1') $scope.resultVids.splice(miss,1);
             var files = $files;
             files.forEach(function(item){
                 $scope.upload = $upload.upload({
@@ -833,9 +858,10 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
                 }).progress(function(evt) {
                         var progress = parseInt(100.0 * evt.loaded / evt.total);
                         $scope.progress = progress;
-
+                        $scope.videoProgress = true;
                     }).success(function(data, status, headers, config) {
                         $scope.resultVids.push(data);
+                        $scope.videoProgress = false;
                     });
             });
         };

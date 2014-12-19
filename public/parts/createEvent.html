@@ -107,6 +107,7 @@
         <!--<input type="text" class="form-control" id="monney" ng-model="monney">-->
     <!--</div>-->
 <!--<hr>-->
+    <h4>If you have low quality internet connection, try to use only compressed or low quality pictures, without video uploads.</h4>
     <div ng-show="title" class="form-group">
         <label for="pics">Paste pictures to advertise your event(png, jpeg, bmp, gif file format only):</label>
         <input type="file" ng-file-select="onPicSelect($files)" placeholder="Only available after title field filled in" class="form-control" id="pics"/>
@@ -124,7 +125,10 @@
                 </div>
             </div>
         </div>
-        <mason-grid></mason-grid>
+        <mason-grid ng-show="!pictureProgress"></mason-grid>
+        <div ng-show="pictureProgress" class="text-center"><i class="fa fa-gear fa-5x fa-spin"></i><br>
+            <h3>In progress, compressing picture file into proper dimensions and format! Please wait!</h3>
+        </div>
     </div>
     <div ng-show="resultPics.indexOf('wrong format')!=-1">
         <div class="alert alert-danger">Try to use proper image formats(jpeg,png,bmp, etc.)!</div>
@@ -135,14 +139,17 @@
         <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="video"/>
     </div>
     <div masonry>
-        <div ng-show="resultVids.indexOf('wrong format')==-1" data-ng-repeat="video in resultVids" class="col-sm-6 col-md-4 masonry-brick">
+        <div ng-show="resultVids.indexOf('wrong')==-1" data-ng-repeat="video in resultVids" class="col-sm-6 col-md-4 masonry-brick">
             <custom-video-event></custom-video-event>
         </div>
+        <div ng-show="videoProgress" class="text-center"><i class="fa fa-gear fa-5x fa-spin"></i><br>
+            <h3>In progress, compressing video file into proper dimensions and format! Please wait!</h3>
+        </div>
     </div>
-    <div ng-show="resultVids.indexOf('wrong format')!=-1">
+    <div ng-show="resultVids.indexOf('wrong')!=-1">
         <div class="alert alert-danger">Try to use proper video formats!</div>
     </div>
-
+<br>
     <div ng-class="{'has-error':createEvent.$invalid}" class="form-group">
         <label ng-show="createEvent.$invalid" class="control-label">Button is disabled while all the necessary data is filled!</label>
         <br>
