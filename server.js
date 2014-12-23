@@ -174,13 +174,6 @@ app.post('/addToFriends',api.addToFriends);
 app.post('/deleteFromFriends',api.deleteFromFriends);
 app.post('/makeChangesUser', api.makeChangesUser);
 
-app.get('/getMyEvents/:userId',api.getMyEvents);
-app.get('/deleteEvent/:userId/:title',api.deleteMyEvent);
-app.post('/createEvent',api.createEvent);
-app.post('/insertPicturesEvent',api.insertPicturesEvent);
-app.post('/deletePicEvent',api.deletePicEvent);
-app.post('/deleteVideoEvent',api.deleteVideoEvent);
-app.post('/insertVideosEvent',api.insertVideosEvent);
 //End of manipulations
 
 
@@ -240,7 +233,14 @@ app.post('/getUsergoogle',api.getUserWithGoogle);
 app.post('/getUserlocal',api.getUserWithLocal);
 //End of oAuth
 
-
+//Deal with events
+app.get('/getMyEvents/:userId',api.getMyEvents);
+app.post('/createEvent',api.createEvent);
+app.post('/insertPicturesEvent',api.insertPicturesEvent);
+app.post('/deletePicEvent',api.deletePicEvent);
+app.post('/deleteVideoEvent',api.deleteVideoEvent);
+app.post('/insertVideosEvent',api.insertVideosEvent);
+//End of events
 
 
 

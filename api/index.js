@@ -506,7 +506,7 @@ exports.searchPerson = function(req,res,next){
             function(callback){
                 // do some stuff ...
                 if(name){
-                    curs = curs.find({name:name},function(err,data){
+                    curs = curs.find({name:{$regex:name,$options:'i'}},function(err,data){
                         if(err) return next(err);
                         if(data.length==0){
                             callback(null,'empty');
@@ -522,7 +522,7 @@ exports.searchPerson = function(req,res,next){
             function(callback){
                 // do some stuff ...
                 if(secondName){
-                    curs = curs.find({second_name:secondName},function(err,data){
+                    curs = curs.find({second_name:{$regex:secondName,$options:'i'}},function(err,data){
                         if(err) return next(err);
                         if(data.length==0){
                             callback(null,'empty');
@@ -558,7 +558,7 @@ exports.searchPerson = function(req,res,next){
                     var year = dateIncome[2];
                     var dateOfBirthFrom = new Date(year,month,day,0,0,0,0);
                     var dateOfBirthTill = new Date(year,month,day,23,59,59,0);
-                    db.userDBModel.find({date_ofBirth:{$gte:dateOfBirthFrom,$lt:dateOfBirthTill}},function(err,data){
+                    curs = curs.find({date_ofBirth:{$gte:dateOfBirthFrom,$lt:dateOfBirthTill}},function(err,data){
                         if(err) return next(err);
                         if(data.length==0){
                             callback(null,'empty');
@@ -581,7 +581,7 @@ exports.searchPerson = function(req,res,next){
                         var year = today.getFullYear();
                         var past = year - ageFrom;
                         var pastFull = new Date(past,0,1,0,0,0,0);
-                        db.userDBModel.find({date_ofBirth:{$lt:pastFull}},function(err,data){
+                        curs = curs.find({date_ofBirth:{$lt:pastFull}},function(err,data){
                             if(err) return next(err);
                             if(data.length==0){
                                 callback(null,'empty');
@@ -605,7 +605,7 @@ exports.searchPerson = function(req,res,next){
                         var year = today.getFullYear();
                         var future = year - ageTill;
                         var futureFull = new Date(future,0,1,0,0,0,0);
-                        db.userDBModel.find({date_ofBirth:{$gte:futureFull}},function(err,data){
+                        curs = curs.find({date_ofBirth:{$gte:futureFull}},function(err,data){
                             if(err) return next(err);
                             if(data.length==0){
                                 callback(null,'empty');
@@ -967,7 +967,7 @@ exports.deleteMyEvent = function(req,res,next){
 }
 exports.getMyEvents = function(req,res,next){
     db.eventsDBModel.find({owner:req.params.userId},function(err,data){
-        if(err) console.log(err);
+        if(err) return next(err);
         res.send(200,data);
     });
 }

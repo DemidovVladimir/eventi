@@ -2192,7 +2192,7 @@ a:hover{
 .text-center{
     text-align: center;
 }
-.angular-google-map-container { height: 400px; }
-#testMap{
+.angular-google-map-container {
     height: 400px;
+    width: 100%;
 }

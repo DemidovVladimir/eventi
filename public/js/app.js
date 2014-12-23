@@ -27,6 +27,10 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
                 templateUrl:'parts/createEvent.html',
                 controller:'createEvent'
             })
+            .when('/maintainEvents',{
+                templateUrl:'parts/maintainEvents.html',
+                controller:'maintainEvents'
+            })
             .when('/manageEvent',{
                 templateUrl:'parts/manageEvent.html',
                 controller:'manageEvent'

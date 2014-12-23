@@ -943,8 +943,6 @@ app.controller('loggedHome',function($scope,$routeParams,$resource){
 
 
 app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$location,$anchorScroll){
-
-
         var net = $routeParams.sn;
         net = net.split('-');
         $scope.idSoc = net[0];
@@ -975,6 +973,32 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
             $window.location.href = '/';
 
         }
+});
+
+app.controller('maintainEvents',function($scope,$resource,$window, uiGmapGoogleMapApi,uiGmapIsReady){
+    var session = JSON.parse($window.sessionStorage.getItem('session'));
+    $scope.userName = session.name;
+    $scope.userId = session.id;
+    var adr = $resource('/getMyEvents/'+session.id);
+
+    var que = adr.query(function(){
+        $scope.info = que;
+
+        $scope.open = function(id){
+            $('#'+id).collapse();
+        }
+
+
+                uiGmapIsReady.promise(2).then(function(instances) {
+                    $scope.test = 'ebta';
+                });
+
+
+        });
+//
+//
+
+
 
 
 });
