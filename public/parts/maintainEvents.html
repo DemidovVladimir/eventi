@@ -1,0 +1,113 @@
+<!-- begin:navbar -->
+<nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="img/mini_logo.png">
+                <h4>{{userName}}'s page!</h4>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-top">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li><a ng-href="/maintainUser{{userId}}">Maintain info</a></li>
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/createEvent">Create new</a></li>
+                        <li><a href="/maintainEvents">Maintain created</a></li><!--
+                        <li><a href="category.html">Category (Grid View)</a></li>
+                        <li><a href="category_list.html">Category (List View)</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="blog.html">Blog Archive</a></li>
+                        <li><a href="blog_single.html">Blog Single</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
+                </li>
+                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<!-- end:navbar -->
+
+    <!--<h3 class="text-center">The list of created by you events:</h3>-->
+    <!--<div class="list-group">-->
+        <!--<div data-ng-repeat="event in info" class="dropdown">-->
+            <!--<a href="" class="list-group-item list-group-item-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">-->
+                <!--<span class="badge">{{event.party.length}}</span>-->
+                <!--{{event.title}}-->
+                <!--<span class="caret"></span>-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu">-->
+                <!--{{event}}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+<div id="MainMenu">
+    <div class="list-group panel">
+        <div data-ng-repeat="event in info">
+            <a data-target="#{{event._id}}" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">
+                <span class="badge">{{event.party.length}}</span>
+                {{event.title}}
+                <span class="caret"></span>
+            </a>
+            <div class="collapse" id="{{event._id}}">
+                <h4 class="text-center alert alert-info">Destination: {{event.destination}}</h4>
+                <pre class="text-center">About this event: {{event.about}}</pre>
+                <h4 class="text-center alert alert-info">Date of execution: {{event.date_exec}}</h4>
+
+
+
+
+                <div class="map">
+                    <!--<div ng-init="map={ center: { latitude: event.coords[0].latitude, longitude: event.coords[0].longitude}, zoom: 8}"></div>-->
+                    <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
+                    <ui-gmap-google-map class="col-md-6"
+                                        center="map.center"
+                                        zoom="map.zoom"
+                                        options="map.options"
+                                        dragging="map.dragging"
+                                        control="map.control"
+                                        ng-cloak
+                            >
+                        <ui-gmap-marker coords="map.marker" idkey="map.marker.id" >
+                            <ui-gmap-window isIconVisibleOnClick="true">
+                                <p ng-cloak>Marker , MAP 1 Clicked on me2!</p>
+                            </ui-gmap-window>
+                        </ui-gmap-marker>
+                    </ui-gmap-google-map>
+                </div>
+
+
+
+
+                {{event}}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{test}}

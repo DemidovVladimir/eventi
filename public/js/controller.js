@@ -989,9 +989,7 @@ app.controller('maintainEvents',function($scope,$resource,$window, uiGmapGoogleM
         }
 
 
-                uiGmapIsReady.promise(2).then(function(instances) {
-                    $scope.test = 'ebta';
-                });
+
 
 
         });
@@ -999,6 +997,54 @@ app.controller('maintainEvents',function($scope,$resource,$window, uiGmapGoogleM
 //
 
 
+
+
+    angular.extend($scope, {
+        map: {
+            control: {},
+            center: {
+                latitude: 45,
+                longitude: -74
+            },
+            marker: {
+                id: 0,
+                latitude: 45,
+                longitude: -74,
+                options: {
+                    visible: false
+                }
+            },
+//            marker2: {
+//                id: 0,
+//                latitude: 45.2,
+//                longitude: -74.5
+//            },
+            zoom: 7,
+            options: {
+                draggable:true,
+                disableDefaultUI: true
+//                panControl: false,
+//                navigationControl: false,
+//                scrollwheel: false,
+//                scaleControl: false
+            },
+            refresh: function () {
+                $scope.map.control.refresh(origCenter);
+            }
+        }
+    });
+
+    uiGmapGoogleMapApi.then(function(maps) {
+        maps.visualRefresh = true;
+    });
+
+    uiGmapIsReady.promise(2).then(function (instances) {
+        instances.forEach(function(inst){
+            inst.map.ourID = inst.instance;
+        });
+    });
+
+    var origCenter = {latitude: $scope.map.center.latitude, longitude: $scope.map.center.longitude};
 
 
 });
