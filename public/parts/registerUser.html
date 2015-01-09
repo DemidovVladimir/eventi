@@ -167,7 +167,7 @@
 
     <div ng-class="{'has-error':!placeOfBirth}" class="form-group">
         <label class="control-label" for="exampleInputPlaceOfBirth">Place Of Birth</label>
-        <input name="placeOfBirth" type="text" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="exampleInputPlaceOfBirth" placeholder="Required!" ng-model="placeOfBirth" required>
+        <input name="placeOfBirth" type="text" ng-autocomplete class="form-control" id="exampleInputPlaceOfBirth" placeholder="Required!" ng-model="placeOfBirth" required>
         <br><span class="control-label" ng-show="registerForm.placeOfBirth.$error.required">
         Required!</span>
     </div>
