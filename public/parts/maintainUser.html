@@ -30,15 +30,16 @@
                         <li><a href="single.html">Single page</a></li>-->
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="blog.html">Blog Archive</a></li>
-                        <li><a href="blog_single.html">Blog Single</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </li>
+                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="blog.html">Blog Archive</a></li>-->
+                        <!--<li><a href="blog_single.html">Blog Single</a></li>-->
+                        <!--<li><a href="about.html">About</a></li>-->
+                        <!--<li><a href="contact.html">Contact</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
                 <li>
                     <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
                 </li>
@@ -302,4 +303,34 @@
             <button class="btn btn-success" ng-disabled="maintainInfo.$invalid || emailError || selectedLanguages.length==0" ng-click="submit()" type="button">Make changes</button>
         </div>
     </form>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Deletion of you account.</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete your account with all pictures and videos?
+                    <form role="form" name="deleteUserForm" ng-submit="deleteMyAccount()">
+                        <div ng-class="{'has-error':password!=info.password}" class="form-group">
+                            <label class="control-label" for="password">Confirm password:</label>
+                            <input type="password" name="password" class="form-control" id="password" ng-model="password" required ng-pattern="info.password">
+                            <br><span class="control-label" ng-show="deleteUserForm.password.$error.pattern">
+                                Password not confirmed, please try again!</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary" ng-disabled="deleteUserForm.$invalid">Delete me</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger">
+        <h2 class="text-center">Warning!</h2>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete my account!</button>
+    </div>
 </div>

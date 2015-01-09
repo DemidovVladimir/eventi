@@ -6,6 +6,7 @@ var async = require('async');
 var request = require('request');
 var mongoose = require('mongoose');
 var ffmpeg = require('ffmpeg');
+var rimraf = require('rimraf');
 
 
 exports.setAvaToUser = function(req,res,next){
@@ -804,6 +805,51 @@ exports.auth = function(req,res,next){
         next()
     }
 }
+exports.searchEvents = function(req,res,next){
+    var location = req.params.location;
+    db.eventsDBModel.find({destination:{$regex:location,$options:'i'}},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    })
+}
+exports.getAddedEvents = function(req,res,next){
+    var userId = req.params.userId;
+    db.eventsDBModel.find({party:userId},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    })
+}
+exports.addMeToEvent = function(req,res,next){
+    var eventTitle = req.params.eventTitle;
+    var userId = req.params.userId;
+    db.eventsDBModel.update({title:eventTitle},{$addToSet:{party:userId}},function(err){
+        if(err) return next(err);
+        res.send(200);
+    });
+}
+exports.infoEvent = function(req,res,next){
+    var eventId = req.params.eventId;
+    db.eventsDBModel.find({_id:eventId},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    })
+}
+exports.infoEventChanges = function(req,res,next){
+    var eventId = req.params.eventId;
+    var userId = req.params.userId;
+    db.userDBModel.update({_id:userId},{$addToSet:{changesFound:eventId}},function(err){
+        if(err) return next(err);
+        res.send(200);
+    });
+}
+exports.deleteMeFromEvent = function(req,res,next){
+    var eventId = req.params.eventId;
+    var userId = req.params.userId;
+    db.eventsDBModel.update({_id:eventId},{$pull:{party:userId}},function(err){
+        if(err) return next(err);
+        res.send(200);
+    });
+}
 exports.insertPicturesEvent = function(req,res,next){
     var format = req.files.file.type;
     var patt = /image/i;
@@ -848,6 +894,26 @@ exports.insertPicturesEvent = function(req,res,next){
     }else{
         res.send(200,'Wrong format.');
     }
+}
+exports.makeChanges = function(req,res,next){
+    var title = req.params.title;
+    var id = req.params.id;
+    var date = new Date();
+    if(title=='events'){
+        db.userDBModel.update({changesFound:id},{$pull:{changesFound:id}},function(err){
+           if(err) return next(err);
+            db.changesDBModel.update({eventId:id},{date:date},{upsert:true},function(err){
+                if(err) return next(err);
+                res.send(200);
+            });
+        });
+    }
+}
+exports.getChanges = function(req,res,next){
+    db.changesDBModel.find({},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    })
 }
 exports.insertVideosEvent = function(req,res,next){
     var format = req.files.file.type;
@@ -907,12 +973,32 @@ exports.deleteVideoEvent = function(req,res,next){
 }
 exports.createEvent = function(req,res,next){
     var today = new Date();
+    if(!req.body.phone){
+       var phone = '';
+    }else{
+        var phone = req.body.phone;
+    }
+    if(!req.body.addressInCity){
+        var addressInCity = '';
+    }else{
+        var addressInCity = req.body.addressInCity;
+    }
     db.eventsDBModel.update({owner:req.body.userId,title:req.body.title},{
-        date_created:today,date_exec: req.body.executionDate, about:req.body.about, destination:req.body.eventLocationCity, coords:req.body.coords
+        date_created:today,date_exec: req.body.executionDate, about:req.body.about, destination:req.body.eventLocationCity, coords:req.body.coords,addressInCity:addressInCity,phone:phone
     },{upsert:true},function(err){
         if(err) console.log(err);
         res.send(200);
     });
+}
+exports.getEventsStart = function(req,res,next){
+    var userId = req.params.userId;
+    db.userDBModel.find({_id:userId},{destination:1},function(err,data){
+        if(err) return next(err);
+        db.eventsDBModel.find({destination:data[0].destination,owner:{$ne:userId}},function(err,info){
+            if(err) return next(err);
+            res.send(200,info);
+        });
+    })
 }
 exports.deleteMyEvent = function(req,res,next){
     var userId = req.params.userId;
@@ -966,6 +1052,7 @@ exports.deleteMyEvent = function(req,res,next){
 
 }
 exports.getMyEvents = function(req,res,next){
+    console.log(req.params.userId);
     db.eventsDBModel.find({owner:req.params.userId},function(err,data){
         if(err) return next(err);
         res.send(200,data);
@@ -1030,4 +1117,65 @@ exports.loginLocal = function(req,res,next){
         if(err) return next(err);
         res.send(200,data[0]);
     })
+}
+exports.deleteMe = function(req,res,next){
+    var user = req.body.userId;
+    var pwd = req.body.userPwd;
+    db.userDBModel.find({_id:user,password: pwd},function(err,data){
+        if(err) return next(err);
+        if(data[0].name){
+                async.series([
+                    //delete total user
+                    function(callback){
+                            //delete all files in folder rimraf(f, callback)
+                            rimraf(__dirname+'/../public/uploaded/'+user,function(err){
+                                if(err) return next(err);
+                                callback(null, 'files deleted');
+                            })
+                    },
+                    function(callback){
+                        //all user info deletion
+                        db.userDBModel.remove({_id:user,password: pwd},function(err){
+                            if(err) return next(err);
+                            callback(null, 'all data user removed');
+                        });
+                    },
+                    function(callback){
+                            db.eventsDBModel.remove({owner:user},function(err){
+                                if(err) return next(err);
+                                callback(null, 'all owners events removed');
+                            });
+                    },
+                    function(callback){
+                        db.eventsDBModel.update({party:user},{$pull:{party:user}},function(err){
+                            if(err) return next(err);
+                            callback(null, 'all data events removed');
+                        });
+                    }
+                ],
+                    function(err, results){
+                        if(err) return next(err);
+                        res.send(200,'bie');
+                    });
+        }else{
+            res.send(200,'bad');
+        }
+    });
+}
+exports.getMsgs = function(req,res,next){
+    var userId = req.params.userId;
+    db.msgsDBModel.find({toId:userId,read:false},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    });
+}
+exports.getUnsetMsgs = function(req,res,next){
+    var userId = req.params.userId;
+    db.msgsDBModel.find({toId:userId,read:false},function(err,data){
+        if(err) return next(err);
+        db.msgsDBModel.update({toId:userId,read:false},{read:true},function(err){
+            if(err) return next(err);
+            res.send(200,data);
+        });
+    });
 }

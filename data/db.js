@@ -45,6 +45,7 @@ var usersDB = new mongoose.Schema({
     friends: [],
     photos: [],//{name: who took, photo: url}
     videos: [],//{name: who took, video: url}
+    changesFound:[],
     complaints: []//{name: who created, msg: body}
 })
 
@@ -55,14 +56,17 @@ exports.userDBModel = mongoose.model('user',usersDB);
 
 var msgsDB = new mongoose.Schema({
     date: {type: Date, default: Date.now},
-    body: String,
-    from: String,
-    to: String,
+    fromId: String,
+    fromName:String,
+    toId: String,
+    toName: String,
+    read: String,
+    msg:String,
     photos: [],//{name: who took, photo: url}
     videos: []//{name: who took, video: url}
 })
-
-var msgsDBModel = mongoose.model('msg',msgsDB);
+msgsDB.index({ date: 1 }, { expireAfterSeconds : 60*60*24*30 });
+exports.msgsDBModel = mongoose.model('msg',msgsDB);
 
 var eventsDB = new mongoose.Schema({
     title: String,
@@ -77,12 +81,23 @@ var eventsDB = new mongoose.Schema({
 //    complaints: [],//{name: who created, msg: body}
 //    comments: [],//{name: who commented, msg: body, date: when was created}
     destination: String,//Destination of event for search engine
+    addressInCity: String,
+    phone: String,
     coords:[]//Coordinates of event
 })
 //Every event exists in DB for a year not longer
 eventsDB.index({ date_exec: 1 }, { expireAfterSeconds : 10 });
 
 exports.eventsDBModel = mongoose.model('event',eventsDB);
+
+var changesDB = new mongoose.Schema({
+    eventId: String,
+    date: Date
+})
+//Every event exists in DB for a year not longer
+changesDB.index({ title: 1 }, { expireAfterSeconds : 60*60*24*30 });
+
+exports.changesDBModel = mongoose.model('change',changesDB);
 
 var postsDB = new mongoose.Schema({
     title: String,

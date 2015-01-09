@@ -27,6 +27,10 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
                 templateUrl:'parts/createEvent.html',
                 controller:'createEvent'
             })
+            .when('/infoEvent:eventId',{
+                templateUrl:'parts/infoEvent.html',
+                controller:'infoEvent'
+            })
             .when('/maintainEvents',{
                 templateUrl:'parts/maintainEvents.html',
                 controller:'maintainEvents'
@@ -34,6 +38,18 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
             .when('/manageEvent',{
                 templateUrl:'parts/manageEvent.html',
                 controller:'manageEvent'
+            })
+            .when('/infoUser:userId',{
+                templateUrl:'parts/infoUser.html',
+                controller:'infoUser'
+            })
+            .when('/makeChangesEvent:eventId',{
+                templateUrl:'parts/makeChangesEvent.html',
+                controller:'makeChangesEvent'
+            })
+            .when('/myMessages:userId',{
+                templateUrl:'parts/myMessages.html',
+                controller:'myMessages'
             })
             .otherwise({
                 redirectTo: '/'

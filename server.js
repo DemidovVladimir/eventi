@@ -9,6 +9,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
+var io = require('socket.io')(http);
+var db = require('./data/db.js');
 /*var https = require('https');*/
 
 
@@ -146,6 +148,58 @@ app.use(errorHandler);
 
 
 
+//io.sockets.on('connection', socket);
+
+var connected = [];
+
+
+
+
+io.on('connection',function(socket){
+    socket.on('connect me',function(user){
+        connected.push(user);
+        socket.join(user);
+        socket.on('message',function(msg){
+            var answer = {};
+            answer.userFromId = msg.userFromId;
+            answer.userFromName = msg.userFromName;
+            answer.msg = msg.msg;
+            answer.userToId = msg.userToId;
+            answer.userToName = msg.userToName;
+
+
+            if(connected.indexOf(msg.userToId)!=-1){
+                db.msgsDBModel.create({fromId:msg.userFromId,fromName:msg.userFromName,toId:msg.userToId,toName:msg.userToName,read:true,msg:msg.msg},function(err){
+                    if(err) return next(err);
+                });
+            }else{
+                db.msgsDBModel.create({fromId:msg.userFromId,fromName:msg.userFromName,toId:msg.userToId,toName:msg.userToName,read:false,msg:msg.msg},function(err){
+                    if(err) return next(err);
+                });
+            }
+            io.to(msg.userToId).emit('message',answer);
+            io.to(user).emit('message',answer);
+        });
+
+
+        socket.on('disconnect', function(){
+            var intAr = connected.indexOf(user);
+            connected.splice(intAr,1);
+            socket.leave(user);
+        });
+
+
+    });
+
+//    socket.on('disconnect me',function(user){
+//
+//    });
+
+});
+//Msgs
+app.get('/getMsgs/:userId',api.getMsgs);
+app.get('/getUnsetMsgs/:userId',api.getUnsetMsgs);
+//Msgs
 
 //Manipulation with stuff
 app.post('/setAva/user',api.setAvaToUser);
@@ -157,7 +211,7 @@ app.post('/insertPicturesUser',api.insertPicturesUser);
 app.get('/deleteAva/:file',api.deleteAvaFromUser);
 app.get('/checkEmailExist/:email',api.checkEmailExist);
 app.post('/deleteAva',api.deleteAva);
-
+app.post('/deleteMe',api.deleteMe);
 
 
 
@@ -234,16 +288,27 @@ app.post('/getUserlocal',api.getUserWithLocal);
 //End of oAuth
 
 //Deal with events
+app.get('/getEventsStart/:userId',api.getEventsStart);
 app.get('/getMyEvents/:userId',api.getMyEvents);
+app.get('/deleteEvent/:userId/:title',api.deleteMyEvent);
 app.post('/createEvent',api.createEvent);
 app.post('/insertPicturesEvent',api.insertPicturesEvent);
 app.post('/deletePicEvent',api.deletePicEvent);
 app.post('/deleteVideoEvent',api.deleteVideoEvent);
 app.post('/insertVideosEvent',api.insertVideosEvent);
+app.get('/addMeToEvent/:userId/:eventTitle',api.addMeToEvent);
+app.get('/deleteMeFromEvent/:userId/:eventId',api.deleteMeFromEvent);
+app.get('/infoEvent/:eventId',api.infoEvent);
+app.get('/searchEvents/:location',api.searchEvents);
+app.get('/getAddedEvents/:userId',api.getAddedEvents);
 //End of events
 
 
-
+//Edit changes
+app.get('/makeChanges/:title/:id',api.makeChanges);
+app.get('/getChanges',api.getChanges);
+app.get('/infoEventChanges/:eventId/:userId',api.infoEventChanges);
+//End of editing changes
 
 
 

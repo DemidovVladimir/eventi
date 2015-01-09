@@ -377,6 +377,31 @@ app.directive('customVideo',function($resource,$routeParams,$sce){
     }
 });
 
+app.directive('videosUser',function($resource,$routeParams,$sce){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+            scope.videoSafe = $sce.trustAsResourceUrl('/uploaded/'+scope.aboutUser._id+'/'+scope.folder+'/'+scope.video.title);
+            /*if(video[0].videoLink.length!=1){
+             video[0].videoLink.forEach(function(item){
+             var trusted = $sce.trustAsResourceUrl(item);
+             scope.videoLinks.push(trusted);
+             });
+             }else{
+             var trusted = $sce.trustAsResourceUrl(video[0].videoLink);
+             scope.videoLinks.push(trusted);
+             }*/
+
+
+
+
+
+
+        },
+        templateUrl:'parts/customVideo.html'
+    }
+});
+
 
 
 app.directive('customVideoEvent',function($resource,$routeParams,$sce){
@@ -392,6 +417,39 @@ app.directive('customVideoEvent',function($resource,$routeParams,$sce){
                     isFitWidth: true,
                     isAnimated: !Modernizr.csstransitions
                 });
+            /*if(video[0].videoLink.length!=1){
+             video[0].videoLink.forEach(function(item){
+             var trusted = $sce.trustAsResourceUrl(item);
+             scope.videoLinks.push(trusted);
+             });
+             }else{
+             var trusted = $sce.trustAsResourceUrl(video[0].videoLink);
+             scope.videoLinks.push(trusted);
+             }*/
+
+
+
+
+
+
+        },
+        templateUrl:'parts/customVideo.html'
+    }
+});
+
+app.directive('customVideoEventWatch',function($resource,$routeParams,$sce){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+
+            scope.videoSafe = $sce.trustAsResourceUrl('/uploaded/'+scope.info[0].owner+'/'+scope.video);
+            element.masonry({
+                itemSelector : '.masonry-brick',
+                columnwidth: 300,
+                gutter: 20,
+                isFitWidth: true,
+                isAnimated: !Modernizr.csstransitions
+            });
             /*if(video[0].videoLink.length!=1){
              video[0].videoLink.forEach(function(item){
              var trusted = $sce.trustAsResourceUrl(item);
@@ -432,5 +490,64 @@ app.directive('masonGrid',function(){
 });
 
 
+app.directive('getRealDate',function(){
+    return{
+        restrict:'E',
+        link: function(scope,element,attrs){
+            var ddt = new Date(scope.event.date_exec);
+            scope.year = ddt.getFullYear();
+            scope.month = ddt.getMonth()+1;
+            scope.day = ddt.getDate();
+        },
+        template:'<h4 class="text-center alert alert-info">Date of execution: {{year}}/{{month}}/{{day}}</h4>'
+    }
+});
+
+app.directive('getRealDateLogged',function(){
+    return{
+        restrict:'E',
+        link: function(scope,element,attrs){
+            var ddt = new Date(scope.event.date_exec);
+            scope.year = ddt.getFullYear();
+            scope.month = ddt.getMonth()+1;
+            scope.day = ddt.getDate();
+        },
+        template:'{{year}}/{{month}}/{{day}}'
+    }
+});
+
+app.directive('getUserInfo',function($resource,$routeParams,$sce){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+
+//            exports.getUserInfo = function(req,res,next){
+//                db.userDBModel.find({_id:req.body.userId
+
+            var adr = $resource('/getUserInfo');
+            var que = new adr();
+            que.userId = scope.user;
+            scope.deletedUser = [];
+            que.$save(function(data){
+                scope.userinfo = data;
+
+                if(data.date_ofBirth){
+                    var date = new Date(data.date_ofBirth);
+                    var year = date.getFullYear()
+                    var month = date.getMonth()+1;
+                    var day = date.getDate();
+                    scope.date_ofBirth = year+'/'+month+'/'+day;
+                }
+            });
+            scope.removeFromEvent = function(userId,eventId){
+                var adr = $resource('/deleteMeFromEvent/'+userId+'/'+eventId);
+                var que = adr.get(function(){
+                    scope.deletedUser.push(userId);
+                });
+            }
+        },
+        templateUrl:'parts/userInfo.html'
+    }
+});
 
 

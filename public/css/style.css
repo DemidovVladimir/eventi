@@ -2194,5 +2194,43 @@ a:hover{
 }
 .angular-google-map-container {
     height: 400px;
-    width: 100%;
+}
+.map{
+    display: block;
+}
+.maintainEvent{
+    margin-top:25px;
+}
+.userInfo{
+    margin-top: 80px;
+}
+.folderPics ul{
+    list-style: none;
+}
+.folderPics ul li{
+    float: left;
+}
+.folderPics a h5{
+    clear: both;
+}
+.folderVideos ul{
+    list-style: none;
+}
+.folderVideos ul li{
+    float: left;
+}
+.folderVideos a h5{
+    clear: both;
+}
+.deleteButtonEvent{
+    margin-top: 25px;
+}
+.makeChangesEventButton{
+    margin-top: 25px;
+}
+.userInfoList{
+    list-style: none;
+}
+.userInfoList ul li{
+    float:left;
 }

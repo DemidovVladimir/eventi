@@ -1,4 +1,5 @@
 <!-- begin:navbar -->
+<div class="maintainEvent">
 <nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -30,15 +31,16 @@
                         <li><a href="single.html">Single page</a></li>-->
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="blog.html">Blog Archive</a></li>
-                        <li><a href="blog_single.html">Blog Single</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </li>
+                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">5</small></a></li>
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="blog.html">Blog Archive</a></li>-->
+                        <!--<li><a href="blog_single.html">Blog Single</a></li>-->
+                        <!--<li><a href="about.html">About</a></li>-->
+                        <!--<li><a href="contact.html">Contact</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
                 <li>
                     <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
                 </li>
@@ -63,51 +65,82 @@
         <!--</div>-->
     <!--</div>-->
 
-
 <div id="MainMenu">
     <div class="list-group panel">
         <div data-ng-repeat="event in info">
-            <a data-target="#{{event._id}}" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">
+            <a data-target="#{{event._id}}" ng-click="mapOrderSet(event)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">
                 <span class="badge">{{event.party.length}}</span>
                 {{event.title}}
                 <span class="caret"></span>
             </a>
             <div class="collapse" id="{{event._id}}">
-                <h4 class="text-center alert alert-info">Destination: {{event.destination}}</h4>
+                <div class="text-center deleteButtonEvent">
+                    <button type="button" class="btn btn-danger" ng-click="deleteEvent(event.title)">Delete this event</button>
+                </div>
+                <div class="text-center makeChangesEventButton">
+                    <a class="btn btn-warning" ng-href="/makeChangesEvent{{event._id}}">Make some changes</a>
+                </div>
+                <h4 class="text-center alert alert-info">Destination: {{event.destination}}
+                </h4>
                 <pre class="text-center">About this event: {{event.about}}</pre>
-                <h4 class="text-center alert alert-info">Date of execution: {{event.date_exec}}</h4>
+                <get-real-date></get-real-date>
+                <h4 class="text-center">Videos:</h4>
+                <div class="row col-sm-12 col-md-12">
+                    <div data-ng-repeat="video in event.videos track by $index" class="col-sm-6 col-md-4">
+                        <custom-video-event>
+                        </custom-video-event>
+                    </div>
+                </div>
+
+                <h4 class="text-center">Photos:</h4>
+                <div class="row col-sm-12">
+                    <div data-ng-repeat="pic in event.photos track by $index" class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <a href="uploaded/{{userId}}/{{pic}}" data-lightbox="{{pic}}" target="_blank">
+                                <img ng-src="uploaded/{{userId}}/mini{{pic}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="text-center">Participants:</h4>
+                <div class="text-center">
+                    <button type="button" ng-click="toggleParticipants()" class="btn btn-warning">
+                        Click to show/hide participants
+                        <b class="caret"></b>
+                    </button>
+                </div>
+                <div class="row col-sm-12">
+                    <div data-ng-repeat="user in event.party track by $index" class="col-sm-6 col-md-4">
+                        <get-user-info></get-user-info>
+                    </div>
+                </div>
 
 
-
-
-                <div class="map">
-                    <!--<div ng-init="map={ center: { latitude: event.coords[0].latitude, longitude: event.coords[0].longitude}, zoom: 8}"></div>-->
-                    <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
+                <h4 class="text-center">Map details:</h4>
+                <div class="row map" ng-if="info.indexOf(event)==mapOrder">
+                    <label for="refreshMap">
+                        You can refresh the map if it is still not loaded clearly.
+                        Click on the marker to find the proper address.
+                    </label>
+                    <button name="refreshMap" class="col-md-2 btn btn-success" ng-click="mapOptions.refresh()">Refresh Map</button>
                     <ui-gmap-google-map class="col-md-6"
                                         center="map.center"
-                                        zoom="map.zoom"
-                                        options="map.options"
+                                        zoom="mapOptions.zoom"
+                                        options="mapOptions.options"
                                         dragging="map.dragging"
-                                        control="map.control"
+                                        control="mapOptions.control"
                                         ng-cloak
                             >
                         <ui-gmap-marker coords="map.marker" idkey="map.marker.id" >
                             <ui-gmap-window isIconVisibleOnClick="true">
-                                <p ng-cloak>Marker , MAP 1 Clicked on me2!</p>
+                                <p ng-cloak>{{event.addressInCity}}</p>
                             </ui-gmap-window>
                         </ui-gmap-marker>
                     </ui-gmap-google-map>
                 </div>
-
-
-
-
-                {{event}}
-
             </div>
         </div>
     </div>
 </div>
-
-
-{{test}}
+</div>
