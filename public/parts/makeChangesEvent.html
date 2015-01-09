@@ -1,0 +1,150 @@
+    <nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="img/mini_logo.png">
+                    <h4>{{userName}}'s page!</h4>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-top">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                    <li><a ng-href="/maintainUser{{userId}}">Maintain info</a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/createEvent">Create new</a></li>
+                            <li><a href="/maintainEvents">Maintain created</a></li><!--
+                        <li><a href="category.html">Category (Grid View)</a></li>
+                        <li><a href="category_list.html">Category (List View)</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
+                        </ul>
+                    </li>
+                    <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">5</small></a></li>
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a href="blog.html">Blog Archive</a></li>-->
+                            <!--<li><a href="blog_single.html">Blog Single</a></li>-->
+                            <!--<li><a href="about.html">About</a></li>-->
+                            <!--<li><a href="contact.html">Contact</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <li>
+                        <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
+                    </li>
+                    <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+
+            <h3 class="text-center">{{infoEvent[0].title}}</h3>
+
+<form ng-show="userId" role="form" name="createEvent" class="text-center">
+    <div class="form-group">
+        <label class="control-label" for="eventLocationCity">Location of event(city or town title):</label>
+        <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity" required>
+    </div>
+    <h4>Please move marker on the map to the proper destination of event.</h4>
+    <ui-gmap-google-map center='map.center' ng-if="renderMap" zoom='map.zoom' draggable="true" options="options">
+        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+        </ui-gmap-marker>
+    </ui-gmap-google-map>
+    <div class="form-group" ng-class="{'has-error': createEvent.executionDate.$invalid}">
+        <label class="control-label"><i class="fa fa-calendar"></i>Execution date:</label>
+        <input type="text" class="form-control" ng-model="executionDate" data-date-format="yyyy-MM-dd" data-min-date="today" data-max-date="{{expirationMonth}}/{{expirationDay}}/{{expirationYear}}" data-autoclose="1" name="executionDate" placeholder="Required!" bs-datepicker required>
+        <span class="control-label" ng-show="createEvent.executionDate.$invalid && !createEvent.executionDate.$error.required">
+        Invalid date format, select from dropdown list!</span>
+    </div>
+    <div class="form-group">
+        <label for="addressInCity">Address in the city.</label>
+        <textarea id="addressInCity" ng-model="addressInCity" name="addressInCity" class="form-control" placeholder="Not required!" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone number if exists(to contact you for details)</label>
+        <input type="text" class="form-control" id="phone" ng-model="phone">
+    </div>
+    <div class="form-group">
+        <label for="about">Info about this event</label>
+        <textarea id="about" ng-model="about" name="about" class="form-control" rows="3"></textarea>
+    </div>
+    <h4>If you have low quality internet connection, try to use only compressed or low quality pictures, without video uploads.</h4>
+    <div ng-show="infoEvent[0].photos.length!=0">
+        <h4 class="text-center">Photos:</h4>
+        <div class="row col-sm-12">
+            <div data-ng-repeat="pic in infoEvent[0].photos track by $index" class="col-sm-6 col-md-4">
+                <div ng-if="deletedPics.indexOf(pic)==-1" class="thumbnail">
+                    <a href="uploaded/{{infoEvent[0].owner}}/{{pic}}" data-lightbox="{{pic}}" target="_blank">
+                        <img ng-src="uploaded/{{infoEvent[0].owner}}/mini{{pic}}" alt="">
+                    </a>
+                    <div class="text-center">
+                        <button ng-click="deletePic(pic,infoEvent[0].title)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="title" class="form-group">
+        <label for="pics">Paste pictures to advertise your event(png, jpeg, bmp, gif file format only):</label>
+        <input type="file" ng-file-select="onPicSelect($files)" placeholder="Only available after title field filled in" class="form-control" id="pics"/>
+    </div>
+    <div ng-show="resultPics.indexOf('wrong format')==-1">
+        <div ng-show="progress && progress!='100'">
+            <div class="row clear-both text-center">
+                <h3>Loading:</h3>
+            </div>
+            <div class="row">
+                <div class="progress col-sm-6 col-sm-offset-3">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                        {{progress}}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mason-grid ng-show="!pictureProgress"></mason-grid>
+        <div ng-show="pictureProgress" class="text-center"><i class="fa fa-gear fa-5x fa-spin"></i><br>
+            <h3>In progress, compressing picture file into proper dimensions and format! Please wait!</h3>
+        </div>
+    </div>
+    <div ng-show="resultPics.indexOf('wrong format')!=-1">
+        <div class="alert alert-danger">Try to use proper image formats(jpeg,png,bmp, etc.)!</div>
+    </div>
+    <!--<hr>-->
+    <div ng-show="infoEvent[0].videos.length!=0">
+        <h4 class="text-center">Videos:</h4>
+        <div class="row col-sm-12 col-md-12">
+            <div data-ng-repeat="video in infoEvent[0].videos track by $index" class="col-sm-6 col-md-4">
+                <custom-video-event>
+                </custom-video-event>
+                <button ng-click="deleteVideo(video,infoEvent[0].title)" type="button" class="btn btn-warning btn-sm">Delete this video!</button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="title" class="form-group">
+        <label for=video">Paste video to this event</label>
+        <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="video"/>
+    </div>
+    <div masonry>
+        <div ng-show="resultVids.indexOf('wrong')==-1" data-ng-repeat="video in resultVids" class="col-sm-6 col-md-4 masonry-brick">
+            <custom-video-event></custom-video-event>
+            <button ng-click="deleteVideo(video,infoEvent[0].title)" type="button" class="btn btn-warning btn-sm">Delete this video!</button>
+        </div>
+        <div ng-show="videoProgress" class="text-center"><i class="fa fa-gear fa-5x fa-spin"></i><br>
+            <h3>In progress, compressing video file into proper dimensions and format! Please wait!</h3>
+        </div>
+    </div>
+    <div ng-show="resultVids.indexOf('wrong')!=-1">
+        <div class="alert alert-danger">Try to use proper video formats!</div>
+    </div>
+    <button type="button" ng-click="submit()" class="btn btn-primary" ng-disabled="createEvent.$invalid">Submit</button>
+</form>

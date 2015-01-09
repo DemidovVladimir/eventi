@@ -1,0 +1,132 @@
+<nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="img/mini_logo.png">
+                <h4>{{userName}}'s page!</h4>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-top">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li><a ng-href="/maintainUser{{userId}}">Maintain info</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/createEvent">Create new</a></li>
+                        <li><a href="/maintainEvents">Maintain created</a></li><!--
+                        <li><a href="category.html">Category (Grid View)</a></li>
+                        <li><a href="category_list.html">Category (List View)</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
+                    </ul>
+                </li>
+                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="blog.html">Blog Archive</a></li>-->
+                        <!--<li><a href="blog_single.html">Blog Single</a></li>-->
+                        <!--<li><a href="about.html">About</a></li>-->
+                        <!--<li><a href="contact.html">Contact</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <li>
+                    <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
+                </li>
+                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<div class="userInfo">
+        <h3 class="text-center">{{aboutUser.name}} {{aboutUser.second_name}}</h3>
+        <div class="text-center">
+            <img class="img-responsive img-thumbnail img-circle" ng-src="/uploaded/{{aboutUser._id}}/mini_{{aboutUser.ava}}">
+        </div>
+        <h5 class="text-center">Gender: {{aboutUser.gender}}</h5>
+        <h5 class="text-center">Date of birth: {{dateOfBirth}}</h5>
+        <h5 class="text-center">Place of birth: {{aboutUser.place_ofBirth}}</h5>
+        <h5 class="text-center">Languages able to speak and understand:
+            <strong data-ng-repeat="lang in aboutUser.languages_able track by $index">{{lang}}</strong>
+        </h5>
+        <h5 class="text-center">Write email:
+            <a href="mailto:{{aboutUser.email}}?Subject=From%20enveti.com%20user{{userName}}"><strong>
+                {{aboutUser.email}}
+            </strong></a>
+        </h5>
+        <h5 ng-show="aboutUser.phone" class="text-center">Phone number: <strong>{{aboutUser.phone}}</strong></h5>
+        <h3 class="text-center">I'm currently in: <small>{{aboutUser.destination}}</small></h3>
+
+    <!--Chat start-->
+    <div>
+        Messages:
+        <ul>
+            <li ng-if="newMsgs.length!=0" data-ng-repeat="message in newMsgs">
+            <div>
+                <a ng-click="setUserTo(message.fromId,message.fromName)">
+                    Click to answer ->
+                </a>
+                {{message.fromName}} : {{message.msg}}
+            </div>
+        </li>
+            <li ng-if="messages.length!=0" data-ng-repeat="message in messages">
+                <div ng-if="message.userFromId!=userId">
+                    <a ng-click="setUserTo(message.userFromId,message.userFromName)">
+                        Click to answer ->
+                    </a>
+                    {{message.userFromName}} : {{message.msg}}
+                </div>
+                <div ng-if="message.userFromId==userId">
+                    Me to {{message.userToName}}: {{message.msg}}
+                </div>
+            </li>
+        </ul>
+        <form ng-show="userId" role="form" name="createEvent" class="text-center" ng-submit="submitMsg()">
+            <div class="form-group">
+                <h5 class="text-center">You need to select user to write to...</h5>
+                <label class="control-label" for="msg">Your message: to {{userToName}}</label>
+                <input class="form-control" name="msg" type="text" ng-model="msg" required="required">
+            </div>
+            <button type="submit" class="btn btn-success" ng-disabled="createEvent.$invalid">Send message</button>
+        </form>
+    </div>
+    <!--Chat end-->
+        <h3 ng-show="uniqueFoldersPics" class="text-center">Folders of pictures:</h3>
+        <div class="folderPics" data-ng-repeat="folder in uniqueFoldersPics">
+            <a ng-click="toggleFolderPics(folder)">
+                <h5 class="text-center">
+                    {{folder}}<span class="caret"></span>
+                </h5>
+            </a>
+            <ul ng-show="!isEven(openedFolderPicCount) && openedFolderPic == folder">
+                <li data-ng-repeat="pic in aboutUser.photos | filter:folder">
+                    <a href="/uploaded/{{aboutUser._id}}/{{folder}}/{{pic.title}}" data-lightbox="{{folder}}" data-title="{{folder}}">
+                        <img class="img-responsive img-thumbnail" ng-src="/uploaded/{{aboutUser._id}}/{{folder}}/mini_{{pic.title}}">
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <h3 ng-show="uniqueFoldersVideos" class="text-center">Folders of videos:</h3>
+        <div class="folderVideos" data-ng-repeat="folder in uniqueFoldersVideos">
+            <a ng-click="toggleFolderVideos(folder)">
+                <h5 class="text-center">
+                    {{folder}}<span class="caret"></span>
+                </h5>
+            </a>
+            <ul ng-show="!isEven(openedFolderVideoCount) && openedFolderVideo == folder">
+                <li data-ng-repeat="video in aboutUser.videos | filter:folder">
+                    <videos-user></videos-user>
+                </li>
+            </ul>
+        </div>
+</div>

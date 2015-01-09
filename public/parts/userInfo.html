@@ -1,0 +1,17 @@
+    <ul class="userInfoList" ng-if="!isEven(countOpeningsPart)">
+        <li ng-if="deletedUser.indexOf(userinfo._id)==-1">
+            <a href="/infoUser{{userinfo._id}}">
+                <div class="thumbnail">
+                    <img src="/uploaded/{{userinfo._id}}/mini_{{userinfo.ava}}" alt="avatar">
+                    <div class="caption">
+                        <h3>{{userinfo.name}}</h3>
+                        <p>Gender: {{userinfo.gender}}</p>
+                        <p>Date of birth: {{date_ofBirth}}</p>
+                    </div>
+                </div>
+            </a>
+            <button type="button" class="btn btn-danger" data-ng-click="removeFromEvent(userinfo._id,event._id)">Remove from my event</button>
+        </li>
+    </ul>
+
+

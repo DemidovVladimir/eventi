@@ -1,0 +1,128 @@
+<nav id="top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="img/mini_logo.png">
+                <h4>{{userName}}'s page!</h4>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-top">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+                <li><a ng-href="/maintainUser{{userId}}">Maintain info</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/createEvent">Create new</a></li>
+                        <li><a href="/maintainEvents">Maintain created</a></li><!--
+                        <li><a href="category.html">Category (Grid View)</a></li>
+                        <li><a href="category_list.html">Category (List View)</a></li>
+                        <li><a href="single.html">Single page</a></li>-->
+                    </ul>
+                </li>
+                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="blog.html">Blog Archive</a></li>-->
+                        <!--<li><a href="blog_single.html">Blog Single</a></li>-->
+                        <!--<li><a href="about.html">About</a></li>-->
+                        <!--<li><a href="contact.html">Contact</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <li>
+                    <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
+                </li>
+                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav>
+<!-- end:navbar -->
+        <h3 class="text-center">{{info[0].title}}</h3>
+        <h5 class="text-center">Creator id: <a href="/infoUser{{info[0].owner}}">{{info[0].owner}}</a></h5>
+        <h5 class="text-center">Date of execution: {{date_exec}}</h5>
+        <h5 class="text-center">Contact phone number: {{info[0].phone}}</h5>
+        <h5 class="text-center">Location: {{info[0].destination}}</h5>
+        <pre>{{info[0].about}}</pre>
+
+
+
+
+
+
+        <div ng-show="info[0].videos.length!=0">
+            <h4 class="text-center">Videos:</h4>
+            <div class="row col-sm-12 col-md-12">
+                <div data-ng-repeat="video in info[0].videos track by $index" class="col-sm-6 col-md-4">
+                    <custom-video-event-watch>
+                    </custom-video-event-watch>
+                </div>
+            </div>
+        </div>
+        <div ng-show="info[0].photos.length!=0">
+            <h4 class="text-center">Photos:</h4>
+            <div class="row col-sm-12">
+                <div data-ng-repeat="pic in info[0].photos track by $index" class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a href="uploaded/{{info[0].owner}}/{{pic}}" data-lightbox="{{pic}}" target="_blank">
+                            <img ng-src="uploaded/{{info[0].owner}}/mini{{pic}}" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="text-center">Map details:</h4>
+        <h5 class="text-center">Click on marker to find additional info about address. If exists.</h5>
+            <ui-gmap-google-map class="col-md-12"
+                                center="map.center"
+                                zoom="mapOptions.zoom"
+                                options="mapOptions.options"
+                                dragging="map.dragging"
+                                control="mapOptions.control"
+                                ng-cloak
+                    >
+                <ui-gmap-marker coords="map.marker" idkey="map.marker.id" >
+                    <ui-gmap-window isIconVisibleOnClick="true">
+                        <p ng-cloak>{{info[0].addressInCity}}</p>
+                    </ui-gmap-window>
+                </ui-gmap-marker>
+            </ui-gmap-google-map>
+        <div class="text-center">
+            <h3 class="text-center">
+                Participants:
+            </h3>
+            <h5 class="text-center">{{info[0].party.length}}</h5>
+            <button type="button" ng-click="findParty(info[0].party)" class="btn btn-warning">Click to show/hide info</button>
+            <div ng-show="!isEven(countUsersInfoClicks)" class="row">
+                <div data-ng-repeat="people in exParty">
+                    <div data-ng-repeat="men in people">
+                        <div class="col-md-3 col-sm-6 col-xs-12 property-container">
+                            <a href="/infoUser{{men._id}}">
+                                <div class="property-image">
+                                    <img class="img-responsive" src="/uploaded/{{men._id}}/mini_{{men.ava}}" alt="avatar">
+                                    <div class="property-price">
+                                        <h4>{{men.name}}</h4>
+                                    </div>
+                                </div>
+                                <div class="property-content">
+                                    <h3><small>Date of birth: {{men.date_ofBirth}}</small></h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+
+        </div>
+</div>
