@@ -724,6 +724,8 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
     $scope.userId = $scope.session.id;
     $scope.userName = $scope.session.name;
 
+    $scope.mapNode = $window.GoogleMapsLoader;
+
     var adr = $resource('/getMyEvents/'+$scope.userId);
     var que = adr.query(function(){
         $scope.eventsExists = que;
