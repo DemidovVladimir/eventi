@@ -725,6 +725,19 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
     $scope.userName = $scope.session.name;
 
 
+
+
+    $scope.submitMap = function(){
+        var mapDet = $resource('/searchMap/'+$scope.mapDet);
+        var queMap = mapDet.query(function(){
+            $scope.resMap = queMap;
+        });
+    }
+
+
+
+
+
     var adr = $resource('/getMyEvents/'+$scope.userId);
     var que = adr.query(function(){
         $scope.eventsExists = que;
@@ -770,6 +783,10 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
             }
         }
     };
+
+
+
+
 //    scope.$on('mapSearchCenter');
     $scope.$on('mapSearchCenter', function() {
         $scope.renderMap = false;

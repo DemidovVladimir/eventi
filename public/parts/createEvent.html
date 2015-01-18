@@ -81,6 +81,7 @@
     </ui-gmap-google-map>
     </div>
 
+
 <!--<hr>-->
     <!--<div class="form-group">-->
         <!--<label for="eventLocationStreet">Location of this event(street, house, etc.):</label>-->
@@ -156,4 +157,10 @@
         <button type="submit" class="btn btn-primary" ng-disabled="createEvent.$invalid">Submit</button>
     </div>
 
+
+</form>
+
+<form ng-show="userId" role="form" name="checkMap" class="text-center" ng-submit="submitMap()">
+    <input type="text" ng-model="mapDet">
+    <button type="submit" class="btn btn-success"></button>
 </form>

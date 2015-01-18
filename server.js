@@ -11,6 +11,12 @@ var bodyParser = require('body-parser');
 var api = require('./api/index.js');
 var io = require('socket.io')(http);
 var db = require('./data/db.js');
+
+
+
+//gom.reverseGeocode('41.850033,-87.6500523', function(err, data){
+//    console.log(JSON.stringify(data));
+//});
 /*var https = require('https');*/
 
 
@@ -236,7 +242,9 @@ app.post('/makeChangesUser', api.makeChangesUser);
 
 
 
-
+//Map
+//app.get('/searchMap/:mapDet',api.searchMap);
+//Map
 
 
 //oAuth routes and manipulations with auth(FB, VK, Google, Local)
