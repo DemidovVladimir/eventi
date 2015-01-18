@@ -14,70 +14,6 @@ var db = require('./data/db.js');
 
 
 
-//gom.reverseGeocode('41.850033,-87.6500523', function(err, data){
-//    console.log(JSON.stringify(data));
-//});
-/*var https = require('https');*/
-
-
-/*var options = {
-    key: fs.readFileSync('enveti.key'),
-    cert: fs.readFileSync('./key/461b1981d955e.crt'),
-    ca:     fs.readFileSync('./key/gd_bundle-g2-g1.crt'),
-    requestCert:        true,
-    rejectUnauthorized: false
-};*/
-
-
-
-
-
-
-
-
-
-
-//Config https server
-/*var sslOptions = {
-    key: fs.readFileSync(__dirname + '/ssl-key.pem'),
-    cert: fs.readFileSync(__dirname + '/ssl-cert.pem')
-};
-var https = require('https').createServer(sslOptions,app);*/
-//End of https
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Config https server
-/*var sslOptions = {
-    key: fs.readFileSync(__dirname + '/ssl-key.pem'),
-    cert: fs.readFileSync(__dirname + '/ssl-cert.pem')
-};
-var https = require('https').createServer(sslOptions,app);*/
-//End of https
-
-
-
-
-
-
-
-
 
 //Configure passport and sign in with social networks
 var passport = require('passport')
@@ -152,16 +88,6 @@ app.use(clientErrorHandler);
 app.use(errorHandler);
 
 
-
-//io.sockets.on('connection', socket);
-
-//var connected = [];
-//
-//var GoogleMapsLoader = require('google-maps');        // only for common js environments
-//
-//GoogleMapsLoader.load(function(google) {
-//    new google.maps.Map(el, options);
-//});
 
 
 io.on('connection',function(socket){
@@ -342,14 +268,6 @@ app.get('*',function(req, res) {
 http.listen(8080, 'localhost',function(){
     console.log('listening on 80');
 });
-/*https.listen(443,function(){
-    console.log('listening on 443');
-});*/
-/*
-https.Server(options, app).listen(443,function(){
-    console.log('listening on 443');
-});
-*/
 
 
 
