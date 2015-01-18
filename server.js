@@ -37,7 +37,6 @@ var db = require('./data/db.js');
 
 
 
-
 //Config https server
 /*var sslOptions = {
     key: fs.readFileSync(__dirname + '/ssl-key.pem'),
@@ -340,7 +339,7 @@ app.get('*',function(req, res) {
 
 
 
-http.listen(80, 'localhost',function(){
+http.listen(8080, 'localhost',function(){
     console.log('listening on 80');
 });
 /*https.listen(443,function(){
