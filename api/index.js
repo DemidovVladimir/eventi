@@ -228,11 +228,11 @@ exports.insertAvaUser = function(req,res,next){
     if(formatCheck){
         console.log(req.files.file.path);
         var r = fs.createReadStream(req.files.file.path);
-        var w = fs.createWriteStream('/public/uploaded/'+userId+'/ava.'+dim);
+        var w = fs.createWriteStream('public/uploaded/'+userId+'/ava.'+dim);
         r.on('end', function() {
             w.on('finish', function() {
-                var rg = fs.createReadStream('/public/uploaded/'+userId+'/ava.'+dim);
-                var wg =  fs.createWriteStream('/public/uploaded/'+userId+'/mini_ava.'+dim);
+                var rg = fs.createReadStream('public/uploaded/'+userId+'/ava.'+dim);
+                var wg =  fs.createWriteStream('public/uploaded/'+userId+'/mini_ava.'+dim);
                 rg.on('end',function(){
                     wg.on('finish',function(){
                         db.userDBModel.update({_id:userId},{ava:'ava.'+dim},{upsert:true},function(err){
