@@ -7,6 +7,7 @@ var request = require('request');
 var mongoose = require('mongoose');
 var ffmpeg = require('ffmpeg');
 var rimraf = require('rimraf');
+var path = require('path');
 
 
 exports.setAvaToUser = function(req,res,next){
