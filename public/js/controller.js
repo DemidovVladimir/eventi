@@ -346,7 +346,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $scope.avaProcess = true;
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
-                        url: 'https://128.199.136.218/changeAvaUser',
+                        url: '/changeAvaUser',
                         data: {userId: $scope.info._id,
                             oldAva: $scope.info.ava
                         },
@@ -382,7 +382,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         $scope.onAvaInsert = function(files){
                 files.forEach(function(item){
                     $scope.upload = $upload.upload({
-                        url: 'https://128.199.136.218/insertAvaUser',
+                        url: '/insertAvaUser',
                         data: {userId: $scope.info._id
                         },
                         file: item
