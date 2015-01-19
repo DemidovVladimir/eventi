@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="237" column="45" selection-start="7306" selection-end="7306" vertical-scroll-proportion="0.0" vertical-offset="2004" max-vertical-offset="4500">
+            <state line="267" column="32" selection-start="7785" selection-end="7785" vertical-scroll-proportion="0.44162437" vertical-offset="3744" max-vertical-offset="4500">
               <folding />
             </state>
           </provider>
@@ -95,10 +95,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="228" column="39" selection-start="8735" selection-end="8735" vertical-scroll-proportion="0.54513276" vertical-offset="3112" max-vertical-offset="17835">
+            <state line="228" column="39" selection-start="8735" selection-end="8735" vertical-scroll-proportion="-11.846154" vertical-offset="3112" max-vertical-offset="17835">
               <folding />
             </state>
           </provider>
@@ -150,9 +150,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/public/parts/infoUser.html" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/js/ngAutocomplete.js" />
         <option value="$PROJECT_DIR$/api/index.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -614,13 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="237" column="45" selection-start="7306" selection-end="7306" vertical-scroll-proportion="0.0" vertical-offset="2004" max-vertical-offset="4500">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/infoUser.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="92" column="19" selection-start="4874" selection-end="4874" vertical-scroll-proportion="0.0" vertical-offset="1380" max-vertical-offset="2055">
@@ -644,7 +637,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="228" column="39" selection-start="8735" selection-end="8735" vertical-scroll-proportion="0.54513276" vertical-offset="3112" max-vertical-offset="17835">
+        <state line="228" column="39" selection-start="8735" selection-end="8735" vertical-scroll-proportion="-11.846154" vertical-offset="3112" max-vertical-offset="17835">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="267" column="32" selection-start="7785" selection-end="7785" vertical-scroll-proportion="0.44162437" vertical-offset="3744" max-vertical-offset="4500">
           <folding />
         </state>
       </provider>
