@@ -227,6 +227,7 @@ exports.insertAvaUser = function(req,res,next){
     dim = dim[1];
     if(formatCheck){
         console.log(req.files.file.path);
+        console.log(__dirname);
         var r = fs.createReadStream(req.files.file.path);
         var w = fs.createWriteStream('public/uploaded/'+userId+'/ava.'+dim);
         r.on('end', function() {
@@ -236,7 +237,7 @@ exports.insertAvaUser = function(req,res,next){
                 rg.on('end',function(){
                     wg.on('finish',function(){
                         db.userDBModel.update({_id:userId},{ava:'ava.'+dim},{upsert:true},function(err){
-                            console.log(err);
+//                            console.log(err);
                             if(err) return next(err);
                             res.send(200,'ava.'+dim);
                         })
@@ -246,7 +247,7 @@ exports.insertAvaUser = function(req,res,next){
                     .stream(function (err, stdout, stderr) {
                         stdout.pipe(wg);
                         if(err){
-                            console.log(err);
+//                            console.log(err);
                             res.send(200,'error');
                         }
                     });
