@@ -217,7 +217,8 @@ exports.deleteAva = function(req,res,next){
         }
     });
 }
-
+///home/vladimir050486/api
+//path.join(__dirname, 'views')
 exports.insertAvaUser = function(req,res,next){
     var userId = req.body.userId;
     var format = req.files.file.type;
@@ -229,7 +230,7 @@ exports.insertAvaUser = function(req,res,next){
         console.log(req.files.file.path);
         console.log(__dirname);
         var r = fs.createReadStream(req.files.file.path);
-        var w = fs.createWriteStream('public/uploaded/'+userId+'/ava.'+dim);
+        var w = fs.createWriteStream(path.join(__dirname,'../public/uploaded/'+userId+'/ava.'+dim));
         r.on('end', function() {
             w.on('finish', function() {
                 var rg = fs.createReadStream('public/uploaded/'+userId+'/ava.'+dim);
