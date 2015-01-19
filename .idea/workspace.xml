@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="267" column="26" selection-start="7779" selection-end="7779" vertical-scroll-proportion="0.26226735" vertical-offset="3850" max-vertical-offset="4500">
+            <state line="267" column="26" selection-start="7779" selection-end="7779" vertical-scroll-proportion="0.0" vertical-offset="3850" max-vertical-offset="4500">
               <folding />
             </state>
           </provider>
@@ -95,10 +95,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="228" column="39" selection-start="8735" selection-end="8735" vertical-scroll-proportion="0.0" vertical-offset="3112" max-vertical-offset="17835">
+            <state line="234" column="49" selection-start="9082" selection-end="9082" vertical-scroll-proportion="0.47038916" vertical-offset="3232" max-vertical-offset="17835">
               <folding />
             </state>
           </provider>
@@ -151,8 +151,8 @@
         <option value="$PROJECT_DIR$/public/parts/infoUser.html" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/js/ngAutocomplete.js" />
-        <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/api/index.js" />
       </list>
     </option>
   </component>
@@ -217,24 +217,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="topstore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="topstore" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="parts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -629,16 +611,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/index.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="228" column="39" selection-start="8735" selection-end="8735" vertical-scroll-proportion="0.0" vertical-offset="3112" max-vertical-offset="17835">
+        <state line="267" column="26" selection-start="7779" selection-end="7779" vertical-scroll-proportion="0.0" vertical-offset="3850" max-vertical-offset="4500">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="267" column="26" selection-start="7779" selection-end="7779" vertical-scroll-proportion="0.26226735" vertical-offset="3850" max-vertical-offset="4500">
+        <state line="234" column="49" selection-start="9082" selection-end="9082" vertical-scroll-proportion="0.47038916" vertical-offset="3232" max-vertical-offset="17835">
           <folding />
         </state>
       </provider>
