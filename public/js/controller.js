@@ -1257,7 +1257,8 @@ app.controller('infoUser',function($scope,$resource,$routeParams,$window){
 
 
 
-
+        $scope.userToName = data.name;
+        $scope.userToId = data._id;
         //Chat deal up start
 //        io.emit('connect me',$scope.userId);
 

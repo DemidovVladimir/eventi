@@ -88,7 +88,7 @@ app.use(clientErrorHandler);
 app.use(errorHandler);
 
 
-
+var connected = [];
 
 io.on('connection',function(socket){
     socket.on('connect me',function(user){
