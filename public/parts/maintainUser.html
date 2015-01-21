@@ -9,13 +9,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div ng-show="info.password">
+            <div ng-show="info.password && info.email">
                 <a class="navbar-brand" href="/">
                     <img src="img/mini_logo.png">
                     <h4>{{info.name}}'s page!</h4>
                 </a>
             </div>
-            <div ng-show="!info.password" class="navbar-brand">
+            <div ng-show="!info.password || !info.email" class="navbar-brand">
                 <img src="img/mini_logo.png">
                 <h4>{{info.name}}'s page!</h4>
             </div>
@@ -24,9 +24,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-top">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-show="info.password"><a href="/">Home</a></li>
+                <li ng-show="info.password && info.email"><a href="/">Home</a></li>
                 <li class="active"><a ng-click="scrollTo('top')">Maintain info</a></li>
-                <li ng-show="info.password" class="dropdown">
+                <li ng-show="info.password && info.email" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/createEvent">Create new</a></li>
@@ -36,7 +36,7 @@
                         <li><a href="single.html">Single page</a></li>-->
                     </ul>
                 </li>
-                <li ng-show="info.password"><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
+                <li ng-show="info.password && info.email"><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
                 <!--<li class="dropdown">-->
                     <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
                     <!--<ul class="dropdown-menu">-->
@@ -46,7 +46,7 @@
                         <!--<li><a href="contact.html">Contact</a></li>-->
                     <!--</ul>-->
                 <!--</li>-->
-                <li ng-show="info.password">
+                <li ng-show="info.password && info.email">
                     <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
                 </li>
                 <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
@@ -56,6 +56,11 @@
 </nav>
 <!-- end:navbar -->
 <h3 class="text-center">Maintain {{info.name}}'s info...</h3>
+<div ng-show="!info.password || !info.email">
+    <h4 class="alert alert-danger">
+        Please insert your password and email, to make available total web project!
+    </h4>
+</div>
 <div class="text-center">
     <img ng-show="info.ava && avaProcess==false" class="ing-responsive img-thumbnail img-circle" ng-src="/uploaded/{{info._id}}/mini_{{info.ava}}">
     <div ng-show="avaProcess==true"><i class="fa fa-cog fa-5x fa-spin"></i></div>

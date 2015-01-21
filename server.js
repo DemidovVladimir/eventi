@@ -211,7 +211,9 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
-    res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
+    if(sn=='vk' || sn=='google'){
+        res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
+    }
 });
 
 

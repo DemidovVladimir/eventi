@@ -1083,8 +1083,9 @@ exports.pasteUserFace = function(profile){
 }
 
 exports.pasteUserVkontakte = function(profile){
-    db.userDBModel.update({vkId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:profile.gender,vk:profile.profileUrl,ava:profile._json.photo},{upsert:true},function(err){
+    db.userDBModel.update({vkId:profile.id},{name:profile.name.givenName,second_name:profile.name.familyName,gender:profile.gender,vk:profile.profileUrl,ava:profile._json.photo},{upsert:true},function(err,data){
         if(err) console.log(err);
+        console.log(data);
     })
 }
 
