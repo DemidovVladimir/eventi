@@ -185,10 +185,8 @@ app.get('/auth/facebook/callback',
 
 //VK
 app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: ['email']}),
+    passport.authenticate('vkontakte', { scope: ['email']}, { display: 'mobile' }),
     function(req,res){
-        console.log(req);
-        console.log(res);
     }
 );
 app.get('/auth/vkontakte/callback',
