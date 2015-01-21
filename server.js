@@ -179,11 +179,9 @@ app.get('/auth/facebook/callback',
 passport.use(new VKontakteStrategy({
         clientID:     '4653096', // VK.com docs call it 'API ID'
         clientSecret: 'PQTJat0GZRWfVnulVUis',
-        profileFields: ['city','bdate'],
         callbackURL:  "https://enveti.com/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log(accessToken);
         api.pasteUserVkontakte(profile);
         return done(null,profile.id);
     }
@@ -216,6 +214,7 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
+    console.log(req._passport);
     res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
 });
 
