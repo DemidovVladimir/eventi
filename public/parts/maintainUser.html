@@ -314,7 +314,7 @@
                 <div class="modal-body">
                     Are you sure you want to delete your account with all pictures and videos?
                     <form role="form" name="deleteUserForm" ng-submit="deleteMyAccount()">
-                        <div ng-class="{'has-error':password!=info.password}" class="form-group">
+                        <div ng-if="info.password" ng-class="{'has-error':password!=info.password}" class="form-group">
                             <label class="control-label" for="password">Confirm password:</label>
                             <input type="password" name="password" class="form-control" id="password" ng-model="password" required ng-pattern="info.password">
                             <br><span class="control-label" ng-show="deleteUserForm.password.$error.pattern">
