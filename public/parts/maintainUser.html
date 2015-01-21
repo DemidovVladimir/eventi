@@ -18,9 +18,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-top">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-disabled="!info.password"><a href="/">Home</a></li>
+                <li ng-show="info.password"><a href="/">Home</a></li>
                 <li class="active"><a ng-click="scrollTo('top')">Maintain info</a></li>
-                <li class="dropdown">
+                <li ng-show="info.password" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/createEvent">Create new</a></li>
@@ -30,7 +30,7 @@
                         <li><a href="single.html">Single page</a></li>-->
                     </ul>
                 </li>
-                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
+                <li ng-show="info.password"><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
                 <!--<li class="dropdown">-->
                     <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
                     <!--<ul class="dropdown-menu">-->
@@ -40,7 +40,7 @@
                         <!--<li><a href="contact.html">Contact</a></li>-->
                     <!--</ul>-->
                 <!--</li>-->
-                <li>
+                <li ng-show="info.password">
                     <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
                 </li>
                 <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
