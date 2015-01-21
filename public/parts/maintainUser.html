@@ -320,7 +320,7 @@
                             <br><span class="control-label" ng-show="deleteUserForm.password.$error.pattern">
                                 Password not confirmed, please try again!</span>
                         </div>
-                        <button type="submit" class="btn btn-primary" ng-disabled="deleteUserForm.$invalid">Delete me</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="password!=info.password">Delete me</button>
                     </form>
                 </div>
                 <div class="modal-footer">
