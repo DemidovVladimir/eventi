@@ -18,7 +18,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-top">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">Home</a></li>
+                <li ng-disabled="!info.password"><a href="/">Home</a></li>
                 <li class="active"><a ng-click="scrollTo('top')">Maintain info</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
@@ -88,6 +88,24 @@
                 </div>
             </div>
         </div>
+
+        <div ng-class="{'has-error':!info.password}" class="form-group">
+            <label class="control-label" for="newPassword">Change(create) password</label>
+            <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword" required>
+            <br><span class="control-label" ng-show="info.password">
+        Required!</span>
+        </div>
+
+
+
+        <div ng-show="newPassword" ng-class="{'has-error':passwordR!=newPassword}" class="form-group">
+            <label class="control-label" for="passwordR">Confirm your new password</label>
+            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" required ng-pattern="newPassword">
+            <br><span class="control-label" ng-show="maintainInfo.passwordR.$error.pattern">
+        Password not confirmed, please try again!</span>
+        </div>
+
+
         <div ng-class="{'has-error':!email}" class="form-group">
             <label class="control-label" for="exampleInputEmail">Email</label>
             <input ng-blur="checkEmailFormat()" type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="{{info.email}}" ng-model="email" required>

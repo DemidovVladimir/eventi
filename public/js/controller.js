@@ -697,6 +697,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             que.about = $scope.about;
             que.destination = $scope.destination;
             que.gender = $scope.gender;
+            que.newPassword = $scope.newPassword;
             que.$save(function(){
                 $route.reload();
             });

@@ -711,6 +711,7 @@ exports.makeChangesUser = function(req,res,next){
     var about = req.body.about;
     var destination = req.body.destination;
     var gender = req.body.gender;
+    var newPassword = req.body.newPassword;
 
     async.series([
         function(callback){
@@ -723,6 +724,18 @@ exports.makeChangesUser = function(req,res,next){
                 });
             }else{
                 callback(null, 'email');
+            }
+        },
+        function(callback){
+            if(newPassword){
+                db.userDBModel.update({_id:id},{
+                    password:newPassword
+                },function(err){
+                    if(err) return next(err);
+                    callback(null, 'newPassword');
+                });
+            }else{
+                callback(null, 'newPassword');
             }
         },
         function(callback){
