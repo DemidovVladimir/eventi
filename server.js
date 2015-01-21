@@ -188,7 +188,7 @@ app.get('/auth/facebook/callback',
 
 //VK
 app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: 'email, read_stream'})
+    passport.authenticate('vkontakte', { scope: ['email']})
 );
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
