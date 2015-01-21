@@ -228,6 +228,7 @@ exports.insertAvaUser = function(req,res,next){
     var dim = format.split('/');
     dim = dim[1];
     if(formatCheck){
+        fs.mkdir(__dirname+'/../public/uploaded/'+userId);
         var r = fs.createReadStream(req.files.file.path);
         var w = fs.createWriteStream(path.join(__dirname,'../public/uploaded/'+userId+'/ava.'+dim));
         r.on('end', function() {

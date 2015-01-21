@@ -26,7 +26,16 @@
       <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="391" column="53" selection-start="13540" selection-end="13540" vertical-scroll-proportion="0.0" vertical-offset="5707" max-vertical-offset="28455">
+            <state line="63" column="28" selection-start="2017" selection-end="2029" vertical-scroll-proportion="113.34615" vertical-offset="3892" max-vertical-offset="28455">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="40" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="990">
               <folding />
             </state>
           </provider>
@@ -50,10 +59,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="267" column="16" selection-start="7769" selection-end="7769" vertical-scroll-proportion="0.123893805" vertical-offset="3935" max-vertical-offset="4500">
+            <state line="65" column="0" selection-start="2156" selection-end="2156" vertical-scroll-proportion="12.961538" vertical-offset="1312" max-vertical-offset="4500">
               <folding />
             </state>
           </provider>
@@ -62,16 +71,7 @@
       <file leaf-file-name="stuff" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stuff">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="22" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="0" selection-start="3355" selection-end="3355" vertical-scroll-proportion="0.0" vertical-offset="267" max-vertical-offset="870">
+            <state line="7" column="7" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
               <folding />
             </state>
           </provider>
@@ -95,10 +95,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="242" column="26" selection-start="9565" selection-end="9565" vertical-scroll-proportion="-18.76923" vertical-offset="3142" max-vertical-offset="17880">
+            <state line="230" column="56" selection-start="8838" selection-end="8838" vertical-scroll-proportion="0.43893805" vertical-offset="3202" max-vertical-offset="17895">
               <folding />
             </state>
           </provider>
@@ -149,10 +149,10 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/public/parts/infoUser.html" />
         <option value="$PROJECT_DIR$/public/js/ngAutocomplete.js" />
-        <option value="$PROJECT_DIR$/stuff" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
-        <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/stuff" />
+        <option value="$PROJECT_DIR$/api/index.js" />
       </list>
     </option>
   </component>
@@ -188,6 +188,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -206,9 +207,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -493,23 +525,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/myMessages.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="52" selection-start="3286" selection-end="3286" vertical-scroll-proportion="0.0" vertical-offset="565" max-vertical-offset="1365">
-          <folding />
-        </state>
+        <state line="64" column="52" selection-start="3286" selection-end="3286" vertical-scroll-proportion="0.0" vertical-offset="565" max-vertical-offset="1365" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="0" selection-start="6592" selection-end="6592" vertical-scroll-proportion="-0.7083333" vertical-offset="2278" max-vertical-offset="4350">
-          <folding />
-        </state>
+        <state line="153" column="0" selection-start="6592" selection-end="6592" vertical-scroll-proportion="-0.7083333" vertical-offset="2278" max-vertical-offset="4350" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="10" selection-start="7202" selection-end="7202" vertical-scroll-proportion="0.0" vertical-offset="2505" max-vertical-offset="12825">
-          <folding />
-        </state>
+        <state line="167" column="10" selection-start="7202" selection-end="7202" vertical-scroll-proportion="0.0" vertical-offset="2505" max-vertical-offset="12825" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/directives.js">
@@ -520,11 +546,6 @@
     <entry file="file://$PROJECT_DIR$/public/lib/angular-google-maps/dist/angular-google-maps.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="1890" max-vertical-offset="154050" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="40" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/google-places/node_modules/underscore/underscore.js">
@@ -589,30 +610,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="391" column="53" selection-start="13540" selection-end="13540" vertical-scroll-proportion="0.0" vertical-offset="5707" max-vertical-offset="28455">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stuff">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="22" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+        <state line="7" column="7" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/index.js">
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="242" column="26" selection-start="9565" selection-end="9565" vertical-scroll-proportion="-18.76923" vertical-offset="3142" max-vertical-offset="17880">
+        <state line="17" column="40" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="990">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="267" column="16" selection-start="7769" selection-end="7769" vertical-scroll-proportion="0.123893805" vertical-offset="3935" max-vertical-offset="4500">
+        <state line="65" column="0" selection-start="2156" selection-end="2156" vertical-scroll-proportion="12.961538" vertical-offset="1312" max-vertical-offset="4500">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="28" selection-start="2017" selection-end="2029" vertical-scroll-proportion="113.34615" vertical-offset="3892" max-vertical-offset="28455">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="230" column="56" selection-start="8838" selection-end="8838" vertical-scroll-proportion="0.43893805" vertical-offset="3202" max-vertical-offset="17895">
           <folding />
         </state>
       </provider>
