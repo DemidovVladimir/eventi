@@ -46,7 +46,6 @@ passport.use(new VKontakteStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
-        console.log(profile);
         return done(null,profile.id);
     }
 ));
