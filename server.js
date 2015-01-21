@@ -46,11 +46,8 @@ passport.use(new VKontakteStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
         api.pasteUserVkontakte(profile);
-        db.userDBModel.find({vkId:profile.id},function(err,data){
-            if(err) return next(err);
-            res.redirect('/maintainUser'+data[0]._id);
-        })
-//        return done(null,profile.id);
+        console.log(profile);
+        return done(null,profile.id);
     }
 ));
 passport.use(new GoogleStrategy({
@@ -191,7 +188,7 @@ app.get('/auth/facebook/callback',
 
 //VK
 app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: 'read_stream' })
+    passport.authenticate('vkontakte', { scope: 'email, read_stream'})
 );
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
