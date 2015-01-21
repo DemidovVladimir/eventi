@@ -39,16 +39,7 @@ passport.use(new FacebookStrategy({
         return done(null,profile.id);
     }
 ));
-passport.use(new VKontakteStrategy({
-        clientID:     '4653096', // VK.com docs call it 'API ID'
-        clientSecret: 'PQTJat0GZRWfVnulVUis',
-        callbackURL:  "https://enveti.com/auth/vkontakte/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-        api.pasteUserVkontakte(profile);
-        return done(null,profile.id);
-    }
-));
+
 passport.use(new GoogleStrategy({
         clientID:     '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
         clientSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
@@ -184,10 +175,21 @@ app.get('/auth/facebook/callback',
 
 
 //VK
-app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: ['email']}, { display: 'mobile' }),
-    function(req,res){
+passport.use(new VKontakteStrategy({
+        clientID:     '4653096', // VK.com docs call it 'API ID'
+        clientSecret: 'PQTJat0GZRWfVnulVUis',
+        callbackURL:  "https://enveti.com/auth/vkontakte/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        api.pasteUserVkontakte(profile);
+        return done(null,profile.id);
     }
+));
+app.get('/auth/vkontakte',
+    passport.authenticate('vkontakte', { scope: ['email']},
+    function(req,res){
+        console.log(scope.email);
+    })
 );
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
