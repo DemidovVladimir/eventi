@@ -218,9 +218,9 @@ app.get('/success/:sn',function(req,res,next){
         db.userDBModel.find({vkId:req._passport.session.user},function(err,data){
             if(err) return next(err);
             console.log(data[0]._id)
-            res.redirect('/maintainUser'+data[0]._id);
+//            res.redirect('/maintainUser'+data[0]._id);
         });
-//        res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
+        res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
     }
 });
 
