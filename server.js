@@ -183,7 +183,7 @@ passport.use(new VKontakteStrategy({
         callbackURL:  "https://enveti.com/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log(access_token.params["email"]);
+        console.log(accessToken.params["email"]);
         api.pasteUserVkontakte(profile);
         return done(null,profile.id);
     }
