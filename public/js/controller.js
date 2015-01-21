@@ -724,7 +724,10 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
     $scope.userId = $scope.session.id;
     $scope.userName = $scope.session.name;
 
-
+    var getMsgs = $resource('/getMsgs/'+$scope.userId);
+    var queMsgs = getMsgs.query(function(){
+        $scope.countMsgs = queMsgs.length;
+    });
 
 
     var adr = $resource('/getMyEvents/'+$scope.userId);
@@ -1736,7 +1739,10 @@ app.controller('maintainEvents',function($scope,$resource,$window,$route,uiGmapG
     $scope.userId = session.id;
     var adr = $resource('/getMyEvents/'+session.id);
 
-
+    var getMsgs = $resource('/getMsgs/'+$scope.userId);
+    var queMsgs = getMsgs.query(function(){
+        $scope.countMsgs = queMsgs.length;
+    });
 
     var que = adr.query(function(){
         $scope.info = que;
