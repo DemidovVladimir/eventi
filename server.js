@@ -174,10 +174,12 @@ app.get('/auth/facebook/callback',
 
 
 
+
 //VK
 passport.use(new VKontakteStrategy({
         clientID:     '4653096', // VK.com docs call it 'API ID'
         clientSecret: 'PQTJat0GZRWfVnulVUis',
+        profileFields: ['email'],
         callbackURL:  "https://enveti.com/auth/vkontakte/callback"
     },
     function(accessToken, refreshToken, profile, done) {
