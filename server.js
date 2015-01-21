@@ -214,8 +214,14 @@ app.get( '/auth/google/callback',
 
 app.get('/success/:sn',function(req,res,next){
     var sn = req.param('sn');
-    console.log(req._passport);
-    res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
+    if(sn=='vk'){
+        db.userDBModel.find({vkId:req._passport.session.user},function(err,data){
+            if(err) return next(err);
+            res.redirect('/maintainUser'+data[0]._id);
+        });
+    }else{
+        res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
+    }
 });
 
 
