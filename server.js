@@ -184,11 +184,13 @@ app.get('/auth/facebook/callback',
 
 
 
-
-
 //VK
 app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: ['email']})
+    passport.authenticate('vkontakte', { scope: ['email']}),
+    function(req,res){
+        console.log(req);
+        console.log(res);
+    }
 );
 app.get('/auth/vkontakte/callback',
     passport.authenticate('vkontakte', { successRedirect: '/success/vk',
