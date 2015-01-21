@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div ng-class="{'has-error':!info.password || !newPassword}" class="form-group">
+        <div ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
             <label class="control-label" for="newPassword">Change(create) password</label>
             <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword" required>
             <br><span class="control-label" ng-show="info.password">
