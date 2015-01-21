@@ -220,7 +220,7 @@ app.get('/success/:sn',function(req,res,next){
             console.log(data[0]._id)
             res.redirect('/maintainUser'+data[0]._id);
         });
-        res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
+//        res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
     }
 });
 
