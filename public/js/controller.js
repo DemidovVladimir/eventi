@@ -300,8 +300,8 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
-//    $scope.sessionId = JSON.parse($window.localStorage.getItem('session')).id;
-//    if(!$scope.sessionId){
+    $scope.session = JSON.parse($window.localStorage.getItem('session'));
+    if(!$scope.session){
         var address = $resource('/getUserInfo');
         var query = new address();
         query.userId = $routeParams.user;
@@ -328,10 +328,34 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     $scope.resFoldersVideo = queVideo;
                 });
         });
-//    }
+    }else{
+        var address = $resource('/getUserInfo');
+        var query = new address();
+        query.userId = $routeParams.user;
+        query.$save(function(data){
+            $scope.session = JSON.parse($window.localStorage.getItem('session'));
+            $scope.info = data;
+            $scope.email = data.email;
+            $scope.emailPlaceholder = data.email;
+            $scope.selectedLanguages = data.languages_able;
+            $scope.about = data.about;
+            $scope.currentPicFolder = 'pictures';
+            $scope.currentVideoFolder = 'videos';
+            $scope.gender = $scope.info.gender;
+            var addr = $resource('/foldersList/'+$scope.info._id);
+            var que = addr.query(function(){
+                $scope.resFolders = que;
+            });
+            var addrVideo = $resource('/foldersVideo/'+$scope.info._id);
+            var queVideo = addrVideo.query(function(){
+                $scope.resFoldersVideo = queVideo;
+            });
+        });
+    }
         $scope.madeChanges = 0;
         $scope.signOut = function(){
-            $window.localStorage.clear('session')
+            $window.localStorage.clear('session');
+            $scope.deleteMyAccount();
             $window.location.href = '/';
         }
 
