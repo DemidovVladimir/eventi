@@ -1139,7 +1139,8 @@ exports.loginLocal = function(req,res,next){
 exports.deleteMe = function(req,res,next){
     var user = req.body.userId;
     var pwd = req.body.userPwd;
-    if(user && pwd){
+    console.log(pwd);
+    if(user){
         db.userDBModel.find({_id:user,password: pwd},function(err,data){
             if(err) return next(err);
             if(data[0].name){
@@ -1181,7 +1182,7 @@ exports.deleteMe = function(req,res,next){
             }
         });
     }else{
-        res.send(200,'bad');
+        res.send(200,'bie');
     }
 }
 exports.getMsgs = function(req,res,next){
