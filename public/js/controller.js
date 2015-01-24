@@ -300,8 +300,8 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
-    $scope.sessionId = JSON.parse($window.localStorage.getItem('session')).id;
-    if(!$scope.sessionId){
+//    $scope.sessionId = JSON.parse($window.localStorage.getItem('session')).id;
+//    if(!$scope.sessionId){
         var address = $resource('/getUserInfo');
         var query = new address();
         query.userId = $routeParams.user;
@@ -328,7 +328,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     $scope.resFoldersVideo = queVideo;
                 });
         });
-    }
+//    }
         $scope.madeChanges = 0;
         $scope.signOut = function(){
             $window.localStorage.clear('session')
