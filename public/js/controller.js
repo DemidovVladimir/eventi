@@ -355,7 +355,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         $scope.madeChanges = 0;
         $scope.signOut = function(){
             $window.localStorage.clear('session');
-            if(!$scope.email){
+            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
                 $scope.deleteMyAccount();
             }
             $window.location.href = '/';
@@ -770,12 +770,15 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
     $window.onbeforeunload = function (event) {
-        var message = 'Sure you want to leave?';
+        var message = 'Sure you want to leave? Your page will be deleted if required info was not entered!';
         if (typeof event == 'undefined') {
             event = $window.event;
         }
         if (event) {
             event.returnValue = message;
+            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+                $scope.deleteMyAccount();
+            }
         }
         alert(message);
     }
