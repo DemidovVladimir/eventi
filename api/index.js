@@ -1177,7 +1177,7 @@ exports.deleteMe = function(req,res,next){
                         res.send(200,'bie');
                     });
             }else{
-                res.send(200,'bad');
+                res.send(200,'bie');
             }
         });
     }else if(user && pwd=='undefined'){
@@ -1218,7 +1218,7 @@ exports.deleteMe = function(req,res,next){
                         res.send(200,'bie');
                     });
             }else{
-                res.send(200,'bad');
+                res.send(200,'bie');
             }
         });
     }else{
