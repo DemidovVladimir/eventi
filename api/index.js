@@ -1139,17 +1139,18 @@ exports.loginLocal = function(req,res,next){
 exports.deleteMe = function(req,res,next){
     var user = req.body.userId;
     var pwd = req.body.userPwd;
-    db.userDBModel.find({_id:user,password: pwd},function(err,data){
-        if(err) return next(err);
-        if(data[0].name){
+    if(user && pwd){
+        db.userDBModel.find({_id:user,password: pwd},function(err,data){
+            if(err) return next(err);
+            if(data[0].name){
                 async.series([
                     //delete total user
                     function(callback){
-                            //delete all files in folder rimraf(f, callback)
-                            rimraf(__dirname+'/../public/uploaded/'+user,function(err){
-                                if(err) return next(err);
-                                callback(null, 'files deleted');
-                            })
+                        //delete all files in folder rimraf(f, callback)
+                        rimraf(__dirname+'/../public/uploaded/'+user,function(err){
+                            if(err) return next(err);
+                            callback(null, 'files deleted');
+                        })
                     },
                     function(callback){
                         //all user info deletion
@@ -1159,10 +1160,10 @@ exports.deleteMe = function(req,res,next){
                         });
                     },
                     function(callback){
-                            db.eventsDBModel.remove({owner:user},function(err){
-                                if(err) return next(err);
-                                callback(null, 'all owners events removed');
-                            });
+                        db.eventsDBModel.remove({owner:user},function(err){
+                            if(err) return next(err);
+                            callback(null, 'all owners events removed');
+                        });
                     },
                     function(callback){
                         db.eventsDBModel.update({party:user},{$pull:{party:user}},function(err){
@@ -1175,10 +1176,13 @@ exports.deleteMe = function(req,res,next){
                         if(err) return next(err);
                         res.send(200,'bie');
                     });
-        }else{
-            res.send(200,'bad');
-        }
-    });
+            }else{
+                res.send(200,'bad');
+            }
+        });
+    }else{
+        res.send(200,'bad');
+    }
 }
 exports.getMsgs = function(req,res,next){
     var userId = req.params.userId;
