@@ -311,6 +311,22 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             obj.name = data[0].name;
             $window.localStorage.setItem('session',JSON.stringify(obj));
             $scope.session = JSON.parse($window.localStorage.getItem('session'));
+                $scope.info = data;
+                $scope.email = data.email;
+                $scope.emailPlaceholder = data.email;
+                $scope.selectedLanguages = data.languages_able;
+                $scope.about = data.about;
+                $scope.currentPicFolder = 'pictures';
+                $scope.currentVideoFolder = 'videos';
+                $scope.gender = $scope.info.gender;
+                var addr = $resource('/foldersList/'+$scope.info._id);
+                var que = addr.query(function(){
+                    $scope.resFolders = que;
+                });
+                var addrVideo = $resource('/foldersVideo/'+$scope.info._id);
+                var queVideo = addrVideo.query(function(){
+                    $scope.resFoldersVideo = queVideo;
+                });
         });
     }
         $scope.madeChanges = 0;

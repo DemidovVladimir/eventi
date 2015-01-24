@@ -26,7 +26,7 @@
       <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="310" column="27" selection-start="10081" selection-end="10081" vertical-scroll-proportion="-10.692307" vertical-offset="4372" max-vertical-offset="28680">
+            <state line="313" column="35" selection-start="10281" selection-end="10281" vertical-scroll-proportion="-8.384615" vertical-offset="4477" max-vertical-offset="28920">
               <folding />
             </state>
           </provider>
@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="maintainUser.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="30" selection-start="3216" selection-end="3216" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="5550">
+            <state line="27" column="45" selection-start="1347" selection-end="1347" vertical-scroll-proportion="0.71428573" vertical-offset="0" max-vertical-offset="5550">
               <folding />
             </state>
           </provider>
@@ -68,10 +68,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="218" column="51" selection-start="6594" selection-end="6594" vertical-scroll-proportion="0.5177665" vertical-offset="2964" max-vertical-offset="4635">
+            <state line="218" column="51" selection-start="6594" selection-end="6594" vertical-scroll-proportion="0.0" vertical-offset="2964" max-vertical-offset="4635">
               <folding />
             </state>
           </provider>
@@ -142,8 +142,8 @@
         <option value="$PROJECT_DIR$/public/parts/maintainEvents.html" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
         <option value="$PROJECT_DIR$/api/index.js" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -604,12 +604,7 @@
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/block.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="22" selection-start="4044" selection-end="4044" vertical-scroll-proportion="0.33278146" vertical-offset="2769" max-vertical-offset="3405" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="30" selection-start="3216" selection-end="3216" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="5550">
+        <state line="198" column="22" selection-start="4044" selection-end="4044" vertical-scroll-proportion="0.33278146" vertical-offset="2769" max-vertical-offset="3405">
           <folding />
         </state>
       </provider>
@@ -617,13 +612,6 @@
     <entry file="file://$PROJECT_DIR$/public/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="40" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="990">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="310" column="27" selection-start="10081" selection-end="10081" vertical-scroll-proportion="-10.692307" vertical-offset="4372" max-vertical-offset="28680">
           <folding />
         </state>
       </provider>
@@ -637,7 +625,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="218" column="51" selection-start="6594" selection-end="6594" vertical-scroll-proportion="0.5177665" vertical-offset="2964" max-vertical-offset="4635">
+        <state line="218" column="51" selection-start="6594" selection-end="6594" vertical-scroll-proportion="0.0" vertical-offset="2964" max-vertical-offset="4635">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="313" column="35" selection-start="10281" selection-end="10281" vertical-scroll-proportion="-8.384615" vertical-offset="4477" max-vertical-offset="28920">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="45" selection-start="1347" selection-end="1347" vertical-scroll-proportion="0.71428573" vertical-offset="0" max-vertical-offset="5550">
           <folding />
         </state>
       </provider>
