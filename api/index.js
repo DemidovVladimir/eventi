@@ -1139,7 +1139,9 @@ exports.loginLocal = function(req,res,next){
 exports.deleteMe = function(req,res,next){
     var user = req.body.userId;
     var pwd = req.body.userPwd;
-    console.log(pwd);
+    if(pwd=='undefined'){
+        pwd = null;
+    }
     if(user){
         db.userDBModel.find({_id:user,password: pwd},function(err,data){
             if(err) return next(err);
