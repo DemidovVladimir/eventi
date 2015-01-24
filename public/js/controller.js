@@ -301,9 +301,18 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
     $scope.sessionId = JSON.parse($window.localStorage.getItem('session')).id;
-    if($scope.sessionId != $routeParams.user){
-        $window.location.href = '/';
-    }else{
+    if(!$scope.sessionId){
+        var address = $resource('/getUserInfo');
+        var query = new address();
+        query.userId = $routeParams.user;
+        query.$save(function(data){
+            var obj = new Object();
+            obj.id = data[0]._id;
+            obj.name = data[0].name;
+            $window.localStorage.setItem('session',JSON.stringify(obj));
+            $scope.session = JSON.parse($window.localStorage.getItem('session'));
+        });
+    }
         $scope.madeChanges = 0;
         $scope.signOut = function(){
             $window.localStorage.clear('session')
@@ -702,7 +711,6 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $route.reload();
             });
         }
-    }
     $scope.deleteMyAccount = function(){
         var adv = $resource('/deleteMe');
         var que = new adv();
