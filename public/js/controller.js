@@ -777,10 +777,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         if (event) {
             event.returnValue = message;
             if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+                alert(message);
                 $scope.deleteMyAccount();
             }
         }
-        alert(message);
     }
 });
 
