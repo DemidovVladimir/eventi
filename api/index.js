@@ -1180,7 +1180,7 @@ exports.deleteMe = function(req,res,next){
                 res.send(200,'bad');
             }
         });
-    }else if(user && !pwd){
+    }else if(user && pwd=='undefined'){
         db.userDBModel.find({_id:user},function(err,data){
             if(err) return next(err);
             if(data[0].name){
