@@ -767,6 +767,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
     $window.onbeforeunload = function(event) {
 //        $scope.deleteMyAccount();
+        alert('kuku');
         alert(event);
     };
 //    $window.onbeforeunload = function (event) {
