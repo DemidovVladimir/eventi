@@ -1139,7 +1139,7 @@ exports.loginLocal = function(req,res,next){
 exports.deleteMe = function(req,res,next){
     var user = req.body.userId;
     var pwd = req.body.userPwd;
-    if(user && pwd){
+//    if(user && pwd){
         db.userDBModel.find({_id:user,password: pwd},function(err,data){
             if(err) return next(err);
             if(data[0].name){
@@ -1180,50 +1180,50 @@ exports.deleteMe = function(req,res,next){
                 res.send(200,'bie');
             }
         });
-    }else if(user && pwd=='undefined'){
-        db.userDBModel.find({_id:user},function(err,data){
-            if(err) return next(err);
-            if(data[0].name){
-                async.series([
-                    //delete total user
-                    function(callback){
-                        //delete all files in folder rimraf(f, callback)
-                        rimraf(__dirname+'/../public/uploaded/'+user,function(err){
-                            if(err) return next(err);
-                            callback(null, 'files deleted');
-                        })
-                    },
-                    function(callback){
-                        //all user info deletion
-                        db.userDBModel.remove({_id:user},function(err){
-                            if(err) return next(err);
-                            callback(null, 'all data user removed');
-                        });
-                    },
-                    function(callback){
-                        db.eventsDBModel.remove({owner:user},function(err){
-                            if(err) return next(err);
-                            callback(null, 'all owners events removed');
-                        });
-                    },
-                    function(callback){
-                        db.eventsDBModel.update({party:user},{$pull:{party:user}},function(err){
-                            if(err) return next(err);
-                            callback(null, 'all data events removed');
-                        });
-                    }
-                ],
-                    function(err, results){
-                        if(err) return next(err);
-                        res.send(200,'bie');
-                    });
-            }else{
-                res.send(200,'bie');
-            }
-        });
-    }else{
-        res.send(200,'bie');
-    }
+//    }else if(user && pwd=='undefined'){
+//        db.userDBModel.find({_id:user},function(err,data){
+//            if(err) return next(err);
+//            if(data[0].name){
+//                async.series([
+//                    //delete total user
+//                    function(callback){
+//                        //delete all files in folder rimraf(f, callback)
+//                        rimraf(__dirname+'/../public/uploaded/'+user,function(err){
+//                            if(err) return next(err);
+//                            callback(null, 'files deleted');
+//                        })
+//                    },
+//                    function(callback){
+//                        //all user info deletion
+//                        db.userDBModel.remove({_id:user},function(err){
+//                            if(err) return next(err);
+//                            callback(null, 'all data user removed');
+//                        });
+//                    },
+//                    function(callback){
+//                        db.eventsDBModel.remove({owner:user},function(err){
+//                            if(err) return next(err);
+//                            callback(null, 'all owners events removed');
+//                        });
+//                    },
+//                    function(callback){
+//                        db.eventsDBModel.update({party:user},{$pull:{party:user}},function(err){
+//                            if(err) return next(err);
+//                            callback(null, 'all data events removed');
+//                        });
+//                    }
+//                ],
+//                    function(err, results){
+//                        if(err) return next(err);
+//                        res.send(200,'bie');
+//                    });
+//            }else{
+//                res.send(200,'bie');
+//            }
+//        });
+//    }else{
+//        res.send(200,'bie');
+//    }
 }
 exports.getMsgs = function(req,res,next){
     var userId = req.params.userId;
