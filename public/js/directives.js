@@ -550,4 +550,12 @@ app.directive('getUserInfo',function($resource,$routeParams,$sce){
     }
 });
 
+app.directive('handleDestroy', function() {
+    return function(scope, tElement, attributes) {
+        scope.$on('$destroy', function() {
+            alert("In destroy of:" + scope.todo.text);
+        });
+    };
+});
+
 
