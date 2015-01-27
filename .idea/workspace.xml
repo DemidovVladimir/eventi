@@ -26,7 +26,7 @@
       <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="787" column="55" selection-start="28203" selection-end="28203" vertical-scroll-proportion="0.927242" vertical-offset="11257" max-vertical-offset="29370">
+            <state line="769" column="23" selection-start="27596" selection-end="27596" vertical-scroll-proportion="0.72419626" vertical-offset="11107" max-vertical-offset="29325">
               <folding />
             </state>
           </provider>
@@ -640,7 +640,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="787" column="55" selection-start="28203" selection-end="28203" vertical-scroll-proportion="0.927242" vertical-offset="11257" max-vertical-offset="29370">
+        <state line="769" column="23" selection-start="27596" selection-end="27596" vertical-scroll-proportion="0.72419626" vertical-offset="11107" max-vertical-offset="29325">
           <folding />
         </state>
       </provider>
