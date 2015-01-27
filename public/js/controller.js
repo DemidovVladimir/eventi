@@ -765,10 +765,12 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-        $scope.$on('$locationChangeStart', function (event, next, current) {
+    $scope.$on('$locationChangeStart', function( event ) {
+        var answer = confirm("Are you sure you want to leave this page?")
+        if (!answer) {
             event.preventDefault();
-            alert('kuku');
-        });
+        }
+    });
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
