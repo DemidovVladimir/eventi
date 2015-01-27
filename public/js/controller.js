@@ -772,8 +772,6 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         }
         if (event) {
             event.returnValue = message;
-        }else{
-            event.returnValue = false;
         }
         if(event.returnValue==false){
             if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
