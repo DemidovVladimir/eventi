@@ -767,7 +767,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
         $scope.$on('$locationChangeStart', function (event, next, current) {
             event.preventDefault();
-            var answer = confirm("Are you sure you want to leave this page?")
+            var answer = confirm("Are you sure you want to leave this page?");
             if (answer) {
                 alert('ok');
             }
