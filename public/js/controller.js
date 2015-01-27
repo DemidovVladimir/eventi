@@ -771,10 +771,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             event = $window.event;
         }
         if (event) {
-            event.returnValue = message;
-            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-                $scope.deleteMyAccount();
-            }
+            if(event.returnValue==true){
+                if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+                    $scope.deleteMyAccount();
+                }
+            };
         }
         return message;
     }
