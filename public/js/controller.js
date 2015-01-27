@@ -765,10 +765,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $scope.$on("destroy", function() {
+    $window.onbeforeunload = function(event) {
 //        $scope.deleteMyAccount();
-        alert('Kuku!!!');
-    });
+        alert(event);
+    };
 //    $window.onbeforeunload = function (event) {
 //        var message = 'Sure you want to leave? Your page will be deleted if required info was not entered!';
 //        if (typeof event == 'undefined') {
