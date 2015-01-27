@@ -759,13 +759,8 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         que.userId = $scope.info._id;
         que.userPwd = $scope.info.password;
         que.$save(function(data){
-            if(data=='bie'){
-                $window.localStorage.clear('session');
-                $window.location.href = '/';
-            }else{
-                $window.localStorage.clear('session');
-                $window.location.href = '/';
-            }
+            $window.localStorage.clear('session');
+            $window.location.href = '/';
         });
     }
 
