@@ -771,13 +771,14 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             event = $window.event;
         }
         if (event) {
-            if($window.event.returnValue==false){
-                if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-                    $scope.deleteMyAccount();
-                }
-            }
+
         }
-        return message;
+        return true;
+    }
+    if($window.onbeforeunload.returnValue==true){
+        if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+            $scope.deleteMyAccount();
+        }
     }
 });
 
