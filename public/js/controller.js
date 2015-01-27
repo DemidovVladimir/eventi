@@ -777,11 +777,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
     $window.unload = function() {
-        if(event.returnValue==false){
+//        if(event.returnValue==false){
             if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
                 $scope.deleteMyAccount();
             }
-        };
+//        };
     };
 });
 
