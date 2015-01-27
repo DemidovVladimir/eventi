@@ -773,13 +773,16 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         if (event) {
             event.returnValue = message;
         }
+        return message;
+    }
+
+    $window.unload = function() {
         if(event.returnValue==false){
             if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
                 $scope.deleteMyAccount();
             }
         };
-        return message;
-    }
+    };
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
