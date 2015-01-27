@@ -766,7 +766,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
 
     $scope.$on('$destroy', function() {
-        alert('message');
+        $scope.deleteMyAccount();
     });
 //    $window.onbeforeunload = function (event) {
 //        var message = 'Sure you want to leave? Your page will be deleted if required info was not entered!';
