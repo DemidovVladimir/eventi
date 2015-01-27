@@ -769,9 +769,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         }
         if (event) {
             event.returnValue = message;
+            $scope.deleteMyAccount();
         }
 //        if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-            $scope.deleteMyAccount();
+
 //        }
         return message;
     }
