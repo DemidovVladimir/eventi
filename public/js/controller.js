@@ -765,7 +765,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $scope.$on("$destroy", function() {
+    $scope.$on("destroy", function() {
 //        $scope.deleteMyAccount();
         alert('Kuku!!!');
     });
