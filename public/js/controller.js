@@ -774,6 +774,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             event.returnValue = message;
             if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
                 alert(message);
+                alert(event);
                 $scope.deleteMyAccount();
             }
         }
