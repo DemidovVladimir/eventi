@@ -765,20 +765,13 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $window.onbeforeunload = function (event) {
-        var message = 'Sure you want to leave? Your page will be deleted if required info was not entered!';
-        if (typeof event == 'undefined') {
-            event = $window.event;
-        }
-        if (event) {
-            event.returnValue = message;
-            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-                alert(message);
-                alert(event);
-                $scope.deleteMyAccount();
+        $scope.$on('$locationChangeStart', function (event, next, current) {
+            event.preventDefault();
+            var answer = confirm("Are you sure you want to leave this page?")
+            if (answer) {
+                alert('ok');
             }
-        }
-    }
+        });
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
