@@ -764,12 +764,12 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
     $window.onbeforeunload = function (event) {
         var message = 'Sure you want to leave?';
+        $scope.deleteMyAccount();
         if (typeof event == 'undefined') {
             event = $window.event;
         }
         if (event) {
             event.returnValue = message;
-            $scope.deleteMyAccount();
         }
 //        if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
 
