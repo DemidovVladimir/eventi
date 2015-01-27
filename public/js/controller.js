@@ -765,24 +765,19 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $window.onbeforeunload = function(event) {
-//        $scope.deleteMyAccount();
-        alert('kuku');
-        alert(event);
-    };
-//    $window.onbeforeunload = function (event) {
-//        var message = 'Sure you want to leave? Your page will be deleted if required info was not entered!';
-//        if (typeof event == 'undefined') {
-//            event = $window.event;
-//        }
-//        if (event) {
-//            event.returnValue = message;
-//            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-//                alert(message);
-//                $scope.deleteMyAccount();
-//            }
-//        }
-//    }
+    $window.onbeforeunload = function (event) {
+        var message = 'Sure you want to leave? Your page will be deleted if required info was not entered!';
+        if (typeof event == 'undefined') {
+            event = $window.event;
+        }
+        if (event) {
+            event.returnValue = message;
+            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+                alert(message);
+                $scope.deleteMyAccount();
+            }
+        }
+    }
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
