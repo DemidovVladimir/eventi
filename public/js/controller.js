@@ -764,10 +764,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    $window.onbeforeunload = function() {
+    window.onbeforeunload = function() {
         return "You are leaving the page";
     };
-    $window.onunload = function() {
+    window.unload = function() {
         $scope.deleteMyAccount();
     };
 });
