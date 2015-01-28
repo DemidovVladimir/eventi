@@ -765,11 +765,16 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-//    $window.$on('unload',
-//        function() {
-//            alert( "Bye now!" );
-//        }
-//    )
+    $window.onbeforeunload = function (event) {
+        var message = 'Sure you want to leave?';
+        if (typeof event == 'undefined') {
+            event = $window.event;
+        }
+        if (event) {
+            event.returnValue = message;
+        }
+        return message;
+    }
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
