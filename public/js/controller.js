@@ -764,27 +764,13 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    $scope.exitVal = false;
-
-    $window.onbeforeunload = function (event) {
-        var message = 'Sure you want to leave?';
-        if (typeof event == 'undefined') {
-            event = $window.event;
-        }
-        if (event) {
-            event.returnValue = message;
-        }else{
-            $scope.$apply(function() {
-                $scope.exitVal = true;
-            });
-        }
-        return message;
-    }
-    $scope.$watch('exitVal', function(newValue, oldValue) {
-        if(newValue==true){
-            $scope.deleteMyAccount();
-        }
-    })
+    $window.onbeforeunload = function() {
+        alert('Kuku');
+        return "You are leaving the page";
+    };
+    $window.unload = function() {
+        $scope.deleteMyAccount();
+    };​
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
