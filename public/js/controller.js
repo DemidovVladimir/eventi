@@ -765,24 +765,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $window.onbeforeunload = function (event) {
-        var message = 'Sure you want to leave?';
-        if (typeof event == 'undefined') {
-            event = $window.event;
-        }
-        if (event) {
-            event.returnValue = message;
-        }
-        return message;
-    }
-
-    $window.unload = function() {
-//        if(event.returnValue==false){
-            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-                $scope.deleteMyAccount();
-            }
-//        };
-    };
+    $( window ).unload(function() {
+        alert( "Bye now!" );
+    });
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
