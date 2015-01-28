@@ -770,7 +770,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     };
     $window.unload = function() {
         $scope.deleteMyAccount();
-    };​
+    };
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
