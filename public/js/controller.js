@@ -764,11 +764,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    $window.onbeforeunload = function() {
-        alert('Kuku');
+    window.onbeforeunload = function() {
         return "You are leaving the page";
     };
-    $window.unload = function() {
+    window.unload = function() {
         $scope.deleteMyAccount();
     };
 });
