@@ -773,6 +773,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         }
         if (event) {
             event.returnValue = message;
+        }else{
             $scope.$apply(function() {
                 $scope.exitVal = true;
             });
