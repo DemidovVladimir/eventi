@@ -765,11 +765,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $window.$on('unload',
-        function() {
-            alert( "Bye now!" );
-        };
-    )
+//    $window.$on('unload',
+//        function() {
+//            alert( "Bye now!" );
+//        }
+//    )
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
