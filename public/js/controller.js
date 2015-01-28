@@ -764,6 +764,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
+    $scope.exitVal = false;
 
     $window.onbeforeunload = function (event) {
         var message = 'Sure you want to leave?';
@@ -772,9 +773,17 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         }
         if (event) {
             event.returnValue = message;
+            $scope.$apply(function() {
+                $scope.exitVal = true;
+            });
         }
         return message;
     }
+    $scope.$watch('exitVal', function(newValue, oldValue) {
+        if(newValue==true){
+            $scope.deleteMyAccount();
+        }
+    })
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
