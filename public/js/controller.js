@@ -765,7 +765,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-    $( window ).unload(function() {
+    $window.unload(function() {
         alert( "Bye now!" );
     });
 });
