@@ -763,11 +763,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $window.location.href = '/';
         });
     }
-
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function(e) {
         return "You are leaving the page";
     };
-    window.onunload = function() {
+    window.onunload = function(e) {
         $scope.deleteMyAccount();
     };
 });
