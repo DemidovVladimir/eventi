@@ -763,11 +763,16 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $window.location.href = '/';
         });
     }
-    window.onbeforeunload = function(e) {
-        return "You are leaving the page";
-    };
-    window.onunload = function(e) {
-        $scope.deleteMyAccount();
+
+    $scope.onunload=function(){
+        var adv = $resource('/deleteMe');
+        var que = new adv();
+        que.userId = $scope.info._id;
+        que.userPwd = $scope.info.password;
+        que.$save(function(data){
+            $window.localStorage.clear('session');
+            $window.location.href = '/';
+        });
     };
 });
 
