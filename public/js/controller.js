@@ -764,7 +764,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    $scope.onunload=function(){
+    $window.onunload=function(){
         var adv = $resource('/deleteMe');
         var que = new adv();
         que.userId = $scope.info._id;
