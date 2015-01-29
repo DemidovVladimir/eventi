@@ -764,16 +764,14 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    $window.onunload=function(){
-        var adv = $resource('/deleteMe');
-        var que = new adv();
-        que.userId = $scope.info._id;
-        que.userPwd = $scope.info.password;
-        que.$save(function(data){
-            $window.localStorage.clear('session');
-            $window.location.href = '/';
-        });
-    };
+
+    //This works only when user changes routes, not when user refreshes the browsers, goes to previous page or try to close the browser
+    $scope.$on('$locationChangeStart', function( event ) {
+        var answer = confirm('If you leave this page you are going to lose all unsaved changes, are you sure you want to leave?')
+        if (!answer) {
+            event.preventDefault();
+        }
+    });
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
