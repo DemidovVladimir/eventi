@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var api = require('./api/index.js');
 var io = require('socket.io')(http);
 var db = require('./data/db.js');
+var rimraf = require('rimraf');
 
 
 
@@ -92,8 +93,6 @@ io.on('connection',function(socket){
             answer.msg = msg.msg;
             answer.userToId = msg.userToId;
             answer.userToName = msg.userToName;
-
-
             if(connected.indexOf(msg.userToId)!=-1){
                 db.msgsDBModel.create({fromId:msg.userFromId,fromName:msg.userFromName,toId:msg.userToId,toName:msg.userToName,read:true,msg:msg.msg},function(err){
                     if(err) return next(err);
@@ -106,21 +105,37 @@ io.on('connection',function(socket){
             io.to(msg.userToId).emit('message',answer);
             io.to(user).emit('message',answer);
         });
+        socket.on('connect msg',function(userDataId){
+            socket.on('disconnect', function(){
+                if(userDataId){
+                            async.series([
+                                //delete total user
+                                function(callback){
+                                    //delete all files in folder rimraf(f, callback)
+                                    rimraf(__dirname+'/../public/uploaded/'+user,function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'files deleted');
+                                    })
+                                },
+                                function(callback){
+                                    //all user info deletion
+                                    db.userDBModel.remove({_id:user},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'all data user removed');
+                                    });
+                                }
+                            ],
+                                function(err, results){
+                                    if(err) return next(err);
+                                });
+                }
+                var intAr = connected.indexOf(user);
+                connected.splice(intAr,1);
+                socket.leave(user);
+            });
 
-
-        socket.on('disconnect', function(){
-            var intAr = connected.indexOf(user);
-            connected.splice(intAr,1);
-            socket.leave(user);
         });
-
-
     });
-
-//    socket.on('disconnect me',function(user){
-//
-//    });
-
 });
 //Msgs
 app.get('/getMsgs/:userId',api.getMsgs);
