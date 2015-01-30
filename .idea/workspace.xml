@@ -26,8 +26,10 @@
       <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="767" column="49" selection-start="27611" selection-end="27611" vertical-scroll-proportion="0.54931974" vertical-offset="11182" max-vertical-offset="29295">
-              <folding />
+            <state line="765" column="6" selection-start="27464" selection-end="27627" vertical-scroll-proportion="0.48639455" vertical-offset="11189" max-vertical-offset="29295">
+              <folding>
+                <marker date="1422625216000" expanded="true" signature="27535:27627" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,8 +126,8 @@
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -647,8 +649,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="767" column="49" selection-start="27611" selection-end="27611" vertical-scroll-proportion="0.54931974" vertical-offset="11182" max-vertical-offset="29295">
-          <folding />
+        <state line="765" column="6" selection-start="27464" selection-end="27627" vertical-scroll-proportion="0.48639455" vertical-offset="11189" max-vertical-offset="29295">
+          <folding>
+            <marker date="1422625216000" expanded="true" signature="27535:27627" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

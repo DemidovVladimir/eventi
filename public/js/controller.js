@@ -763,10 +763,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $window.location.href = '/';
         });
     }
-    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-        var socket = io();
-        socket.emit('connect msg',$scope.info._id);
-    }
+//    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+//        var socket = io();
+//        socket.emit('connect msg',$scope.info._id);
+//    }
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
