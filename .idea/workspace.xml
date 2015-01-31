@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="768" column="5" selection-start="27621" selection-end="27621" vertical-scroll-proportion="0.23129252" vertical-offset="11384" max-vertical-offset="29175">
+            <state line="761" column="50" selection-start="27398" selection-end="27398" vertical-scroll-proportion="-2.3076923" vertical-offset="11355" max-vertical-offset="29175">
               <folding />
             </state>
           </provider>
@@ -59,10 +59,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="20" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="4860">
+            <state line="118" column="20" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.4397394" vertical-offset="1500" max-vertical-offset="4860">
               <folding />
             </state>
           </provider>
@@ -640,16 +640,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="20" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="4860">
+        <state line="761" column="50" selection-start="27398" selection-end="27398" vertical-scroll-proportion="-2.3076923" vertical-offset="11355" max-vertical-offset="29175">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="768" column="5" selection-start="27621" selection-end="27621" vertical-scroll-proportion="0.23129252" vertical-offset="11384" max-vertical-offset="29175">
+        <state line="118" column="20" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.4397394" vertical-offset="1500" max-vertical-offset="4860">
           <folding />
         </state>
       </provider>
