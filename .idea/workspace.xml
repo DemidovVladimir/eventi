@@ -41,10 +41,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maintainUser.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="26" selection-start="3561" selection-end="3561" vertical-scroll-proportion="0.48305085" vertical-offset="660" max-vertical-offset="5565">
+            <state line="63" column="26" selection-start="3561" selection-end="3561" vertical-scroll-proportion="-11.875" vertical-offset="660" max-vertical-offset="5565">
               <folding />
             </state>
           </provider>
@@ -59,10 +59,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="52" selection-start="3669" selection-end="3669" vertical-scroll-proportion="0.0" vertical-offset="1261" max-vertical-offset="4965">
+            <state line="109" column="18" selection-start="3635" selection-end="3635" vertical-scroll-proportion="0.60912055" vertical-offset="1261" max-vertical-offset="4965">
               <folding />
             </state>
           </provider>
@@ -123,9 +123,9 @@
         <option value="$PROJECT_DIR$/public/parts/maintainEvents.html" />
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -633,9 +633,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="52" selection-start="3669" selection-end="3669" vertical-scroll-proportion="0.0" vertical-offset="1261" max-vertical-offset="4965">
+        <state line="63" column="26" selection-start="3561" selection-end="3561" vertical-scroll-proportion="-11.875" vertical-offset="660" max-vertical-offset="5565">
           <folding />
         </state>
       </provider>
@@ -647,9 +647,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="26" selection-start="3561" selection-end="3561" vertical-scroll-proportion="0.48305085" vertical-offset="660" max-vertical-offset="5565">
+        <state line="109" column="18" selection-start="3635" selection-end="3635" vertical-scroll-proportion="0.60912055" vertical-offset="1261" max-vertical-offset="4965">
           <folding />
         </state>
       </provider>
