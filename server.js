@@ -107,36 +107,38 @@ io.on('connection',function(socket){
             io.to(user).emit('message',answer);
         });
         socket.on('connect msg',function(userDataId){
-            socket.on('disconnect', function(){
-                console.log(userDataId);
-                if(userDataId){
-                            async.series([
-                                //delete total user
-                                function(callback){
-                                    //delete all files in folder rimraf(f, callback)
-                                    rimraf(__dirname+'/../public/uploaded/'+userDataId,function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'files deleted');
-                                    })
-                                },
-                                function(callback){
-                                    //all user info deletion
-                                    db.userDBModel.remove({_id:userDataId},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'all data user removed');
-                                    });
-                                }
-                            ],
-                                function(err, results){
-                                    if(err) return next(err);
-                                });
-                }
-                var intAr = connected.indexOf(user);
-                connected.splice(intAr,1);
-                socket.leave(user);
-            });
 
         });
+        socket.on('disconnect', function(){
+            console.log('Kuku');
+//            console.log(userDataId);
+//            if(userDataId){
+//                async.series([
+//                    //delete total user
+//                    function(callback){
+//                        //delete all files in folder rimraf(f, callback)
+//                        rimraf(__dirname+'/../public/uploaded/'+userDataId,function(err){
+//                            if(err) return next(err);
+//                            callback(null, 'files deleted');
+//                        })
+//                    },
+//                    function(callback){
+//                        //all user info deletion
+//                        db.userDBModel.remove({_id:userDataId},function(err){
+//                            if(err) return next(err);
+//                            callback(null, 'all data user removed');
+//                        });
+//                    }
+//                ],
+//                    function(err, results){
+//                        if(err) return next(err);
+//                    });
+//            }
+            var intAr = connected.indexOf(user);
+            connected.splice(intAr,1);
+            socket.leave(user);
+        });
+
     });
 });
 //Msgs
