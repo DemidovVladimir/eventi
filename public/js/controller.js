@@ -765,7 +765,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
     if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
         var socket = io();
-        socket.emit('connect msg',$scope.info._id);
+//        socket.emit('connect msg',$scope.info._id);
     }
 });
 
@@ -1932,14 +1932,6 @@ app.controller('myMessages',function($scope,$resource,$routeParams,$route,$windo
             $scope.userToId = userToId;
             $scope.userToName = userToName;
         }
-
-
-
-
-
-
-
-
         $scope.$on('$routeChangeStart', function(next, current) {
 //            socket.emit('disconnect me',$scope.userId);
             socket.disconnect();
