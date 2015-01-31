@@ -83,12 +83,12 @@ app.use(errorHandler);
 
 var connected = [];
 
-io.on('connection',function(socket){
-    socket.on('connect me',function(user){
-        userS = user;
+var chatLine = io.of('/chat');
+chatLine.on('connection', function(socket){
+    chatLine.on('connect me',function(user){
         connected.push(user);
-        socket.join(user);
-        socket.on('message',function(msg){
+        chatLine.join(user);
+        chatLine.on('message',function(msg){
             var answer = {};
             answer.userFromId = msg.userFromId;
             answer.userFromName = msg.userFromName;
@@ -107,35 +107,29 @@ io.on('connection',function(socket){
             io.to(msg.userToId).emit('message',answer);
             io.to(user).emit('message',answer);
         });
-        socket.on('disconnect', function(){
-            var intAr = connected.indexOf(userS);
+        chatLine.on('disconnect', function(){
+            var intAr = connected.indexOf(user);
             connected.splice(intAr,1);
-            socket.leave(userS);
+            chatLine.leave(user);
         });
     });
-    socket.on('deletemeUser',function(userId){
-            async.series([
-                //delete total user
-                function(callback){
-                    //delete all files in folder rimraf(f, callback)
-                    rimraf(__dirname+'/../public/uploaded/'+userId,function(err){
-                        if(err) return next(err);
-                        callback(null, 'files deleted');
-                    })
-                },
-                function(callback){
-                    //all user info deletion
-                    db.userDBModel.remove({_id:userId},function(err){
-                        if(err) return next(err);
-                        callback(null, 'all data user removed');
-                    });
-                }
-            ],
-                function(err, results){
-                    if(err) return next(err);
-                });
-    })
 });
+//maintainLine.emit('hi', 'everyone!');
+
+
+//io.on('connection',function(socket){
+
+//});
+var maintainLine = io.of('/maintainUser');
+maintainLine.on('connection', function(socket){
+    console.log('someone connected');
+});
+maintainLine.emit('hi', 'everyone!');
+
+
+
+
+
 //Msgs
 app.get('/getMsgs/:userId',api.getMsgs);
 app.get('/getUnsetMsgs/:userId',api.getUnsetMsgs);

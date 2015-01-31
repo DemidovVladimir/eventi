@@ -26,7 +26,7 @@
       <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="363" column="20" selection-start="12287" selection-end="12287" vertical-scroll-proportion="0.792517" vertical-offset="4979" max-vertical-offset="29340">
+            <state line="358" column="30" selection-start="12241" selection-end="12241" vertical-scroll-proportion="0.38435373" vertical-offset="5144" max-vertical-offset="29235">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="44" selection-start="4298" selection-end="4298" vertical-scroll-proportion="0.0" vertical-offset="1456" max-vertical-offset="4845">
+            <state line="85" column="22" selection-start="2486" selection-end="2491" vertical-scroll-proportion="0.0" vertical-offset="1446" max-vertical-offset="4755">
               <folding />
             </state>
           </provider>
@@ -53,7 +53,7 @@
       <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="26" selection-start="3561" selection-end="3561" vertical-scroll-proportion="-11.875" vertical-offset="660" max-vertical-offset="5565">
+            <state line="63" column="18" selection-start="3553" selection-end="3553" vertical-scroll-proportion="-11.875" vertical-offset="660" max-vertical-offset="5565">
               <folding />
             </state>
           </provider>
@@ -123,8 +123,8 @@
         <option value="$PROJECT_DIR$/public/parts/maintainEvents.html" />
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
-        <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
@@ -627,21 +627,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="26" selection-start="3561" selection-end="3561" vertical-scroll-proportion="-11.875" vertical-offset="660" max-vertical-offset="5565">
+        <state line="63" column="18" selection-start="3553" selection-end="3553" vertical-scroll-proportion="-11.875" vertical-offset="660" max-vertical-offset="5565">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="44" selection-start="4298" selection-end="4298" vertical-scroll-proportion="0.0" vertical-offset="1456" max-vertical-offset="4845">
+        <state line="85" column="22" selection-start="2486" selection-end="2491" vertical-scroll-proportion="0.0" vertical-offset="1446" max-vertical-offset="4755">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="363" column="20" selection-start="12287" selection-end="12287" vertical-scroll-proportion="0.792517" vertical-offset="4979" max-vertical-offset="29340">
+        <state line="358" column="30" selection-start="12241" selection-end="12241" vertical-scroll-proportion="0.38435373" vertical-offset="5144" max-vertical-offset="29235">
           <folding />
         </state>
       </provider>

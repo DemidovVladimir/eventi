@@ -353,19 +353,12 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-
     if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-        var socket = io();
+        var socket = io('/maintainUser');
+        socket.on('hi', function(msg){
+            $scope.test = msg;
+        });
     }
-
-
-    $window.onbeforeunload = function(event){
-        socket.emit('deletemeUser',$routeParams.user);
-        return 'kuku';
-    }
-
-
-
 
         $scope.madeChanges = 0;
         $scope.signOut = function(){
@@ -1309,7 +1302,7 @@ app.controller('infoUser',function($scope,$resource,$routeParams,$window){
     });
 
 
-    var socket = io();
+    var socket = io('/chat');
     socket.emit('connect me',$scope.userId);
 //    socket.connect();
 
@@ -1881,7 +1874,7 @@ app.controller('myMessages',function($scope,$resource,$routeParams,$route,$windo
         $scope.countMsgs = queMsgs.length;
     });
     $scope.messages = [];
-    var socket = io();
+    var socket = io('/chat');
 //    socket.connect();
 //    socket.emit('connect me',$scope.userId);
     $scope.$watch('messages', function(newValue, oldValue) {
