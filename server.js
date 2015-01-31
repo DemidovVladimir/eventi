@@ -106,8 +106,8 @@ io.on('connection',function(socket){
             io.to(msg.userToId).emit('message',answer);
             io.to(user).emit('message',answer);
         });
-        socket.on('connect msg',function(userDataId){
-            console.log('kuku start');
+        socket.on('connectmsg',function(userDataId){
+            io.emit('connectmsgback','connected user');
         });
         socket.on('disconnect', function(){
             console.log('Kuku');
