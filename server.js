@@ -82,7 +82,7 @@ app.use(errorHandler);
 
 
 var connected = [];
-/*
+
 var chatLine = io.of('/chat');
 chatLine.on('connection', function(socket){
     chatLine.on('connect me',function(user){
@@ -123,7 +123,7 @@ chatLine.on('connection', function(socket){
 var maintainLine = io.of('/maintainUser');
 maintainLine.on('connection', function(socket){
 
-});*/
+});
 
 
 
