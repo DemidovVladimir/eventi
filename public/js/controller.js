@@ -774,190 +774,190 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
-    $scope.session = JSON.parse($window.localStorage.getItem('session'));
-    $scope.userId = $scope.session.id;
-    $scope.userName = $scope.session.name;
-
-    var getMsgs = $resource('/getMsgs/'+$scope.userId);
-    var queMsgs = getMsgs.query(function(){
-        $scope.countMsgs = queMsgs.length;
-    });
-
-
-    var adr = $resource('/getMyEvents/'+$scope.userId);
-    var que = adr.query(function(){
-        $scope.eventsExists = que;
-    });
-    $scope.deleteEvent = function(title,owner){
-        var adr = $resource('/deleteEvent/'+owner+'/'+title);
-        var que = adr.get(function(){
-            $route.reload();
-        });
-    }
-
-
-
-
-
-    $scope.today = new Date();
-    var todayYear = $scope.today.getFullYear();
-    $scope.expirationMonth = $scope.today.getMonth()+1;
-    $scope.expirationDay = $scope.today.getDate();
-    $scope.expirationYear = todayYear +1;
-
-
-    $scope.renderMap = true;
-    $scope.lat = 43.2775;
-    $scope.lng = 76.89583300000004;
-//    Map work
-    $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lng}, zoom: 8};
-    $scope.marker = {
-        id: 0,
-        coords: {
-            latitude: 43.2775,
-            longitude: 76.89583300000004
-        },
-        options: { draggable: true },
-        events: {
-            dragend: function (marker, eventName, args) {
-                $scope.marker.options = {
-                    draggable: true
-//                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-//                    labelAnchor: "100 0",
-//                    labelClass: "marker-labels"
-                };
-            }
-        }
-    };
-
-
-
-
-//    scope.$on('mapSearchCenter');
-    $scope.$on('mapSearchCenter', function() {
-        $scope.renderMap = false;
-        $timeout(function(){$scope.renderMap = true},1000);
-        var geocoder =  new google.maps.Geocoder();
-        geocoder.geocode( { 'address': $scope.eventLocationCity}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                $scope.map = { center: { latitude: results[0].geometry.location.lat(), longitude: results[0].geometry.location.lng() }, zoom: 8 };
-                $scope.lat = results[0].geometry.location.lat();
-                $scope.lng = results[0].geometry.location.lng();
-                $scope.marker = {
-                    id: 1,
-                    coords: {
-                        latitude: $scope.lat,
-                        longitude: $scope.lng
-                    },
-                    options: { draggable: true },
-                    events: {
-                        dragend: function (marker, eventName, args) {
-
-                            $scope.marker.options = {
-                                draggable: true
-//                                labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-//                                labelAnchor: "100 0",
-//                                labelClass: "marker-labels"
-                            };
-                        }
-                    }
-                };
-            }
-        });
-    });
-//    End map work
-        $scope.signOut = function(){
-            $window.localStorage.clear('session')
-            $window.location.href = '/';
-        }
-        $scope.scrollTo = function(id) {
-            $location.hash(id);
-            $anchorScroll();
-            $location.hash('');
-        }
-        $scope.resultPics = [];
-        $scope.resultVids = [];
-        $scope.pictureProgress = false;
-        $scope.onPicSelect = function($files){
-            var miss = $scope.resultPics.indexOf('wrong format');
-            if(miss!='-1') $scope.resultPics.splice(miss,1);
-            var files = $files;
-                files.forEach(function(item){
-                    $scope.upload = $upload.upload({
-                        url: '/insertPicturesEvent',
-                        data: {userId: $scope.userId,
-                            eventTitle: $scope.title
-                        },
-                        file: item
-                    }).progress(function(evt) {
-                            var progress = parseInt(100.0 * evt.loaded / evt.total);
-                            $scope.progress = progress;
-                            $scope.pictureProgress = true;
-
-                        }).success(function(data, status, headers, config) {
-                            $scope.resultPics.push(data);
-                            $scope.pictureProgress = false;
-                        });
-                });
-        };
-        $scope.deletePic = function(pic){
-                var adr = $resource('/deletePicEvent');
-                var que = new adr();
-                que.userId = $scope.userId;
-                que.picture = pic;
-                que.title = $scope.title;
-                que.$save(function(){
-                    var oop = $scope.resultPics.indexOf(pic);
-                    $scope.resultPics.splice(oop,1);
-                });
-        }
-
-        $scope.videoProgress = false;
-        $scope.onVideoSelect = function($files){
-            var files = $files;
-            files.forEach(function(item){
-                $scope.upload = $upload.upload({
-                    url: '/insertVideosEvent',
-                    data: {userId: $scope.userId,
-                        eventTitle: $scope.title
-                    },
-                    file: item
-                }).progress(function(evt) {
-                        var progress = parseInt(100.0 * evt.loaded / evt.total);
-                        $scope.progress = progress;
-                        $scope.videoProgress = true;
-                    }).success(function(data, status, headers, config) {
-                        $scope.resultVids.push(data);
-                        $scope.videoProgress = false;
-                    });
-            });
-        };
-        $scope.deleteVideo = function(video){
-            var adr = $resource('/deleteVideoEvent');
-            var que = new adr();
-            que.userId = $scope.userId;
-            que.video = video;
-            que.title = $scope.title;
-            que.$save(function(){
-                var oop = $scope.resultVids.indexOf(video);
-                $scope.resultVids.splice(oop,1);
-            });
-        }
-    $scope.submit = function(){
-        var adr = $resource('/createEvent');
-        var que = new adr();
-        que.userId = $scope.userId;
-        que.title = $scope.title;
-        que.executionDate = $scope.executionDate;
-        que.eventLocationCity = $scope.eventLocationCity;
-        que.coords = $scope.marker.coords;
-        que.phone = $scope.phone;
-        que.about = $scope.about;
-        que.addressInCity = $scope.addressInCity;
-        que.$save(function(){
-            $route.reload();
-        });
-    }
+//    $scope.session = JSON.parse($window.localStorage.getItem('session'));
+//    $scope.userId = $scope.session.id;
+//    $scope.userName = $scope.session.name;
+//
+//    var getMsgs = $resource('/getMsgs/'+$scope.userId);
+//    var queMsgs = getMsgs.query(function(){
+//        $scope.countMsgs = queMsgs.length;
+//    });
+//
+//
+//    var adr = $resource('/getMyEvents/'+$scope.userId);
+//    var que = adr.query(function(){
+//        $scope.eventsExists = que;
+//    });
+//    $scope.deleteEvent = function(title,owner){
+//        var adr = $resource('/deleteEvent/'+owner+'/'+title);
+//        var que = adr.get(function(){
+//            $route.reload();
+//        });
+//    }
+//
+//
+//
+//
+//
+//    $scope.today = new Date();
+//    var todayYear = $scope.today.getFullYear();
+//    $scope.expirationMonth = $scope.today.getMonth()+1;
+//    $scope.expirationDay = $scope.today.getDate();
+//    $scope.expirationYear = todayYear +1;
+//
+//
+//    $scope.renderMap = true;
+//    $scope.lat = 43.2775;
+//    $scope.lng = 76.89583300000004;
+////    Map work
+//    $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lng}, zoom: 8};
+//    $scope.marker = {
+//        id: 0,
+//        coords: {
+//            latitude: 43.2775,
+//            longitude: 76.89583300000004
+//        },
+//        options: { draggable: true },
+//        events: {
+//            dragend: function (marker, eventName, args) {
+//                $scope.marker.options = {
+//                    draggable: true
+////                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+////                    labelAnchor: "100 0",
+////                    labelClass: "marker-labels"
+//                };
+//            }
+//        }
+//    };
+//
+//
+//
+//
+////    scope.$on('mapSearchCenter');
+//    $scope.$on('mapSearchCenter', function() {
+//        $scope.renderMap = false;
+//        $timeout(function(){$scope.renderMap = true},1000);
+//        var geocoder =  new google.maps.Geocoder();
+//        geocoder.geocode( { 'address': $scope.eventLocationCity}, function(results, status) {
+//            if (status == google.maps.GeocoderStatus.OK) {
+//                $scope.map = { center: { latitude: results[0].geometry.location.lat(), longitude: results[0].geometry.location.lng() }, zoom: 8 };
+//                $scope.lat = results[0].geometry.location.lat();
+//                $scope.lng = results[0].geometry.location.lng();
+//                $scope.marker = {
+//                    id: 1,
+//                    coords: {
+//                        latitude: $scope.lat,
+//                        longitude: $scope.lng
+//                    },
+//                    options: { draggable: true },
+//                    events: {
+//                        dragend: function (marker, eventName, args) {
+//
+//                            $scope.marker.options = {
+//                                draggable: true
+////                                labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+////                                labelAnchor: "100 0",
+////                                labelClass: "marker-labels"
+//                            };
+//                        }
+//                    }
+//                };
+//            }
+//        });
+//    });
+////    End map work
+//        $scope.signOut = function(){
+//            $window.localStorage.clear('session')
+//            $window.location.href = '/';
+//        }
+//        $scope.scrollTo = function(id) {
+//            $location.hash(id);
+//            $anchorScroll();
+//            $location.hash('');
+//        }
+//        $scope.resultPics = [];
+//        $scope.resultVids = [];
+//        $scope.pictureProgress = false;
+//        $scope.onPicSelect = function($files){
+//            var miss = $scope.resultPics.indexOf('wrong format');
+//            if(miss!='-1') $scope.resultPics.splice(miss,1);
+//            var files = $files;
+//                files.forEach(function(item){
+//                    $scope.upload = $upload.upload({
+//                        url: '/insertPicturesEvent',
+//                        data: {userId: $scope.userId,
+//                            eventTitle: $scope.title
+//                        },
+//                        file: item
+//                    }).progress(function(evt) {
+//                            var progress = parseInt(100.0 * evt.loaded / evt.total);
+//                            $scope.progress = progress;
+//                            $scope.pictureProgress = true;
+//
+//                        }).success(function(data, status, headers, config) {
+//                            $scope.resultPics.push(data);
+//                            $scope.pictureProgress = false;
+//                        });
+//                });
+//        };
+//        $scope.deletePic = function(pic){
+//                var adr = $resource('/deletePicEvent');
+//                var que = new adr();
+//                que.userId = $scope.userId;
+//                que.picture = pic;
+//                que.title = $scope.title;
+//                que.$save(function(){
+//                    var oop = $scope.resultPics.indexOf(pic);
+//                    $scope.resultPics.splice(oop,1);
+//                });
+//        }
+//
+//        $scope.videoProgress = false;
+//        $scope.onVideoSelect = function($files){
+//            var files = $files;
+//            files.forEach(function(item){
+//                $scope.upload = $upload.upload({
+//                    url: '/insertVideosEvent',
+//                    data: {userId: $scope.userId,
+//                        eventTitle: $scope.title
+//                    },
+//                    file: item
+//                }).progress(function(evt) {
+//                        var progress = parseInt(100.0 * evt.loaded / evt.total);
+//                        $scope.progress = progress;
+//                        $scope.videoProgress = true;
+//                    }).success(function(data, status, headers, config) {
+//                        $scope.resultVids.push(data);
+//                        $scope.videoProgress = false;
+//                    });
+//            });
+//        };
+//        $scope.deleteVideo = function(video){
+//            var adr = $resource('/deleteVideoEvent');
+//            var que = new adr();
+//            que.userId = $scope.userId;
+//            que.video = video;
+//            que.title = $scope.title;
+//            que.$save(function(){
+//                var oop = $scope.resultVids.indexOf(video);
+//                $scope.resultVids.splice(oop,1);
+//            });
+//        }
+//    $scope.submit = function(){
+//        var adr = $resource('/createEvent');
+//        var que = new adr();
+//        que.userId = $scope.userId;
+//        que.title = $scope.title;
+//        que.executionDate = $scope.executionDate;
+//        que.eventLocationCity = $scope.eventLocationCity;
+//        que.coords = $scope.marker.coords;
+//        que.phone = $scope.phone;
+//        que.about = $scope.about;
+//        que.addressInCity = $scope.addressInCity;
+//        que.$save(function(){
+//            $route.reload();
+//        });
+//    }
 });
 
 /*app.controller('manageEvent',function($scope){
