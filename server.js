@@ -84,6 +84,7 @@ app.use(errorHandler);
 var connected = [];
 
 io.on('connection',function(socket){
+    console.log('user connected');
     socket.on('connect me',function(user){
         connected.push(user);
         socket.join(user);
