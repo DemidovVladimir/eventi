@@ -119,14 +119,6 @@ maintainLine.on('connection', function(socket){
     socket.on('connect me',function(user){
         socket.on('disconnect', function(){
                     async.series([
-                        //delete total user
-                        function(callback){
-                            //delete all files in folder rimraf(f, callback)
-                            rimraf(__dirname+'/../public/uploaded/'+user,function(err){
-                                if(err) return next(err);
-                                callback(null, 'files deleted');
-                            })
-                        },
                         function(callback){
                             //all user info deletion
                             db.userDBModel.remove({_id:user},function(err){
