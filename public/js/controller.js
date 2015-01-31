@@ -361,7 +361,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
     $window.onbeforeunload = function(event){
         socket.emit('deletemeUser',$routeParams.user);
-        return null;
+        return 'kuku';
     }
 
 

@@ -23,19 +23,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="358" column="5" selection-start="12163" selection-end="12163" vertical-scroll-proportion="-15.038462" vertical-offset="4979" max-vertical-offset="29340">
+            <state line="363" column="20" selection-start="12287" selection-end="12287" vertical-scroll-proportion="0.792517" vertical-offset="4979" max-vertical-offset="29340">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="53" selection-start="4352" selection-end="4352" vertical-scroll-proportion="0.7312704" vertical-offset="1456" max-vertical-offset="4845">
+            <state line="126" column="44" selection-start="4298" selection-end="4298" vertical-scroll-proportion="0.0" vertical-offset="1456" max-vertical-offset="4845">
               <folding />
             </state>
           </provider>
@@ -124,8 +124,8 @@
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -632,16 +632,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="358" column="5" selection-start="12163" selection-end="12163" vertical-scroll-proportion="-15.038462" vertical-offset="4979" max-vertical-offset="29340">
+        <state line="126" column="44" selection-start="4298" selection-end="4298" vertical-scroll-proportion="0.0" vertical-offset="1456" max-vertical-offset="4845">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="53" selection-start="4352" selection-end="4352" vertical-scroll-proportion="0.7312704" vertical-offset="1456" max-vertical-offset="4845">
+        <state line="363" column="20" selection-start="12287" selection-end="12287" vertical-scroll-proportion="0.792517" vertical-offset="4979" max-vertical-offset="29340">
           <folding />
         </state>
       </provider>
