@@ -117,9 +117,27 @@ chatLine.on('connection', function(socket){
 var maintainLine = io.of('/maintainUser');
 maintainLine.on('connection', function(socket){
     socket.on('connect me',function(user){
-        console.log(user+' - connected!!!');
         socket.on('disconnect', function(){
-            console.log(user+' - disconnected');
+                    async.series([
+                        //delete total user
+                        function(callback){
+                            //delete all files in folder rimraf(f, callback)
+                            rimraf(__dirname+'/../public/uploaded/'+user,function(err){
+                                if(err) return next(err);
+                                callback(null, 'files deleted');
+                            })
+                        },
+                        function(callback){
+                            //all user info deletion
+                            db.userDBModel.remove({_id:user},function(err){
+                                if(err) return next(err);
+                                callback(null, 'all data user removed');
+                            });
+                        }
+                    ],
+                        function(err, results){
+                            if(err) return next(err);
+                        });
         });
     })
 });
