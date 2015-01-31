@@ -84,7 +84,9 @@ app.use(errorHandler);
 var connected = [];
 
 io.on('connection',function(socket){
-    console.log('user connected');
+    socket.on('connectmsg',function(userDataId){
+        io.emit('connectmsgback','connected user');
+    });
     socket.on('connect me',function(user){
         connected.push(user);
         socket.join(user);
@@ -107,12 +109,7 @@ io.on('connection',function(socket){
             io.to(msg.userToId).emit('message',answer);
             io.to(user).emit('message',answer);
         });
-        socket.on('connectmsg',function(userDataId){
-            io.emit('connectmsgback','connected user');
-        });
         socket.on('disconnect', function(){
-            console.log('Kuku');
-//            console.log(userDataId);
 //            if(userDataId){
 //                async.series([
 //                    //delete total user
@@ -138,9 +135,9 @@ io.on('connection',function(socket){
 
 
 
-//            var intAr = connected.indexOf(user);
-//            connected.splice(intAr,1);
-//            socket.leave(user);
+            var intAr = connected.indexOf(user);
+            connected.splice(intAr,1);
+            socket.leave(user);
         });
 
     });
