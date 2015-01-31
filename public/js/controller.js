@@ -355,9 +355,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
     if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
         var socket = io('/maintainUser');
-        socket.on('hi', function(msg){
-            $scope.test = msg;
-        });
+        socket.emit('connect me',$routeParams.user);
     }
 
         $scope.madeChanges = 0;
@@ -1457,7 +1455,7 @@ app.controller('infoEvent',function($scope,$resource,$routeParams,$window){
 
         $scope.date_exec = new Date($scope.info[0].date_exec);
         var execYear = $scope.date_exec.getFullYear();
-        var execMonth = $scope.date_exec.getMonth();
+        var execMonth = $scope.date_exec.getMonth()+1;
         var execDay = $scope.date_exec.getDate();
         $scope.date_exec = execYear+'/'+execMonth+'/'+execDay;
         $scope.map = {
@@ -1908,24 +1906,17 @@ app.controller('myMessages',function($scope,$resource,$routeParams,$route,$windo
 
 
     socket.emit('connect me',$scope.userId);
-//    socket.connect();
-
-
-        //Chat deal up start
-//        io.emit('connect me',$scope.userId);
-
-
-
         $scope.submitMsg = function(){
-            var exObj = {};
-            exObj.userToId = $scope.userToId;
-            exObj.userToName = $scope.userToName;
-            exObj.userFromId = $scope.userId;
-            exObj.userFromName = $scope.userName;
-            exObj.msg = $scope.msg;
-            socket.emit('message',exObj);
-            $scope.msg = undefined;
-//            socket.emit('message',$scope.msg);
+            if($scope.userToName){
+                var exObj = {};
+                exObj.userToId = $scope.userToId;
+                exObj.userToName = $scope.userToName;
+                exObj.userFromId = $scope.userId;
+                exObj.userFromName = $scope.userName;
+                exObj.msg = $scope.msg;
+                socket.emit('message',exObj);
+                $scope.msg = undefined;
+            }
         }
         socket.on('message', function(msg){
             $scope.messages.push(msg);
@@ -1937,8 +1928,7 @@ app.controller('myMessages',function($scope,$resource,$routeParams,$route,$windo
             $scope.userToName = userToName;
         }
         $scope.$on('$routeChangeStart', function(next, current) {
-//            socket.emit('disconnect me',$scope.userId);
             socket.disconnect();
         });
-    //Chat deal up end
+    //Chat deal up
 });

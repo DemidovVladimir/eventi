@@ -85,10 +85,10 @@ var connected = [];
 
 var chatLine = io.of('/chat');
 chatLine.on('connection', function(socket){
-    chatLine.on('connect me',function(user){
+    socket.on('connect me',function(user){
         connected.push(user);
-        chatLine.join(user);
-        chatLine.on('message',function(msg){
+        socket.join(user);
+        socket.on('message',function(msg){
             var answer = {};
             answer.userFromId = msg.userFromId;
             answer.userFromName = msg.userFromName;
@@ -104,25 +104,24 @@ chatLine.on('connection', function(socket){
                     if(err) return next(err);
                 });
             }
-            io.to(msg.userToId).emit('message',answer);
-            io.to(user).emit('message',answer);
+            chatLine.to(msg.userToId).emit('message',answer);
+            chatLine.to(user).emit('message',answer);
         });
-        chatLine.on('disconnect', function(){
+        socket.on('disconnect', function(){
             var intAr = connected.indexOf(user);
             connected.splice(intAr,1);
-            chatLine.leave(user);
+            socket.leave(user);
         });
     });
 });
-//maintainLine.emit('hi', 'everyone!');
-
-
-//io.on('connection',function(socket){
-
-//});
 var maintainLine = io.of('/maintainUser');
 maintainLine.on('connection', function(socket){
-
+    socket.on('connect me',function(user){
+        console.log(user+' - connected!!!');
+        socket.on('disconnect', function(){
+            console.log(user+' - disconnected');
+        });
+    })
 });
 
 

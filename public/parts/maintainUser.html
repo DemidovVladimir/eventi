@@ -56,6 +56,7 @@
 </nav>
 <!-- end:navbar -->
 <h3 class="text-center">Maintain {{info.name}}'s info...</h3>
+        {{info}}
 <div class="text-center" ng-show="!info.password || !info.email">
     <h4 class="alert alert-danger">
         Please insert your password,email and one language you can speak to make available total web project!
@@ -101,18 +102,24 @@
             </div>
         </div>
 
-        <div ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
+        <div ng-if="!info.password" ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
             <label class="control-label" for="newPassword">Change(create) password</label>
             <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword" required>
             <br><span class="control-label" ng-show="info.password">
         Required!</span>
         </div>
 
+        <div ng-if="info.password" ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
+            <label class="control-label" for="newPassword">Change(create) password</label>
+            <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword">
+            <br><span class="control-label" ng-show="info.password">
+        Required!</span>
+        </div>
 
 
         <div ng-show="newPassword" ng-class="{'has-error':passwordR!=newPassword}" class="form-group">
             <label class="control-label" for="passwordR">Confirm your new password</label>
-            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" required ng-pattern="newPassword">
+            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" ng-pattern="newPassword">
             <br><span class="control-label" ng-show="maintainInfo.passwordR.$error.pattern">
         Password not confirmed, please try again!</span>
         </div>
