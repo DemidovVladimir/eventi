@@ -765,11 +765,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
     if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
         var socket = io();
-        $scope.connectmsgs = [];
         socket.emit('connectmsg',$scope.userId);
         socket.on('connectmsgback', function(msg){
-            $scope.connectmsgs.push(msg);
-            $scope.$digest();
+            $scope.connectmsg = msg;
         });
     }
 });
