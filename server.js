@@ -122,9 +122,8 @@ chatLine.on('connection', function(socket){
 //});
 var maintainLine = io.of('/maintainUser');
 maintainLine.on('connection', function(socket){
-    console.log('someone connected');
+
 });
-maintainLine.emit('hi', 'everyone!');
 
 
 

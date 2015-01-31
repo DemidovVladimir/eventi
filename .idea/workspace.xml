@@ -26,7 +26,7 @@
       <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="358" column="30" selection-start="12241" selection-end="12241" vertical-scroll-proportion="0.38435373" vertical-offset="5144" max-vertical-offset="29235">
+            <state line="1283" column="50" selection-start="48768" selection-end="48768" vertical-scroll-proportion="0.5119048" vertical-offset="18944" max-vertical-offset="29235">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="22" selection-start="2486" selection-end="2491" vertical-scroll-proportion="0.0" vertical-offset="1446" max-vertical-offset="4755">
+            <state line="124" column="0" selection-start="3979" selection-end="3979" vertical-scroll-proportion="0.0" vertical-offset="1446" max-vertical-offset="4740">
               <folding />
             </state>
           </provider>
@@ -123,8 +123,8 @@
         <option value="$PROJECT_DIR$/public/parts/maintainEvents.html" />
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
+        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
@@ -577,13 +577,6 @@
         <state line="198" column="22" selection-start="4044" selection-end="4044" vertical-scroll-proportion="0.33278146" vertical-offset="2769" max-vertical-offset="3405" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="18" selection-start="647" selection-end="666" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="990">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/db.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="61" column="19" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="3780">
@@ -634,14 +627,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="22" selection-start="2486" selection-end="2491" vertical-scroll-proportion="0.0" vertical-offset="1446" max-vertical-offset="4755">
+        <state line="124" column="0" selection-start="3979" selection-end="3979" vertical-scroll-proportion="0.0" vertical-offset="1446" max-vertical-offset="4740">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="18" selection-start="647" selection-end="666" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="990">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="358" column="30" selection-start="12241" selection-end="12241" vertical-scroll-proportion="0.38435373" vertical-offset="5144" max-vertical-offset="29235">
+        <state line="1283" column="50" selection-start="48768" selection-end="48768" vertical-scroll-proportion="0.5119048" vertical-offset="18944" max-vertical-offset="29235">
           <folding />
         </state>
       </provider>

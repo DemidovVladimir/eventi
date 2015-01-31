@@ -1281,7 +1281,7 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
         $location.hash('');
     }
         $scope.signOut = function(){
-            $window.localStorage.clear('session')
+            $window.localStorage.clear('session');
             $window.location.href = '/';
         }
 });
