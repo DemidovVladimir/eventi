@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="762" column="38" selection-start="27371" selection-end="27379" vertical-scroll-proportion="-5.230769" vertical-offset="11294" max-vertical-offset="29085">
+            <state line="340" column="13" selection-start="11383" selection-end="11383" vertical-scroll-proportion="0.86904764" vertical-offset="4589" max-vertical-offset="29175">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="27" selection-start="4963" selection-end="4963" vertical-scroll-proportion="0.0" vertical-offset="1666" max-vertical-offset="4995">
+            <state line="139" column="27" selection-start="4963" selection-end="4963" vertical-scroll-proportion="0.0" vertical-offset="2341" max-vertical-offset="4995">
               <folding />
             </state>
           </provider>
@@ -79,10 +79,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1143" column="19" selection-start="40948" selection-end="40948" vertical-scroll-proportion="0.2568027" vertical-offset="16994" max-vertical-offset="18090">
+            <state line="1143" column="19" selection-start="40948" selection-end="40948" vertical-scroll-proportion="-5.8076925" vertical-offset="16994" max-vertical-offset="18090">
               <folding />
             </state>
           </provider>
@@ -124,10 +124,10 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/public/parts/createEvent.html" />
         <option value="$PROJECT_DIR$/public/parts/myMessages.html" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/api/index.js" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -625,9 +625,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+    <entry file="file://$PROJECT_DIR$/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="762" column="38" selection-start="27371" selection-end="27379" vertical-scroll-proportion="-5.230769" vertical-offset="11294" max-vertical-offset="29085">
+        <state line="1143" column="19" selection-start="40948" selection-end="40948" vertical-scroll-proportion="-5.8076925" vertical-offset="16994" max-vertical-offset="18090">
           <folding />
         </state>
       </provider>
@@ -639,9 +639,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/index.js">
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1143" column="19" selection-start="40948" selection-end="40948" vertical-scroll-proportion="0.2568027" vertical-offset="16994" max-vertical-offset="18090">
+        <state line="340" column="13" selection-start="11383" selection-end="11383" vertical-scroll-proportion="0.86904764" vertical-offset="4589" max-vertical-offset="29175">
           <folding />
         </state>
       </provider>

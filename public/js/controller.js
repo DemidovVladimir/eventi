@@ -306,6 +306,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
+            if(!data){
+                $window.location.href = '/';
+            }
             var obj = new Object();
             obj.id = data[0]._id;
             obj.name = data[0].name;
@@ -333,6 +336,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
+            if(!data){
+                $window.location.href = '/';
+            }
             $scope.session = JSON.parse($window.localStorage.getItem('session'));
             $scope.info = data;
             $scope.email = data.email;
