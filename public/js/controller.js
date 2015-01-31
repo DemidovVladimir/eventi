@@ -306,7 +306,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
-            if(!data){
+            if(data.length==0){
                 $window.location.href = '/';
             }
             var obj = new Object();
@@ -336,7 +336,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
-            if(!data){
+            if(data.length==0){
                 $window.location.href = '/';
             }
             $scope.session = JSON.parse($window.localStorage.getItem('session'));
