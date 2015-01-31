@@ -112,14 +112,14 @@ io.on('connection',function(socket){
                                 //delete total user
                                 function(callback){
                                     //delete all files in folder rimraf(f, callback)
-                                    rimraf(__dirname+'/../public/uploaded/'+user,function(err){
+                                    rimraf(__dirname+'/../public/uploaded/'+userDataId,function(err){
                                         if(err) return next(err);
                                         callback(null, 'files deleted');
                                     })
                                 },
                                 function(callback){
                                     //all user info deletion
-                                    db.userDBModel.remove({_id:user},function(err){
+                                    db.userDBModel.remove({_id:userDataId},function(err){
                                         if(err) return next(err);
                                         callback(null, 'all data user removed');
                                     });
