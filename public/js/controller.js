@@ -763,14 +763,14 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $window.location.href = '/';
         });
     }
-    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+//    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
         var socket = io();
         socket.emit('connectmsg',$scope.userId);
         socket.on('connectmsgback', function(msg){
             $scope.connectmsg = msg;
             $scope.$digest();
         });
-    }
+//    }
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
