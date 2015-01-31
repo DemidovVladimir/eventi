@@ -134,9 +134,12 @@ io.on('connection',function(socket){
 //                        if(err) return next(err);
 //                    });
 //            }
-            var intAr = connected.indexOf(user);
-            connected.splice(intAr,1);
-            socket.leave(user);
+
+
+
+//            var intAr = connected.indexOf(user);
+//            connected.splice(intAr,1);
+//            socket.leave(user);
         });
 
     });
