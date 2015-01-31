@@ -108,6 +108,7 @@ io.on('connection',function(socket){
         });
         socket.on('connect msg',function(userDataId){
             socket.on('disconnect', function(){
+                console.log(userDataId);
                 if(userDataId){
                             async.series([
                                 //delete total user
