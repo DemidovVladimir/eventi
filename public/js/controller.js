@@ -354,14 +354,15 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 
 
-//    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
         var socket = io();
-        socket.emit('connectmsg',$routeParams.user);
-        socket.on('connectmsgback', function(msg){
-            $scope.connectmsg = msg;
-            $scope.$digest();
-        });
-//    }
+    }
+
+
+    $window.onbeforeunload = function(event){
+        socket.emit('deletemeUser',$routeParams.user);
+        return null;
+    }
 
 
 

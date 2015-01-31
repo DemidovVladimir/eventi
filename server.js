@@ -82,14 +82,8 @@ app.use(errorHandler);
 
 
 var connected = [];
-var userDataIdS;
-var userS;
 
 io.on('connection',function(socket){
-    socket.on('connectmsg',function(userDataId){
-        userDataIdS = userDataId;
-        io.emit('connectmsgback','connected user');
-    });
     socket.on('connect me',function(user){
         userS = user;
         connected.push(user);
@@ -113,37 +107,34 @@ io.on('connection',function(socket){
             io.to(msg.userToId).emit('message',answer);
             io.to(user).emit('message',answer);
         });
+        socket.on('disconnect', function(){
+            var intAr = connected.indexOf(userS);
+            connected.splice(intAr,1);
+            socket.leave(userS);
+        });
     });
-    socket.on('disconnect', function(){
-            if(userDataIdS){
-                async.series([
-                    //delete total user
-                    function(callback){
-                        //delete all files in folder rimraf(f, callback)
-                        rimraf(__dirname+'/../public/uploaded/'+userDataIdS,function(err){
-                            if(err) return next(err);
-                            callback(null, 'files deleted');
-                        })
-                    },
-                    function(callback){
-                        //all user info deletion
-                        db.userDBModel.remove({_id:userDataIdS},function(err){
-                            if(err) return next(err);
-                            callback(null, 'all data user removed');
-                        });
-                    }
-                ],
-                    function(err, results){
+    socket.on('deletemeUser',function(userId){
+            async.series([
+                //delete total user
+                function(callback){
+                    //delete all files in folder rimraf(f, callback)
+                    rimraf(__dirname+'/../public/uploaded/'+userId,function(err){
                         if(err) return next(err);
+                        callback(null, 'files deleted');
+                    })
+                },
+                function(callback){
+                    //all user info deletion
+                    db.userDBModel.remove({_id:userId},function(err){
+                        if(err) return next(err);
+                        callback(null, 'all data user removed');
                     });
-            }
-
-
-
-        var intAr = connected.indexOf(userS);
-        connected.splice(intAr,1);
-        socket.leave(userS);
-    });
+                }
+            ],
+                function(err, results){
+                    if(err) return next(err);
+                });
+    })
 });
 //Msgs
 app.get('/getMsgs/:userId',api.getMsgs);
