@@ -333,427 +333,398 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var queVideo = addrVideo.query(function(){
                     $scope.resFoldersVideo = queVideo;
                 });
-//                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
-//                    var socket = io('/maintainUser');
-//                    socket.emit('connect me',$routeParams.user);
-//                }
-                //insert here everything else
-            }
-        });
-
-
-
-        $scope.madeChanges = 0;
-        $scope.signOut = function(){
-            $window.localStorage.clear('session');
-            if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
-                $scope.deleteMyAccount();
-            }
-            $window.location.href = '/';
-        }
-
-        $scope.scrollTo = function(id) {
-            $location.hash(id);
-            $anchorScroll();
-            $location.hash('');
-        }
-        $scope.userId = $routeParams.user;
-        var getMsgs = $resource('/getMsgs/'+$scope.userId);
-        var queMsgs = getMsgs.query(function(){
-            $scope.countMsgs = queMsgs.length;
-        });
-        var address = $resource('/getUserInfo');
-        var query = new address();
-        query.userId = $scope.userId;
-        query.$save(function(data){
-            $scope.info = data;
-            $scope.email = data.email;
-            $scope.emailPlaceholder = data.email;
-            $scope.selectedLanguages = data.languages_able;
-            $scope.about = data.about;
-            $scope.currentPicFolder = 'pictures';
-            $scope.currentVideoFolder = 'videos';
-            $scope.gender = $scope.info.gender;
-            var addr = $resource('/foldersList/'+$scope.info._id);
-            var que = addr.query(function(){
-                $scope.resFolders = que;
-            });
-            var addrVideo = $resource('/foldersVideo/'+$scope.info._id);
-            var queVideo = addrVideo.query(function(){
-                $scope.resFoldersVideo = queVideo;
-            });
-        });
-        $scope.avaProcess = false;
-        $scope.onAvaChange = function(files){
-            $scope.avaProcess = true;
-                files.forEach(function(item){
-                    $scope.upload = $upload.upload({
-                        url: '/changeAvaUser',
-                        data: {userId: $scope.info._id,
-                            oldAva: $scope.info.ava
-                        },
-                        file: item
-                    }).progress(function(evt) {
-                            var progress = parseInt(100.0 * evt.loaded / evt.total);
-                            $scope.progress = progress;
-                            $scope.avaProcess = true;
-                            $scope.info.ava = undefined;
-
-                        }).success(function(data, status, headers, config) {
-                            if(data!='wrong' && data!='error'){
-                                $scope.info.ava = data;
-                                $scope.avaProcess = false;
-                                $scope.avaError = false;
-                            }else{
-                                $scope.avaProcess = false;
-                                $scope.avaError = data;
-                            }
-                        });
-                });
-        };
-        $scope.deleteAva = function(){
-                var address = $resource('/deleteAva');
-                var query = new address();
-                query.userId = $scope.info._id;
-                query.ava = $scope.info.ava;
-                query.$save(function(){
-                    $scope.info.ava = undefined;
-                });
-        }
-        $scope.avaProcess = false;
-        $scope.onAvaInsert = function(files){
-                files.forEach(function(item){
-                    $scope.upload = $upload.upload({
-                        url: '/insertAvaUser',
-                        data: {userId: $scope.info._id
-                        },
-                        file: item
-                    }).progress(function(evt) {
-                            var progress = parseInt(100.0 * evt.loaded / evt.total);
-                            $scope.progress = progress;
-                            $scope.avaProcess = true;
-
-                        }).success(function(data, status, headers, config) {
-                            $scope.test = data;
-                            if(data!='wrong' && data!='error'){
-                                $scope.info.ava = data;
-                                $scope.avaProcess = false;
-                                $scope.avaError = false;
-                            }else{
-                                $scope.avaError = data;
-                                $scope.avaProcess = false;
-                            }
-                        });
-                });
-        };
-        $scope.languages = [
-            "Mandarin",
-            "Spanish",
-            "English",
-            "Hindi",
-            "Arabic",
-            "Portuguese",
-            "Bengali",
-            "Russian",
-            "Japanes",
-            "Punjabi",
-            "German",
-            "Javanese",
-            "Wu",
-            "Malay/Indonesian",
-            "Telugu",
-            "Vietnamese",
-            "Korean",
-            "French",
-            "Marathi",
-            "Tamil",
-            "Urdu",
-            "Turkish",
-            "Italian",
-            "Cantonese",
-            "Persian",
-            "Thai",
-            "Gujarati",
-            "Jin",
-            "Min Nan",
-            "Polish",
-            "Pashto",
-            "Kannada",
-            "Xiang",
-            "Malayalam",
-            "Sundanese",
-            "Hausa",
-            "Nigeria",
-            "Oriya",
-            "Burmese",
-            "Hakka",
-            "Ukrainian",
-            "Bhojpuri",
-            "Tagalog",
-            "Yoruba",
-            "Maithili",
-            "Swahili",
-            "Uzbek",
-            "Sindhi",
-            "Amharic",
-            "Fula",
-            "Romanian",
-            "Oromo",
-            "Igbo",
-            "Azerbaijani",
-            "Awadhi",
-            "Gan",
-            "Cebuano",
-            "Dutch",
-            "Kurdish",
-            "Lao",
-            "Serbo-Croatian",
-            "Malagasy",
-            "Saraiki",
-            "Nepali",
-            "Sinhalese",
-            "Chittagonian",
-            "Zhuang",
-            "Khmer",
-            "Assamese",
-            "Madurese",
-            "Somali",
-            "Marwari",
-            "Magahi",
-            "Haryanvi",
-            "Hungarian",
-            "Chhattisgarhi",
-            "Greek",
-            "Chewa",
-            "Deccan",
-            "Akan",
-            "Kazakh",
-            "Min Bei",
-            "Zulu",
-            "Czech",
-            "Kinyarwanda",
-            "Dhundhari",
-            "Haitian Creole",
-            "Min Dong",
-            "Ilokano",
-            "Quechua",
-            "Kirundi",
-            "Swedish",
-            "Hmong",
-            "Shona",
-            "Uyghur",
-            "Hiligaynon",
-            "Mossi",
-            "Xhosa",
-            "Belarusian",
-            "Balochi"
-        ];
-        $scope.$on('inputLanguage',function(){
-            $scope.selectedLanguages.push($scope.selectedLanguage);
-            $scope.selectedLanguage = '';
-        })
-        $scope.$on('clearInputLanguage',function(){
-            $scope.selectedLanguage = '';
-        });
-        $scope.deleteLanguage = function(lang){
-            var ind = $scope.selectedLanguages.indexOf(lang);
-            $scope.selectedLanguages.splice(ind,1);
-        }
-        $scope.checkEmailFormat = function(){
-            $scope.emailError = false;
-            var address = $resource('/checkEmailExist/'+$scope.email);
-            var toDo = address.query(function(){
-                if(toDo.length!=0){
-                    $scope.email = '';
-                    $scope.emailError = true;
-                    $scope.emailPlaceholder =toDo[0].email +' - This email address is busy!';
+                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
+                    var socket = io('/maintainUser');
+                    socket.emit('connect me',$routeParams.user);
                 }
-            });
-        }
-        $scope.picsProcess = false;
-        $scope.onPicSelect = function($files){
-            $scope.picsProcess = true;
-            var files = $files;
-                files.forEach(function(item){
-                    $scope.upload = $upload.upload({
-                        url: '/insertPicturesUser',
-                        data: {userId: $scope.info._id,
-                            folder: $scope.currentPicFolder
-                        },
-                        file: item
-                    }).progress(function(evt) {
-                            var progress = parseInt(100.0 * evt.loaded / evt.total);
-                            $scope.progress = progress;
-                            $scope.picsProcess = true;
-                        }).success(function(data, status, headers, config) {
-                            //make result visible
-                            $scope.resultInputPicture = data;
-                            var addr = $resource('/foldersList/'+$scope.info._id);
-                            var que = addr.query(function(){
-                                $scope.resFolders = que;
-                                $scope.firstPicFolderSelect = 0;
-                                $scope.selectFolder($scope.currentPicFolder);
-                                $scope.picsProcess = false;
-                            });
-                        });
+                //insert here everything else
+                $scope.madeChanges = 0;
+                $scope.signOut = function(){
+                    $window.localStorage.clear('session');
+                    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+                        $scope.deleteMyAccount();
+                    }
+                    $window.location.href = '/';
+                }
+                $scope.scrollTo = function(id) {
+                    $location.hash(id);
+                    $anchorScroll();
+                    $location.hash('');
+                }
+                $scope.userId = $routeParams.user;
+                var getMsgs = $resource('/getMsgs/'+$scope.userId);
+                var queMsgs = getMsgs.query(function(){
+                    $scope.countMsgs = queMsgs.length;
                 });
-        };
-        $scope.isEven = function(value) {
-            if (value % 2 == 0)
-                return true;
-            else
-                return false;
-        };
-        $scope.firstPicFolderSelect = 0;
-        $scope.selectFolder = function(folder){
-            if($scope.currentPicFolder!=folder){
+                $scope.avaProcess = false;
+                $scope.onAvaChange = function(files){
+                    $scope.avaProcess = true;
+                    files.forEach(function(item){
+                        $scope.upload = $upload.upload({
+                            url: '/changeAvaUser',
+                            data: {userId: $scope.info._id,
+                                oldAva: $scope.info.ava
+                            },
+                            file: item
+                        }).progress(function(evt) {
+                                var progress = parseInt(100.0 * evt.loaded / evt.total);
+                                $scope.progress = progress;
+                                $scope.avaProcess = true;
+                                $scope.info.ava = undefined;
+
+                            }).success(function(data, status, headers, config) {
+                                if(data!='wrong' && data!='error'){
+                                    $scope.info.ava = data;
+                                    $scope.avaProcess = false;
+                                    $scope.avaError = false;
+                                }else{
+                                    $scope.avaProcess = false;
+                                    $scope.avaError = data;
+                                }
+                            });
+                    });
+                };
+                $scope.deleteAva = function(){
+                    var address = $resource('/deleteAva');
+                    var query = new address();
+                    query.userId = $scope.info._id;
+                    query.ava = $scope.info.ava;
+                    query.$save(function(){
+                        $scope.info.ava = undefined;
+                    });
+                }
+                $scope.avaProcess = false;
+                $scope.onAvaInsert = function(files){
+                    files.forEach(function(item){
+                        $scope.upload = $upload.upload({
+                            url: '/insertAvaUser',
+                            data: {userId: $scope.info._id
+                            },
+                            file: item
+                        }).progress(function(evt) {
+                                var progress = parseInt(100.0 * evt.loaded / evt.total);
+                                $scope.progress = progress;
+                                $scope.avaProcess = true;
+
+                            }).success(function(data, status, headers, config) {
+                                $scope.test = data;
+                                if(data!='wrong' && data!='error'){
+                                    $scope.info.ava = data;
+                                    $scope.avaProcess = false;
+                                    $scope.avaError = false;
+                                }else{
+                                    $scope.avaError = data;
+                                    $scope.avaProcess = false;
+                                }
+                            });
+                    });
+                };
+                $scope.languages = [
+                    "Mandarin",
+                    "Spanish",
+                    "English",
+                    "Hindi",
+                    "Arabic",
+                    "Portuguese",
+                    "Bengali",
+                    "Russian",
+                    "Japanes",
+                    "Punjabi",
+                    "German",
+                    "Javanese",
+                    "Wu",
+                    "Malay/Indonesian",
+                    "Telugu",
+                    "Vietnamese",
+                    "Korean",
+                    "French",
+                    "Marathi",
+                    "Tamil",
+                    "Urdu",
+                    "Turkish",
+                    "Italian",
+                    "Cantonese",
+                    "Persian",
+                    "Thai",
+                    "Gujarati",
+                    "Jin",
+                    "Min Nan",
+                    "Polish",
+                    "Pashto",
+                    "Kannada",
+                    "Xiang",
+                    "Malayalam",
+                    "Sundanese",
+                    "Hausa",
+                    "Nigeria",
+                    "Oriya",
+                    "Burmese",
+                    "Hakka",
+                    "Ukrainian",
+                    "Bhojpuri",
+                    "Tagalog",
+                    "Yoruba",
+                    "Maithili",
+                    "Swahili",
+                    "Uzbek",
+                    "Sindhi",
+                    "Amharic",
+                    "Fula",
+                    "Romanian",
+                    "Oromo",
+                    "Igbo",
+                    "Azerbaijani",
+                    "Awadhi",
+                    "Gan",
+                    "Cebuano",
+                    "Dutch",
+                    "Kurdish",
+                    "Lao",
+                    "Serbo-Croatian",
+                    "Malagasy",
+                    "Saraiki",
+                    "Nepali",
+                    "Sinhalese",
+                    "Chittagonian",
+                    "Zhuang",
+                    "Khmer",
+                    "Assamese",
+                    "Madurese",
+                    "Somali",
+                    "Marwari",
+                    "Magahi",
+                    "Haryanvi",
+                    "Hungarian",
+                    "Chhattisgarhi",
+                    "Greek",
+                    "Chewa",
+                    "Deccan",
+                    "Akan",
+                    "Kazakh",
+                    "Min Bei",
+                    "Zulu",
+                    "Czech",
+                    "Kinyarwanda",
+                    "Dhundhari",
+                    "Haitian Creole",
+                    "Min Dong",
+                    "Ilokano",
+                    "Quechua",
+                    "Kirundi",
+                    "Swedish",
+                    "Hmong",
+                    "Shona",
+                    "Uyghur",
+                    "Hiligaynon",
+                    "Mossi",
+                    "Xhosa",
+                    "Belarusian",
+                    "Balochi"
+                ];
+                $scope.$on('inputLanguage',function(){
+                    $scope.selectedLanguages.push($scope.selectedLanguage);
+                    $scope.selectedLanguage = '';
+                })
+                $scope.$on('clearInputLanguage',function(){
+                    $scope.selectedLanguage = '';
+                });
+                $scope.deleteLanguage = function(lang){
+                    var ind = $scope.selectedLanguages.indexOf(lang);
+                    $scope.selectedLanguages.splice(ind,1);
+                }
+                $scope.checkEmailFormat = function(){
+                    $scope.emailError = false;
+                    var address = $resource('/checkEmailExist/'+$scope.email);
+                    var toDo = address.query(function(){
+                        if(toDo.length!=0){
+                            $scope.email = '';
+                            $scope.emailError = true;
+                            $scope.emailPlaceholder =toDo[0].email +' - This email address is busy!';
+                        }
+                    });
+                }
+                $scope.picsProcess = false;
+                $scope.onPicSelect = function($files){
+                    $scope.picsProcess = true;
+                    var files = $files;
+                    files.forEach(function(item){
+                        $scope.upload = $upload.upload({
+                            url: '/insertPicturesUser',
+                            data: {userId: $scope.info._id,
+                                folder: $scope.currentPicFolder
+                            },
+                            file: item
+                        }).progress(function(evt) {
+                                var progress = parseInt(100.0 * evt.loaded / evt.total);
+                                $scope.progress = progress;
+                                $scope.picsProcess = true;
+                            }).success(function(data, status, headers, config) {
+                                //make result visible
+                                $scope.resultInputPicture = data;
+                                var addr = $resource('/foldersList/'+$scope.info._id);
+                                var que = addr.query(function(){
+                                    $scope.resFolders = que;
+                                    $scope.firstPicFolderSelect = 0;
+                                    $scope.selectFolder($scope.currentPicFolder);
+                                    $scope.picsProcess = false;
+                                });
+                            });
+                    });
+                };
+                $scope.isEven = function(value) {
+                    if (value % 2 == 0)
+                        return true;
+                    else
+                        return false;
+                };
                 $scope.firstPicFolderSelect = 0;
-            }
-            $scope.currentPicFolder = folder;
-            var addr = $resource('/picsInFolder/'+$scope.info._id+'/'+folder);
-            var que = addr.query(function(){
-                $scope.folderPics = que;
-                ++$scope.firstPicFolderSelect;
-            });
-        };
-        $scope.deletePic = function(pic,folder){
-            var addr = $resource('/deletePic/'+$scope.info._id+'/'+folder+'/'+pic);
-            var que = addr.get(function(){
-                var addr2 = $resource('/foldersList/'+$scope.info._id);
-                var que2 = addr2.query(function(){
-                    $scope.resFolders = que2;
-                });
-            });
-            var num = $scope.folderPics[0].photos.indexOf(pic);
-            $scope.folderPics[0].photos.splice(num,1);
-        }
-        $scope.videoProcess = false;
-        $scope.onVideoSelect = function(files){
-            $scope.videoProcess = true;
-                files.forEach(function(item){
-                    $scope.upload = $upload.upload({
-                        url: '/insertVideosUser',
-                        data: {userId: $scope.info._id,
-                            folder: $scope.currentVideoFolder
-                        },
-                        file: item
-                    }).progress(function(evt) {
-                            var progress = parseInt(100.0 * evt.loaded / evt.total);
-                            $scope.progress = progress;
-                            $scope.videoProcess = true;
-                        }).success(function(data, status, headers, config) {
-                            //make result visible
-                            $scope.resultInputVideo = data;
-                            var addr = $resource('/foldersVideo/'+$scope.info._id);
-                            var que = addr.query(function(){
-                                $scope.resFoldersVideo = que;
-                                $scope.firstVideoFolderSelect = 0;
-                                $scope.selectFolderVideo($scope.currentVideoFolder);
-                                $scope.videoProcess = false;
-                            });
+                $scope.selectFolder = function(folder){
+                    if($scope.currentPicFolder!=folder){
+                        $scope.firstPicFolderSelect = 0;
+                    }
+                    $scope.currentPicFolder = folder;
+                    var addr = $resource('/picsInFolder/'+$scope.info._id+'/'+folder);
+                    var que = addr.query(function(){
+                        $scope.folderPics = que;
+                        ++$scope.firstPicFolderSelect;
+                    });
+                };
+                $scope.deletePic = function(pic,folder){
+                    var addr = $resource('/deletePic/'+$scope.info._id+'/'+folder+'/'+pic);
+                    var que = addr.get(function(){
+                        var addr2 = $resource('/foldersList/'+$scope.info._id);
+                        var que2 = addr2.query(function(){
+                            $scope.resFolders = que2;
                         });
-                });
-        };
-        $scope.firstVideoFolderSelect = 0;
-        $scope.selectFolderVideo = function(folder){
-            if($scope.currentVideoFolder!=folder){
+                    });
+                    var num = $scope.folderPics[0].photos.indexOf(pic);
+                    $scope.folderPics[0].photos.splice(num,1);
+                }
+                $scope.videoProcess = false;
+                $scope.onVideoSelect = function(files){
+                    $scope.videoProcess = true;
+                    files.forEach(function(item){
+                        $scope.upload = $upload.upload({
+                            url: '/insertVideosUser',
+                            data: {userId: $scope.info._id,
+                                folder: $scope.currentVideoFolder
+                            },
+                            file: item
+                        }).progress(function(evt) {
+                                var progress = parseInt(100.0 * evt.loaded / evt.total);
+                                $scope.progress = progress;
+                                $scope.videoProcess = true;
+                            }).success(function(data, status, headers, config) {
+                                //make result visible
+                                $scope.resultInputVideo = data;
+                                var addr = $resource('/foldersVideo/'+$scope.info._id);
+                                var que = addr.query(function(){
+                                    $scope.resFoldersVideo = que;
+                                    $scope.firstVideoFolderSelect = 0;
+                                    $scope.selectFolderVideo($scope.currentVideoFolder);
+                                    $scope.videoProcess = false;
+                                });
+                            });
+                    });
+                };
                 $scope.firstVideoFolderSelect = 0;
-            }
-            $scope.currentVideoFolder = folder;
-            var addr = $resource('/videosInFolder/'+$scope.info._id+'/'+folder);
-            var que = addr.query(function(){
-                $scope.folderVideos = que;
-                ++$scope.firstVideoFolderSelect;
-            });
-        };
-        $scope.deleteVideo = function(video,folder){
-            var addr = $resource('/deleteVideo/'+$scope.info._id+'/'+folder+'/'+video);
-            var que = addr.get(function(){
-                var addr2 = $resource('/foldersVideo/'+$scope.info._id);
-                var que2 = addr2.query(function(){
-                    $scope.resFoldersVideo = que2;
+                $scope.selectFolderVideo = function(folder){
+                    if($scope.currentVideoFolder!=folder){
+                        $scope.firstVideoFolderSelect = 0;
+                    }
+                    $scope.currentVideoFolder = folder;
+                    var addr = $resource('/videosInFolder/'+$scope.info._id+'/'+folder);
+                    var que = addr.query(function(){
+                        $scope.folderVideos = que;
+                        ++$scope.firstVideoFolderSelect;
+                    });
+                };
+                $scope.deleteVideo = function(video,folder){
+                    var addr = $resource('/deleteVideo/'+$scope.info._id+'/'+folder+'/'+video);
+                    var que = addr.get(function(){
+                        var addr2 = $resource('/foldersVideo/'+$scope.info._id);
+                        var que2 = addr2.query(function(){
+                            $scope.resFoldersVideo = que2;
+                        });
+                    });
+                    var num = $scope.folderVideos[0].videos.indexOf(video);
+                    $scope.folderVideos[0].videos.splice(num,1);
+                }
+                $scope.deleteFilterLanguage = function(lang){
+                    var ind = $scope.filteredLanguages.indexOf(lang);
+                    $scope.filteredLanguages.splice(ind,1);
+                }
+                $scope.filteredLanguages = [];
+                $scope.$on('inputFilterLanguage',function(){
+                    $scope.filteredLanguages.push($scope.filteredLanguage);
+                    $scope.filteredLanguage = '';
+                })
+                $scope.$on('clearFilterLanguage',function(){
+                    $scope.filteredLanguage = '';
                 });
-            });
-            var num = $scope.folderVideos[0].videos.indexOf(video);
-            $scope.folderVideos[0].videos.splice(num,1);
-        }
-        $scope.deleteFilterLanguage = function(lang){
-            var ind = $scope.filteredLanguages.indexOf(lang);
-            $scope.filteredLanguages.splice(ind,1);
-        }
-        $scope.filteredLanguages = [];
-        $scope.$on('inputFilterLanguage',function(){
-            $scope.filteredLanguages.push($scope.filteredLanguage);
-            $scope.filteredLanguage = '';
-        })
-        $scope.$on('clearFilterLanguage',function(){
-            $scope.filteredLanguage = '';
+                $scope.searchPerson = function(){
+                    var addr = $resource('/searchPerson');
+                    var que = new addr();
+                    que.name = $scope.personName;
+                    que.secondName = $scope.personSecondName;
+                    que.place = $scope.personPlaceOfBirth;
+                    que.date = $scope.personDateOfBirth;
+                    que.ageFrom = $scope.ageFrom;
+                    que.ageTill = $scope.ageTill;
+                    que.destination = $scope.destinationFilter;
+                    que.gender = $scope.genderFilter;
+                    que.languages = $scope.filteredLanguages;
+                    que.$save(function(data){
+                        $scope.resPersons = data;
+                    });
+                }
+                $scope.addToFriends = function(id){
+                    $scope.info.friends.push(id);
+                    var addr = $resource('/addToFriends');
+                    var que = new addr();
+                    que.id = id;
+                    que.myId = $scope.info._id;
+                    que.$save(function(){
+                    });
+                }
+                $scope.deleteFromFriends = function(id){
+                    var it = $scope.info.friends.indexOf(id);
+                    $scope.info.friends.splice(it,1);
+                    var addr = $resource('/deleteFromFriends');
+                    var que = new addr();
+                    que.id = id;
+                    que.myId = $scope.info._id;
+                    que.$save(function(){
+                    });
+                }
+                $scope.submit = function(){
+                    var addr = $resource('/makeChangesUser');
+                    var que = new addr();
+                    que.id = $scope.info._id;
+                    que.email = $scope.email;
+                    que.skype = $scope.skype;
+                    que.phone = $scope.phone;
+                    que.languages = $scope.selectedLanguages;
+                    que.about = $scope.about;
+                    que.destination = $scope.destination;
+                    que.gender = $scope.gender;
+                    que.newPassword = $scope.newPassword;
+                    que.$save(function(){
+                        $route.reload();
+                    });
+                }
+                $scope.deleteMyAccount = function(){
+                    var adv = $resource('/deleteMe');
+                    var que = new adv();
+                    que.userId = $scope.info._id;
+                    que.userPwd = $scope.info.password;
+                    que.$save(function(data){
+                        $window.localStorage.clear('session');
+                        $window.location.href = '/';
+                    });
+                }
+            }
         });
-
-        $scope.searchPerson = function(){
-            var addr = $resource('/searchPerson');
-            var que = new addr();
-            que.name = $scope.personName;
-            que.secondName = $scope.personSecondName;
-            que.place = $scope.personPlaceOfBirth;
-            que.date = $scope.personDateOfBirth;
-            que.ageFrom = $scope.ageFrom;
-            que.ageTill = $scope.ageTill;
-            que.destination = $scope.destinationFilter;
-            que.gender = $scope.genderFilter;
-            que.languages = $scope.filteredLanguages;
-            que.$save(function(data){
-                $scope.resPersons = data;
-            });
-        }
-
-        $scope.addToFriends = function(id){
-            $scope.info.friends.push(id);
-            var addr = $resource('/addToFriends');
-            var que = new addr();
-            que.id = id;
-            que.myId = $scope.info._id;
-            que.$save(function(){
-            });
-        }
-
-        $scope.deleteFromFriends = function(id){
-            var it = $scope.info.friends.indexOf(id);
-            $scope.info.friends.splice(it,1);
-            var addr = $resource('/deleteFromFriends');
-            var que = new addr();
-            que.id = id;
-            que.myId = $scope.info._id;
-            que.$save(function(){
-            });
-        }
-
-        $scope.submit = function(){
-            var addr = $resource('/makeChangesUser');
-            var que = new addr();
-            que.id = $scope.info._id;
-            que.email = $scope.email;
-            que.skype = $scope.skype;
-            que.phone = $scope.phone;
-            que.languages = $scope.selectedLanguages;
-            que.about = $scope.about;
-            que.destination = $scope.destination;
-            que.gender = $scope.gender;
-            que.newPassword = $scope.newPassword;
-            que.$save(function(){
-                $route.reload();
-            });
-        }
-    $scope.deleteMyAccount = function(){
-        var adv = $resource('/deleteMe');
-        var que = new adv();
-        que.userId = $scope.info._id;
-        que.userPwd = $scope.info.password;
-        que.$save(function(data){
-            $window.localStorage.clear('session');
-            $window.location.href = '/';
-        });
-    }
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
