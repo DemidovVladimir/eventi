@@ -301,12 +301,6 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
 
-    if(!$scope.session){
-        $window.localStorage.setItem('session',JSON.stringify(obj));
-    }
-
-    $scope.session = JSON.parse($window.localStorage.getItem('session'));
-
         var address = $resource('/getUserInfo');
         var query = new address();
         query.userId = $routeParams.user;
@@ -317,6 +311,13 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var obj = new Object();
                 obj.id = data._id;
                 obj.name = data.name;
+
+            if(!$scope.session){
+                $window.localStorage.setItem('session',JSON.stringify(obj));
+            }
+
+            $scope.session = JSON.parse($window.localStorage.getItem('session'));
+
                 $scope.info = data;
                 $scope.email = data.email;
                 $scope.emailPlaceholder = data.email;
