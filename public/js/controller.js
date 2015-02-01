@@ -305,9 +305,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
-//            if(data.answer){
-//                $window.location.href = '/';
-//            }else{
+            if(data.answer){
+                $window.location.href = '/';
+            }else{
                 var obj = new Object();
                 obj.id = data._id;
                 obj.name = data.name;
@@ -724,7 +724,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                         $window.location.href = '/';
                     });
                 }
-//            }
+            }
         });
 });
 
