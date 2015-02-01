@@ -26,7 +26,7 @@
       <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="335" column="67" selection-start="11135" selection-end="11135" vertical-scroll-proportion="0.29153094" vertical-offset="4846" max-vertical-offset="29130">
+            <state line="342" column="0" selection-start="11390" selection-end="11390" vertical-scroll-proportion="0.5602606" vertical-offset="4786" max-vertical-offset="28860">
               <folding />
             </state>
           </provider>
@@ -691,9 +691,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/db.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="4" selection-start="926" selection-end="940" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="3780">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="27" selection-start="4529" selection-end="4529" vertical-scroll-proportion="0.0" vertical-offset="1576" max-vertical-offset="4875">
+        <state line="131" column="27" selection-start="4529" selection-end="4529" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="4875">
           <folding />
         </state>
       </provider>
@@ -705,16 +712,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/db.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="4" selection-start="926" selection-end="940" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="3780">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="335" column="67" selection-start="11135" selection-end="11135" vertical-scroll-proportion="0.29153094" vertical-offset="4846" max-vertical-offset="29130">
+        <state line="342" column="0" selection-start="11390" selection-end="11390" vertical-scroll-proportion="0.5602606" vertical-offset="4786" max-vertical-offset="28860">
           <folding />
         </state>
       </provider>

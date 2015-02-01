@@ -333,29 +333,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var queVideo = addrVideo.query(function(){
                     $scope.resFoldersVideo = queVideo;
                 });
-                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
-                    var socket = io('/maintainUser');
-                    socket.emit('connect me',$routeParams.user);
-                }
-
-
-
-
-
+//                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
+//                    var socket = io('/maintainUser');
+//                    socket.emit('connect me',$routeParams.user);
+//                }
                 //insert here everything else
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
         });
 
