@@ -104,6 +104,7 @@ exports.saveUserData = function(req,res,next){
 exports.getUserInfo = function(req,res,next){
     db.userDBModel.find({_id:req.body.userId},function(err,data){
         if(err) return next(err);
+        console.log(req);
         console.log(data);
         if(data){
             res.send(200,data[0]);
