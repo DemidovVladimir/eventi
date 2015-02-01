@@ -301,11 +301,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
 
-    $scope.session = JSON.parse($window.localStorage.getItem('session'));
-
     if(!$scope.session){
         $window.localStorage.setItem('session',JSON.stringify(obj));
     }
+
+    $scope.session = JSON.parse($window.localStorage.getItem('session'));
 
         var address = $resource('/getUserInfo');
         var query = new address();
