@@ -300,20 +300,23 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
 
 
 app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$window,$route,$location,$anchorScroll,$sce){
+
     $scope.session = JSON.parse($window.localStorage.getItem('session'));
+
     if(!$scope.session){
+        $window.localStorage.setItem('session',JSON.stringify(obj));
+    }
+
         var address = $resource('/getUserInfo');
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
-            if(data=='nothing'){
+            if(data.answer=='nothing'){
                 $window.location.href = '/';
             }else{
                 var obj = new Object();
                 obj.id = data._id;
                 obj.name = data.name;
-                $window.localStorage.setItem('session',JSON.stringify(obj));
-                $scope.session = JSON.parse($window.localStorage.getItem('session'));
                 $scope.info = data;
                 $scope.email = data.email;
                 $scope.emailPlaceholder = data.email;
@@ -330,41 +333,33 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var queVideo = addrVideo.query(function(){
                     $scope.resFoldersVideo = queVideo;
                 });
-            }
-        });
-    }else{
-        var address = $resource('/getUserInfo');
-        var query = new address();
-        query.userId = $routeParams.user;
-        query.$save(function(data){
-            if(data=='nothing'){
-                $window.location.href = '/';
-            }else{
-                $scope.session = JSON.parse($window.localStorage.getItem('session'));
-                $scope.info = data;
-                $scope.email = data.email;
-                $scope.emailPlaceholder = data.email;
-                $scope.selectedLanguages = data.languages_able;
-                $scope.about = data.about;
-                $scope.currentPicFolder = 'pictures';
-                $scope.currentVideoFolder = 'videos';
-                $scope.gender = $scope.info.gender;
-                var addr = $resource('/foldersList/'+$scope.info._id);
-                var que = addr.query(function(){
-                    $scope.resFolders = que;
-                });
-                var addrVideo = $resource('/foldersVideo/'+$scope.info._id);
-                var queVideo = addrVideo.query(function(){
-                    $scope.resFoldersVideo = queVideo;
-                });
-            }
-        });
-    }
+                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
+                    var socket = io('/maintainUser');
+                    socket.emit('connect me',$routeParams.user);
+                }
 
-//    if(!$scope.info.email || !$scope.info.password || !$scope.info.languages_able){
-        var socket = io('/maintainUser');
-        socket.emit('connect me',$routeParams.user);
-//    }
+
+
+
+
+                //insert here everything else
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+        });
+
+
 
         $scope.madeChanges = 0;
         $scope.signOut = function(){

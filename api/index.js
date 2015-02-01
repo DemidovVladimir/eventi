@@ -107,7 +107,9 @@ exports.getUserInfo = function(req,res,next){
         if(data.length!=0){
             res.send(200,data[0]);
         }else{
-            res.send(200,'nothing');
+            var obj = {};
+            obj.answer = 'nothing';
+            res.send(200,obj);
         }
     });
 }
