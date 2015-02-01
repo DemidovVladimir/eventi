@@ -302,6 +302,7 @@ exports.insertPicturesUser = function(req,res,next){
         obj.title = file;
         obj.folder = folder;
         obj.date = date;
+        fs.mkdir(__dirname+'/../public/uploaded/'+userId,function(){
             fs.mkdir(__dirname+'/../public/uploaded/'+userId+'/'+folder,function(){
                 var r = fs.createReadStream(req.files.file.path);
                 var w = fs.createWriteStream('public/uploaded/'+userId+'/'+folder+'/'+file);
@@ -334,6 +335,7 @@ exports.insertPicturesUser = function(req,res,next){
                 });
                 r.pipe(w);
             });
+    });
     }else{
         res.send(200,'wrong')
     };
@@ -437,24 +439,26 @@ exports.insertVideosUser = function(req,res,next){
         obj.title = file;
         obj.folder = folder;
         obj.date = date;
-        fs.mkdir(__dirname+'/../public/uploaded/'+userId+'/'+folder,function(){
-            try {
-                var process = new ffmpeg(req.files.file.path);
-                process.then(function (video) {
-                    video.setVideoSize('640x480', true, false)
-                        .setVideoFormat('mp4')
-                        .save('public/uploaded/'+userId+'/'+folder+'/'+file, function (error, file) {
-                            db.userDBModel.update({_id:userId},{$push:{videos:obj}},{upsert:true},function(err){
-                                if(err) return next(err);
-                                res.send(200,file);
+        fs.mkdir(__dirname+'/../public/uploaded/'+userId,function(){
+            fs.mkdir(__dirname+'/../public/uploaded/'+userId+'/'+folder,function(){
+                try {
+                    var process = new ffmpeg(req.files.file.path);
+                    process.then(function (video) {
+                        video.setVideoSize('640x480', true, false)
+                            .setVideoFormat('mp4')
+                            .save('public/uploaded/'+userId+'/'+folder+'/'+file, function (error, file) {
+                                db.userDBModel.update({_id:userId},{$push:{videos:obj}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    res.send(200,file);
+                                });
                             });
-                        });
-                }, function (err) {
+                    }, function (err) {
+                        res.send(200,'error');
+                    });
+                } catch (e) {
                     res.send(200,'error');
-                });
-            } catch (e) {
-                res.send(200,'error');
-            }
+                }
+            });
         });
     }else{
         res.send(200,'wrong')

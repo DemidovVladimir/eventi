@@ -361,7 +361,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+    if(!$scope.info.email || !$scope.info.password || !$scope.info.selectedLanguages){
         var socket = io('/maintainUser');
         socket.emit('connect me',$routeParams.user);
     }
