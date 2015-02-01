@@ -361,10 +361,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         });
     }
 
-    if(!$scope.info.email || !$scope.info.password || !$scope.info.selectedLanguages){
+//    if(!$scope.info.email || !$scope.info.password || !$scope.info.languages_able){
         var socket = io('/maintainUser');
         socket.emit('connect me',$routeParams.user);
-    }
+//    }
 
         $scope.madeChanges = 0;
         $scope.signOut = function(){
