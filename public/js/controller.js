@@ -314,7 +314,8 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
             $scope.session = JSON.parse($window.localStorage.getItem('session'));
 
-            if(data.answer || data.length==0){
+            if(data.answer){
+                $window.localStorage.clear('session');
                 $window.location.href = '/';
             }else{
                 var obj = new Object();
@@ -826,7 +827,7 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
     });
 //    End map work
         $scope.signOut = function(){
-            $window.localStorage.clear('session')
+            $window.localStorage.clear('session');
             $window.location.href = '/';
         }
         $scope.scrollTo = function(id) {
