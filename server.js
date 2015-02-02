@@ -234,6 +234,11 @@ app.get('/success/:sn',function(req,res,next){
                 if(err) return next(err);
                 res.redirect('/maintainUser'+data[0]._id);
             });
+        }else if(sn=='google'){
+            db.userDBModel.find({googleId:req._passport.session.user},function(err,data){
+                if(err) return next(err);
+                res.redirect('/maintainUser'+data[0]._id);
+            });
         }else{
             res.redirect('/loggedUser'+req._passport.session.user+'-'+sn);
         }
