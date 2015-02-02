@@ -336,15 +336,17 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var queVideo = addrVideo.query(function(){
                     $scope.resFoldersVideo = queVideo;
                 });
-                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
+                // Deal with log off page
+                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able){
                     var socket = io('/maintainUser');
                     socket.emit('connect me',$routeParams.user);
                 }
+
                 //insert here everything else
                 $scope.madeChanges = 0;
                 $scope.signOut = function(){
                     $window.localStorage.clear('session');
-                    if(!$scope.email || !$scope.info.password || !$scope.selectedLanguages){
+                    if(!$scope.info.email || !$scope.info.password || !$scope.info.languages_able){
                         $scope.deleteMyAccount();
                     }
                     $window.location.href = '/';
