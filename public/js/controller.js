@@ -339,10 +339,10 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     $scope.resFoldersVideo = queVideo;
                 });
                 // Deal with log off page
-//                if(!$scope.info.email){
+                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length==0){
                     var socket = io('/maintainUser');
                     socket.emit('connect me',$routeParams.user);
-//                }
+                }
 
                 //insert here everything else
                 $scope.madeChanges = 0;
