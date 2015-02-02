@@ -407,6 +407,28 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         "Belarusian",
         "Balochi"
     ];
+    $scope.scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
+    $scope.submit = function(){
+        var addr = $resource('/makeChangesUser');
+        var que = new addr();
+        que.id = $scope.info._id;
+        que.email = $scope.email;
+        que.skype = $scope.skype;
+        que.phone = $scope.phone;
+        que.languages = $scope.selectedLanguages;
+        que.about = $scope.about;
+        que.destination = $scope.destination;
+        que.gender = $scope.gender;
+        que.newPassword = $scope.newPassword;
+        que.$save(function(){
+            $route.reload();
+        });
+    }
+    
         var address = $resource('/getUserInfo');
         var query = new address();
         query.userId = $routeParams.user;
@@ -454,11 +476,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     }
                     $window.location.href = '/';
                 }
-                $scope.scrollTo = function(id) {
-                    $location.hash(id);
-                    $anchorScroll();
-                    $location.hash('');
-                }
+
                 $scope.userId = $routeParams.user;
                 var getMsgs = $resource('/getMsgs/'+$scope.userId);
                 var queMsgs = getMsgs.query(function(){
@@ -701,22 +719,6 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     que.id = id;
                     que.myId = $scope.info._id;
                     que.$save(function(){
-                    });
-                }
-                $scope.submit = function(){
-                    var addr = $resource('/makeChangesUser');
-                    var que = new addr();
-                    que.id = $scope.info._id;
-                    que.email = $scope.email;
-                    que.skype = $scope.skype;
-                    que.phone = $scope.phone;
-                    que.languages = $scope.selectedLanguages;
-                    que.about = $scope.about;
-                    que.destination = $scope.destination;
-                    que.gender = $scope.gender;
-                    que.newPassword = $scope.newPassword;
-                    que.$save(function(){
-                        $route.reload();
                     });
                 }
                 $scope.deleteMyAccount = function(){
