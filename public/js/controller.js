@@ -314,7 +314,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
             $scope.session = JSON.parse($window.localStorage.getItem('session'));
 
-            if(data.answer){
+            if(data.answer || data.length==0){
                 $window.location.href = '/';
             }else{
                 var obj = new Object();
