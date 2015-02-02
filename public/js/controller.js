@@ -346,9 +346,9 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.madeChanges = 0;
                 $scope.signOut = function(){
                     $window.localStorage.clear('session');
-//                    if(!$scope.info.email || !$scope.info.password || !$scope.info.languages_able){
+                    if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
                         $scope.deleteMyAccount();
-//                    }
+                    }
                     $window.location.href = '/';
                 }
                 $scope.scrollTo = function(id) {
