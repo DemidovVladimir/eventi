@@ -42,17 +42,6 @@ passport.use(new FacebookStrategy({
     }
 ));
 
-passport.use(new GoogleStrategy({
-        clientID:     '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
-        clientSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
-        callbackURL: "https://enveti.com/auth/google/callback",
-        passReqToCallback   : true
-    },
-    function(request, accessToken, refreshToken, profile, done) {
-        api.pasteUserGoogle(profile);
-        return done(null,profile.id);
-    }
-));
 // end of configuring passport
 
 
@@ -203,7 +192,7 @@ passport.use(new VKontakteStrategy({
     }
 ));
 app.get('/auth/vkontakte',
-    passport.authenticate('vkontakte', { scope: ['email']},
+    passport.authenticate('vkontakte', { scope: 'read_stream'},
     function(req,res){
     })
 );
@@ -215,6 +204,17 @@ app.get('/auth/vkontakte/callback',
 
 
 //Google
+passport.use(new GoogleStrategy({
+        clientID:     '475991763822-q8p9t2p9f143ivrep5878gdvindipc63.apps.googleusercontent.com',
+        clientSecret: 'S40fFKxvEMRP71qIzXbrP4rf',
+        callbackURL: "https://enveti.com/auth/google/callback",
+        passReqToCallback   : true
+    },
+    function(request, accessToken, refreshToken, profile, done) {
+        api.pasteUserGoogle(profile);
+        return done(null,profile.id);
+    }
+));
 app.get('/auth/google',
     passport.authenticate('google', { scope:
             'https://www.googleapis.com/auth/plus.login'}
