@@ -19,6 +19,7 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
     if(sess){
         $scope.sessionId = JSON.parse($window.localStorage.getItem('session')).id;
     }else{
+        $window.location.href = "/";
         $scope.sessionId = undefined;
     }
     if($scope.sessionId){
