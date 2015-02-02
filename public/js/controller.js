@@ -306,11 +306,14 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         query.userId = $routeParams.user;
         query.$save(function(data){
             if(!$scope.session){
+                var obj = new Object();
+                obj.id = data._id;
+                obj.name = data.name;
                 $window.localStorage.setItem('session',JSON.stringify(obj));
             }
 
             $scope.session = JSON.parse($window.localStorage.getItem('session'));
-            
+
             if(data.answer){
                 $window.location.href = '/';
             }else{
