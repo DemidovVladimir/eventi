@@ -337,7 +337,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     $scope.resFoldersVideo = queVideo;
                 });
                 // Deal with log off page
-                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able){
+                if(!$scope.info.email){
                     var socket = io('/maintainUser');
                     socket.emit('connect me',$routeParams.user);
                 }
