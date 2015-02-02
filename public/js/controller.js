@@ -25,7 +25,7 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
     var query = new address();
     query.userId = $scope.sessionId;
     query.$save(function(data){
-        if(data._id==$scope.sessionId){
+        if($scope.sessionId && data._id==$scope.sessionId){
             $window.location.href = "/loggedUser"+$scope.sessionId+'-local';
         }else{
             $scope.authFace = function(url){
