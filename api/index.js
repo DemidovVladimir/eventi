@@ -167,33 +167,35 @@ exports.changeAvaUser = function(req,res,next){
                         })
                     })
         }else{
-            var r = fs.createReadStream(req.files.file.path);
-            var w = fs.createWriteStream('public/uploaded/'+userId+'/ava.'+dim);
-            r.on('end', function() {
-                w.on('finish', function() {
-                    var rg = fs.createReadStream('public/uploaded/'+userId+'/ava.'+dim);
-                    var wg =  fs.createWriteStream('public/uploaded/'+userId+'/mini_ava.'+dim);
-                    rg.on('end',function(){
-                        wg.on('finish',function(){
-                            res.send(200,'ava.'+dim);
+            fs.mkdir('public/uploaded/'+userId, function(){
+                var r = fs.createReadStream(req.files.file.path);
+                var w = fs.createWriteStream('public/uploaded/'+userId+'/ava.'+dim);
+                r.on('end', function() {
+                    w.on('finish', function() {
+                        var rg = fs.createReadStream('public/uploaded/'+userId+'/ava.'+dim);
+                        var wg =  fs.createWriteStream('public/uploaded/'+userId+'/mini_ava.'+dim);
+                        rg.on('end',function(){
+                            wg.on('finish',function(){
+                                res.send(200,'ava.'+dim);
+                            });
                         });
+                        gm(rg).resize(300)
+                            .stream(function (err, stdout, stderr) {
+                                stdout.pipe(wg);
+                                if(err){
+                                    res.send(200,'error');
+                                }
+                            });
                     });
-                    gm(rg).resize(300)
-                        .stream(function (err, stdout, stderr) {
-                            stdout.pipe(wg);
-                            if(err){
-                                res.send(200,'error');
-                            }
-                        });
                 });
+                w.on('error', function() {
+                    res.send(200,'error');
+                });
+                r.on('error', function() {
+                    res.send(200,'error');
+                });
+                r.pipe(w);
             });
-            w.on('error', function() {
-                res.send(200,'error');
-            });
-            r.on('error', function() {
-                res.send(200,'error');
-            });
-            r.pipe(w);
         }
     });
     }else{
