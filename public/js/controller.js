@@ -305,22 +305,17 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         var query = new address();
         query.userId = $routeParams.user;
         query.$save(function(data){
-            if(!$scope.session){
-                var obj = new Object();
-                obj.id = data._id;
-                obj.name = data.name;
-                $window.localStorage.setItem('session',JSON.stringify(obj));
-            }
-
-            $scope.session = JSON.parse($window.localStorage.getItem('session'));
-
             if(data.answer){
-                $window.localStorage.clear('session');
                 $window.location.href = '/';
             }else{
                 var obj = new Object();
                 obj.id = data._id;
                 obj.name = data.name;
+                if(!$scope.session){
+                    $window.localStorage.setItem('session',JSON.stringify(obj));
+                }
+
+                $scope.session = JSON.parse($window.localStorage.getItem('session'));
                 $scope.info = data;
                 $scope.email = data.email;
                 $scope.emailPlaceholder = data.email;
