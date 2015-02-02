@@ -19,47 +19,51 @@ app.controller('home',function($scope,$resource,$window,$document, $location, $a
     if(sess){
         $scope.sessionId = JSON.parse($window.localStorage.getItem('session')).id;
     }else{
-        $window.location.href = "/";
         $scope.sessionId = undefined;
     }
-    if($scope.sessionId){
-        $window.location.href = "/loggedUser"+$scope.sessionId+'-local';
-    }else{
-        $scope.authFace = function(url){
-            $window.location.href = url;
-        }
+    var address = $resource('/getUserInfo');
+    var query = new address();
+    query.userId = $scope.sessionId;
+    query.$save(function(data){
+        if(data._id==$scope.sessionId){
+            $window.location.href = "/loggedUser"+$scope.sessionId+'-local';
+        }else{
+            $scope.authFace = function(url){
+                $window.location.href = url;
+            }
 
-        $('#carousel_1').carousel({
-            interval: 5000
-        })
-        $scope.registerUser = function(){
-            $window.location.href = 'registerUser';
-        }
-        $scope.scrollTo = function(id) {
-            $location.hash(id);
-            $anchorScroll();
-            $location.hash('');
-        }
-        $scope.login = function(){
-            if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
-                var address = $resource('/loginLocal');
-                var query = new address();
-                query.email = $scope.email;
-                query.pwd = $scope.pwd;
-                query.$save(function(data){
-                    if(data._id){
-                        //$window.localStorage.setItem('userId', JSON.stringify(data._id))
-                        //$scope.$storage.userId = data._id;
-                        $window.location.href = '/loggedUser'+data._id+'-local';
-                    }else{
-                        $window.location.href = '/';
-                    }
-                });
-            }else{
-                $window.location.href = '/';
+            $('#carousel_1').carousel({
+                interval: 5000
+            })
+            $scope.registerUser = function(){
+                $window.location.href = 'registerUser';
+            }
+            $scope.scrollTo = function(id) {
+                $location.hash(id);
+                $anchorScroll();
+                $location.hash('');
+            }
+            $scope.login = function(){
+                if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
+                    var address = $resource('/loginLocal');
+                    var query = new address();
+                    query.email = $scope.email;
+                    query.pwd = $scope.pwd;
+                    query.$save(function(data){
+                        if(data._id){
+                            //$window.localStorage.setItem('userId', JSON.stringify(data._id))
+                            //$scope.$storage.userId = data._id;
+                            $window.location.href = '/loggedUser'+data._id+'-local';
+                        }else{
+                            $window.location.href = '/';
+                        }
+                    });
+                }else{
+                    $window.location.href = '/';
+                }
             }
         }
-    }
+    })
 });
 
 app.controller('registerUser',function($scope,$resource,$compile,$upload,$window,$location,$anchorScroll){
