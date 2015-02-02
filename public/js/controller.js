@@ -306,6 +306,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         query.userId = $routeParams.user;
         query.$save(function(data){
             if(data.answer){
+                $window.localStorage.clear('session');
                 $window.location.href = '/';
             }else{
                 var obj = new Object();
@@ -314,8 +315,8 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 if(!$scope.session){
                     $window.localStorage.setItem('session',JSON.stringify(obj));
                 }
-
                 $scope.session = JSON.parse($window.localStorage.getItem('session'));
+
                 $scope.info = data;
                 $scope.email = data.email;
                 $scope.emailPlaceholder = data.email;
