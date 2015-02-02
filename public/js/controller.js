@@ -320,6 +320,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var obj = new Object();
                 obj.id = data._id;
                 obj.name = data.name;
+                $scope.info = data;
                 $scope.email = data.email;
                 $scope.emailPlaceholder = data.email;
                 $scope.selectedLanguages = data.languages_able;
