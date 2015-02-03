@@ -528,7 +528,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
 
                 // Deal with log off page
-                if(!$scope.email || !$scope.password){
+                if(!$scope.info.email || !$scope.info.password){
                     var socket = io('/maintainUser');
                     socket.emit('connect me',$routeParams.user);
                 }
@@ -537,7 +537,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.madeChanges = 0;
                 $scope.signOut = function(){
                     $window.localStorage.clear('session');
-                    if(!$scope.email || !$scope.password){
+                    if(!$scope.info.email || !$scope.info.password){
                         $scope.deleteMyAccount();
                     }
                     $window.location.href = '/';
