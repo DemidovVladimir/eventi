@@ -339,6 +339,22 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             });
         }
     });
+    $scope.submit = function(){
+        var addr = $resource('/makeChangesUser');
+        var que = new addr();
+        que.id = $scope.info._id;
+        que.email = $scope.email;
+        que.skype = $scope.skype;
+        que.phone = $scope.phone;
+        que.languages = $scope.selectedLanguages;
+        que.about = $scope.about;
+        que.destination = $scope.destination;
+        que.gender = $scope.gender;
+        que.newPassword = $scope.newPassword;
+        que.$save(function(){
+            $route.reload();
+        });
+    }
     $scope.languages = [
         "Mandarin",
         "Spanish",
