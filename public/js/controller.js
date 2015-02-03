@@ -537,7 +537,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.madeChanges = 0;
                 $scope.signOut = function(){
                     $window.localStorage.clear('session');
-                    if(!$scope.email|| !$scope.password){
+                    if(!$scope.email || !$scope.password){
                         $scope.deleteMyAccount();
                     }
                     $window.location.href = '/';
