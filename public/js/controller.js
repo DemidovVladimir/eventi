@@ -338,6 +338,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.resFoldersVideo = queVideo;
             });
         }
+    });
     $scope.languages = [
         "Mandarin",
         "Spanish",
