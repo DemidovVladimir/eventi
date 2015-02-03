@@ -511,7 +511,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
 
                 // Deal with log off page
-                if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length==0){
+                if(!$scope.email || !$scope.password){
                     var socket = io('/maintainUser');
                     socket.emit('connect me',$routeParams.user);
                 }
@@ -520,7 +520,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.madeChanges = 0;
                 $scope.signOut = function(){
                     $window.localStorage.clear('session');
-                    if(!$scope.info.email || !$scope.info.password || $scope.info.languages_able.length!=0){
+                    if(!$scope.email || !$scope.password){
                         $scope.deleteMyAccount();
                     }
                     $window.location.href = '/';
@@ -719,7 +719,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     });
                 }
 //            }
-        });
+//        });
 });
 
 app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
