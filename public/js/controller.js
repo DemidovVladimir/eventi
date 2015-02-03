@@ -412,23 +412,70 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
         $anchorScroll();
         $location.hash('');
     }
-    $scope.submit = function(){
-        var addr = $resource('/makeChangesUser');
-        var que = new addr();
-        que.id = $scope.info._id;
-        que.email = $scope.email;
-        que.skype = $scope.skype;
-        que.phone = $scope.phone;
-        que.languages = $scope.selectedLanguages;
-        que.about = $scope.about;
-        que.destination = $scope.destination;
-        que.gender = $scope.gender;
-        que.newPassword = $scope.newPassword;
-        que.$save(function(){
-            $route.reload();
+    $scope.avaProcess = false;
+    $scope.onAvaChange = function(files){
+        $scope.avaProcess = true;
+        files.forEach(function(item){
+            $scope.upload = $upload.upload({
+                url: '/changeAvaUser',
+                data: {userId: $routeParams.user,
+                    oldAva: $scope.info.ava
+                },
+                file: item
+            }).progress(function(evt) {
+                    var progress = parseInt(100.0 * evt.loaded / evt.total);
+                    $scope.progress = progress;
+                    $scope.avaProcess = true;
+                    $scope.info.ava = undefined;
+
+                }).success(function(data, status, headers, config) {
+                    if(data!='wrong' && data!='error'){
+                        $scope.info.ava = data;
+                        $scope.avaProcess = false;
+                        $scope.avaError = false;
+                    }else{
+                        $scope.avaProcess = false;
+                        $scope.avaError = data;
+                    }
+                });
+        });
+    };
+    $scope.deleteAva = function(){
+        var address = $resource('/deleteAva');
+        var query = new address();
+        query.userId = $routeParams.user;
+        query.ava = $scope.info.ava;
+        query.$save(function(){
+            $scope.info.ava = undefined;
         });
     }
-    
+    $scope.avaProcess = false;
+    $scope.onAvaInsert = function(files){
+        files.forEach(function(item){
+            $scope.upload = $upload.upload({
+                url: '/insertAvaUser',
+                data: {userId: $routeParams.user
+                },
+                file: item
+            }).progress(function(evt) {
+                    var progress = parseInt(100.0 * evt.loaded / evt.total);
+                    $scope.progress = progress;
+                    $scope.avaProcess = true;
+
+                }).success(function(data, status, headers, config) {
+                    $scope.test = data;
+                    if(data!='wrong' && data!='error'){
+                        $scope.info.ava = data;
+                        $scope.avaProcess = false;
+                        $scope.avaError = false;
+                    }else{
+                        $scope.avaError = data;
+                        $scope.avaProcess = false;
+                    }
+                });
+        });
+    };
+
         var address = $resource('/getUserInfo');
         var query = new address();
         query.userId = $routeParams.user;
@@ -482,69 +529,6 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 var queMsgs = getMsgs.query(function(){
                     $scope.countMsgs = queMsgs.length;
                 });
-                $scope.avaProcess = false;
-                $scope.onAvaChange = function(files){
-                    $scope.avaProcess = true;
-                    files.forEach(function(item){
-                        $scope.upload = $upload.upload({
-                            url: '/changeAvaUser',
-                            data: {userId: $scope.info._id,
-                                oldAva: $scope.info.ava
-                            },
-                            file: item
-                        }).progress(function(evt) {
-                                var progress = parseInt(100.0 * evt.loaded / evt.total);
-                                $scope.progress = progress;
-                                $scope.avaProcess = true;
-                                $scope.info.ava = undefined;
-
-                            }).success(function(data, status, headers, config) {
-                                if(data!='wrong' && data!='error'){
-                                    $scope.info.ava = data;
-                                    $scope.avaProcess = false;
-                                    $scope.avaError = false;
-                                }else{
-                                    $scope.avaProcess = false;
-                                    $scope.avaError = data;
-                                }
-                            });
-                    });
-                };
-                $scope.deleteAva = function(){
-                    var address = $resource('/deleteAva');
-                    var query = new address();
-                    query.userId = $scope.info._id;
-                    query.ava = $scope.info.ava;
-                    query.$save(function(){
-                        $scope.info.ava = undefined;
-                    });
-                }
-                $scope.avaProcess = false;
-                $scope.onAvaInsert = function(files){
-                    files.forEach(function(item){
-                        $scope.upload = $upload.upload({
-                            url: '/insertAvaUser',
-                            data: {userId: $scope.info._id
-                            },
-                            file: item
-                        }).progress(function(evt) {
-                                var progress = parseInt(100.0 * evt.loaded / evt.total);
-                                $scope.progress = progress;
-                                $scope.avaProcess = true;
-
-                            }).success(function(data, status, headers, config) {
-                                $scope.test = data;
-                                if(data!='wrong' && data!='error'){
-                                    $scope.info.ava = data;
-                                    $scope.avaProcess = false;
-                                    $scope.avaError = false;
-                                }else{
-                                    $scope.avaError = data;
-                                    $scope.avaProcess = false;
-                                }
-                            });
-                    });
-                };
                 $scope.$on('inputLanguage',function(){
                     $scope.selectedLanguages.push($scope.selectedLanguage);
                     $scope.selectedLanguage = '';
@@ -721,6 +705,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                     que.$save(function(){
                     });
                 }
+
                 $scope.deleteMyAccount = function(){
                     var adv = $resource('/deleteMe');
                     var que = new adv();
