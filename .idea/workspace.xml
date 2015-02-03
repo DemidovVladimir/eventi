@@ -23,19 +23,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="369" column="28" selection-start="12455" selection-end="12455" vertical-scroll-proportion="-21.653847" vertical-offset="4972" max-vertical-offset="28620">
+            <state line="348" column="54" selection-start="11743" selection-end="11743" vertical-scroll-proportion="0.279646" vertical-offset="5062" max-vertical-offset="28620">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maintainUser.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="112" column="0" selection-start="6402" selection-end="6402" vertical-scroll-proportion="0.5908289" vertical-offset="1345" max-vertical-offset="5565">
+            <state line="106" column="14" selection-start="6067" selection-end="6067" vertical-scroll-proportion="-10.208333" vertical-offset="1345" max-vertical-offset="5565">
               <folding />
             </state>
           </provider>
@@ -142,8 +142,8 @@
         <option value="$PROJECT_DIR$/public/parts/myMessages.html" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/api/index.js" />
-        <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/parts/maintainUser.html" />
+        <option value="$PROJECT_DIR$/public/js/controller.js" />
       </list>
     </option>
   </component>
@@ -716,16 +716,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
+    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="369" column="28" selection-start="12455" selection-end="12455" vertical-scroll-proportion="-21.653847" vertical-offset="4972" max-vertical-offset="28620">
+        <state line="106" column="14" selection-start="6067" selection-end="6067" vertical-scroll-proportion="-10.208333" vertical-offset="1345" max-vertical-offset="5565">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
+    <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="0" selection-start="6402" selection-end="6402" vertical-scroll-proportion="0.5908289" vertical-offset="1345" max-vertical-offset="5580">
+        <state line="348" column="54" selection-start="11743" selection-end="11743" vertical-scroll-proportion="0.279646" vertical-offset="5062" max-vertical-offset="28620">
           <folding />
         </state>
       </provider>
