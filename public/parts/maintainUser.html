@@ -103,17 +103,13 @@
         <div ng-if="!info.password" ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
             <label class="control-label" for="newPassword">Change(create) password</label>
             <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword" required>
-            <br><span class="control-label" ng-show="info.password">
-        Required!</span>
+            <br><span class="control-label">Required!</span>
         </div>
 
         <div ng-if="info.password" ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
             <label class="control-label" for="newPassword">Change(create) password</label>
             <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword">
-            <br><span class="control-label" ng-show="info.password">
-        Required!</span>
         </div>
-
 
         <div ng-show="newPassword" ng-class="{'has-error':passwordR!=newPassword}" class="form-group">
             <label class="control-label" for="passwordR">Confirm your new password</label>
