@@ -337,6 +337,21 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             var queVideo = addrVideo.query(function(){
                 $scope.resFoldersVideo = queVideo;
             });
+// Deal with log off page
+            if(!$scope.email && !$scope.info.email || !$scope.info.password && !$scope.password){
+                var socket = io('/maintainUser');
+                socket.emit('connect me',$routeParams.user);
+            }
+
+            //insert here everything else
+            $scope.madeChanges = 0;
+            $scope.signOut = function(){
+                $window.localStorage.clear('session');
+                if(!$scope.email && !$scope.info.email || !$scope.info.password && !$scope.password){
+                    $scope.deleteMyAccount();
+                }
+                $window.location.href = '/';
+            }
         }
     });
     $scope.submit = function(){
@@ -527,21 +542,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     };
 
 
-                // Deal with log off page
-                if(!$scope.info.email || !$scope.info.password){
-                    var socket = io('/maintainUser');
-                    socket.emit('connect me',$routeParams.user);
-                }
 
-                //insert here everything else
-                $scope.madeChanges = 0;
-                $scope.signOut = function(){
-                    $window.localStorage.clear('session');
-                    if(!$scope.info.email || !$scope.info.password){
-                        $scope.deleteMyAccount();
-                    }
-                    $window.location.href = '/';
-                }
 
                 $scope.userId = $routeParams.user;
                 var getMsgs = $resource('/getMsgs/'+$scope.userId);
