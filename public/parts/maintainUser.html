@@ -106,7 +106,7 @@
             <!--<br><span class="control-label">Required!</span>-->
         <!--</div>-->
 
-        <div ng-class="{'has-error':!info.password || !pwd || pwd==''}" class="form-group">
+        <div ng-class="{'has-error':!info.password && !pwd}" class="form-group">
             <label class="control-label" for="pwd">PWD</label>
             <input type="password" name="pwd" class="form-control" ng-model="pwd" required>
         </div>
