@@ -32,19 +32,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="maintainUser.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="117" selection-start="6680" selection-end="6680" vertical-scroll-proportion="-9.583333" vertical-offset="1495" max-vertical-offset="5565">
+            <state line="120" column="34" selection-start="6904" selection-end="6904" vertical-scroll-proportion="0.5939716" vertical-offset="1465" max-vertical-offset="5595">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registerUser.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="registerUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="4350">
+            <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="-9.375" vertical-offset="1650" max-vertical-offset="4350">
               <folding />
             </state>
           </provider>
@@ -629,16 +629,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
+    <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="117" selection-start="6680" selection-end="6680" vertical-scroll-proportion="-9.583333" vertical-offset="1495" max-vertical-offset="5565">
+        <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="-9.375" vertical-offset="1650" max-vertical-offset="4350">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
+    <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="4350">
+        <state line="120" column="34" selection-start="6904" selection-end="6904" vertical-scroll-proportion="0.5939716" vertical-offset="1465" max-vertical-offset="5595">
           <folding />
         </state>
       </provider>
