@@ -105,9 +105,18 @@
             <!--<input type="password" name="password" class="form-control" id="password" ng-model="pwd" required>-->
             <!--<br><span class="control-label">Required!</span>-->
         <!--</div>-->
-
+        <div ng-show="info.password">
+            <h4 class="text-center">
+                Your old password is: {{info.password}}
+            </h4>
+        </div>
+        <div ng-show="!info.password">
+            <h4 class="text-center has-error">
+                You don't have password!!!
+            </h4>
+        </div>
         <div ng-class="{'has-error':!info.password && !pwd}" class="form-group">
-            <label class="control-label" for="pwd">PWD</label>
+            <label class="control-label" for="pwd">Change(create) password</label>
             <input type="password" name="pwd" class="form-control" ng-model="pwd" required>
         </div>
 
