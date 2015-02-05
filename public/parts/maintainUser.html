@@ -111,15 +111,12 @@
             <input type="password" name="pwd" class="form-control" ng-model="pwd" required>
         </div>
 
-        <div ng-class="{'has-error':passwordR!=pwd}" class="form-group">
+        <div ng-show="pwd" ng-class="{'has-error':passwordR!=pwd}" class="form-group">
             <label class="control-label" for="passwordR">Confirm your new password</label>
             <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" required ng-pattern="pwd">
             <br><span class="control-label" ng-show="maintainInfo.passwordR.$error.pattern">
         Password not confirmed, please try again!</span>
         </div>
-
-        {{pwd}} = {{passwordR}}
-
 
         <div ng-class="{'has-error':!email}" class="form-group">
             <label class="control-label" for="exampleInputEmail">Email</label>
