@@ -313,6 +313,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $window.localStorage.clear('session');
             $window.location.href = '/';
         }else{
+            $scope.pwd = data.password;
             var obj = new Object();
             obj.id = data._id;
             obj.name = data.name;
