@@ -110,9 +110,9 @@
                 Your old password is: {{info.password}}
             </h4>
         </div>
-        <div ng-show="!info.password">
-            <h4 class="text-center has-error">
-                You don't have password!!!
+        <div ng-show="!info.password" class="alert alert-danger">
+            <h4 class="text-center">
+                You don't have any password!!!
             </h4>
         </div>
         <div ng-class="{'has-error':!info.password && !pwd}" class="form-group">
