@@ -103,22 +103,32 @@ chatLine.on('connection', function(socket){
         });
     });
 });
+var connectedMaintain = [];
 var maintainLine = io.of('/maintainUser');
 maintainLine.on('connection', function(socket){
+    socket.on('unlink me',function(user){
+        var ind = connectedMaintain.indexOf(user);
+        if(connectedMaintain.indexOf(user)!=-1){
+            connectedMaintain.splice(ind,1);
+        }
+    })
     socket.on('connect me',function(user){
+        connectedMaintain.push(user);
         socket.on('disconnect', function(){
-                    async.series([
-                        function(callback){
-                            //all user info deletion
-                            db.userDBModel.remove({_id:user},function(err){
-                                if(err) return next(err);
-                                callback(null, 'all data user removed');
-                            });
-                        }
-                    ],
-                        function(err, results){
+            if(connectedMaintain.indexOf(user)!=-1){
+                async.series([
+                    function(callback){
+                        //all user info deletion
+                        db.userDBModel.remove({_id:user},function(err){
                             if(err) return next(err);
+                            callback(null, 'all data user removed');
                         });
+                    }
+                ],
+                    function(err, results){
+                        if(err) return next(err);
+                    });
+            }
         });
     })
 });
