@@ -102,13 +102,13 @@
 
         <div ng-if="!info.password || info.password==''" ng-class="{'has-error':!info.password && !password}" class="form-group">
             <label class="control-label" for="password">Change(create) password</label>
-            <input type="password" name="password" class="form-control" id="password" ng-model="password" required>
+            <input type="password" name="password" class="form-control" id="password" ng-model="pwd" required>
             <br><span class="control-label">Required!</span>
         </div>
 
         <div ng-if="info.password" ng-class="{'has-error':!info.password && !password}" class="form-group">
             <label class="control-label" for="password">Change(create) password</label>
-            <input type="password" name="password" class="form-control" id="password" ng-model="password">
+            <input type="password" name="password" class="form-control" id="password" ng-model="pwd">
         </div>
 
         <div ng-class="{'has-error':passwordR!=password}" class="form-group">
@@ -118,7 +118,7 @@
         Password not confirmed, please try again!</span>
         </div>
 
-        {{password}} = {{passwordR}}
+        {{pwd}} = {{passwordR}}
 
 
         <div ng-class="{'has-error':!email}" class="form-group">
