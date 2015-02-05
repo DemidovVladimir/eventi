@@ -35,7 +35,7 @@
       <file leaf-file-name="maintainUser.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="0" selection-start="6896" selection-end="6896" vertical-scroll-proportion="0.5643739" vertical-offset="1465" max-vertical-offset="5565">
+            <state line="119" column="0" selection-start="6907" selection-end="6907" vertical-scroll-proportion="0.48758864" vertical-offset="1510" max-vertical-offset="5565">
               <folding />
             </state>
           </provider>
@@ -151,7 +151,7 @@
     <option name="x" value="21" />
     <option name="y" value="23" />
     <option name="width" value="1419" />
-    <option name="height" value="793" />
+    <option name="height" value="790" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -288,7 +288,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="21" y="23" width="1419" height="793" extended-state="0" />
+    <frame x="21" y="23" width="1419" height="790" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -595,7 +595,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="0" selection-start="6896" selection-end="6896" vertical-scroll-proportion="0.5643739" vertical-offset="1465" max-vertical-offset="5565">
+        <state line="119" column="0" selection-start="6907" selection-end="6907" vertical-scroll-proportion="0.48758864" vertical-offset="1510" max-vertical-offset="5565">
           <folding />
         </state>
       </provider>
