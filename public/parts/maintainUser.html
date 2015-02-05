@@ -113,7 +113,7 @@
 
         <div ng-class="{'has-error':passwordR!=password}" class="form-group">
             <label class="control-label" for="passwordR">Confirm your new password</label>
-            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" ng-pattern="password">
+            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" required ng-pattern="password">
             <br><span class="control-label" ng-show="maintainInfo.passwordR.$error.pattern">
         Password not confirmed, please try again!</span>
         </div>

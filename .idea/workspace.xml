@@ -32,10 +32,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maintainUser.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="113" column="12" selection-start="6406" selection-end="6406" vertical-scroll-proportion="0.6205674" vertical-offset="1345" max-vertical-offset="5565">
+            <state line="115" column="117" selection-start="6680" selection-end="6680" vertical-scroll-proportion="-9.583333" vertical-offset="1495" max-vertical-offset="5565">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registerUser.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="4350">
               <folding />
             </state>
           </provider>
@@ -194,6 +203,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="topstore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -482,11 +523,6 @@
         <state line="7" column="7" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="4350" />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/block.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state line="198" column="22" selection-start="4044" selection-end="4044" vertical-scroll-proportion="0.33278146" vertical-offset="2769" max-vertical-offset="3405" />
@@ -595,7 +631,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="12" selection-start="6406" selection-end="6406" vertical-scroll-proportion="0.6205674" vertical-offset="1345" max-vertical-offset="5565">
+        <state line="115" column="117" selection-start="6680" selection-end="6680" vertical-scroll-proportion="-9.583333" vertical-offset="1495" max-vertical-offset="5565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/parts/registerUser.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="8" selection-start="5321" selection-end="5356" vertical-scroll-proportion="0.0" vertical-offset="1875" max-vertical-offset="4350">
           <folding />
         </state>
       </provider>
