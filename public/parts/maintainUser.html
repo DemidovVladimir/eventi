@@ -100,20 +100,20 @@
             </div>
         </div>
 
-        <div ng-if="!info.password" ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
-            <label class="control-label" for="newPassword">Change(create) password</label>
-            <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword" required>
+        <div ng-if="!info.password" ng-class="{'has-error':!info.password && !password}" class="form-group">
+            <label class="control-label" for="password">Change(create) password</label>
+            <input type="password" name="password" class="form-control" id="password" ng-model="password" required>
             <br><span class="control-label">Required!</span>
         </div>
 
-        <div ng-if="info.password" ng-class="{'has-error':!info.password && !newPassword}" class="form-group">
-            <label class="control-label" for="newPassword">Change(create) password</label>
-            <input type="password" name="newPassword" class="form-control" id="newPassword" ng-model="newPassword">
+        <div ng-if="info.password" ng-class="{'has-error':!info.password && !password}" class="form-group">
+            <label class="control-label" for="password">Change(create) password</label>
+            <input type="password" name="password" class="form-control" id="password" ng-model="password">
         </div>
 
-        <div ng-show="!newPassword" ng-class="{'has-error':passwordR!=newPassword}" class="form-group">
+        <div ng-show="password" ng-class="{'has-error':passwordR!=password}" class="form-group">
             <label class="control-label" for="passwordR">Confirm your new password</label>
-            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" ng-pattern="newPassword" required>
+            <input type="password" name="passwordR" class="form-control" id="passwordR" ng-model="passwordR" ng-pattern="password" required>
             <br><span class="control-label" ng-show="maintainInfo.passwordR.$error.pattern">
         Password not confirmed, please try again!</span>
         </div>
