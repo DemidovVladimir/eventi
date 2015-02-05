@@ -100,15 +100,15 @@
             </div>
         </div>
 
-        <div ng-if="!info.password || info.password==''" ng-class="{'has-error':!info.password && !password}" class="form-group">
-            <label class="control-label" for="password">Change(create) password</label>
-            <input type="password" name="password" class="form-control" id="password" ng-model="pwd" required>
-            <br><span class="control-label">Required!</span>
-        </div>
+        <!--<div ng-if="!info.password || info.password==''" ng-class="{'has-error':!info.password && !password}" class="form-group">-->
+            <!--<label class="control-label" for="password">Change(create) password</label>-->
+            <!--<input type="password" name="password" class="form-control" id="password" ng-model="pwd" required>-->
+            <!--<br><span class="control-label">Required!</span>-->
+        <!--</div>-->
 
-        <div ng-if="info.password" ng-class="{'has-error':!info.password && !password}" class="form-group">
-            <label class="control-label" for="password">Change(create) password</label>
-            <input type="password" name="password" class="form-control" id="password" ng-model="pwd">
+        <div class="form-group">
+            <label class="control-label" for="pwd">PWD</label>
+            <input type="password" ng-model="pwd" required>
         </div>
 
         <div ng-class="{'has-error':passwordR!=password}" class="form-group">
