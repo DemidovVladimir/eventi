@@ -776,26 +776,22 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
     $scope.expirationDay = $scope.today.getDate();
     $scope.expirationYear = todayYear +1;
 
-
     $scope.renderMap = true;
-    $scope.lat = 43.2775;
-    $scope.lng = 76.89583300000004;
+    $scope.lat = 12.25;
+    $scope.lng = 109.183333;
 //    Map work
     $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lng}, zoom: 8};
     $scope.marker = {
         id: 0,
         coords: {
-            latitude: 43.2775,
-            longitude: 76.89583300000004
+            latitude: 12.25,
+            longitude: 109.183333
         },
         options: { draggable: true },
         events: {
             dragend: function (marker, eventName, args) {
                 $scope.marker.options = {
                     draggable: true
-//                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-//                    labelAnchor: "100 0",
-//                    labelClass: "marker-labels"
                 };
             }
         }
@@ -823,12 +819,8 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
                     options: { draggable: true },
                     events: {
                         dragend: function (marker, eventName, args) {
-
                             $scope.marker.options = {
                                 draggable: true
-//                                labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-//                                labelAnchor: "100 0",
-//                                labelClass: "marker-labels"
                             };
                         }
                     }
@@ -930,54 +922,6 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
         });
     }
 });
-
-/*app.controller('manageEvent',function($scope){
-
-});*/
-
-/*app.controller('loginUser',function($scope,$resource,$window){
-    $scope.enter = function(){
-        if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
-            var address = $resource('/loginUser:443');
-            var query = new address();
-            query.email = $scope.email;
-            query.pwd = $scope.pwd;
-            query.$save(function(data){
-                if(data._id){
-                    localStorage.userId = data._id;
-                    $window.location.href='/maintainUser'+data._id;
-                }else{
-                    $window.location.href = '/loginUser';
-                }
-            });
-        }else{
-            $window.location.href = '/';
-        }
-    }
-});*/
-
-
-
-/*
-app.controller('loggedHome',function($scope,$routeParams,$resource){
-
-    $('#carousel_1').carousel({
-        interval: 5000
-    })
-    $scope.scrollTo = function(id) {
-        $location.hash(id);
-        $anchorScroll();
-        $location.hash('');
-    }
-    $scope.logout = function(){
-
-    }
-})*/
-
-
-
-
-
 
 
 
@@ -1595,9 +1539,6 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
                 dragend: function (marker, eventName, args) {
                     $scope.marker.options = {
                         draggable: true
-//                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-//                    labelAnchor: "100 0",
-//                    labelClass: "marker-labels"
                     };
                 }
             }
@@ -1624,9 +1565,6 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 
                                 $scope.marker.options = {
                                     draggable: true
-//                                labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-//                                labelAnchor: "100 0",
-//                                labelClass: "marker-labels"
                                 };
                             }
                         }
@@ -1635,11 +1573,6 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
             });
         });
 //    End map work
-        //End of dealing up with map
-
-
-
-
     })
 
 

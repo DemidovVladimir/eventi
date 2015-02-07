@@ -23,26 +23,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/createEvent">Create new</a></li>
-                        <li><a href="/maintainEvents">Maintain created</a></li><!--
-                        <li><a href="category.html">Category (Grid View)</a></li>
-                        <li><a href="category_list.html">Category (List View)</a></li>
-                        <li><a href="single.html">Single page</a></li>-->
+                        <li><a href="/maintainEvents">Maintain created</a></li>
                     </ul>
                 </li>
-                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">5</small></a></li>
-                <!--<li class="dropdown">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="blog.html">Blog Archive</a></li>-->
-                <!--<li><a href="blog_single.html">Blog Single</a></li>-->
-                <!--<li><a href="about.html">About</a></li>-->
-                <!--<li><a href="contact.html">Contact</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
+                <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
                 <li>
                     <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
                 </li>
-                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
@@ -60,8 +47,11 @@
         <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity" required>
     </div>
     <h4>Please move marker on the map to the proper destination of event.</h4>
-    <ui-gmap-google-map center='map.center' ng-if="renderMap" zoom='map.zoom' draggable="true" options="options">
+    <ui-gmap-google-map center='map.center' ng-if="renderMap" zoom='map.zoom' draggable="true" options="options" ng-cloak>
         <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+            <ui-gmap-window isIconVisibleOnClick="true">
+                <p ng-cloak>Project's start up!!!</p>
+            </ui-gmap-window>
         </ui-gmap-marker>
     </ui-gmap-google-map>
     <div class="form-group" ng-class="{'has-error': createEvent.executionDate.$invalid}">
