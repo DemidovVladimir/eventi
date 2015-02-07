@@ -165,6 +165,7 @@ app.post('/insertVideosUser',api.insertVideosUser);
 app.get('/videosInFolder/:userId/:folder',api.videosInFolder);
 app.get('/deleteVideo/:userId/:folder/:video',api.deleteVideo);
 app.post('/searchPerson',api.searchPerson);
+app.get('/searchPersonByName/:name',api.searchPersonByName);
 app.post('/addToFriends',api.addToFriends);
 app.post('/deleteFromFriends',api.deleteFromFriends);
 app.post('/makeChangesUser', api.makeChangesUser);

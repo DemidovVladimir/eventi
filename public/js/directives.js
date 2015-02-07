@@ -503,6 +503,19 @@ app.directive('getRealDate',function(){
     }
 });
 
+app.directive('getRealBirthDate',function(){
+    return{
+        restrict:'E',
+        link: function(scope,element,attrs){
+            var ddt = new Date(scope.user.date_ofBirth);
+            scope.year = ddt.getFullYear();
+            scope.month = ddt.getMonth()+1;
+            scope.day = ddt.getDate();
+        },
+        template:'<h5>Date of birth: {{year}}/{{month}}/{{day}}</h5>'
+    }
+});
+
 app.directive('getRealDateLogged',function(){
     return{
         restrict:'E',

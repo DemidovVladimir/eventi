@@ -23,26 +23,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">My events <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/createEvent">Create new</a></li>
-                        <li><a href="/maintainEvents">Maintain created</a></li><!--
-                        <li><a href="category.html">Category (Grid View)</a></li>
-                        <li><a href="category_list.html">Category (List View)</a></li>
-                        <li><a href="single.html">Single page</a></li>-->
+                        <li><a href="/maintainEvents">Maintain created</a></li>
                     </ul>
                 </li>
                 <li><a ng-if="userId" ng-href="/myMessages{{userId}}">Messages<small class="alert alert-warning">{{countMsgs}}</small></a></li>
-                <!--<li class="dropdown">-->
-                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
-                    <!--<ul class="dropdown-menu">-->
-                        <!--<li><a href="blog.html">Blog Archive</a></li>-->
-                        <!--<li><a href="blog_single.html">Blog Single</a></li>-->
-                        <!--<li><a href="about.html">About</a></li>-->
-                        <!--<li><a href="contact.html">Contact</a></li>-->
-                    <!--</ul>-->
-                <!--</li>-->
                 <li>
                     <button type="button" class="signin btn btn-warning" ng-click="signOut()">Sign out</button>
                 </li>
-                <!--<li><a href="/registerUser" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>-->
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
@@ -102,81 +89,16 @@
         <div class="col-md-10 col-sm-10 col-xs-10">
             <div class="form-group">
                 <label for="country">Destination of events</label>
-                <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity" required>
+                <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity">
             </div>
-            <!--<div class="form-group">-->
-                <!--<label for="bedroom">Bedroom</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>1</option>-->
-                    <!--<option>2</option>-->
-                    <!--<option>3</option>-->
-                    <!--<option>4</option>-->
-                <!--</select>-->
-            <!--</div>-->
         </div>
-        <!-- break -->
-        <!--<div class="col-md-6 col-sm-6 col-xs-6">-->
-            <!--<div class="form-group">-->
-                <!--<label for="location">Location</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>Tasmania</option>-->
-                    <!--<option>Yogyakarta</option>-->
-                    <!--<option>Tokyo</option>-->
-                    <!--<option>Busan</option>-->
-                    <!--<option>Taipe</option>-->
-                <!--</select>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-                <!--<label for="bathroom">Bathroom</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>1</option>-->
-                    <!--<option>2</option>-->
-                    <!--<option>3</option>-->
-                    <!--<option>4</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; break &ndash;&gt;-->
-        <!--<div class="col-md-6 col-sm-6 col-xs-6">-->
-            <!--<div class="form-group">-->
-                <!--<label for="status">Status</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>For Sale</option>-->
-                    <!--<option>For Rent</option>-->
-                <!--</select>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-                <!--<label for="minprice">Min Price</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>$4,200</option>-->
-                    <!--<option>$6,700</option>-->
-                    <!--<option>$8,150</option>-->
-                    <!--<option>$11,110</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; break &ndash;&gt;-->
-        <!--<div class="col-md-6 col-sm-6 col-xs-6">-->
-            <!--<div class="form-group">-->
-                <!--<label for="type">Type</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>Villa</option>-->
-                    <!--<option>Recident</option>-->
-                    <!--<option>Commercial</option>-->
-                <!--</select>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-                <!--<label for="maxprice">Max Price</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option>$8,200</option>-->
-                    <!--<option>$11,700</option>-->
-                    <!--<option>$14,150</option>-->
-                    <!--<option>$21,110</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="col-md-10 col-sm-10 col-xs-10">
+            <div class="form-group">
+                <label for="person">Or search for a user</label>
+                <input type="text" name="person" class="form-control" id="person" ng-model="personToSearch">
+            </div>
+        </div>
         <div class="col-md-12 col-sm-12"><input type="submit" name="submit" value="Search" class="btn btn-warning btn-lg btn-block"></div>
-
     </form>
 </div>
 
@@ -210,7 +132,7 @@
 
 
 <!--begin:searched Events-->
-<div ng-show="exSearchedEvents">
+<div ng-show="exSearchedEvents && exSearchedEvents.length!=0">
     <div class="row">
         <div class="col-md-12">
             <div class="heading-title">
@@ -249,6 +171,67 @@
 </div>
 <!--end:searched Events-->
 
+<div ng-if="exSearchedPersons.length==0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-title">
+                <h2>Searched users:</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+          <h3>No results found!</h3>
+    </div>
+</div>
+
+<div ng-if="exSearchedEvents.length==0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-title">
+                <h2>Searched events by destination:</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3>No results found!</h3>
+    </div>
+</div>
+
+
+<!--begin:searched Persons-->
+<div ng-show="exSearchedPersons && exSearchedPersons.length!=0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-title">
+                <h2>Searched users:</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div data-ng-repeat="users in exSearchedPersons">
+            <div data-ng-repeat="user in users">
+                <div class="col-md-3 col-sm-6 col-xs-12 property-container">
+                    <a href="/infoUser{{user._id}}">
+                        <div class="property-image">
+                            <img class="img-responsive" src="/uploaded/{{user._id}}/mini_{{user.ava}}" alt="users ava">
+                            <div class="property-price">
+                                <h4>{{user.name}}</h4>
+                            </div>
+                            <div class="property-status">
+                                <span><get-real-birth-date></get-real-birth-date></span>
+                            </div>
+                        </div>
+                        <div class="property-content">
+                            <h3><small>{{user.gender}}</small></h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--end:searched Events-->
 
 
 

@@ -506,6 +506,13 @@ exports.deleteVideo = function(req,res,next){
     );
 }
 
+exports.searchPersonByName = function(req,res,next){
+    db.userDBModel.find({name:{$regex:req.params.name,$options:'i'}},function(err,data){
+        if(err) return next(err);
+        res.send(200,data);
+    });
+}
+
 exports.searchPerson = function(req,res,next){
     var name = req.body.name;
     var secondName = req.body.secondName;

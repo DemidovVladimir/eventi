@@ -1111,59 +1111,14 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
             }
         });
     $scope.search = function(){
-        var adr = $resource('/searchEvents/'+$scope.eventLocationCity);
-        var que = adr.query(function(){
-            var arrayOfSearchedEvents = que;
-            $scope.exSearchedEvents = [];
-            var summ = arrayOfSearchedEvents.length;
-            if($scope.width>992){
+
+        if($scope.eventLocationCity){
+            var adr = $resource('/searchEvents/'+$scope.eventLocationCity);
+            var que = adr.query(function(){
+                var arrayOfSearchedEvents = que;
                 $scope.exSearchedEvents = [];
-                var newArrOfSearchedEv = arrayOfSearchedEvents.slice(0);
-                var full = Math.floor(summ/4);
-                var rem = summ%4;
-                for(var i=0; i<full; i++){
-                    $scope.rowSearchedEvents = [];
-                    $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,4);
-                    $scope.exSearchedEvents.push($scope.rowSearchedEvents);
-                }
-                if(rem){
-                    $scope.rowSearchedEvents = [];
-                    $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
-                    $scope.exSearchedEvents.push($scope.rowSearchedEvents);
-                }
-            }else if($scope.width<992){
-                $scope.exSearchedEvents = [];
-                var newArrSearchedOfEv = arrayOfSearchedEvents.slice(0);
-                var full = Math.floor(summ/2);
-                var rem = summ%2;
-                for(var i=0; i<full; i++){
-                    $scope.rowSearchedEvents = [];
-                    $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,2);
-                    $scope.exSearchedEvents.push($scope.rowSearchedEvents);
-                }
-                if(rem){
-                    $scope.rowSearchedEvents = [];
-                    $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
-                    $scope.exSearchedEvents.push($scope.rowSearchedEvents);
-                }
-            }
-            $scope.$watch('width', function(newValue, oldValue) {
-                if(newValue < 991 && oldValue>992){
-                    $scope.exSearchedEvents = [];
-                    var newArrOfSearchedEv = arrayOfSearchedEvents.slice(0);
-                    var full = Math.floor(summ/2);
-                    var rem = summ%2;
-                    for(var i=0; i<full; i++){
-                        $scope.rowSearchedEvents = [];
-                        $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,2);
-                        $scope.exSearchedEvents.push($scope.rowSearchedEvents);
-                    }
-                    if(rem){
-                        $scope.rowSearchedEvents = [];
-                        $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
-                        $scope.exSearchedEvents.push($scope.rowSearchedEvents);
-                    }
-                }else if(newValue > 991 && oldValue<992){
+                var summ = arrayOfSearchedEvents.length;
+                if($scope.width>992){
                     $scope.exSearchedEvents = [];
                     var newArrOfSearchedEv = arrayOfSearchedEvents.slice(0);
                     var full = Math.floor(summ/4);
@@ -1178,9 +1133,134 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
                         $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
                         $scope.exSearchedEvents.push($scope.rowSearchedEvents);
                     }
-                };
+                }else if($scope.width<992){
+                    $scope.exSearchedEvents = [];
+                    var newArrSearchedOfEv = arrayOfSearchedEvents.slice(0);
+                    var full = Math.floor(summ/2);
+                    var rem = summ%2;
+                    for(var i=0; i<full; i++){
+                        $scope.rowSearchedEvents = [];
+                        $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,2);
+                        $scope.exSearchedEvents.push($scope.rowSearchedEvents);
+                    }
+                    if(rem){
+                        $scope.rowSearchedEvents = [];
+                        $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
+                        $scope.exSearchedEvents.push($scope.rowSearchedEvents);
+                    }
+                }
+                $scope.$watch('width', function(newValue, oldValue) {
+                    if(newValue < 991 && oldValue>992){
+                        $scope.exSearchedEvents = [];
+                        var newArrOfSearchedEv = arrayOfSearchedEvents.slice(0);
+                        var full = Math.floor(summ/2);
+                        var rem = summ%2;
+                        for(var i=0; i<full; i++){
+                            $scope.rowSearchedEvents = [];
+                            $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,2);
+                            $scope.exSearchedEvents.push($scope.rowSearchedEvents);
+                        }
+                        if(rem){
+                            $scope.rowSearchedEvents = [];
+                            $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
+                            $scope.exSearchedEvents.push($scope.rowSearchedEvents);
+                        }
+                    }else if(newValue > 991 && oldValue<992){
+                        $scope.exSearchedEvents = [];
+                        var newArrOfSearchedEv = arrayOfSearchedEvents.slice(0);
+                        var full = Math.floor(summ/4);
+                        var rem = summ%4;
+                        for(var i=0; i<full; i++){
+                            $scope.rowSearchedEvents = [];
+                            $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,4);
+                            $scope.exSearchedEvents.push($scope.rowSearchedEvents);
+                        }
+                        if(rem){
+                            $scope.rowSearchedEvents = [];
+                            $scope.rowSearchedEvents = newArrOfSearchedEv.splice(0,rem);
+                            $scope.exSearchedEvents.push($scope.rowSearchedEvents);
+                        }
+                    };
+                });
             });
-        });
+        }else if($scope.personToSearch){
+
+
+            var adr = $resource('/searchPersonByName/'+$scope.personToSearch);
+            var que = adr.query(function(){
+                var arrayOfSearchedPersons = que;
+                $scope.exSearchedPersons = [];
+                var summ = arrayOfSearchedPersons.length;
+                if($scope.width>992){
+                    $scope.exSearchedPersons = [];
+                    var newArrOfSearchedPer = arrayOfSearchedPersons.slice(0);
+                    var full = Math.floor(summ/4);
+                    var rem = summ%4;
+                    for(var i=0; i<full; i++){
+                        $scope.rowSearchedPersons = [];
+                        $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,4);
+                        $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                    }
+                    if(rem){
+                        $scope.rowSearchedPersons = [];
+                        $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,rem);
+                        $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                    }
+                }else if($scope.width<992){
+                    $scope.exSearchedPersons = [];
+                    var newArrSearchedOfPer = arrayOfSearchedPersons.slice(0);
+                    var full = Math.floor(summ/2);
+                    var rem = summ%2;
+                    for(var i=0; i<full; i++){
+                        $scope.rowSearchedPersons = [];
+                        $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,2);
+                        $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                    }
+                    if(rem){
+                        $scope.rowSearchedPersons = [];
+                        $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,rem);
+                        $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                    }
+                }
+                $scope.$watch('width', function(newValue, oldValue) {
+                    if(newValue < 991 && oldValue>992){
+                        $scope.exSearchedPersons = [];
+                        var newArrOfSearchedPer = arrayOfSearchedPersons.slice(0);
+                        var full = Math.floor(summ/2);
+                        var rem = summ%2;
+                        for(var i=0; i<full; i++){
+                            $scope.rowSearchedPersons = [];
+                            $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,2);
+                            $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                        }
+                        if(rem){
+                            $scope.rowSearchedPersons = [];
+                            $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,rem);
+                            $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                        }
+                    }else if(newValue > 991 && oldValue<992){
+                        $scope.exSearchedPersons = [];
+                        var newArrOfSearchedPer = arrayOfSearchedPersons.slice(0);
+                        var full = Math.floor(summ/4);
+                        var rem = summ%4;
+                        for(var i=0; i<full; i++){
+                            $scope.rowSearchedPersons = [];
+                            $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,4);
+                            $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                        }
+                        if(rem){
+                            $scope.rowSearchedPersons = [];
+                            $scope.rowSearchedPersons = newArrOfSearchedPer.splice(0,rem);
+                            $scope.exSearchedPersons.push($scope.rowSearchedPersons);
+                        }
+                    };
+                });
+            });
+        }
+
+
+
+
     }
     $scope.width = $window.innerWidth;
     function tellAngular() {
