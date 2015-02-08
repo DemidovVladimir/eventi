@@ -71,7 +71,7 @@
       <file leaf-file-name="loggedUser.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="87" selection-start="4451" selection-end="4451" vertical-scroll-proportion="0.7410562" vertical-offset="1065" max-vertical-offset="13065">
+            <state line="807" column="0" selection-start="36506" selection-end="36506" vertical-scroll-proportion="18.683134" vertical-offset="1138" max-vertical-offset="13125">
               <folding />
             </state>
           </provider>
@@ -80,7 +80,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="5" selection-start="2969" selection-end="2973" vertical-scroll-proportion="-7.6538463" vertical-offset="2291" max-vertical-offset="33660">
+            <state line="2242" column="5" selection-start="39693" selection-end="39693" vertical-scroll-proportion="-20.115385" vertical-offset="33107" max-vertical-offset="33765">
               <folding />
             </state>
           </provider>
@@ -89,7 +89,7 @@
       <file leaf-file-name="home.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="739" column="18" selection-start="33477" selection-end="33477" vertical-scroll-proportion="-15.625" vertical-offset="10710" max-vertical-offset="12345">
+            <state line="774" column="19" selection-start="34575" selection-end="34575" vertical-scroll-proportion="-44.458332" vertical-offset="10543" max-vertical-offset="12345">
               <folding />
             </state>
           </provider>
@@ -141,9 +141,9 @@
         <option value="$PROJECT_DIR$/api/index.js" />
         <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
-        <option value="$PROJECT_DIR$/public/parts/home.html" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/public/parts/loggedUser.html" />
+        <option value="$PROJECT_DIR$/public/parts/home.html" />
       </list>
     </option>
   </component>
@@ -611,23 +611,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/home.html">
+    <entry file="file://$PROJECT_DIR$/public/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="739" column="18" selection-start="33477" selection-end="33477" vertical-scroll-proportion="-15.625" vertical-offset="10710" max-vertical-offset="12345">
+        <state line="2242" column="5" selection-start="39693" selection-end="39693" vertical-scroll-proportion="-20.115385" vertical-offset="33107" max-vertical-offset="33765">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/style.css">
+    <entry file="file://$PROJECT_DIR$/public/parts/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="5" selection-start="2969" selection-end="2973" vertical-scroll-proportion="-7.6538463" vertical-offset="2291" max-vertical-offset="33660">
+        <state line="774" column="19" selection-start="34575" selection-end="34575" vertical-scroll-proportion="-44.458332" vertical-offset="10543" max-vertical-offset="12345">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="87" selection-start="4451" selection-end="4451" vertical-scroll-proportion="0.7410562" vertical-offset="1065" max-vertical-offset="13065">
+        <state line="807" column="0" selection-start="36506" selection-end="36506" vertical-scroll-proportion="18.683134" vertical-offset="1138" max-vertical-offset="13125">
           <folding />
         </state>
       </provider>
