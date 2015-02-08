@@ -86,14 +86,14 @@
 
 <div class="carouselForm">
     <form role="form" ng-submit="search()">
-        <div class="col-md-10 col-sm-10 col-xs-10">
-            <div class="form-group">
+        <div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-md-10 col-sm-10 col-xs-10">
+            <div class="form-group text-center">
                 <label for="country">Destination of events</label>
                 <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity">
             </div>
         </div>
-        <div class="col-md-10 col-sm-10 col-xs-10">
-            <div class="form-group">
+        <div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-md-10 col-sm-10 col-xs-10">
+            <div class="form-group text-center">
                 <label for="person">Or search for a user</label>
                 <input type="text" name="person" class="form-control" id="person" ng-model="personToSearch">
             </div>

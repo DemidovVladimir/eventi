@@ -513,11 +513,6 @@ a:hover{
 	margin-bottom: 20px;
 }
 
-.carouselForm{
-    position: absolute;
-    top:100px;
-    left:10px;
-}
 
 
 /*
@@ -2233,4 +2228,12 @@ a:hover{
 }
 .userInfoList ul li{
     float:left;
+}
+
+@media (min-width: 992px) {
+    .carouselForm{
+        position: absolute;
+        top:100px;
+        left:10px;
+    }
 }
