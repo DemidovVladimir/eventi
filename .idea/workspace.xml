@@ -68,19 +68,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loggedUser.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="loggedUser.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="46" selection-start="4153" selection-end="4153" vertical-scroll-proportion="-16.25" vertical-offset="1035" max-vertical-offset="13065">
+            <state line="100" column="87" selection-start="4451" selection-end="4451" vertical-scroll-proportion="0.7410562" vertical-offset="1065" max-vertical-offset="13065">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2238" column="0" selection-start="39618" selection-end="39618" vertical-scroll-proportion="0.84949833" vertical-offset="33062" max-vertical-offset="33660">
+            <state line="166" column="5" selection-start="2969" selection-end="2973" vertical-scroll-proportion="-7.6538463" vertical-offset="2291" max-vertical-offset="33660">
               <folding />
             </state>
           </provider>
@@ -142,8 +142,8 @@
         <option value="$PROJECT_DIR$/public/js/controller.js" />
         <option value="$PROJECT_DIR$/public/js/directives.js" />
         <option value="$PROJECT_DIR$/public/parts/home.html" />
-        <option value="$PROJECT_DIR$/public/parts/loggedUser.html" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
+        <option value="$PROJECT_DIR$/public/parts/loggedUser.html" />
       </list>
     </option>
   </component>
@@ -618,16 +618,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
+    <entry file="file://$PROJECT_DIR$/public/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="46" selection-start="4153" selection-end="4153" vertical-scroll-proportion="-16.25" vertical-offset="1035" max-vertical-offset="13065">
+        <state line="166" column="5" selection-start="2969" selection-end="2973" vertical-scroll-proportion="-7.6538463" vertical-offset="2291" max-vertical-offset="33660">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/style.css">
+    <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2238" column="0" selection-start="39618" selection-end="39618" vertical-scroll-proportion="0.84949833" vertical-offset="33062" max-vertical-offset="33660">
+        <state line="100" column="87" selection-start="4451" selection-end="4451" vertical-scroll-proportion="0.7410562" vertical-offset="1065" max-vertical-offset="13065">
           <folding />
         </state>
       </provider>
