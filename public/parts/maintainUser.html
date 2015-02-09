@@ -249,15 +249,22 @@
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete your account with all pictures and videos?
-                    <form role="form" name="deleteUserForm" ng-submit="deleteMyAccount()">
-                        <div ng-if="info.password" ng-class="{'has-error':password!=info.password}" class="form-group">
-                            <label class="control-label" for="password">Confirm password:</label>
-                            <input type="password" name="password" class="form-control" id="password" ng-model="password" required ng-pattern="info.password">
-                            <br><span class="control-label" ng-show="deleteUserForm.password.$error.pattern">
-                                Password not confirmed, please try again!</span>
-                        </div>
-                        <button type="submit" class="btn btn-primary" ng-disabled="password!=info.password">Delete me</button>
+                    <form role="form" name="deleteAccount" ng-class="{'has-error':modalpwd!=info.password}" ng-submit="deleteMyAccount()">
+                            <label ng-show="info.password" class="control-label" for="modalpwd">Confirm password:</label>
+                            <input ng-show="info.password" type="password" name="modalpwd" class="form-control" ng-model="modalpwd" required ng-pattern="info.password">
+                            <br><span ng-show="info.password" class="control-label" ng-show="deleteAccount.modalpwd.$error.pattern">
+                                Password not confirmed, please try again!</span><br>
+                        <button type="submit" class="btn btn-primary" ng-disabled="modalpwd!=info.password">Delete me</button>
                     </form>
+                    <!--<form role="form" name="deleteUserForm" ng-submit="deleteMyAccount()">-->
+                        <!--<div ng-if="info.password" ng-class="{'has-error':pwdMod!=info.password}" class="form-group">-->
+                            <!--<label class="control-label" for="password">Confirm password:</label>-->
+                            <!--<input type="text" name="pwdMod" class="form-control" id="password" ng-model="pwdMod" required ng-pattern="info.password">-->
+                            <!--<br><span class="control-label" ng-show="deleteUserForm.pwdMod.$error.pattern">-->
+                                <!--Password not confirmed, please try again!</span>-->
+                        <!--</div>-->
+                        <!--<button type="submit" class="btn btn-primary" ng-disabled="pwdMod!=info.password">Delete me</button>-->
+                    <!--</form>-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
