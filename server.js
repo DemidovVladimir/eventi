@@ -46,14 +46,7 @@ passport.use(new FacebookStrategy({
 
 
 //
-//app.use(session({
-//    secret: cookie_secret,
-//    name: cookie_name,
-//    store: sessionStore, // connect-mongo session store
-//    proxy: true,
-//    resave: true,
-//    saveUninitialized: true
-//}));
+
 
 
 // view engine setup
@@ -66,7 +59,11 @@ app.use(express.bodyParser());
 app.use(cookieParser());
 app.use(cookieParser());
 app.use(session({
-    secret: 'MEANdevelopment',resave:true
+    secret: 'MEANdevelopment',
+    name: 'meantest',
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
