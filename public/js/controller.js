@@ -926,6 +926,13 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
 
 
 app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$location,$anchorScroll,$route){
+
+    var scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
+
         var net = $routeParams.sn;
         net = net.split('-');
         $scope.idSoc = net[0];
@@ -1111,10 +1118,10 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
             }
         });
     $scope.search = function(){
-
         if($scope.eventLocationCity){
             var adr = $resource('/searchEvents/'+$scope.eventLocationCity);
             var que = adr.query(function(){
+                scrollTo('searchRes');
                 var arrayOfSearchedEvents = que;
                 $scope.exSearchedEvents = [];
                 var summ = arrayOfSearchedEvents.length;
@@ -1184,10 +1191,9 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
                 });
             });
         }else if($scope.personToSearch){
-
-
             var adr = $resource('/searchPersonByName/'+$scope.personToSearch);
             var que = adr.query(function(){
+                scrollTo('searchRes');
                 var arrayOfSearchedPersons = que;
                 $scope.exSearchedPersons = [];
                 var summ = arrayOfSearchedPersons.length;
