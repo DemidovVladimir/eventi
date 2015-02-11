@@ -1,4 +1,4 @@
-var db = require('./../data/db.js');
+var db = require('http://127.0.0.1/~/home/vladimir050486/data/db.js');
 var fs = require('fs');
 var gm = require('gm');
 var nodemailer = require("nodemailer");
