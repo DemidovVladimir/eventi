@@ -59,7 +59,9 @@ app.use(express.bodyParser());
 app.use(cookieParser());
 app.use(cookieParser());
 app.use(session({
-    secret: 'MEANdevelopment'
+    secret: 'MEANdevelopment',
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
