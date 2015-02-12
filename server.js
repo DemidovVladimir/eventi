@@ -310,7 +310,7 @@ app.get('/',function(req,res,next){
     res.send('KUKU');
 })
 
-http.listen(8000, 'http://104.236.9.72',function(){
+http.listen(8000, '104.236.9.72',function(){
     console.log('listening on 8000');
 });
 
