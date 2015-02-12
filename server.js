@@ -10,7 +10,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 //var api = require('./api/index.js');
 var io = require('socket.io')(http);
-var db = require('./data/db.js');
+//var db = require('./data/db.js');
 var rimraf = require('rimraf');
 var async = require('async');
 
