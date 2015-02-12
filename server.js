@@ -9,9 +9,9 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var api = require('./api/index.js');
-//var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 var db = require('./data/db.js');
-//var rimraf = require('rimraf');
+var rimraf = require('rimraf');
 var async = require('async');
 
 
@@ -310,8 +310,8 @@ app.get('/',function(req,res,next){
     res.send('KUKU');
 })
 
-http.listen(8888, 'localhost',function(){
-    console.log('listening on 8888');
+http.listen(8000, 'localhost',function(){
+    console.log('listening on 8000');
 });
 
 
