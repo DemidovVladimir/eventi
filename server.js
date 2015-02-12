@@ -4,15 +4,15 @@ var http = require('http').Server(app);
 var fs = require('fs');
 var path = require('path');
 var favicon = require('static-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var bodyParser = require('body-parser');
+//var logger = require('morgan');
+//var cookieParser = require('cookie-parser');
+//var session = require('express-session');
+//var bodyParser = require('body-parser');
 var api = require('./api/index.js');
-var io = require('socket.io')(http);
+//var io = require('socket.io')(http);
 var db = require('./data/db.js');
-var rimraf = require('rimraf');
-var async = require('async');
+//var rimraf = require('rimraf');
+//var async = require('async');
 
 
 
