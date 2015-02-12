@@ -11,9 +11,6 @@ var path = require('path');
 
 
 exports.setAvaToUser = function(req,res,next){
-
-
-
     var format = req.files.file.type;
     var patt = /image/i;
     var formatCheck = patt.test(format);
