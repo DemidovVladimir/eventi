@@ -26,7 +26,7 @@
       <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1187" column="83" selection-start="46118" selection-end="46118" vertical-scroll-proportion="-5.769231" vertical-offset="17655" max-vertical-offset="28965">
+            <state line="1187" column="83" selection-start="46118" selection-end="46118" vertical-scroll-proportion="0.0" vertical-offset="17655" max-vertical-offset="28965">
               <folding />
             </state>
           </provider>
@@ -44,7 +44,7 @@
       <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="312" column="14" selection-start="9530" selection-end="9530" vertical-scroll-proportion="0.7855974" vertical-offset="4200" max-vertical-offset="5175">
+            <state line="62" column="4" selection-start="1791" selection-end="1791" vertical-scroll-proportion="0.49099836" vertical-offset="630" max-vertical-offset="5115">
               <folding />
             </state>
           </provider>
@@ -62,7 +62,7 @@
       <file leaf-file-name="maintainUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="257" column="27" selection-start="15808" selection-end="15808" vertical-scroll-proportion="-10.583333" vertical-offset="3601" max-vertical-offset="4260">
+            <state line="257" column="27" selection-start="15808" selection-end="15808" vertical-scroll-proportion="0.0" vertical-offset="3601" max-vertical-offset="4260">
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
       <file leaf-file-name="loggedUser.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="22" selection-start="9084" selection-end="9084" vertical-scroll-proportion="-73.125" vertical-offset="1830" max-vertical-offset="13155">
+            <state line="239" column="22" selection-start="9084" selection-end="9084" vertical-scroll-proportion="0.0" vertical-offset="3585" max-vertical-offset="13155">
               <folding />
             </state>
           </provider>
@@ -131,7 +131,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="21" />
-    <option name="y" value="25" />
+    <option name="y" value="23" />
     <option name="width" value="1419" />
     <option name="height" value="790" />
   </component>
@@ -284,7 +284,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="21" y="25" width="1419" height="790" extended-state="0" />
+    <frame x="21" y="23" width="1419" height="790" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -549,37 +549,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/maintainUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="257" column="27" selection-start="15808" selection-end="15808" vertical-scroll-proportion="-10.583333" vertical-offset="3601" max-vertical-offset="4260">
+        <state line="257" column="27" selection-start="15808" selection-end="15808" vertical-scroll-proportion="0.0" vertical-offset="3601" max-vertical-offset="4260">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/parts/loggedUser.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="22" selection-start="9084" selection-end="9084" vertical-scroll-proportion="-73.125" vertical-offset="1830" max-vertical-offset="13155">
+        <state line="239" column="22" selection-start="9084" selection-end="9084" vertical-scroll-proportion="0.0" vertical-offset="3585" max-vertical-offset="13155">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1187" column="83" selection-start="46118" selection-end="46118" vertical-scroll-proportion="-5.769231" vertical-offset="17655" max-vertical-offset="28965">
+        <state line="1187" column="83" selection-start="46118" selection-end="46118" vertical-scroll-proportion="0.0" vertical-offset="17655" max-vertical-offset="28965">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stuff">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="7" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
-          <folding />
-        </state>
+        <state line="7" column="7" selection-start="116" selection-end="116" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mongodb.conf">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1365">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1365" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/index.js">
@@ -591,7 +587,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="312" column="14" selection-start="9530" selection-end="9530" vertical-scroll-proportion="0.7855974" vertical-offset="4200" max-vertical-offset="5175">
+        <state line="62" column="4" selection-start="1791" selection-end="1791" vertical-scroll-proportion="0.49099836" vertical-offset="630" max-vertical-offset="5115">
           <folding />
         </state>
       </provider>

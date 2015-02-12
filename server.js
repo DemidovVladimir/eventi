@@ -59,11 +59,7 @@ app.use(express.bodyParser());
 app.use(cookieParser());
 app.use(cookieParser());
 app.use(session({
-    secret: 'MEANdevelopment',
-    name: 'meantest',
-    proxy: true,
-    resave: true,
-    saveUninitialized: true
+    secret: 'MEANdevelopment'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
@@ -310,7 +306,7 @@ app.get('*',function(req, res) {
 
 
 
-http.listen(80, 'localhost',function(){
+http.listen(8080, 'localhost',function(){
     console.log('listening on 80');
 });
 
