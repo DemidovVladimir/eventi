@@ -9,7 +9,7 @@ var mongoose = require('mongoose').Mongoose;
 var ffmpeg = require('ffmpeg');
 var rimraf = require('rimraf');
 var path = require('path');
-mongoose.connect('mongodb://vladimir050486:sveta230583@128.199.136.218/test');
+mongoose.connect('mongodb://vladimir050486:sveta230583@128.199.136.218:27017/test');
 
 
 exports.setAvaToUser = function(req,res,next){
