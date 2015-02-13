@@ -13,6 +13,7 @@ var io = require('socket.io')(http);
 //var db = require('./data/db.js');
 var rimraf = require('rimraf');
 var async = require('async');
+var mongoose = require('mongoose');
 var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test');
 
 
