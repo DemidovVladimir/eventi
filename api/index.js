@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var ffmpeg = require('ffmpeg');
 var rimraf = require('rimraf');
 var path = require('path');
+mongoose.connection.close();
 mongoose.connect('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test');
 
 
