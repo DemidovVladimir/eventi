@@ -5,12 +5,10 @@ var nodemailer = require("nodemailer");
 var async = require('async');
 var request = require('request');
 //var mongoose = require('mongoose');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose').createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test');
 var ffmpeg = require('ffmpeg');
 var rimraf = require('rimraf');
 var path = require('path');
-mongoose.connection.close();
-mongoose.connect('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test');
 
 
 exports.setAvaToUser = function(req,res,next){
