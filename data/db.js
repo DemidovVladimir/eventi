@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var mongoPath = 'mongodb://localhost/test';
+var mongoPath = 'mongodb://104.236.240.106:27017/test';
 var standardOpt = { server: { poolSize: 10 },user:'vladimir050486',pass:'sveta230583'};
 
 /*create users for collections (user, post, event) for everyone with first level password

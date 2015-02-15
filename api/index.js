@@ -1,15 +1,15 @@
-//var db = require('./../data/db.js');
+var db = require('./../data/db.js');
 var fs = require('fs');
 var gm = require('gm');
 var nodemailer = require("nodemailer");
 var async = require('async');
 var request = require('request');
-//var mongoose = require('mongoose');
 var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var ffmpeg = require('ffmpeg');
 var rimraf = require('rimraf');
 var path = require('path');
-var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
+//var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
 
 
 exports.setAvaToUser = function(req,res,next){
