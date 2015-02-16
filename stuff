@@ -1,0 +1,23 @@
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 10m;
+
+upstream project {
+    server localhost:8080;
+}
+
+server{
+    listen 443 ssl;
+    server_name www.enveti.com;
+    keepalive_timeout 70;
+
+    ssl_certificate 461b1981d955e.crt;
+    ssl_certificate_key enveti.key;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://project;
+        }
+}
+
+
