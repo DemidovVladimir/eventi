@@ -311,7 +311,7 @@ app.get('/',function(req,res,next){
     res.send('KUKU');
 })
 
-http.listen(8080, 'localhost',function(){
+http.listen(8080, '128.199.136.218',function(){
     console.log('listening on 8080');
 });
 
