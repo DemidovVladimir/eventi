@@ -231,7 +231,7 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
         if($scope.name){
             files.forEach(function(item){
                 $scope.upload = $upload.upload({
-                    url: 'http://104.236.9.72:8080/setAva/user',
+                    url: '/setAva/user',
                     data: {
                         user: $scope.name,
                         email: $scope.email
