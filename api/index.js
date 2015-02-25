@@ -954,7 +954,9 @@ exports.getChanges = function(req,res,next){
 }
 exports.insertVideosEvent = function(req,res,next){
     var format = req.files.file.type;
-    console.log(req.files.file);
+    var videoName = format.split('/');
+    videoName = videoName.pop();
+    console.log(videoName);
     var patt = /video/i;
     var formatCheck = patt.test(format);
     if(formatCheck){
