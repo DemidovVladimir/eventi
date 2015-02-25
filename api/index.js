@@ -447,7 +447,7 @@ exports.insertVideosUser = function(req,res,next){
                 try {
                     var process = new ffmpeg(req.files.file.path);
                     process.then(function (video) {
-                        video.setVideoSize('640x480', true, false)
+                        video
                             .setVideoFormat('mp4')
                             .save('public/uploaded/'+userId+'/'+folder+'/'+file, function (error, file) {
                                 db.userDBModel.update({_id:userId},{$push:{videos:obj}},{upsert:true},function(err){
@@ -962,7 +962,7 @@ exports.insertVideosEvent = function(req,res,next){
         try {
             var process = new ffmpeg(req.files.file.path);
             process.then(function (video) {
-                video.setVideoSize('640x480', true, false)
+                video
                 .setVideoFormat('mp4')
                     .save('public/uploaded/'+req.body.userId+'/'+filename, function (error, file) {
                                 db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
