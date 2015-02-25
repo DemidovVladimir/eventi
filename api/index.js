@@ -968,7 +968,7 @@ exports.insertVideosEvent = function(req,res,next){
             w.on('finish', function() {
                 db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:videoName}},{upsert:true},function(err){
                     if(err) return next(err);
-                    res.send(200,filename);
+                    res.send(200,videoName);
                 });
             });
         });
