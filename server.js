@@ -16,7 +16,7 @@ var async = require('async');
 var send = require('send');
 var url = require('url');
 
-var app = http.createServer(function(req, res){
+http.createServer(function(req, res){
     // your custom error-handling logic:
     function error(err) {
         res.statusCode = err.status || 500;
