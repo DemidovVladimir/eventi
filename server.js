@@ -38,7 +38,7 @@ http.createServer(function(req, res){
 
     // transfer arbitrary files from within
     // /www/example.com/public/*
-    send(req, url.parse(req.url).pathname, {root: '/www/example.com/public'})
+    send(req, url.parse(req.url).pathname, {root: './'})
         .on('error', error)
         .on('directory', redirect)
         .on('headers', headers)
