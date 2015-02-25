@@ -963,13 +963,13 @@ exports.insertVideosEvent = function(req,res,next){
         filename = filename.split('/');
         filename = filename.pop();
         var r = fs.createReadStream(req.files.file.path);
-        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+videoName);
+        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
         r.on('end', function() {
             w.on('finish', function() {
-                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:videoName}},{upsert:true},function(err){
-                    if(err) return next(err);
-                    res.send(200,videoName);
-                });
+                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    res.send(200,filename);
+                                });
             });
         });
 //        try {
