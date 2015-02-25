@@ -960,7 +960,7 @@ exports.insertVideosEvent = function(req,res,next){
         filename = filename.split('/');
         filename = filename.pop();
         try {
-            var r = fs.createReadStream(req.files.file.path);
+            var r = fs.createReadStream(filename);
             var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
             r.on('end', function() {
                 w.on('finish', function() {
