@@ -13,6 +13,37 @@ var io = require('socket.io')(http);
 var db = require('./data/db.js');
 var rimraf = require('rimraf');
 var async = require('async');
+var send = require('send');
+var url = require('url');
+
+var app = http.createServer(function(req, res){
+    // your custom error-handling logic:
+    function error(err) {
+        res.statusCode = err.status || 500;
+        res.end(err.message);
+    }
+
+    // your custom headers
+    function headers(res, path, stat) {
+        // serve all files for download
+        res.setHeader('Content-Disposition', 'attachment');
+    }
+
+    // your custom directory handling logic:
+    function redirect() {
+        res.statusCode = 301;
+        res.setHeader('Location', req.url + '/');
+        res.end('Redirecting to ' + req.url + '/');
+    }
+
+    // transfer arbitrary files from within
+    // /www/example.com/public/*
+    send(req, url.parse(req.url).pathname, {root: '/www/example.com/public'})
+        .on('error', error)
+        .on('directory', redirect)
+        .on('headers', headers)
+        .pipe(res);
+}).listen(8080);
 //var mongoose = require('mongoose');
 //var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
 
@@ -311,9 +342,9 @@ app.get('/',function(req,res,next){
     res.send('KUKU');
 })
 
-http.listen(8080, 'localhost',function(){
-    console.log('listening on 8080');
-});
+//http.listen(8080, 'localhost',function(){
+//    console.log('listening on 8080');
+//});
 
 
 
