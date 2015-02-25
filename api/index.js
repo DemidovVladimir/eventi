@@ -954,9 +954,8 @@ exports.getChanges = function(req,res,next){
 }
 exports.insertVideosEvent = function(req,res,next){
     var format = req.files.file.type;
-//    var videoName = format.split('/');
-//    videoName = videoName.pop();
-    console.log(req.files.file);
+    var videoName = req.files.file.path.split('/');
+    videoName = videoName.pop();
     var patt = /video/i;
     var formatCheck = patt.test(format);
     if(formatCheck){
@@ -964,10 +963,13 @@ exports.insertVideosEvent = function(req,res,next){
         filename = filename.split('/');
         filename = filename.pop();
         var r = fs.createReadStream(req.files.file.path);
-        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
+        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+videoName);
         r.on('end', function() {
             w.on('finish', function() {
-                res.send(200,filename);
+                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:videoName}},{upsert:true},function(err){
+                    if(err) return next(err);
+                    res.send(200,filename);
+                });
             });
         });
 //        try {
