@@ -960,15 +960,18 @@ exports.insertVideosEvent = function(req,res,next){
         filename = filename.split('/');
         filename = filename.pop();
         try {
-            var r = fs.createReadStream(filename);
-            var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
-            r.on('end', function() {
-                w.on('finish', function() {
-                    db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
-                        if(err) return next(err);
-                        res.send(200,filename);
-                    });
-                });
+            var process = new ffmpeg(req.files.file.path);
+            process.then(function (video) {
+                video
+                .setVideoFormat('mp4')
+                    .save('public/uploaded/'+req.body.userId+'/'+filename, function (error, file) {
+                                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    res.send(200,filename);
+                                });
+                            });
+            }, function (err) {
+                res.send(200,'error');
             });
         } catch (e) {
             res.send(200,'error');
