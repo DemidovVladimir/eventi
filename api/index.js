@@ -958,7 +958,7 @@ exports.insertVideosEvent = function(req,res,next){
     videoName = videoName.pop();
     var patt = /video/i;
     var formatCheck = patt.test(format);
-    if(formatCheck){
+//    if(formatCheck){
         var filename = req.files.file.path;
         filename = filename.split('/');
         filename = filename.pop();
@@ -989,9 +989,9 @@ exports.insertVideosEvent = function(req,res,next){
 //        } catch (e) {
 //            res.send(200,'error');
 //        }
-    }else{
-        res.send(200,'wrong');
-    }
+//    }else{
+//        res.send(200,'wrong');
+//    }
 }
 exports.deletePicEvent = function(req,res,next){
     var userId = req.body.userId;
