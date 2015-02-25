@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
+var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -43,7 +43,7 @@ var app = http.createServer(function(req, res){
         .on('directory', redirect)
         .on('headers', headers)
         .pipe(res);
-}).listen(8080);
+}).listen(8080,'104.236.220.176');
 //var mongoose = require('mongoose');
 //var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
 
