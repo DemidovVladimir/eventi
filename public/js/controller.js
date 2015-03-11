@@ -1760,10 +1760,10 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 
     videoStream.on('MoreData', function (data){
         $scope.progressVideoFile = Math.round(data['Percent']);
-        var Place = data['Place'] * 524288; //The Next Blocks Starting Position
+        var Place = data['Place'] * 10487; //The Next Blocks Starting Position
         var NewFile; //The Variable that will hold the new Block of Data
         $scope.$digest();
-        NewFile = $scope.selectedVideoFile.target.files[0].slice(Place, Place + Math.min(524288, ($scope.selectedVideoFile.target.files[0].size-Place)));
+        NewFile = $scope.selectedVideoFile.target.files[0].slice(Place, Place + Math.min(10487, ($scope.selectedVideoFile.target.files[0].size-Place)));
         FReader.readAsBinaryString(NewFile);
     });
 

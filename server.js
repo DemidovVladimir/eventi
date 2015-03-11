@@ -140,9 +140,9 @@ maintainLine.on('connection', function(socket){
 var Files = {};
 var videoStream = io.of('/video');
 videoStream.on('connection', function(socket){
-    console.log('connected to video stream');
+//    console.log('connected to video stream');
     socket.on('Start', function (data) { //data contains the variables that we passed through in the html file
-        console.log('start event emmited - ' + data['Name']);
+//        console.log('start event emmited - ' + data['Name']);
         var Name = data['Name'];
         Files[Name] = {  //Create a new Entry in The Files Variable
             FileSize : data['Size'],
@@ -155,7 +155,7 @@ videoStream.on('connection', function(socket){
             if(Stat.isFile())
             {
                 Files[Name]['Downloaded'] = Stat.size;
-                Place = Stat.size / 524288;
+                Place = Stat.size / 10487;
             }
         }
         catch(er){} //It's a New File
@@ -191,14 +191,14 @@ videoStream.on('connection', function(socket){
         else if(Files[Name]['Data'].length > 10485760){ //If the Data Buffer reaches 10MB
             fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
                 Files[Name]['Data'] = ""; //Reset The Buffer
-                var Place = Files[Name]['Downloaded'] / 524288;
+                var Place = Files[Name]['Downloaded'] / 10487;
                 var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
                 videoStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
             });
         }
         else
         {
-            var Place = Files[Name]['Downloaded'] / 524288;
+            var Place = Files[Name]['Downloaded'] / 10487;
             var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
             videoStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
         }
@@ -376,9 +376,9 @@ app.get('*',function(req, res) {
 
 
 
-app.get('/',function(req,res,next){
-    res.send('KUKU');
-})
+//app.get('/',function(req,res,next){
+//    res.send('KUKU');
+//})
 
 
 
