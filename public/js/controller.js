@@ -1725,26 +1725,98 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
         });
     }
 
-    $scope.videoProgress = false;
-    $scope.onVideoSelect = function($files){
-        var files = $files;
-        files.forEach(function(item){
-            $scope.upload = $upload.upload({
-                url: '/insertVideosEvent',
-                data: {userId: $scope.userId,
-                    eventTitle: $scope.title
-                },
-                file: item
-            }).progress(function(evt) {
-                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-                    $scope.progress = progress;
-                    $scope.videoProgress = true;
-                }).success(function(data, status, headers, config) {
-                    $scope.resultVids.push(data);
-                    $scope.videoProgress = false;
-                });
+    var videoStream = io('/video');
+    var FReader;
+    var Name;
+    $scope.selectedVideoFile;
+
+    $('#videoevent').on('change',function (evnt){
+        $scope.$apply(function(){
+            $scope.selectedVideoFile = evnt;
         });
-    };
+    });
+
+
+
+    $scope.pasteVideos = function(){
+        if($scope.selectedVideoFile){
+            $scope.pleaseInfoVideo = null;
+            $scope.progressVideoFile = 1;
+            FReader = new FileReader();
+            Name = $scope.selectedVideoFile.target.files[0].name;
+            FReader.onload = function(evnt){
+                $scope.$apply(function(){
+                    videoStream.emit('Upload', { 'Name' : Name, Data : evnt.target.result });
+                });
+            }
+            videoStream.emit('Start', { 'Name' : Name, 'Size' : $scope.selectedVideoFile.target.files[0].size });
+        }else{
+            $scope.pleaseInfoVideo = 'Please select a video file';
+        }
+    }
+
+
+
+
+    videoStream.on('MoreData', function (data){
+        $scope.progressVideoFile = Math.round(data['Percent']);
+        var Place = data['Place'] * 524288; //The Next Blocks Starting Position
+        var NewFile; //The Variable that will hold the new Block of Data
+        $scope.$digest();
+        NewFile = $scope.selectedVideoFile.target.files[0].slice(Place, Place + Math.min(524288, ($scope.selectedVideoFile.target.files[0].size-Place)));
+        FReader.readAsBinaryString(NewFile);
+    });
+
+
+    videoStream.on('Done', function (data){
+        $scope.progressVideoFile = 100;
+        $scope.$digest();
+//        $scope.content = "Video Successfully Uploaded !!";
+    });
+
+//    function UpdateBar(percent){
+//        document.getElementById('ProgressBar').style.width = percent + '%';
+//        document.getElementById('percent').innerHTML = (Math.round(percent*100)/100) + '%';
+//        var MBDone = Math.round(((percent/100.0) * SelectedFile.size) / 1048576);
+//        document.getElementById('MB').innerHTML = MBDone;
+//    }
+
+
+
+
+
+
+//    $scope.onVideoSelect = function(files){
+////        var files = files;
+//        files.forEach(function(item){
+//            $scope.test = item;
+//            var videoStream = io('/video');
+//            videoStream.emit('videoTo',$scope.userId);
+//            videoStream.on('answer',function(poop){
+//                $scope.vidTest = poop;
+//                $scope.$digest();
+//            });
+//            videoStream.emit('videoTitle',$('#videoevent').val());
+//            videoStream.emit('videoStream',item);
+//
+////            videoStream.emit('connect me',$scope.userId);
+//
+////            $scope.upload = $upload.upload({
+////                url: '/insertVideosEvent',
+////                data: {userId: $scope.userId,
+////                    eventTitle: $scope.title
+////                },
+////                file: item
+////            }).progress(function(evt) {
+////                    var progress = parseInt(100.0 * evt.loaded / evt.total);
+////                    $scope.progress = progress;
+////                    $scope.videoProgress = true;
+////                }).success(function(data, status, headers, config) {
+////                    $scope.resultVids.push(data);
+////                    $scope.videoProgress = false;
+////                });
+//        });
+//    };
     $scope.deleteVideo = function(video,title){
         var adr = $resource('/deleteVideoEvent');
         var que = new adr();

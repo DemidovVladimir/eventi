@@ -38,11 +38,11 @@
 <h3 class="text-center">{{infoEvent[0].title}}</h3>
 
 <form ng-show="userId" role="form" name="createEvent" class="text-center">
-    <div class="form-group">
-        <label class="control-label" for="eventLocationCity">Title of event:</label>
+    <div class="form-group" ng-class="{'has-error': createEvent.title.$invalid}">
+        <label class="control-label" for="title">Title of event:</label>
         <input type="text" name="title" class="form-control" id="title" ng-model="title" required>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': createEvent.eventLocationCity.$invalid}">
         <label class="control-label" for="eventLocationCity">Location of event(city or town title):</label>
         <input type="text" name="eventLocationCity" ng-autocomplete options="{types:'(regions)'}" class="form-control" id="eventLocationCity" ng-model="eventLocationCity" required>
     </div>
@@ -68,9 +68,9 @@
         <label for="phone">Phone number if exists(to contact you for details)</label>
         <input type="text" class="form-control" id="phone" ng-model="phone">
     </div>
-    <div class="form-group">
-        <label for="about">Info about this event</label>
-        <textarea id="about" ng-model="about" name="about" class="form-control" rows="3"></textarea>
+    <div class="form-group" ng-class="{'has-error': createEvent.about.$invalid}">
+        <label class="control-label" for="about">Info about this event:</label>
+        <textarea for="about" ng-model="about" name="about" class="form-control" rows="3" required=""></textarea>
     </div>
     <h4>If you have low quality internet connection, try to use only compressed or low quality pictures, without video uploads.</h4>
     <div ng-show="infoEvent[0].photos.length!=0">

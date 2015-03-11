@@ -13,6 +13,8 @@ var io = require('socket.io')(http);
 var db = require('./data/db.js');
 var rimraf = require('rimraf');
 var async = require('async');
+var exec = require('child_process').exec;
+//var util = require('util');
 //var mongoose = require('mongoose');
 //var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
 
@@ -134,6 +136,73 @@ maintainLine.on('connection', function(socket){
             }
         });
     })
+});
+var Files = {};
+var videoStream = io.of('/video');
+videoStream.on('connection', function(socket){
+    console.log('connected to video stream');
+    socket.on('Start', function (data) { //data contains the variables that we passed through in the html file
+        console.log('start event emmited - ' + data['Name']);
+        var Name = data['Name'];
+        Files[Name] = {  //Create a new Entry in The Files Variable
+            FileSize : data['Size'],
+            Data     : "",
+            Downloaded : 0
+        }
+        var Place = 0;
+        try{
+            var Stat = fs.statSync('Temp/' +  Name);
+            if(Stat.isFile())
+            {
+                Files[Name]['Downloaded'] = Stat.size;
+                Place = Stat.size / 524288;
+            }
+        }
+        catch(er){} //It's a New File
+        fs.open("Temp/" + Name, "a", 0755, function(err, fd){
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                Files[Name]['Handler'] = fd; //We store the file handler so we can write to it later
+                videoStream.emit('MoreData', { 'Place' : Place, 'Percent' : 0 });
+            }
+        });
+    });
+    socket.on('Upload', function (data){
+        var Name = data['Name'];
+        Files[Name]['Downloaded'] += data['Data'].length;
+        Files[Name]['Data'] += data['Data'];
+//        console.log(Files[Name]['Downloaded'] +' - - - - - - '+Files[Name]['FileSize']);
+        if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If File is Fully Uploaded
+        {
+            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
+                var inp = fs.createReadStream("Temp/" + Name);
+                var out = fs.createWriteStream("public/uploaded/" + Name);
+                inp.pipe(out);
+                fs.unlink("Temp/" + Name, function () { //This Deletes The Temporary File
+                    //Moving File Completed
+                    videoStream.emit('Done', {'videoFile':'public/uploaded/'+Name});
+                });
+            });
+        }
+        else if(Files[Name]['Data'].length > 10485760){ //If the Data Buffer reaches 10MB
+            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
+                Files[Name]['Data'] = ""; //Reset The Buffer
+                var Place = Files[Name]['Downloaded'] / 524288;
+                var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
+                videoStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
+            });
+        }
+        else
+        {
+            var Place = Files[Name]['Downloaded'] / 524288;
+            var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
+            videoStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
+        }
+    });
 });
 
 
@@ -276,7 +345,7 @@ app.post('/createEvent',api.createEvent);
 app.post('/insertPicturesEvent',api.insertPicturesEvent);
 app.post('/deletePicEvent',api.deletePicEvent);
 app.post('/deleteVideoEvent',api.deleteVideoEvent);
-app.post('/insertVideosEvent',api.insertVideosEvent);
+app.post('/insertVideosEvent',api.insertVideosEvent(io));
 app.get('/addMeToEvent/:userId/:eventTitle',api.addMeToEvent);
 app.get('/deleteMeFromEvent/:userId/:eventId',api.deleteMeFromEvent);
 app.get('/infoEvent/:eventId',api.infoEvent);
@@ -311,9 +380,7 @@ app.get('/',function(req,res,next){
     res.send('KUKU');
 })
 
-http.listen(8080, '104.236.220.176',function(){
-    console.log('listening on 8080');
-});
+
 
 
 
@@ -339,3 +406,7 @@ function errorHandler(err, req, res, next) {
     res.status(500);
     res.render('error', { error: err });
 }
+
+http.listen(8080, 'localhost',function(){
+    console.log('listening on 8080');
+});

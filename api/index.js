@@ -10,7 +10,6 @@ var ffmpeg = require('ffmpeg');
 var rimraf = require('rimraf');
 var path = require('path');
 
-//var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
 
 
 exports.setAvaToUser = function(req,res,next){
@@ -952,47 +951,61 @@ exports.getChanges = function(req,res,next){
         res.send(200,data);
     })
 }
-exports.insertVideosEvent = function(req,res,next){
-    var format = req.files.file.type;
-    var videoName = req.files.file.path.split('/');
-    videoName = videoName.pop();
-    var patt = /video/i;
-    var formatCheck = patt.test(format);
-//    if(formatCheck){
-        var filename = req.files.file.path;
-        filename = filename.split('/');
-        filename = filename.pop();
-        var r = fs.createReadStream(req.files.file.path);
-        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
-        r.on('end', function() {
-            w.on('finish', function() {
-                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
-                                    if(err) return next(err);
-                                    res.send(200,filename);
-                                });
-            });
-        });
-//        try {
-//            var process = new ffmpeg(req.files.file.path);
-//            process.then(function (video) {
-//                video
-//                .setVideoFormat('mp4')
-//                    .save('public/uploaded/'+req.body.userId+'/'+filename, function (error, file) {
+
+
+exports.insertVideosEvent = function(io){
+    return function(req,res,next){
+
+
+
+//        var filename = req.files.file.path;
+//        filename = filename.split('/');
+//        filename = filename.pop();
+//
+//
+//        var format = req.files.file.type;
+//        var patt = /video/i;
+//        var formatCheck = patt.test(format);
+////    if(formatCheck){
+//        var r = fs.createReadStream(req.files.file.path);
+//        var w = fs.createWriteStream('public/uploaded/'+req.body.userId+'/'+filename);
+//        r.on('end', function() {
+//            w.on('finish', function() {
+//                try {
+//                    var process = new ffmpeg(req.files.file.path);
+//                    process.then(function (video) {
+//                        video
+////                            .setVideoFormat('mp4')
+//                            .save('public/uploaded/'+req.body.userId+'/'+filename, function (error, file) {
 //                                db.eventsDBModel.update({owner:req.body.userId,title:req.body.eventTitle},{$push:{videos:filename}},{upsert:true},function(err){
 //                                    if(err) return next(err);
 //                                    res.send(200,filename);
 //                                });
 //                            });
-//            }, function (err) {
-//                res.send(200,'error');
+//                    }, function (err) {
+//                        res.send(200,'error');
+//                    });
+//                } catch (e) {
+//                    res.send(200,'error');
+//                }
 //            });
-//        } catch (e) {
-//            res.send(200,'error');
-//        }
+//        });
+
+
+
+
+
+
+
+
+
 //    }else{
 //        res.send(200,'wrong');
 //    }
+    }
 }
+
+
 exports.deletePicEvent = function(req,res,next){
     var userId = req.body.userId;
     var pic = req.body.picture;

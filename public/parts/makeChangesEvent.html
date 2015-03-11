@@ -132,8 +132,40 @@
     </div>
     <div ng-show="title" class="form-group">
         <label for=video">Paste video to this event</label>
-        <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="video"/>
+        <input type="file" id="videoevent" class="form-control"/>
     </div>
+
+    {{selectedVideoFile.name}}
+
+    <div ng-show="progressVideoFile && progressVideoFile!=100">
+        <div class="row clear-both text-center">
+            <h3>Loading:</h3>
+        </div>
+        <div class="text-center"><i class="fa fa-gear fa-5x fa-spin"></i><br>
+            <h3>In progress, compressing video file into proper dimensions and format! Please wait!</h3>
+        </div>
+        <div class="row">
+            <div class="progress col-sm-6 col-sm-offset-3">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{progressVideoFile}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progressVideoFile}}%;">
+                    {{progressVideoFile}}%
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="pleaseInfoVideo">
+        <div class="alert alert-danger">{{pleaseInfoVideo}}</div>
+    </div>
+
+    <div ng-show="title" class="form-group">
+        <button type="button" class="btn btn-success" ng-click="pasteVideos()">Paste video</button>
+    </div>
+
+
+
+
+
+
+
     <div masonry>
         <div ng-show="resultVids.indexOf('wrong')==-1" data-ng-repeat="video in resultVids" class="col-sm-6 col-md-4 masonry-brick">
             <custom-video-event></custom-video-event>
