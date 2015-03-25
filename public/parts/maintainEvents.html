@@ -72,8 +72,12 @@
     <!--objImpMap.marker.id-->
 
 
-
-
+<div data-ng-repeat="map in maps">
+    <ui-gmap-google-map center="map.center" zoom="4" draggable="true" >
+        <ui-gmap-markers model="map.marker" coords="'coords'" idkey="id">
+        </ui-gmap-markers>
+    </ui-gmap-google-map>
+</div>
 
 
 
@@ -85,10 +89,7 @@
 
 
 
-            <ui-gmap-google-map center="event.coords[0]" zoom="4" draggable="true" >
-                <ui-gmap-marker coords="event.coords[0]" idkey="event._id">
-                </ui-gmap-marker>
-            </ui-gmap-google-map>
+
 
 
 
