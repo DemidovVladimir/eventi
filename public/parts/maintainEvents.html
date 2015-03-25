@@ -68,12 +68,6 @@
 <hr>
 {{maps}}
 <hr>
-<div data-ng-repeat="map in maps">
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" >
-        <ui-gmap-markers models='map.marker' coords="map.marker.coords" options="optionsForMarkers" idkey="marker.id">
-        </ui-gmap-markers>
-    </ui-gmap-google-map>
-</div>
 
     <!--objImpMap.marker.id-->
 
@@ -83,31 +77,31 @@
 
 
 
-<!--<h2 class="text-center">Your events:</h2>-->
-<!--<div id="MainMenu">-->
-    <!--<div class="list-group panel">-->
-        <!--<div data-ng-repeat="event in info">-->
+<h2 class="text-center">Your events:</h2>
+<div id="MainMenu">
+    <div class="list-group panel">
+        <div data-ng-repeat="event in info">
 
 
 
 
-            <!--&lt;!&ndash;<ui-gmap-google-map center="event.coords[0]" zoom="4" draggable="true" >&ndash;&gt;-->
-                <!--&lt;!&ndash;<ui-gmap-markers models='event' coords="coords[0]" idkey="event._id">&ndash;&gt;-->
-                <!--&lt;!&ndash;</ui-gmap-markers>&ndash;&gt;-->
-            <!--&lt;!&ndash;</ui-gmap-google-map>&ndash;&gt;-->
+            <ui-gmap-google-map center="event.coords[0]" zoom="4" draggable="true" >
+                <ui-gmap-marker coords="event.coords[0]" idkey="event._id">
+                </ui-gmap-marker>
+            </ui-gmap-google-map>
 
 
 
+            {{event}}
+
+
+            <!--{{event.coords}}-->
+            <!--<hr>-->
+            <!--{{event._id}}-->
+            <!--<hr>-->
             <!--{{event}}-->
-
-
-            <!--&lt;!&ndash;{{event.coords}}&ndash;&gt;-->
-            <!--&lt;!&ndash;<hr>&ndash;&gt;-->
-            <!--&lt;!&ndash;{{event._id}}&ndash;&gt;-->
-            <!--&lt;!&ndash;<hr>&ndash;&gt;-->
-            <!--&lt;!&ndash;{{event}}&ndash;&gt;-->
-            <!--&lt;!&ndash;<hr>&ndash;&gt;-->
-            <!--&lt;!&ndash;{{info.indexOf(event)}}&ndash;&gt;-->
+            <!--<hr>-->
+            <!--{{info.indexOf(event)}}-->
 
 
 
@@ -130,75 +124,75 @@
 
 
 
-            <!--<a data-target="#{{event._id}}" ng-click="mapOrderSet(event)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">-->
-                <!--<span class="badge">{{event.party.length}}</span>-->
-                <!--{{event.title}}-->
-                <!--<span class="caret"></span>-->
-            <!--</a>-->
-            <!--<div class="collapse" id="{{event._id}}">-->
-                <!--<div class="text-center deleteButtonEvent">-->
-                    <!--<button type="button" class="btn btn-danger" ng-click="deleteEvent(event.title)">Delete this event</button>-->
-                <!--</div>-->
-                <!--<div class="text-center makeChangesEventButton">-->
-                    <!--<a class="btn btn-warning" ng-href="/makeChangesEvent{{event._id}}">Make some changes</a>-->
-                <!--</div>-->
-                <!--<h4 class="text-center alert alert-info">Destination: {{event.destination}}-->
-                <!--</h4>-->
-                <!--<pre class="text-center">About this event: {{event.about}}</pre>-->
-                <!--<get-real-date></get-real-date>-->
-                <!--<h4 class="text-center">Videos:</h4>-->
-                <!--<div class="row col-sm-12 col-md-12">-->
-                    <!--<div data-ng-repeat="video in event.videos track by $index" class="col-sm-6 col-md-4">-->
-                        <!--<custom-video-event>-->
-                        <!--</custom-video-event>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <a data-target="#{{event._id}}" ng-click="mapOrderSet(event)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">
+                <span class="badge">{{event.party.length}}</span>
+                {{event.title}}
+                <span class="caret"></span>
+            </a>
+            <div class="collapse" id="{{event._id}}">
+                <div class="text-center deleteButtonEvent">
+                    <button type="button" class="btn btn-danger" ng-click="deleteEvent(event.title)">Delete this event</button>
+                </div>
+                <div class="text-center makeChangesEventButton">
+                    <a class="btn btn-warning" ng-href="/makeChangesEvent{{event._id}}">Make some changes</a>
+                </div>
+                <h4 class="text-center alert alert-info">Destination: {{event.destination}}
+                </h4>
+                <pre class="text-center">About this event: {{event.about}}</pre>
+                <get-real-date></get-real-date>
+                <h4 class="text-center">Videos:</h4>
+                <div class="row col-sm-12 col-md-12">
+                    <div data-ng-repeat="video in event.videos track by $index" class="col-sm-6 col-md-4">
+                        <custom-video-event>
+                        </custom-video-event>
+                    </div>
+                </div>
 
-                <!--<h4 class="text-center">Photos:</h4>-->
-                <!--<div class="row col-sm-12">-->
-                    <!--<div data-ng-repeat="pic in event.photos track by $index" class="col-sm-6 col-md-4">-->
-                        <!--<div class="thumbnail">-->
-                            <!--<a href="uploaded/{{userId}}/{{pic}}" data-lightbox="{{pic}}" target="_blank">-->
-                                <!--<img ng-src="uploaded/{{userId}}/mini{{pic}}" alt="">-->
-                            <!--</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <h4 class="text-center">Photos:</h4>
+                <div class="row col-sm-12">
+                    <div data-ng-repeat="pic in event.photos track by $index" class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <a href="uploaded/{{userId}}/{{pic}}" data-lightbox="{{pic}}" target="_blank">
+                                <img ng-src="uploaded/{{userId}}/mini{{pic}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-                <!--<h4 class="text-center">Participants:</h4>-->
-                <!--<div class="text-center">-->
-                    <!--<button type="button" ng-click="toggleParticipants()" class="btn btn-warning">-->
-                        <!--Click to show/hide participants-->
-                        <!--<b class="caret"></b>-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<div class="row col-sm-12">-->
-                    <!--<div data-ng-repeat="user in event.party track by $index" class="col-sm-6 col-md-4">-->
-                        <!--<get-user-info></get-user-info>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <h4 class="text-center">Participants:</h4>
+                <div class="text-center">
+                    <button type="button" ng-click="toggleParticipants()" class="btn btn-warning">
+                        Click to show/hide participants
+                        <b class="caret"></b>
+                    </button>
+                </div>
+                <div class="row col-sm-12">
+                    <div data-ng-repeat="user in event.party track by $index" class="col-sm-6 col-md-4">
+                        <get-user-info></get-user-info>
+                    </div>
+                </div>
 
 
-                <!--<button name="refreshMap" class="form-control col-md-12 btn btn-success" ng-click="openMap()">Show/hide map</button>-->
-                <!--<div class="row" ng-if="info.indexOf(event)==mapOrder">-->
-                    <!--<h4 class="text-center">You can watch address details by clicking on marker...</h4>-->
-                    <!--<ui-gmap-google-map class="col-md-12"-->
-                                        <!--center="map.center"-->
-                                        <!--zoom="mapOptions.zoom"-->
-                                        <!--options="mapOptions.options"-->
-                                        <!--dragging="map.dragging"-->
-                                        <!--control="mapOptions.control"-->
-                                        <!--ng-cloak-->
-                            <!-->-->
-                        <!--<ui-gmap-marker coords="map.marker" idkey="map.marker.id" >-->
-                            <!--<ui-gmap-window isIconVisibleOnClick="true">-->
-                                <!--<p ng-cloak>{{event.addressInCity}}</p>-->
-                            <!--</ui-gmap-window>-->
-                        <!--</ui-gmap-marker>-->
-                    <!--</ui-gmap-google-map>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+                <button name="refreshMap" class="form-control col-md-12 btn btn-success" ng-click="openMap()">Show/hide map</button>
+                <div class="row" ng-if="info.indexOf(event)==mapOrder">
+                    <h4 class="text-center">You can watch address details by clicking on marker...</h4>
+                    <ui-gmap-google-map class="col-md-12"
+                                        center="map.center"
+                                        zoom="mapOptions.zoom"
+                                        options="mapOptions.options"
+                                        dragging="map.dragging"
+                                        control="mapOptions.control"
+                                        ng-cloak
+                            >
+                        <ui-gmap-marker coords="map.marker" idkey="map.marker.id" >
+                            <ui-gmap-window isIconVisibleOnClick="true">
+                                <p ng-cloak>{{event.addressInCity}}</p>
+                            </ui-gmap-window>
+                        </ui-gmap-marker>
+                    </ui-gmap-google-map>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
