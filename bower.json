@@ -20,6 +20,8 @@
     "font-awesome": "latest",
     "jqueryui": "~1.11.2",
     "uninstall": "*",
-    "angular-strap": "~2.1.4"
+    "angular-strap": "~2.1.4",
+    "angular-bootstrap": "~0.12.1",
+    "angular-ui-date": "~0.0.7"
   }
 }

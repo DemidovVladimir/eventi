@@ -1073,9 +1073,9 @@ exports.deleteMyEvent = function(req,res,next){
             function(callback){
                 if(data[0].photos.length!=0){
                     data[0].photos.forEach(function(pic){
-                        fs.unlink('public/uploaded/'+userId+'/mini'+pic,function(err){
+                        fs.unlink('public/uploaded/'+userId+'/event/'+title+'/mini'+pic,function(err){
                             if(err) return next(err);
-                            fs.unlink('public/uploaded/'+userId+'/'+pic,function(err){
+                            fs.unlink('public/uploaded/'+userId+'/event/'+title+'/'+pic,function(err){
                                 if(err) return next(err);
                                 callback(null, 'one');
                             })
@@ -1088,7 +1088,7 @@ exports.deleteMyEvent = function(req,res,next){
             function(callback){
                 if(data[0].videos.length!=0){
                     data[0].videos.forEach(function(video){
-                        fs.unlink('public/uploaded/'+userId+'/'+video,function(err){
+                        fs.unlink('public/uploaded/'+userId+'/event/'+title+'/'+video,function(err){
                             if(err) return next(err);
                             callback(null, 'two');
                         })

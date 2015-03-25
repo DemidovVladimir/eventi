@@ -1,7 +1,6 @@
-var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','ngAnimate','youtube-embed','uiGmapgoogle-maps','ngAutocomplete','wu.masonry','mgcrea.ngStrap']);
+var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','ngAnimate','youtube-embed','uiGmapgoogle-maps','ngAutocomplete','wu.masonry','mgcrea.ngStrap','ui.unique','ui.bootstrap','ui.date']);
 
-
-
+//ng-app="enveti"
     app.config(function($routeProvider,$locationProvider)
     {
         $locationProvider.html5Mode(true);
@@ -58,6 +57,18 @@ var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','n
 
 
 
-
+app.filter('myObjectFilter', function () {
+    return function (items, search) {
+        var result = [];
+        angular.forEach(items, function (value, key) {
+            if(value.folder == search){
+                result.push(value);
+            }else if(!search && search==null){
+                result.push(value);
+            }
+        });
+        return result;
+    }
+});
 
 

@@ -64,10 +64,70 @@
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
+{{maps}}
 
+<div data-ng-repeat="map in maps">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" >
+        <ui-gmap-markers models='map.marker' coords="map.marker.coords" options="optionsForMarkers" idkey="marker.id">
+        </ui-gmap-markers>
+    </ui-gmap-google-map>
+</div>
+
+    <!--objImpMap.marker.id-->
+
+
+
+
+
+
+
+<h2 class="text-center">Your events:</h2>
 <div id="MainMenu">
     <div class="list-group panel">
         <div data-ng-repeat="event in info">
+
+
+
+
+            <!--<ui-gmap-google-map center="event.coords[0]" zoom="4" draggable="true" >-->
+                <!--<ui-gmap-markers models='event' coords="coords[0]" idkey="event._id">-->
+                <!--</ui-gmap-markers>-->
+            <!--</ui-gmap-google-map>-->
+
+
+
+            {{event}}
+
+
+            <!--{{event.coords}}-->
+            <!--<hr>-->
+            <!--{{event._id}}-->
+            <!--<hr>-->
+            <!--{{event}}-->
+            <!--<hr>-->
+            <!--{{info.indexOf(event)}}-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <a data-target="#{{event._id}}" ng-click="mapOrderSet(event)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">
                 <span class="badge">{{event.party.length}}</span>
                 {{event.title}}
@@ -117,14 +177,10 @@
                 </div>
 
 
-                <h4 class="text-center">Map details:</h4>
-                <div class="row map" ng-if="info.indexOf(event)==mapOrder">
-                    <label for="refreshMap">
-                        You can refresh the map if it is still not loaded clearly.
-                        Click on the marker to find the proper address.
-                    </label>
-                    <button name="refreshMap" class="col-md-2 btn btn-success" ng-click="mapOptions.refresh()">Refresh Map</button>
-                    <ui-gmap-google-map class="col-md-6"
+                <button name="refreshMap" class="form-control col-md-12 btn btn-success" ng-click="openMap()">Show/hide map</button>
+                <div class="row" ng-if="info.indexOf(event)==mapOrder">
+                    <h4 class="text-center">You can watch address details by clicking on marker...</h4>
+                    <ui-gmap-google-map class="col-md-12"
                                         center="map.center"
                                         zoom="mapOptions.zoom"
                                         options="mapOptions.options"

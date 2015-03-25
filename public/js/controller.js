@@ -84,6 +84,11 @@ app.controller('registerUser',function($scope,$resource,$compile,$upload,$window
     $scope.languagesPlaceholder = 'Languages goes here!';
     $scope.advance = 'false';
 
+    $scope.dateOptions = {
+        changeYear: true,
+        changeMonth: true,
+        yearRange: '1900:-0'
+    };
 
     $scope.checkEmailFormat = function(){
             $scope.emailError = false;
@@ -766,8 +771,20 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
         });
     }
 
+//    var yearNow = new Date();
+//    yearNow = yearNow.getFullYear();
+//    var yearFuture = parseInt(yearNow.getFullYear())+1;
+//
+//    var d = new Date();
+//    var n = d.getFullYear();
 
 
+    $scope.dateOptions = {
+        changeYear: true,
+        changeMonth: true,
+        minDate: 0,
+        maxDate: "+1Y"
+    };
 
 
     $scope.today = new Date();
@@ -918,7 +935,7 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
         que.about = $scope.about;
         que.addressInCity = $scope.addressInCity;
         que.$save(function(){
-            $route.reload();
+            $window.location.href = '/maintainEvents';
         });
     }
 });
@@ -1586,9 +1603,48 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
     $scope.userName = session.name;
     $scope.userId = session.id;
     $scope.eventId = $routeParams.eventId;
+    var getMsgs = $resource('/getMsgs/'+$scope.userId);
+    var queMsgs = getMsgs.query(function(){
+        $scope.countMsgs = queMsgs.length;
+    });
     var adr = $resource('/infoEvent/'+$scope.eventId);
     var que = adr.query(function(){
         $scope.infoEvent = que;
+
+        $scope.dateOptions = {
+            changeYear: true,
+            changeMonth: true,
+            minDate: 0,
+            maxDate: "+1Y"
+        };
+
+        $scope.folders = [];
+        $scope.foldersToSelect = [];
+        $scope.infoEvent[0].photos.forEach(function(item){
+            $scope.folders.push(item);
+            $scope.foldersToSelect.push(item.folder);
+        });
+        $scope.infoEvent[0].videos.forEach(function(item){
+            $scope.folders.push(item);
+            $scope.foldersToSelect.push(item.folder);
+        });
+        $scope.infoEvent[0].audio.forEach(function(item){
+            $scope.folders.push(item);
+            $scope.foldersToSelect.push(item.folder);
+        });
+        if(!$scope.currentFolder && $scope.infoEvent[0].photos.length!=0){
+            $scope.photosAvailable = true;
+        }else{
+            $scope.photosAvailable = false;
+        }
+        if(!$scope.currentFolder && $scope.infoEvent[0].videos.length!=0){
+            $scope.videosAvailable = true;
+        }else{
+            $scope.videosAvailable = false;
+        }
+
+
+
         //Started variables neccessary for update
         $scope.title = $scope.infoEvent[0].title;
         $scope.eventLocationCity = $scope.infoEvent[0].destination;
@@ -1683,96 +1739,159 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 
 
     $scope.signOut = function(){
-        $window.localStorage.clear('session')
+        $window.localStorage.clear('session');
         $window.location.href = '/';
     }
-    $scope.resultPics = [];
-    $scope.resultVids = [];
-    $scope.pictureProgress = false;
-    $scope.onPicSelect = function($files){
-        var miss = $scope.resultPics.indexOf('wrong format');
-        if(miss!='-1') $scope.resultPics.splice(miss,1);
-        var files = $files;
-        files.forEach(function(item){
-            $scope.upload = $upload.upload({
-                url: '/insertPicturesEvent',
-                data: {userId: $scope.userId,
-                    eventTitle: $scope.title
-                },
-                file: item
-            }).progress(function(evt) {
-                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-                    $scope.progress = progress;
-                    $scope.pictureProgress = true;
 
-                }).success(function(data, status, headers, config) {
-                    $scope.resultPics.push(data);
-                    $scope.pictureProgress = false;
-                });
-        });
-    };
-    $scope.deletedPics = [];
-    $scope.deletePic = function(pic,title){
-        $scope.deletedPics.push(pic);
-        var adr = $resource('/deletePicEvent');
-        var que = new adr();
-        que.userId = $scope.userId;
-        que.picture = pic;
-        que.title = title;
-        que.$save(function(){
-            var oop = $scope.resultPics.indexOf(pic);
-            $scope.resultPics.splice(oop,1);
-        });
-    }
 
-    var videoStream = io('/video');
+
+
+
+//    $scope.resultPics = [];
+//    $scope.resultVids = [];
+//    $scope.pictureProgress = false;
+//    $scope.onPicSelect = function($files){
+//        var miss = $scope.resultPics.indexOf('wrong format');
+//        if(miss!='-1') $scope.resultPics.splice(miss,1);
+//        var files = $files;
+//        files.forEach(function(item){
+//            $scope.upload = $upload.upload({
+//                url: '/insertPicturesEvent',
+//                data: {userId: $scope.userId,
+//                    eventTitle: $scope.title
+//                },
+//                file: item
+//            }).progress(function(evt) {
+//                    var progress = parseInt(100.0 * evt.loaded / evt.total);
+//                    $scope.progress = progress;
+//                    $scope.pictureProgress = true;
+//
+//                }).success(function(data, status, headers, config) {
+//                    $scope.resultPics.push(data);
+//                    $scope.pictureProgress = false;
+//                });
+//        });
+//    };
+//    $scope.deletedPics = [];
+//    $scope.deletePic = function(pic,title){
+//        $scope.deletedPics.push(pic);
+//        var adr = $resource('/deletePicEvent');
+//        var que = new adr();
+//        que.userId = $scope.userId;
+//        que.picture = pic;
+//        que.title = title;
+//        que.$save(function(){
+//            var oop = $scope.resultPics.indexOf(pic);
+//            $scope.resultPics.splice(oop,1);
+//        });
+//    }
+
+
+
+
+
+    var fileStream = io('/fileTransfer');
     var FReader;
     var Name;
-    $scope.selectedVideoFile;
+    $scope.selectedFile;
 
-    $('#videoevent').on('change',function (evnt){
+    $('.filesInput').on('change',function (evnt){
         $scope.$apply(function(){
-            $scope.selectedVideoFile = evnt;
+            $scope.selectedFile = evnt;
         });
     });
 
 
 
-    $scope.pasteVideos = function(){
-        if($scope.selectedVideoFile){
-            $scope.pleaseInfoVideo = null;
-            $scope.progressVideoFile = 1;
+    $scope.pasteFiles = function(){
+        if($scope.selectedFile){
+            $scope.pleaseInfo = null;
+            $scope.progressFile = 1;
             FReader = new FileReader();
-            Name = $scope.selectedVideoFile.target.files[0].name;
+            Name = $scope.selectedFile.target.files[0].name;
             FReader.onload = function(evnt){
                 $scope.$apply(function(){
-                    videoStream.emit('Upload', { 'Name' : Name, Data : evnt.target.result });
+                    fileStream.emit('Upload', {
+                        'Name' : Name,
+                        'UserId' : $scope.userId,
+                        'toType' : 'event',
+                        additionalAttrs:{title : $scope.title},
+                        'Type' : $scope.selectedFile.target.files[0].type,
+                        'Data' : evnt.target.result
+                    });
                 });
             }
-            videoStream.emit('Start', { 'Name' : Name, 'Size' : $scope.selectedVideoFile.target.files[0].size });
+            fileStream.emit('Start', {
+                'Name' : Name,
+                'Folder' : $scope.folder,
+                'UserId' :$scope.userId,
+                'toType' : 'event',
+                additionalAttrs:{title : $scope.title},
+                'Size' : $scope.selectedFile.target.files[0].size,
+                'Type' : $scope.selectedFile.target.files[0].type
+            });
         }else{
-            $scope.pleaseInfoVideo = 'Please select a video file';
+            $scope.pleaseInfo = 'Please select a file';
         }
     }
 
 
+//"photos":[{"folder":"first","title":"car4.jpg"}
 
-
-    videoStream.on('MoreData', function (data){
-        $scope.progressVideoFile = Math.round(data['Percent']);
+    fileStream.on('MoreData', function (data){
+        $scope.progressFile = Math.round(data['Percent']);
         var Place = data['Place'] * 10487; //The Next Blocks Starting Position
         var NewFile; //The Variable that will hold the new Block of Data
         $scope.$digest();
-        NewFile = $scope.selectedVideoFile.target.files[0].slice(Place, Place + Math.min(10487, ($scope.selectedVideoFile.target.files[0].size-Place)));
+        NewFile = $scope.selectedFile.target.files[0].slice(Place, Place + Math.min(10487, ($scope.selectedFile.target.files[0].size-Place)));
         FReader.readAsBinaryString(NewFile);
     });
 
 
-    videoStream.on('Done', function (data){
-        $scope.progressVideoFile = 100;
-        $scope.$digest();
-//        $scope.content = "Video Successfully Uploaded !!";
+    fileStream.on('Done', function (data){
+        $scope.progressFile = 100;
+        $route.reload();
+//        $scope.$digest();
     });
+
+    fileStream.on('wrongFormat',function(data){
+        $scope.pleaseInfo = data.answer;
+        $scope.progressFile = null;
+        $scope.$digest();
+    });
+
+
+
+
+    $scope.setCurrentFolder = function(folder){
+        $scope.currentFolder = {};
+        $scope.currentFolder.folder = folder;
+        $scope.infoEvent[0].photos.forEach(function(item){
+            if(item.folder == folder){
+                $scope.photosAvailable = true;
+            }
+        });
+        $scope.infoEvent[0].videos.forEach(function(item){
+            if(item.folder == folder){
+                $scope.videosAvailable = true;
+            }
+        });
+        $scope.$digest();
+    }
+
+    $scope.unsetCurrentFolder = function(){
+        $scope.currentFolder = null;
+        if($scope.infoEvent[0].photos.length!=0){
+            $scope.photosAvailable = true;
+        }else{
+            $scope.photosAvailable = false;
+        }
+        if($scope.infoEvent[0].videos.length!=0){
+            $scope.videosAvailable = true;
+        }else{
+            $scope.videosAvailable = false;
+        }
+    }
 
 //    function UpdateBar(percent){
 //        document.getElementById('ProgressBar').style.width = percent + '%';
@@ -1817,17 +1936,26 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 ////                });
 //        });
 //    };
-    $scope.deleteVideo = function(video,title){
-        var adr = $resource('/deleteVideoEvent');
-        var que = new adr();
-        que.userId = $scope.userId;
-        que.video = video;
-        que.title = title;
-        que.$save(function(){
-            var oop = $scope.resultVids.indexOf(video);
-            $scope.resultVids.splice(oop,1);
-        });
-    }
+
+
+
+
+
+
+//    $scope.deleteVideo = function(video,title){
+//        var adr = $resource('/deleteVideoEvent');
+//        var que = new adr();
+//        que.userId = $scope.userId;
+//        que.video = video;
+//        que.title = title;
+//        que.$save(function(){
+//            var oop = $scope.resultVids.indexOf(video);
+//            $scope.resultVids.splice(oop,1);
+//        });
+//    }
+
+
+
     $scope.submit = function(){
         var adr = $resource('/createEvent');
         var que = new adr();
@@ -1849,7 +1977,7 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
     }
 });
 
-app.controller('maintainEvents',function($scope,$resource,$window,$route,uiGmapGoogleMapApi,uiGmapIsReady){
+app.controller('maintainEvents',function($scope,$resource,$window,$route){
     var session = JSON.parse($window.localStorage.getItem('session'));
     $scope.userName = session.name;
     $scope.userId = session.id;
@@ -1863,46 +1991,98 @@ app.controller('maintainEvents',function($scope,$resource,$window,$route,uiGmapG
     var que = adr.query(function(){
         $scope.info = que;
 
-        $scope.open = function(id){
-            $('#'+id).collapse();
-            $scope.map.refresh();
-        }
+
+        $scope.maps = [];
+        $scope.info.forEach(function(item){
+            var objImpMap = {};
+            objImpMap.center = item.coords[0];
+            objImpMap.zoom = 4;
+            objImpMap.marker = {};
+            objImpMap.marker.id = $scope.info.indexOf(item);
+            objImpMap.marker.coords = item.coords[0];
+            $scope.maps.push(objImpMap);
+        });
+        $scope.optionsForMap = {scrollwheel: false};
+        $scope.optionsForMarkers = {draggable:true};
+
+
+
+
+
+
+
+
+//        $scope.markers = [{
+//            id: 0,
+//            coords: {
+//                latitude: 40.1451,
+//                longitude: -99.6680
+//            },
+//            options: { draggable: true },
+//        }];
+//        $scope.markers2 = [{
+//            id: 1,
+//            coords: {
+//                latitude: 42,
+//                longitude: -109
+//            }
+//        }];
+
+
+
+//        $scope.open = function(id){
+//            $('#'+id).collapse();
+//            $scope.map.refresh();
+//        }
 
         });
 //
 //
 
-    $scope.mapOrderSet = function(event){
-        $scope.mapOrder = $scope.info.indexOf(event);
-        $scope.map = undefined;
-        $scope.map = {
-            center: { latitude: event.coords[0].latitude+1, longitude: event.coords[0].longitude-2}, zoom: 8,
-            marker:{id:$scope.mapOrder,latitude:event.coords[0].latitude, longitude: event.coords[0].longitude}
-        }
-    }
-
-
-    $scope.mapOptions = {
-        control: {},
-        zoom: 7,
-        options: {
-            draggable:true,
-            disableDefaultUI: true,
-                panControl: true,
-                navigationControl: true,
-//                scrollwheel: false,
-                scaleControl: true
-        },
-        refresh: function () {
-            $scope.mapOptions.control.refresh();
-        }}
-
-
-
-    uiGmapGoogleMapApi.then(function(maps) {
-        maps.visualRefresh = true;
-        $scope.mapOptions.refresh();
-    });
+//    $scope.markers = [1,2,3,4,5];
+//
+//
+//    $scope.markers = [{
+//        options: { draggable: true },
+//    }];
+//
+//    $scope.mapOrderSet = function(event){
+//        $scope.mapOrder = $scope.info.indexOf(event);
+//        $scope.map = undefined;
+//        $scope.map = {
+//            center: { latitude: event.coords[0].latitude+1, longitude: event.coords[0].longitude-2}, zoom: 8,
+//            marker:{id:$scope.mapOrder,latitude:event.coords[0].latitude, longitude: event.coords[0].longitude}
+//        }
+//        $scope.map.control.refresh();
+//    }
+//
+////
+////
+//    $scope.openMap = function(){
+//        $scope.mapOptions.refresh();
+//    }
+//
+//    $scope.mapOptions = {
+//        control: {},
+//        zoom: 7,
+//        options: {
+//            draggable:true,
+//            disableDefaultUI: true,
+//                panControl: true,
+//                navigationControl: true,
+////                scrollwheel: false,
+//                scaleControl: true
+//        },
+//        refresh: function () {
+//            $scope.mapOptions.control.refresh();
+//        }}
+//
+//
+//
+//    uiGmapGoogleMapApi.then(function(maps) {
+//        maps.visualRefresh = true;
+//        $scope.mapOptions.refresh();
+//    });
 
     $scope.deleteEvent = function(title){
         var adr = $resource('/deleteEvent/'+$scope.userId+'/'+title);
@@ -1926,6 +2106,10 @@ app.controller('maintainEvents',function($scope,$resource,$window,$route,uiGmapG
             return false;
     };
 });
+
+
+
+
 app.controller('myMessages',function($scope,$resource,$routeParams,$route,$window){
     var session = JSON.parse($window.localStorage.getItem('session'));
     $scope.userName = session.name;

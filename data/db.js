@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var mongoPath = 'mongodb://104.236.240.106:27017/test';
+var mongoPath = 'mongodb://localhost:27017/test';
 var standardOpt = { server: { poolSize: 10 },user:'vladimir050486',pass:'sveta230583'};
 
 /*create users for collections (user, post, event) for everyone with first level password
@@ -78,6 +78,7 @@ var eventsDB = new mongoose.Schema({
     party: [],//[who have entered this event]
     photos: [],//{name: who took, photo: url}
     videos: [],//{name: who took, video: url}
+    audio: [],//{name: who took, video: url}
 //    complaints: [],//{name: who created, msg: body}
 //    comments: [],//{name: who commented, msg: body, date: when was created}
     destination: String,//Destination of event for search engine

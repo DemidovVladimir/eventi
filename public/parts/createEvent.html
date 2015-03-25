@@ -54,12 +54,19 @@
             </ui-gmap-window>
         </ui-gmap-marker>
     </ui-gmap-google-map>
+
+
+
     <div class="form-group" ng-class="{'has-error': createEvent.executionDate.$invalid}">
         <label class="control-label"><i class="fa fa-calendar"></i>Execution date:</label>
-        <input type="text" class="form-control" ng-model="executionDate" data-date-format="yyyy-MM-dd" data-min-date="today" data-max-date="{{expirationMonth}}/{{expirationDay}}/{{expirationYear}}" data-autoclose="1" name="executionDate" placeholder="Required!" bs-datepicker required>
+        <input class="form-control" ng-model="executionDate" ui-date="dateOptions" name="executionDate" required>
         <span class="control-label" ng-show="createEvent.executionDate.$invalid && !createEvent.executionDate.$error.required">
         Invalid date format, select from dropdown list!</span>
     </div>
+
+
+
+
     <div class="form-group">
         <label for="addressInCity">Address in the city.</label>
         <textarea id="addressInCity" ng-model="addressInCity" name="addressInCity" class="form-control" placeholder="Not required!" rows="3"></textarea>

@@ -141,8 +141,6 @@
 
 
 
-
-
     <div ng-class="{'has-error':!secondName}" class="form-group">
         <label class="control-label" for="exampleInputSecondName">Family Name</label>
         <input name="secondName" type="text" class="form-control" id="exampleInputSecondName" placeholder="Required!" ng-model="secondName" required>
@@ -155,7 +153,7 @@
 
     <div class="form-group" ng-class="{'has-error': registerForm.date.$invalid}">
         <label class="control-label"><i class="fa fa-calendar"></i>Date of Birth for congrats, etc...</label>
-        <input type="text" class="form-control" ng-model="dateOfBirth" data-date-format="yyyy-MM-dd" data-min-date="01/01/60" data-max-date="today" data-autoclose="1" name="date" placeholder="Required!" bs-datepicker required>
+        <input class="form-control" ng-model="dateOfBirth" ui-date="dateOptions" name="dateOfBirth" required>
         <br><span class="control-label" ng-show="registerForm.date.$error.required">
         Required!</span>
         <span class="control-label" ng-show="registerForm.date.$invalid && !registerForm.date.$error.required">

@@ -404,39 +404,6 @@ app.directive('videosUser',function($resource,$routeParams,$sce){
 
 
 
-app.directive('customVideoEvent',function($resource,$routeParams,$sce){
-    return{
-        restrict:'E',
-        link:function(scope,element,attrs){
-
-            scope.videoSafe = $sce.trustAsResourceUrl('/uploaded/'+scope.userId+'/'+scope.video);
-                element.masonry({
-                    itemSelector : '.masonry-brick',
-                    columnwidth: 300,
-                    gutter: 20,
-                    isFitWidth: true,
-                    isAnimated: !Modernizr.csstransitions
-                });
-            /*if(video[0].videoLink.length!=1){
-             video[0].videoLink.forEach(function(item){
-             var trusted = $sce.trustAsResourceUrl(item);
-             scope.videoLinks.push(trusted);
-             });
-             }else{
-             var trusted = $sce.trustAsResourceUrl(video[0].videoLink);
-             scope.videoLinks.push(trusted);
-             }*/
-
-
-
-
-
-
-        },
-        templateUrl:'parts/customVideo.html'
-    }
-});
-
 app.directive('customVideoEventWatch',function($resource,$routeParams,$sce){
     return{
         restrict:'E',
@@ -562,6 +529,96 @@ app.directive('getUserInfo',function($resource,$routeParams,$sce){
         templateUrl:'parts/userInfo.html'
     }
 });
+
+
+
+
+
+app.directive('masonryGalleryImages',function(){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+            element.imagesLoaded( function() {
+                element.masonry({
+                    itemSelector : '.masonry-brick',
+                    columnwidth: 300,
+                    gutter: 20,
+                    isFitWidth: true,
+                    isAnimated: !Modernizr.csstransitions
+                });
+            });
+        },
+        templateUrl:'parts/masonryGallery.html'
+    }
+});
+
+app.directive('masonryGalleryVideos',function(){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+            element.imagesLoaded( function() {
+                element.masonry({
+                    itemSelector : '.masonry-brick',
+                    columnwidth: 300,
+                    gutter: 20,
+                    isFitWidth: true,
+                    isAnimated: !Modernizr.csstransitions
+                });
+            });
+        },
+        templateUrl:'parts/customVideo.html'
+    }
+});
+
+app.directive('makeSaveLink',function($sce){
+    return{
+        restrict:'A',
+        link:function(scope,element,attrs){
+            scope.videoSafe = $sce.trustAsResourceUrl('uploaded/'+scope.infoEvent[0].owner+'/event/'+scope.infoEvent[0].title+'/'+scope.video.title);
+        }
+    }
+});
+
+//app.directive('autocompletefolders', function() {
+//    return {
+//        restrict: 'A',
+//        transclude: true,
+//        //scope: {},
+//        link:function(scope,element,attrs){
+//            $(element).autocomplete({
+//                source: scope.arrayFolders
+//            });
+//        }
+//    };
+//})
+
+
+//return {
+//    restrict: 'A',
+//    transclude: true,
+//    //scope: {},
+//    link:function(scope,element,attrs){
+//        element.autocomplete({
+//            source: scope[attrs.items],
+//            select: function() {
+//                $timeout(function() {
+//                    element.trigger('input');
+//                    scope.$emit('inputLanguage');
+//                }, 0);
+//            },
+//            close: function() {
+//                $timeout(function() {
+//                    scope.$emit('clearInputLanguage');
+//                }, 0);
+//            }
+//        });
+//    }
+//};
+
+
+
+
+//ng-clear-src
 
 
 //app.directive('onReadFile', function ($parse) {

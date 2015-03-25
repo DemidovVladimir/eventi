@@ -14,6 +14,8 @@ var db = require('./data/db.js');
 var rimraf = require('rimraf');
 var async = require('async');
 var exec = require('child_process').exec;
+var gm = require('gm');
+var ffmpeg = require('ffmpeg');
 //var util = require('util');
 //var mongoose = require('mongoose');
 //var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
@@ -138,54 +140,190 @@ maintainLine.on('connection', function(socket){
     })
 });
 var Files = {};
-var videoStream = io.of('/video');
-videoStream.on('connection', function(socket){
-//    console.log('connected to video stream');
+var fileStream = io.of('/fileTransfer');
+fileStream.on('connection', function(socket){
     socket.on('Start', function (data) { //data contains the variables that we passed through in the html file
-//        console.log('start event emmited - ' + data['Name']);
+        var Type = data.Type;
+        var userId = data.UserId;
         var Name = data['Name'];
-        Files[Name] = {  //Create a new Entry in The Files Variable
-            FileSize : data['Size'],
-            Data     : "",
-            Downloaded : 0
-        }
-        var Place = 0;
-        try{
-            var Stat = fs.statSync('Temp/' +  Name);
-            if(Stat.isFile())
-            {
-                Files[Name]['Downloaded'] = Stat.size;
-                Place = Stat.size / 10487;
+        var toType = data.toType;
+        var additionalAttrs = data.additionalAttrs;
+        var folder;
+        var pattVideo = new RegExp("video");
+        var pattImage = new RegExp("image");
+        var pattMusic = new RegExp("audio");
+        var typeVideo;
+        var typeImage;
+        var typeMusic;
+        async.series([
+            function(callback){
+                if(data.Folder){
+                    folder = data.Folder;
+                    callback(null, 'folder deal up');
+                }else{
+                    folder = 'default';
+                    callback(null, 'folder deal up');
+                }
+            },
+            function(callback){
+                typeVideo = pattVideo.test(Type);
+                typeImage = pattImage.test(Type);
+                typeMusic = pattMusic.test(Type);
+                callback(null, 'apply to variables');
             }
-        }
-        catch(er){} //It's a New File
-        fs.open("Temp/" + Name, "a", 0755, function(err, fd){
-            if(err)
-            {
-                console.log(err);
-            }
-            else
-            {
-                Files[Name]['Handler'] = fd; //We store the file handler so we can write to it later
-                videoStream.emit('MoreData', { 'Place' : Place, 'Percent' : 0 });
-            }
-        });
+        ],
+            function(err, results){
+                if(!typeImage && !typeVideo && !typeMusic){
+                    fileStream.emit('wrongFormat',{'answer' : 'Try to use proper video, audio or image file type.'});
+                }else{
+                    async.series([
+                        function(callback){
+                            if(typeImage){
+                                var objFile = {};
+                                objFile.title = Name;
+                                objFile.folder = folder;
+                                db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{photos:objFile}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    callback(null, 'images');
+                                });
+                            }else{
+                                callback(null, 'images');
+                            }
+                        },
+                        function(callback){
+                            if(typeVideo){
+                                var objFile = {};
+                                var titleFormat = Name.split('.').pop();
+                                var titleName = Name.split(titleFormat)[0];
+                                objFile.title = titleName+'mp4';
+                                objFile.folder = folder;
+                                db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{videos:objFile}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    callback(null, 'videos');
+                                });
+                            }else{
+                                callback(null, 'videos');
+                            }
+                        },
+                        function(callback){
+                            if(typeMusic){
+                                var objFile = {};
+                                objFile.title = Name;
+                                objFile.folder = folder;
+                                db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{audio:objFile}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    callback(null, 'audio');
+                                });
+                            }else{
+                                callback(null, 'audio');
+                            }
+                        },
+                        function(callback){
+                            fs.mkdir('public/uploaded/'+userId+'/'+toType,function(){
+                                callback(null, 'mkdir');
+                            });
+                        },
+                        function(callback){
+                            fs.mkdir('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title,function(){
+                                callback(null, 'mkdir');
+                            });
+                        }
+                    ],
+                        function(err, results){
+                            Files[Name] = {  //Create a new Entry in The Files Variable
+                                FileSize : data['Size'],
+                                Data     : "",
+                                Downloaded : 0
+                            }
+                            var Place = 0;
+                            try{
+                                var Stat = fs.statSync('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
+                                if(Stat.isFile())
+                                {
+                                    Files[Name]['Downloaded'] = Stat.size;
+                                    Place = Stat.size / 10487;
+                                }
+                            }
+                            catch(er){} //It's a New File
+                            fs.open('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name, "a", 0755, function(err, fd){
+                                if(err)
+                                {
+                                    console.log(err);
+                                }
+                                else
+                                {
+                                    Files[Name]['Handler'] = fd; //We store the file handler so we can write to it later
+                                    fileStream.emit('MoreData', { 'Place' : Place, 'Percent' : 1 });
+                                }
+                            });
+                        });
+                }
+            });
     });
     socket.on('Upload', function (data){
         var Name = data['Name'];
+        var userId = data.UserId;
+        var Type = data.Type;
+        var toType = data.toType;
+        var additionalAttrs = data.additionalAttrs;
+
+        var pattVideo = new RegExp("video");
+        var pattImage = new RegExp("image");
+        var pattMusic = new RegExp("audio");
+        var typeVideo = pattVideo.test(Type);
+        var typeImage = pattImage.test(Type);
+        var typeMusic = pattMusic.test(Type);
+
         Files[Name]['Downloaded'] += data['Data'].length;
         Files[Name]['Data'] += data['Data'];
-//        console.log(Files[Name]['Downloaded'] +' - - - - - - '+Files[Name]['FileSize']);
         if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If File is Fully Uploaded
         {
             fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
-                var inp = fs.createReadStream("Temp/" + Name);
-                var out = fs.createWriteStream("public/uploaded/" + Name);
-                inp.pipe(out);
-                fs.unlink("Temp/" + Name, function () { //This Deletes The Temporary File
-                    //Moving File Completed
-                    videoStream.emit('Done', {'videoFile':'public/uploaded/'+Name});
-                });
+                async.series([
+                    function(callback){
+                        if(typeImage){
+                            var r = fs.createReadStream('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
+                            var w =  fs.createWriteStream('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/mini_'+Name);
+                            gm(r).resize(300)
+                                .stream(function (err, stdout, stderr) {
+                                    stdout.pipe(w);
+                                    if(err){
+                                        console.log(err);
+                                    }else{
+                                        callback(null, 'images');
+                                    }
+                            });
+                        }else{
+                            callback(null, 'images');
+                        }
+                    },
+                    function(callback){
+                        if(typeVideo){
+                            var format = Name.split('.').pop();
+                            var newTitle = Name.split('.'+format)[0];
+                            try {
+                                var process = new ffmpeg('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
+                                process.then(function (video) {
+                                    video
+                                        .setVideoFormat('mp4')
+                                        .save('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+newTitle+'.mp4', function (error, file) {
+                                            fs.unlinkSync('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
+                                            callback(null, 'videos');
+                                        });
+                                }, function (err) {
+                                    console.log(err);
+                                });
+                            } catch (e) {
+                                console.log(e);
+                            }
+                        }else{
+                            callback(null, 'videos');
+                        }
+                    }
+                ],
+                    function(err, results){
+                        fileStream.emit('Done', 'ready');
+                    });
             });
         }
         else if(Files[Name]['Data'].length > 10485760){ //If the Data Buffer reaches 10MB
@@ -193,14 +331,14 @@ videoStream.on('connection', function(socket){
                 Files[Name]['Data'] = ""; //Reset The Buffer
                 var Place = Files[Name]['Downloaded'] / 10487;
                 var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
-                videoStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
+                fileStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
             });
         }
         else
         {
             var Place = Files[Name]['Downloaded'] / 10487;
             var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
-            videoStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
+            fileStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
         }
     });
 });
@@ -407,6 +545,6 @@ function errorHandler(err, req, res, next) {
     res.render('error', { error: err });
 }
 
-http.listen(8080, '104.236.220.176',function(){
+http.listen(8080, 'localhost',function(){
     console.log('listening on 8080');
 });

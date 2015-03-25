@@ -1,10 +1,12 @@
-<div class="thumbnail">
-    <div>
-        <video class="text-center" width="320" height="240" controls>
-            <source src="{{videoSafe}}" type="video/mp4">
-            <source src="{{videoSafe}}" type="video/ogg">
-            Ваш браузер не поддерживает данный видео формат.
-        </video>
+<div masonry load-images="true">
+    <div class="masonry-brick col-sm-6 col-md-4" data-ng-repeat="video in infoEvent[0].videos | myObjectFilter:currentFolder.folder track by $id(video)">
+        <div class="thumbnail">
+            <video class="text-center" width="320" height="240" controls>
+                <source make-save-link src="{{videoSafe}}" type="video/mp4">
+                <source make-save-link src="{{videoSafe}}" type="video/ogg">
+                Ваш браузер не поддерживает данный видео формат.
+            </video>
+        </div>
     </div>
 </div>
 
