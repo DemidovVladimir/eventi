@@ -1,0 +1,16 @@
+<!--Output pictures-->
+<div ng-show="photosAvailable==true" class="container-fluid">
+    <div class="row">
+        <h4 class="text-center">Photos:</h4>
+        <div masonry preserve-order>
+            <div class="masonry-brick col-sm-4 col-md-3" data-ng-repeat="pic in infoEvent[0].photos | myObjectFilter:currentFolder.folder track by $id(pic)">
+                <a href="uploaded/{{infoEvent[0].owner}}/event/{{infoEvent[0].title}}/{{pic.title}}" data-lightbox="{{infoEvent[0].title}}" target="_blank">
+                    <img class="thumbnail img-responsive" ng-src="uploaded/{{infoEvent[0].owner}}/event/{{infoEvent[0].title}}/mini_{{pic.title}}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+        <!--<div class="text-center">-->
+        <!--<button ng-click="deletePic(pic,infoEvent[0].title)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>-->
+        <!--</div>-->
+</div>
