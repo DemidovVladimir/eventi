@@ -1,8 +1,9 @@
 var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','ngAnimate','youtube-embed','uiGmapgoogle-maps','ngAutocomplete','wu.masonry','mgcrea.ngStrap','ui.unique','ui.bootstrap','ui.date']);
 
 //ng-app="enveti"
-    app.config(function($routeProvider,$locationProvider)
+    app.config(function($routeProvider,$locationProvider,$compileProvider)
     {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype):/);
         $locationProvider.html5Mode(true);
         // Register routes with the $routeProvider
         $routeProvider

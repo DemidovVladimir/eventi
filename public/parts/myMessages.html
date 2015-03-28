@@ -50,8 +50,8 @@
 <!-- end:navbar -->
 
 <!--Chat start-->
-<div>
-    Messages:
+<div class="messagesCont">
+    <h5>Messages:</h5>
     <ul>
         <li ng-if="newMsgs.length!=0" data-ng-repeat="message in newMsgs">
             <div>
@@ -83,3 +83,63 @@
     </form>
 </div>
 <!--Chat end-->
+
+
+
+<!-- begin:footer -->
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="widget">
+                    <h3>Support</h3>
+                    <ul class="list-unstyled">
+                        <li><span class="fa fa-skype"></span> Skype :  <span><a ng-href="skype:{{mySkype}}?chat">{{mySkype}}</a></span></li>
+                        <li><span class="fa fa-envelope-o"></span> Email : <span><a href="mailto:{{myEmail}}">{{myEmail}}</a></span></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- break -->
+            <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-3">
+                <div class="widget">
+                    <h2>Enveti</h2>
+                    <address>
+                        {{myAddress}}
+                    </address>
+                </div>
+            </div>
+            <!-- break -->
+        </div>
+        <!-- break -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- begin:copyright -->
+        <div class="row">
+            <div class="col-md-12 copyright">
+                <p>Copyright &copy; 2014 UncoJet Ltd, All Right Reserved.</p>
+                <a  ng-click="scrollTo('top')" class="btn btn-warning scroltop"><i class="fa fa-angle-up"></i></a>
+                <ul class="list-inline social-links">
+                    <li><a href="https://vk.com/public70183674" class="icon-twitter" rel="tooltip" title="" data-placement="bottom" data-original-title="VK"><i class="fa fa-vk"></i></a></li>
+                    <li><a href="#" class="icon-facebook" rel="tooltip" title="" data-placement="bottom" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" class="icon-gplus" rel="tooltip" title="" data-placement="bottom" data-original-title="Gplus"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- end:copyright -->
+
+    </div>
+</div>
+<!-- end:footer -->

@@ -1977,7 +1977,7 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
     }
 });
 
-app.controller('maintainEvents',function($scope,$resource,$window,$route){
+app.controller('maintainEvents',function($scope,$resource,$window,$route, $location, $anchorScroll){
     var session = JSON.parse($window.localStorage.getItem('session'));
     $scope.userName = session.name;
     $scope.userId = session.id;
@@ -1991,53 +1991,22 @@ app.controller('maintainEvents',function($scope,$resource,$window,$route){
     var que = adr.query(function(){
         $scope.info = que;
 
-
-        $scope.maps = [];
-        $scope.info.forEach(function(item){
-            var objImpMap = {};
-            objImpMap.center = item.coords[0];
-            objImpMap.zoom = 4;
-            objImpMap.marker = {};
-            objImpMap.marker.id = $scope.info.indexOf(item);
-            objImpMap.marker.coords = item.coords[0];
-            $scope.maps.push(objImpMap);
         });
-        $scope.optionsForMap = {scrollwheel: false};
-        $scope.optionsForMarkers = {draggable:true};
+
+    $scope.optionsForMap = {scrollwheel: true};
+
+    $scope.optionsMarker = { draggable: true };
 
 
 
 
+    $scope.scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
 
 
-
-
-//        $scope.markers = [{
-//            id: 0,
-//            coords: {
-//                latitude: 40.1451,
-//                longitude: -99.6680
-//            },
-//            options: { draggable: true },
-//        }];
-//        $scope.markers2 = [{
-//            id: 1,
-//            coords: {
-//                latitude: 42,
-//                longitude: -109
-//            }
-//        }];
-
-
-
-//        $scope.open = function(id){
-//            $('#'+id).collapse();
-//            $scope.map.refresh();
-//        }
-
-        });
-//
-//
 
 //    $scope.markers = [1,2,3,4,5];
 //
@@ -2110,7 +2079,13 @@ app.controller('maintainEvents',function($scope,$resource,$window,$route){
 
 
 
-app.controller('myMessages',function($scope,$resource,$routeParams,$route,$window){
+app.controller('myMessages',function($scope,$resource,$routeParams,$route,$window, $location, $anchorScroll){
+    $scope.scrollTo = function(id) {
+        $location.hash(id);
+        $anchorScroll();
+        $location.hash('');
+    }
+
     var session = JSON.parse($window.localStorage.getItem('session'));
     $scope.userName = session.name;
     $scope.userId = session.id;
@@ -2179,4 +2154,10 @@ app.controller('myMessages',function($scope,$resource,$routeParams,$route,$windo
             socket.disconnect();
         });
     //Chat deal up
+});
+
+app.controller('mainTotal',function($scope){
+    $scope.myAddress = 'Marawila, North Western Province, Sri Lanka';
+    $scope.myEmail = 'meandevelopmentstudio@gmail.com';
+    $scope.mySkype = 'vladimir050486';
 });

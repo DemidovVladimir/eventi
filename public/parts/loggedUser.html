@@ -818,8 +818,8 @@
                 <div class="widget">
                     <h3>Support</h3>
                     <ul class="list-unstyled">
-                        <li><span class="fa fa-skype"></span> Skype : vladimir050486</li>
-                        <li><span class="fa fa-envelope-o"></span> Email : meandevelopmentstudio@gmail.com</li>
+                        <li><span class="fa fa-skype"></span> Skype :  <span><a ng-href="skype:{{mySkype}}?chat">{{mySkype}}</a></span></li>
+                        <li><span class="fa fa-envelope-o"></span> Email : <span><a href="mailto:{{myEmail}}">{{myEmail}}</a></span></li>
                     </ul>
                 </div>
             </div>
@@ -828,9 +828,7 @@
                 <div class="widget">
                     <h2>Enveti</h2>
                     <address>
-                        <strong>Saigon Vietnam</strong><br>
-                        Chao Van Be 1/26<br>
-                        <br>
+                        {{myAddress}}
                     </address>
                 </div>
             </div>
