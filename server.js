@@ -182,10 +182,17 @@ fileStream.on('connection', function(socket){
                                 var objFile = {};
                                 objFile.title = Name;
                                 objFile.folder = folder;
-                                db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{photos:objFile}},{upsert:true},function(err){
-                                    if(err) return next(err);
-                                    callback(null, 'images');
-                                });
+                                if(toType=='user'){
+                                    db.userDBModel.update({_id:userId},{$push:{photos:objFile}},{upsert:true},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'images');
+                                    });
+                                }else{
+                                    db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{photos:objFile}},{upsert:true},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'images');
+                                    });
+                                }
                             }else{
                                 callback(null, 'images');
                             }
@@ -197,10 +204,17 @@ fileStream.on('connection', function(socket){
                                 var titleName = Name.split(titleFormat)[0];
                                 objFile.title = titleName+'mp4';
                                 objFile.folder = folder;
-                                db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{videos:objFile}},{upsert:true},function(err){
-                                    if(err) return next(err);
-                                    callback(null, 'videos');
-                                });
+                                if(toType=='user'){
+                                    db.userDBModel.update({_id:userId},{$push:{videos:objFile}},{upsert:true},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'videos');
+                                    });
+                                }else{
+                                    db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{videos:objFile}},{upsert:true},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'videos');
+                                    });
+                                }
                             }else{
                                 callback(null, 'videos');
                             }
@@ -210,10 +224,17 @@ fileStream.on('connection', function(socket){
                                 var objFile = {};
                                 objFile.title = Name;
                                 objFile.folder = folder;
-                                db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{audio:objFile}},{upsert:true},function(err){
-                                    if(err) return next(err);
-                                    callback(null, 'audio');
-                                });
+                                if(toType=='user'){
+                                    db.userDBModel.update({_id:userId},{$push:{audio:objFile}},{upsert:true},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'audio');
+                                    });
+                                }else{
+                                    db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{audio:objFile}},{upsert:true},function(err){
+                                        if(err) return next(err);
+                                        callback(null, 'audio');
+                                    });
+                                }
                             }else{
                                 callback(null, 'audio');
                             }
@@ -303,17 +324,18 @@ fileStream.on('connection', function(socket){
                             var newTitle = Name.split('.'+format)[0];
                             try {
                                 var process = new ffmpeg('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
-                                process.then(function (video) {
+                                process.then(function(video) {
                                     video
                                         .setVideoFormat('mp4')
                                         .save('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+newTitle+'.mp4', function (error, file) {
                                             fs.unlinkSync('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
+//Try to change to './'
                                             callback(null, 'videos');
                                         });
-                                }, function (err) {
+                                },function (err) {
                                     console.log(err);
                                 });
-                            } catch (e) {
+                            }catch(e){
                                 console.log(e);
                             }
                         }else{
@@ -545,6 +567,6 @@ function errorHandler(err, req, res, next) {
     res.render('error', { error: err });
 }
 
-http.listen(8080, '104.236.220.176',function(){
+http.listen(8080, 'localhost',function(){
     console.log('listening on 8080');
 });

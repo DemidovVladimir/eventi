@@ -1,5 +1,5 @@
 <!--Output pictures-->
-<div ng-show="photosAvailable==true" class="container-fluid">
+<div ng-if="infoEvent && photosAvailable==true" class="container-fluid">
     <div class="row">
         <h4 class="text-center">Photos:</h4>
         <div masonry preserve-order>
@@ -13,4 +13,21 @@
         <!--<div class="text-center">-->
         <!--<button ng-click="deletePic(pic,infoEvent[0].title)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>-->
         <!--</div>-->
+</div>
+
+<!--Output pictures-->
+<div ng-if="dataUser && photosAvailable==true" class="container-fluid">
+    <div class="row">
+        <h4 class="text-center">Photos:</h4>
+        <div masonry preserve-order>
+            <div class="masonry-brick col-sm-4 col-md-3" data-ng-repeat="pic in dataUser.photos | myObjectFilter:currentFolder.folder track by $id(pic)">
+                <a href="uploaded/{{dataUser._id}}/user/{{pic.folder}}/{{pic.title}}" data-lightbox="{{pic.title}}" target="_blank">
+                    <img class="thumbnail img-responsive" ng-src="uploaded/{{dataUser._id}}/user/{{pic.folder}}/mini_{{pic.title}}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--<div class="text-center">-->
+    <!--<button ng-click="deletePic(pic,infoEvent[0].title)" type="button" class="btn btn-warning btn-sm">Delete this picture!</button>-->
+    <!--</div>-->
 </div>

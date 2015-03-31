@@ -574,7 +574,11 @@ app.directive('makeSaveLink',function($sce){
     return{
         restrict:'A',
         link:function(scope,element,attrs){
-            scope.videoSafe = $sce.trustAsResourceUrl('uploaded/'+scope.infoEvent[0].owner+'/event/'+scope.infoEvent[0].title+'/'+scope.video.title);
+            if(scope.dataUser){
+                scope.videoSafe = $sce.trustAsResourceUrl('uploaded/'+scope.dataUser._id+'/user/'+scope.video.folder+'/'+scope.video.title);
+            }else{
+                scope.videoSafe = $sce.trustAsResourceUrl('uploaded/'+scope.infoEvent[0].owner+'/event/'+scope.infoEvent[0].title+'/'+scope.video.title);
+            }
         }
     }
 });

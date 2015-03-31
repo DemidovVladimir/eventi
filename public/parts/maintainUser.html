@@ -136,100 +136,83 @@
             <label for="exampleInputAbout">Additional information about yourself</label>
             <textarea id="exampleInputAbout" ng-model="about" class="form-control" placeholder="{{about}}" rows="3"></textarea>
         </div>
-        <h2>Adding or deleting pictures</h2>
-        <div class="form-group">
-            <label for="exampleInputFolderPhoto">Paste pictures to the folder(png, jpeg, bmp, gif file format only)</label>
-            <input type="text" class="form-control" id="exampleInputFolderPhoto" ng-model="currentPicFolder"/>
-        </div>
-        <h4 ng-show="resFolders.length!=0" class="text-center">Or choose from created...</h4>
-        <div class="alert alert-danger" ng-show="resultInputPicture=='wrong'">
-            <h4>Last file was not uploaded to server. Because of wrong picture format!</h4>
-        </div>
-        <div class="alert alert-danger" ng-show="resultInputPicture=='error'">
-            <h4>Last file was not uploaded to server. Because server problems! Try to upload again.</h4>
-        </div>
-        <ul class="list-group">
-            <div data-ng-repeat="folder in resFolders">
-                <li class="list-group-item">
-                    <span class="badge">Photoes: {{folder.summ}}</span>
-                    <a ng-click="selectFolder(folder.folder)"> {{folder.folder}}
-                        <span ng-show="folderPics[0]._id==folder.folder && !isEven(firstPicFolderSelect)"><i class="fa fa-caret-up"></i></span>
-                        <span ng-show="isEven(firstPicFolderSelect)" class="caret"></span>
-                        <span ng-show="folderPics[0]._id!=folder.folder && !isEven(firstPicFolderSelect)" class="caret"></span>
-                    </a>
-                </li>
-                <div ng-show="folderPics[0]._id==folder.folder && !isEven(firstPicFolderSelect)" class="row">
-                    <div data-ng-repeat="pic in folderPics[0].photos" class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <a href="/uploaded/{{info._id}}/{{folderPics[0]._id}}/{{pic}}" data-lightbox="{{folder.folder}}" data-title="{{folder.folder}}">
-                                <img ng-src="/uploaded/{{info._id}}/{{folderPics[0]._id}}/mini_{{pic}}" alt="mini_{{pic}}">
-                            </a>
-                            <div class="caption">
-                                <p><button type="button" ng-click="deletePic(pic,folder.folder)" class="btn btn-sm btn-danger">Удалить</button></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+        <h4>If you have low quality internet connection, try to use only compressed or low quality pictures, without video uploads.</h4>
+        {{dataUser}}
+        <!--Output pictures-->
+        <div class="container-fluid">
+            <div class="row">
+                <ul class="nav nav-tabs nav-justified">
+                    <li ng-class="{'active': currentFolder==null}">
+                        <a ng-click="unsetCurrentFolder()">
+                            All
+                        </a>
+                    </li>
+                    <li ng-class="{'active': item.folder==currentFolder.folder}" data-ng-repeat="item in folders  | unique:'folder' track by $id(item)">
+                        <a ng-click="setCurrentFolder(item.folder)">
+                            {{item.folder}}
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </ul>
-        <h5>Please wait until the end of upload. Progress bar 100% label. Otherwise files wont be uploaded!</h5>
-        <div ng-show="progress && picsProcess">
+        </div>
+
+
+        <h2 ng-show="currentFolder.folder!=null">Current folder is: {{currentFolder.folder}}</h2>
+        <masonry-gallery-images></masonry-gallery-images>
+
+        <div ng-show="videosAvailable==true">
+            <h4 class="text-center">Videos:</h4>
+            <div class="row col-sm-12 col-md-12">
+                <masonry-gallery-videos></masonry-gallery-videos>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="folder">Put files into folder:</label>
+            <input type="text"  typeahead="state for state in foldersToSelect | filter:$viewValue | unique:'foldersToSelect' | limitTo:8"  class="form-control" id="folder" ng-model="folder">
+        </div>
+        <div class="form-group">
+            <label for="fileInput">Paste video,audio and image to this event</label>
+            <input type="file" name="fileInput" class="filesInput form-control"/>
+        </div>
+
+
+
+
+
+        <div ng-show="progressFile && progressFile!=100">
             <div class="row clear-both text-center">
                 <h3>Loading:</h3>
             </div>
+            <div class="text-center"><i class="fa fa-gear fa-5x fa-spin"></i><br>
+                <h3>In progress, compressing video file into proper dimensions and format! Please wait!</h3>
+            </div>
             <div class="row">
-                <div ng-show="picsProcess==true"><i class="fa fa-cog fa-5x fa-spin"></i></div>
                 <div class="progress col-sm-6 col-sm-offset-3">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
-                        {{progress}}%
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progressFile}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progressFile}}%;">
+                        {{progressFile}}%
                     </div>
                 </div>
             </div>
         </div>
+        <div ng-show="pleaseInfo">
+            <div class="alert alert-danger">{{pleaseInfo}}</div>
+        </div>
         <div class="form-group">
-            <input type="file" ng-file-select="onPicSelect($files)" class="form-control" id="inputPic"/>
+            <button type="button" class="btn btn-success" ng-click="pasteFiles()">Paste files</button>
         </div>
-        <h2>Adding or deleting video</h2>
-        <div class="form-group">
-            <label for="exampleInputFolderVideo">Paste video to the folder</label>
-            <input type="text" class="form-control" id="exampleInputFolderVideo" placeholder="{{currentVideoFolder}}" ng-model="currentVideoFolder"/>
-        </div>
-        <h4 ng-show="resFoldersVideo.length!=0" class="text-center">Or choose from created...</h4>
-        <div class="alert alert-danger" ng-show="resultInputVideo=='wrong'">
-            <h4>Last file was not uploaded to server. Because of wrong picture format!</h4>
-        </div>
-        <div class="alert alert-danger" ng-show="resultInputVideo=='error'">
-            <h4>Last file was not uploaded to server. Because server problems! Try to upload again.</h4>
-        </div>
-        <ul class="list-group">
-            <div data-ng-repeat="folder in resFoldersVideo">
-                <li class="list-group-item">
-                    <span class="badge">Videos: {{folder.summ}}</span>
-                    <a ng-click="selectFolderVideo(folder.folder)"> {{folder.folder}}
-                        <span ng-show="folderVideos[0]._id==folder.folder && !isEven(firstVideoFolderSelect)"><i class="fa fa-caret-up"></i></span>
-                        <span ng-show="isEven(firstVideoFolderSelect)" class="caret"></span>
-                        <span ng-show="folderVideos[0]._id!=folder.folder && !isEven(firstVideoFolderSelect)" class="caret"></span>
-                    </a>
-                </li>
-                <div ng-show="folderVideos[0]._id==folder.folder && !isEven(firstVideoFolderSelect)" class="row">
-                    <div data-ng-repeat="video in folderVideos[0].videos" class="col-sm-6 col-md-4">
 
-                            <custom-video></custom-video>
-                            <div class="caption text-center">
-                                <p><button type="button" ng-click="deleteVideo(video,folder.folder)" class="btn btn-sm btn-danger">Удалить</button></p>
-                            </div>
 
-                    </div>
-                </div>
-            </div>
-        </ul>
-        <h5>Please wait until the end of upload. Progress bar 100% label. Otherwise files wont be uploaded!</h5>
-        <div class="form-group">
-            <input type="file" ng-file-select="onVideoSelect($files)" class="form-control" id="inputVideo"/>
-        </div>
-        <div ng-show="progress && videoProcess">
-            <div ng-show="videoProcess==true"><i class="fa fa-cog fa-5x fa-spin"></i></div>
-        </div>
+
+
+
+
+
+
+
+
+
+
         <h2>I am now in:</h2>
         <h4 ng-show="info.destination">{{info.destination}}</h4>
         <div class="form-group">

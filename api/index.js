@@ -94,7 +94,9 @@ exports.saveUserData = function(req,res,next){
         if(err) return next(err);
             db.userDBModel.find({name:req.body.name,email:req.body.email},function(err,info){
                 if(err) return next(err);
-                res.send(200,info[0]);
+                fs.mkdir('public/uploaded/'+info[0]._id,function(){
+                    res.send(200,info[0]);
+                });
             })
     })
 }
