@@ -567,6 +567,6 @@ function errorHandler(err, req, res, next) {
     res.render('error', { error: err });
 }
 
-http.listen(8080, 'localhost',function(){
+http.listen(8080, '104.236.220.176',function(){
     console.log('listening on 8080');
 });
