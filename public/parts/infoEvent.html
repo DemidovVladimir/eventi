@@ -62,7 +62,7 @@
         <div ng-show="info[0].videos.length!=0">
             <h4 class="text-center">Videos:</h4>
             <div class="row col-sm-12 col-md-12">
-                <div data-ng-repeat="video in info[0].videos track by $index" class="col-sm-6 col-md-4">
+                <div data-ng-repeat="video in info[0].videos" class="col-sm-6 col-md-4">
                     <custom-video-event-watch>
                     </custom-video-event-watch>
                 </div>
@@ -71,12 +71,10 @@
         <div ng-show="info[0].photos.length!=0">
             <h4 class="text-center">Photos:</h4>
             <div class="row col-sm-12">
-                <div data-ng-repeat="pic in info[0].photos track by $index" class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a href="uploaded/{{info[0].owner}}/{{pic}}" data-lightbox="{{pic}}" target="_blank">
-                            <img ng-src="uploaded/{{info[0].owner}}/mini{{pic}}" alt="">
+                <div data-ng-repeat="pic in info[0].photos" class="col-sm-6 col-md-4">
+                        <a ng-href="/uploaded/{{info[0].owner}}/event/{{pic.title}}" data-lightbox="{{folder}}" data-title="{{folder}}">
+                            <img ng-src="uploaded/{{info[0].owner}}/event/mini_{{pic.title}}" alt="">
                         </a>
-                    </div>
                 </div>
             </div>
         </div>

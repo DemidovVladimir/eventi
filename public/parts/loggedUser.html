@@ -125,7 +125,6 @@
 
 
 
-
 <!-- begin:content -->
 <div id="content">
 <div class="container">
@@ -147,10 +146,11 @@
     <div class="row">
         <div data-ng-repeat="events in exSearchedEvents">
             <div data-ng-repeat="event in events">
+                <!--{{event}}-->
                 <div class="col-md-3 col-sm-6 col-xs-12 property-container">
                     <a href="/infoEvent{{event._id}}">
                         <div class="property-image">
-                            <img class="img-responsive" src="/uploaded/{{event.owner}}/mini{{event.photos[0]}}" alt="pic about event">
+                            <img class="img-responsive" src="/uploaded/{{event.owner}}/event/mini_{{event.photos[0].title}}" alt="pic about event">
                             <div class="property-price">
                                 <h4>{{event.title}}</h4>
                                 <span>{{event.party.length}}</span>
@@ -217,7 +217,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 property-container">
                     <a href="/infoUser{{user._id}}">
                         <div class="property-image">
-                            <img class="img-responsive" src="/uploaded/{{user._id}}/mini_{{user.ava}}" alt="users ava">
+                            <img class="img-responsive" src="/uploaded/{{user._id}}/user/mini_{{user.ava.title}}" alt="users ava">
                             <div class="property-price">
                                 <h4>{{user.name}}</h4>
                             </div>
@@ -257,7 +257,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 property-container">
                     <a href="/infoEvent{{event._id}}">
                         <div class="property-image">
-                            <img class="img-responsive" src="/uploaded/{{event.owner}}/mini{{event.photos[0]}}" alt="pic about event">
+                            <img class="img-responsive" src="/uploaded/{{event.owner}}/event/mini_{{event.photos[0].title}}" alt="pic about event">
                             <div class="property-price">
                                 <h4>{{event.title}}</h4>
                                 <span>{{event.party.length}}</span>
@@ -302,7 +302,7 @@
             <div class="col-md-3 col-sm-6 col-xs-12 property-container">
                 <a href="/infoEvent{{event._id}}">
                 <div class="property-image">
-                    <img class="img-responsive" src="/uploaded/{{event.owner}}/mini{{event.photos[0]}}" alt="pic about event">
+                    <img class="img-responsive" src="/uploaded/{{event.owner}}/event/mini_{{event.photos[0].title}}" alt="pic about event">
                     <div class="property-price">
                         <h4>{{event.title}}</h4>
                         <span>{{event.party.length}}</span>

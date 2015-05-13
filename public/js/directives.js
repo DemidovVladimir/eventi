@@ -543,8 +543,7 @@ app.directive('masonryGalleryImages',function(){
                     itemSelector : '.masonry-brick',
                     columnwidth: 300,
                     gutter: 20,
-                    isFitWidth: true,
-                    isAnimated: !Modernizr.csstransitions
+                    isFitWidth: true
                 });
             });
         },
@@ -561,8 +560,7 @@ app.directive('masonryGalleryVideos',function(){
                     itemSelector : '.masonry-brick',
                     columnwidth: 300,
                     gutter: 20,
-                    isFitWidth: true,
-                    isAnimated: !Modernizr.csstransitions
+                    isFitWidth: true
                 });
             });
         },
@@ -570,18 +568,107 @@ app.directive('masonryGalleryVideos',function(){
     }
 });
 
-app.directive('makeSaveLink',function($sce){
+app.directive('videogular',function($sce){
     return{
         restrict:'A',
         link:function(scope,element,attrs){
+//            var videoType = scope.video.title.split('.').pop();
+//            var videoTitle = scope.video.title.split('.'+videoType)[0];
+//            scope.videoTitle = 'timestampsOf'+videoTitle.split('adapted_')[1];
+//            scope.currentTime = 0;
             if(scope.dataUser){
-                scope.videoSafe = $sce.trustAsResourceUrl('uploaded/'+scope.dataUser._id+'/user/'+scope.video.folder+'/'+scope.video.title);
+                scope.configVideogular = {
+                    sources: [
+                        {src: $sce.trustAsResourceUrl('uploaded/'+scope.dataUser._id+'/user/'+scope.video.title), type: "video/mp4"}
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"), type: "video/webm"},
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"), type: "video/ogg"}
+                    ],
+                    theme: "/lib/videogular-themes-default/videogular.min.css"
+//                plugins: {
+//                    poster: 'uploaded/'+scope.dataUser._id+'/user/'+scope.video.folder+'/'+scope.videoTitle+'1.png'
+//                },
+//                autoPlay: true
+                }
             }else{
-                scope.videoSafe = $sce.trustAsResourceUrl('uploaded/'+scope.infoEvent[0].owner+'/event/'+scope.infoEvent[0].title+'/'+scope.video.title);
+                scope.configVideogular = {
+                    sources: [
+                        {src: $sce.trustAsResourceUrl('uploaded/'+scope.infoEvent[0].owner+'/event/'+scope.video.title), type: "video/mp4"}
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"), type: "video/webm"},
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"), type: "video/ogg"}
+                    ],
+                    theme: "/lib/videogular-themes-default/videogular.min.css"
+//                plugins: {
+//                    poster: 'uploaded/'+scope.dataUser._id+'/user/'+scope.video.folder+'/'+scope.videoTitle+'1.png'
+//                },
+//                autoPlay: true
+                }
             }
         }
     }
 });
+
+app.directive('masonryGalleryAudio',function(){
+    return{
+        restrict:'E',
+        link:function(scope,element,attrs){
+            element.imagesLoaded( function() {
+                element.masonry({
+                    itemSelector : '.masonry-brick',
+                    columnwidth: 300,
+                    gutter: 20,
+                    isFitWidth: true
+                });
+            });
+        },
+        templateUrl:'parts/customAudio.html'
+    }
+});
+
+app.directive('videogularaudio',function($sce){
+    return{
+        restrict:'A',
+        link:function(scope,element,attrs){
+//            var videoType = scope.video.title.split('.').pop();
+//            var videoTitle = scope.video.title.split('.'+videoType)[0];
+//            scope.videoTitle = 'timestampsOf'+videoTitle.split('adapted_')[1];
+//            scope.currentTime = 0;
+            if(scope.dataUser){
+                scope.configVideogular = {
+                    sources: [
+                        {src: $sce.trustAsResourceUrl('uploaded/'+scope.dataUser._id+'/user/'+scope.mp.title), type: "audio/mp3"}
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"), type: "video/webm"},
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"), type: "video/ogg"}
+                    ],
+                    theme: "/lib/videogular-themes-default/videogular.min.css"
+//                plugins: {
+//                    poster: 'uploaded/'+scope.dataUser._id+'/user/'+scope.video.folder+'/'+scope.videoTitle+'1.png'
+//                },
+//                autoPlay: true
+                }
+            }else{
+                scope.configVideogular = {
+                    sources: [
+                        {src: $sce.trustAsResourceUrl('uploaded/'+scope.infoEvent[0].owner+'/event/'+scope.mp.title), type: "audio/mp3"}
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"), type: "video/webm"},
+//                    {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"), type: "video/ogg"}
+                    ],
+                    theme: "/lib/videogular-themes-default/videogular.min.css"
+//                plugins: {
+//                    poster: 'uploaded/'+scope.dataUser._id+'/user/'+scope.video.folder+'/'+scope.videoTitle+'1.png'
+//                },
+//                autoPlay: true
+                }
+            }
+        }
+    }
+});
+
+
+
+
+
+
+
 
 //app.directive('autocompletefolders', function() {
 //    return {

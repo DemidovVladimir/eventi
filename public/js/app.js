@@ -1,4 +1,23 @@
-var app = angular.module('enveti',['ngRoute','ngResource','angularFileUpload','ngAnimate','youtube-embed','uiGmapgoogle-maps','ngAutocomplete','wu.masonry','mgcrea.ngStrap','ui.unique','ui.bootstrap','ui.date']);
+var app = angular.module('enveti',[
+    'ngRoute',
+    'ngResource',
+    'angularFileUpload',
+    'ngAnimate',
+    'youtube-embed',
+    'uiGmapgoogle-maps',
+    'ngAutocomplete',
+    'wu.masonry',
+    'mgcrea.ngStrap',
+    'ui.unique',
+    'ui.bootstrap',
+    'ui.date',
+    "ngSanitize",
+    "com.2fdevs.videogular",
+    "com.2fdevs.videogular.plugins.controls",
+    "com.2fdevs.videogular.plugins.overlayplay",
+    "com.2fdevs.videogular.plugins.poster",
+    "com.2fdevs.videogular.plugins.buffering"
+]);
 
 //ng-app="enveti"
     app.config(function($routeProvider,$locationProvider,$compileProvider)

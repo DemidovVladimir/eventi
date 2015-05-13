@@ -1,0 +1,89 @@
+<div ng-if="infoEvent" class="container-fluid">
+    <div class="row" masonry preserve-order>
+        <div class="masonry-brick auds col-sm-6 col-md-4" data-ng-repeat="mp in infoEvent[0].audio | myObjectFilter:currentFolder.folder track by $id(mp)">
+            <div videogularaudio class="thumbnail col-sm-12">
+                <!--{{configVideogular.sources}}-->
+                <!--<audio controls>-->
+                    <!--&lt;!&ndash;<source src="horse.ogg" type="audio/ogg">&ndash;&gt;-->
+                    <!--<source ng-src="{{configVideogular.sources[0].src}}" type="audio/mpeg">-->
+                    <!--Your browser does not support the audio tag.-->
+                <!--</audio>-->
+                <videogular vg-theme="configVideogular.theme">
+                    <vg-media vg-src="configVideogular.sources" vg-type="audio">
+                    </vg-media>
+
+                    <vg-controls vg-config="configVideogular">
+                        <vg-play-pause-button></vg-play-pause-button>
+                        <!--<vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>-->
+                        <vg-scrub-bar>
+                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                        </vg-scrub-bar>
+                        <!--<vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>-->
+                        <vg-volume>
+                            <vg-mute-button></vg-mute-button>
+                            <vg-volume-bar></vg-volume-bar>
+                        </vg-volume>
+                        <vg-fullscreen-button></vg-fullscreen-button>
+                    </vg-controls>
+
+                    <!--<vg-overlay-play></vg-overlay-play>-->
+                    <!--<vg-poster vg-url='configVideogular.plugins.poster'></vg-poster>-->
+                </videogular>
+                <div class="text-center form-group">
+                    <button ng-click="deleteAudio(infoEvent[0].title,mp.title)" type="button" class="btn btn-warning form-control">Delete this audio file!</button>
+                </div>
+
+                <!--<video ng-mouseover="changePoster()" ng-mouseleave="stopChanging()" make-poster class="text-center" width="320" height="240" preload="metadata" poster="{{poster}}" controls>-->
+                <!--<source make-save-link ng-src="{{videoSafe}}" type="video/mp4">-->
+                <!--&lt;!&ndash;<source make-save-link ng-src="{{videoSafe}}" type="video/ogg">&ndash;&gt;-->
+                <!--Ваш браузер не поддерживает данный видео формат.-->
+                <!--</video>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div ng-if="dataUser" class="container-fluid">
+    <div class="row" masonry preserve-order>
+        <div class="masonry-brick auds col-sm-6 col-md-4" data-ng-repeat="mp in dataUser.audio | myObjectFilter:currentFolder.folder track by $id(mp)">
+            <div videogularaudio class="thumbnail col-sm-12">
+                <videogular vg-theme="configVideogular.theme">
+                    <vg-media vg-src="configVideogular.sources" vg-type="audio">
+                    </vg-media>
+
+                    <vg-controls vg-config="configVideogular">
+                        <vg-play-pause-button></vg-play-pause-button>
+                        <!--<vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>-->
+                        <vg-scrub-bar>
+                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                        </vg-scrub-bar>
+                        <!--<vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>-->
+                        <vg-volume>
+                            <vg-mute-button></vg-mute-button>
+                            <vg-volume-bar></vg-volume-bar>
+                        </vg-volume>
+                        <vg-fullscreen-button></vg-fullscreen-button>
+                    </vg-controls>
+
+                    <!--<vg-overlay-play></vg-overlay-play>-->
+                    <!--<vg-poster vg-url='configVideogular.plugins.poster'></vg-poster>-->
+                </videogular>
+
+                <div class="text-center form-group">
+                    <button ng-click="deleteAudio(mp.folder,mp.title)" type="button" class="btn btn-warning form-control">Delete this audio file!</button>
+                </div>
+                <!--<video ng-mouseover="changePoster()" ng-mouseleave="stopChanging()" make-poster class="text-center" width="320" height="240" preload="metadata" poster="{{poster}}" controls>-->
+                <!--<source make-save-link ng-src="{{videoSafe}}" type="video/mp4">-->
+                <!--&lt;!&ndash;<source make-save-link ng-src="{{videoSafe}}" type="video/ogg">&ndash;&gt;-->
+                <!--Ваш браузер не поддерживает данный видео формат.-->
+                <!--</video>-->
+            </div>
+        </div>
+    </div>
+</div>

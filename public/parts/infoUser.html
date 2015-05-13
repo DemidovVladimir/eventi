@@ -50,7 +50,7 @@
 <div class="userInfo">
         <h3 class="text-center">{{aboutUser.name}} {{aboutUser.second_name}}</h3>
         <div class="text-center">
-            <img class="img-responsive img-thumbnail img-circle" ng-src="/uploaded/{{aboutUser._id}}/mini_{{aboutUser.ava}}">
+            <img class="img-responsive img-thumbnail img-circle" ng-src="/uploaded/{{aboutUser._id}}/user/mini_{{aboutUser.ava.title}}">
         </div>
         <h5 class="text-center">Gender: {{aboutUser.gender}}</h5>
         <h5 class="text-center">Date of birth: {{dateOfBirth}}</h5>
@@ -109,8 +109,8 @@
             </a>
             <ul ng-show="!isEven(openedFolderPicCount) && openedFolderPic == folder">
                 <li data-ng-repeat="pic in aboutUser.photos | filter:folder">
-                    <a href="/uploaded/{{aboutUser._id}}/{{folder}}/{{pic.title}}" data-lightbox="{{folder}}" data-title="{{folder}}">
-                        <img class="img-responsive img-thumbnail" ng-src="/uploaded/{{aboutUser._id}}/{{folder}}/mini_{{pic.title}}">
+                    <a href="/uploaded/{{aboutUser._id}}/user/{{pic.title}}" data-lightbox="{{folder}}" data-title="{{folder}}">
+                        <img class="img-responsive img-thumbnail" ng-src="/uploaded/{{aboutUser._id}}/user/mini_{{pic.title}}">
                     </a>
                 </li>
             </ul>

@@ -1,13 +1,19 @@
 var express = require('express');
 var app = express();
+
+
+
+
 var http = require('http').Server(app);
-var fs = require('fs');
-var path = require('path');
-var favicon = require('static-favicon');
+
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var methodOverride = require('method-override');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var fs = require('fs');
+var path = require('path');
+var favicon = require('serve-favicon');
 var api = require('./api/index.js');
 var io = require('socket.io')(http);
 var db = require('./data/db.js');
@@ -15,10 +21,29 @@ var rimraf = require('rimraf');
 var async = require('async');
 var exec = require('child_process').exec;
 var gm = require('gm');
-var ffmpeg = require('ffmpeg');
-//var util = require('util');
-//var mongoose = require('mongoose');
-//var db = mongoose.createConnection('mongodb://vladimir050486:sveta230583@104.236.240.106:27017/test').model;
+var ffmpeg = require('fluent-ffmpeg');
+var btoa = require('btoa');
+var util = require('util');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -50,31 +75,44 @@ passport.use(new FacebookStrategy({
 // end of configuring passport
 
 
-//
 
 
 
-// view engine setup
+
+
+
+
+
+
+
+
+
+
+
+
+//// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(favicon(path.join(__dirname, 'public/img/mini_logo.ico')));
 app.use(logger('dev'));
-app.use(express.bodyParser());
-app.use(cookieParser());
-app.use(cookieParser());
+app.use(methodOverride());
 app.use(session({
     secret: 'MEANdevelopment',
     resave: true,
     saveUninitialized: true
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
 app.use(logErrors);
 app.use(clientErrorHandler);
-app.use(errorHandler);
+if ('development' == app.get('env')) {
+    app.use(errorHandler);
+}
 
 
 var connected = [];
@@ -139,231 +177,430 @@ maintainLine.on('connection', function(socket){
         });
     })
 });
+
 var Files = {};
+var nameToWrite;
 var fileStream = io.of('/fileTransfer');
 fileStream.on('connection', function(socket){
-    socket.on('Start', function (data) { //data contains the variables that we passed through in the html file
-        var Type = data.Type;
-        var userId = data.UserId;
-        var Name = data['Name'];
-        var toType = data.toType;
-        var additionalAttrs = data.additionalAttrs;
-        var folder;
-        var pattVideo = new RegExp("video");
-        var pattImage = new RegExp("image");
-        var pattMusic = new RegExp("audio");
-        var typeVideo;
-        var typeImage;
-        var typeMusic;
+    //title of the file
+    var title;
+    //pattern checking file
+    var pattVideo = new RegExp("video");
+    var pattImage = new RegExp("image");
+    var pattMusic = new RegExp("audio");
+    //type of the file
+    var typeVideo;
+    var typeImage;
+    var typeMusic;
+    //file size
+    var size;
+    //can be event or user
+    var toType;
+    //user sending file
+    var userId;
+    //can be slider, ava or simple pic, video, audio
+    var destination;
+    //title of the event
+    var additionalTitle;
+    //check video and audio format
+    var fileFormat;
+    //folder for db
+    var folder;
+    //if file exists
+    var fileExists;
+    //collecting file
+    var file = {};
+    //order of picture in slider
+    var orderSlider;
+    socket.on('Start',function(data){
         async.series([
             function(callback){
-                if(data.Folder){
-                    folder = data.Folder;
-                    callback(null, 'folder deal up');
+                title = data.Name;
+                typeVideo = pattVideo.test(data.Type);
+                typeImage = pattImage.test(data.Type);
+                typeMusic = pattMusic.test(data.Type);
+                size = data.Size;
+                file.size = data.Size;
+                file.downloaded = 0;
+                toType = data.toType;
+                userId = data.UserId;
+                destination = data.additionalAttrs.destination;
+                additionalTitle = data.additionalAttrs.title;
+                fileFormat = data.Type.split('/').pop();
+                folder = data.Folder || 'default';
+                orderSlider = data.orderSlider-1;
+                callback(null,'inheritance');
+            },
+            function(callback){
+                fs.mkdir('public/uploaded/'+userId+'/'+toType,function(){
+                    callback(null, 'mkdir');
+                });
+            },
+            function(callback){
+                if(fileFormat!='jpeg' && fileFormat!='png' && fileFormat!='mp4' && fileFormat!='mp3' && fileFormat!='mpeg'){
+                    callback(null,{formatError:true});
                 }else{
-                    folder = 'default';
-                    callback(null, 'folder deal up');
+                    callback(null,{formatError:false});
                 }
             },
             function(callback){
-                typeVideo = pattVideo.test(Type);
-                typeImage = pattImage.test(Type);
-                typeMusic = pattMusic.test(Type);
-                callback(null, 'apply to variables');
+                fs.exists('public/uploaded/'+userId+'/'+toType+'/'+title, function (exists) {
+                    fileExists = exists;
+                    callback(null,'existence');
+                });
             }
-        ],
-            function(err, results){
-                if(!typeImage && !typeVideo && !typeMusic){
-                    fileStream.emit('wrongFormat',{'answer' : 'Try to use proper video, audio or image file type.'});
-                }else{
-                    async.series([
-                        function(callback){
-                            if(typeImage){
-                                var objFile = {};
-                                objFile.title = Name;
-                                objFile.folder = folder;
-                                if(toType=='user'){
-                                    db.userDBModel.update({_id:userId},{$push:{photos:objFile}},{upsert:true},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'images');
-                                    });
-                                }else{
-                                    db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{photos:objFile}},{upsert:true},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'images');
-                                    });
-                                }
-                            }else{
-                                callback(null, 'images');
-                            }
-                        },
-                        function(callback){
-                            if(typeVideo){
-                                var objFile = {};
-                                var titleFormat = Name.split('.').pop();
-                                var titleName = Name.split(titleFormat)[0];
-                                objFile.title = titleName+'mp4';
-                                objFile.folder = folder;
-                                if(toType=='user'){
-                                    db.userDBModel.update({_id:userId},{$push:{videos:objFile}},{upsert:true},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'videos');
-                                    });
-                                }else{
-                                    db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{videos:objFile}},{upsert:true},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'videos');
-                                    });
-                                }
-                            }else{
-                                callback(null, 'videos');
-                            }
-                        },
-                        function(callback){
-                            if(typeMusic){
-                                var objFile = {};
-                                objFile.title = Name;
-                                objFile.folder = folder;
-                                if(toType=='user'){
-                                    db.userDBModel.update({_id:userId},{$push:{audio:objFile}},{upsert:true},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'audio');
-                                    });
-                                }else{
-                                    db.eventsDBModel.update({owner:userId,title:additionalAttrs.title},{$push:{audio:objFile}},{upsert:true},function(err){
-                                        if(err) return next(err);
-                                        callback(null, 'audio');
-                                    });
-                                }
-                            }else{
-                                callback(null, 'audio');
-                            }
-                        },
-                        function(callback){
-                            fs.mkdir('public/uploaded/'+userId+'/'+toType,function(){
-                                callback(null, 'mkdir');
-                            });
-                        },
-                        function(callback){
-                            fs.mkdir('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title,function(){
-                                callback(null, 'mkdir');
-                            });
-                        }
-                    ],
-                        function(err, results){
-                            Files[Name] = {  //Create a new Entry in The Files Variable
-                                FileSize : data['Size'],
-                                Data     : "",
-                                Downloaded : 0
-                            }
-                            var Place = 0;
-                            try{
-                                var Stat = fs.statSync('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
-                                if(Stat.isFile())
-                                {
-                                    Files[Name]['Downloaded'] = Stat.size;
-                                    Place = Stat.size / 10487;
-                                }
-                            }
-                            catch(er){} //It's a New File
-                            fs.open('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name, "a", 0755, function(err, fd){
-                                if(err)
-                                {
-                                    console.log(err);
-                                }
-                                else
-                                {
-                                    Files[Name]['Handler'] = fd; //We store the file handler so we can write to it later
-                                    fileStream.emit('MoreData', { 'Place' : Place, 'Percent' : 1 });
-                                }
-                            });
-                        });
-                }
-            });
+        ],function(err,results){
+            if(err) console.log(err);
+            if(results[2].formatError==true){
+                socket.emit('dropError',{answer:'Wrong data format, please use jpeg, png, mp4 or mp3'});
+            }else{
+                socket.emit('moreData',{Percent:1,Place:0});
+            }
+        })
     });
-    socket.on('Upload', function (data){
-        var Name = data['Name'];
-        var userId = data.UserId;
-        var Type = data.Type;
-        var toType = data.toType;
-        var additionalAttrs = data.additionalAttrs;
 
-        var pattVideo = new RegExp("video");
-        var pattImage = new RegExp("image");
-        var pattMusic = new RegExp("audio");
-        var typeVideo = pattVideo.test(Type);
-        var typeImage = pattImage.test(Type);
-        var typeMusic = pattMusic.test(Type);
 
-        Files[Name]['Downloaded'] += data['Data'].length;
-        Files[Name]['Data'] += data['Data'];
-        if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If File is Fully Uploaded
-        {
-            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
-                async.series([
-                    function(callback){
-                        if(typeImage){
-                            var r = fs.createReadStream('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
-                            var w =  fs.createWriteStream('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/mini_'+Name);
-                            gm(r).resize(300)
-                                .stream(function (err, stdout, stderr) {
-                                    stdout.pipe(w);
-                                    if(err){
-                                        console.log(err);
+
+    socket.on('UploadImage',function(data){
+        async.waterfall([
+            function(callback){
+                if(data.startData!='empty'){
+                    if(fileExists){
+                        var dataStart = btoa(data.startData);
+                            fs.createReadStream('public/uploaded/'+userId+'/'+toType+'/'+title, {
+                                'flags': 'r',
+                                'encoding': 'binary',
+                                'mode': 0666,
+                                'start':100,
+                                'end':200
+                            }).addListener( "data", function(chunk) {
+                                var chunkData = btoa(chunk);
+                                if(chunkData==dataStart){
+                                    var Stat = fs.statSync('public/uploaded/'+userId+'/'+toType+'/'+title);
+                                    if(file.size==Stat.size){
+                                        socket.emit('Done');
+                                        callback(null,{title:title,useDB:true,uploaded:true});
                                     }else{
-                                        callback(null, 'images');
+                                        file.downloaded = Stat.size;
+                                        callback(null,{title:title,useDB:false,uploaded:false});
                                     }
+                                }else{
+                                    var newTitle = title.splice('.');
+                                    var formatFile = newTitle.pop();
+                                    newTitle = title.splice(formatFile);
+                                    newTitle = newTitle[0]+1;
+                                    title = newTitle+'.'+formatFile;
+                                    callback(null,{title:title,useDB:true,uploaded:false});
+                                }
+                            })
+                    }else{
+                        callback(null,{title:title,useDB:true,uploaded:false});
+                    }
+                }else{
+                    callback(null,{title:title,useDB:false,uploaded:false});
+                }
+            },function(fileState,callback){
+                if(fileState.useDB){
+                    if(toType=='user'){
+                        if(destination=='ava'){
+                            db.userDBModel.update({_id:userId},{ava:{title:title}},function(err){
+                                if(err) console.log(err);
+                                callback(null,fileState);
                             });
                         }else{
-                            callback(null, 'images');
+                            var objFile = {folder:folder,title:title};
+                            db.userDBModel.update({_id:userId},{$push:{photos:objFile}},{upsert:true},function(err){
+                                if(err) return next(err);
+                                callback(null,fileState);
+                            });
                         }
-                    },
-                    function(callback){
-                        if(typeVideo){
-                            var format = Name.split('.').pop();
-                            var newTitle = Name.split('.'+format)[0];
-                            try {
-                                var process = new ffmpeg('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
-                                process.then(function(video) {
-                                    video
-                                        .setVideoFormat('mp4')
-                                        .save('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+newTitle+'.mp4', function (error, file) {
-                                            fs.unlinkSync('public/uploaded/'+userId+'/'+toType+'/'+additionalAttrs.title+'/'+Name);
-//Try to change to './'
-                                            callback(null, 'videos');
+                    }else{
+                        if(destination=='slider'){
+                            db.eventsDBModel.find({owner:userId,title:additionalTitle},function(err,event){
+                                if(err) console.log(err);
+                                var allPics;
+                                async.waterfall([
+                                    function(callback){
+                                        if(event.length==0){
+                                            allPics = [];
+                                            allPics.push(title);
+                                            callback(null,{end:true});
+                                        }else{
+                                            callback(null,{end:false});
+                                        }
+                                    },function(result,callback){
+                                        if(result.end){
+                                            callback(null,{end:true});
+                                        }else{
+                                            if(!event[0].slider){
+                                                allPics = [];
+                                                allPics.push(title);
+                                                callback(null,{end:true});
+                                            }else{
+                                                callback(null,{end:false});
+                                            }
+                                        }
+                                    },function(result,callback){
+                                        if(result.end){
+                                            callback(null,{end:true});
+                                        }else{
+                                            if(event[0].slider.length==0){
+                                                allPics = [];
+                                                allPics.push(title);
+                                                callback(null,{end:true});
+                                            }else{
+                                                callback(null,{end:false});
+                                            }
+                                        }
+                                    },function(result,callback){
+                                        if(result.end){
+                                            callback(null,{end:true});
+                                        }else{
+                                            if(event[0].slider.length<orderSlider){
+                                                allPics = event[0].slider;
+                                                allPics.push(title);
+                                                callback(null,{end:true});
+                                            }else{
+                                                callback(null,{end:false});
+                                            }
+                                        }
+                                    },function(result,callback){
+                                        if(result.end){
+                                            callback(null,{end:true});
+                                        }else{
+                                            if(orderSlider<event[0].slider.length){
+                                                allPics=event[0].slider;
+                                                allPics.splice(orderSlider,0,title);
+                                                callback(null,{end:true});
+                                            }else{
+                                                callback(null,{end:true});
+                                            }
+                                        }
+                                    }
+                                ],function(err,results){
+                                    if(err) console.log(err);
+                                    db.eventsDBModel.update({owner:userId,title:additionalTitle},{slider:allPics},{upsert:true},function(err){
+                                        if(err) console.log(err);
+                                        db.executedDBModel.update({owner:userId,title:additionalTitle},{slider:allPics},{upsert:true},function(err){
+                                            if(err) console.log(err);
+                                            callback(null,fileState);
                                         });
-                                },function (err) {
-                                    console.log(err);
-                                });
-                            }catch(e){
-                                console.log(e);
-                            }
+                                    });
+                                })
+                            })
                         }else{
-                            callback(null, 'videos');
+                            //for not slider
+                            var objFile = {folder:folder,title:title};
+                            db.eventsDBModel.update({owner:userId,title:additionalTitle},{$push:{photos:objFile}},{upsert:true},function(err){
+                                if(err) return next(err);
+                                db.executedDBModel.update({owner:userId,title:additionalTitle},{$push:{photos:objFile}},{upsert:true},function(err){
+                                    if(err) return next(err);
+                                    callback(null,fileState);
+                                });
+                            });
                         }
                     }
-                ],
-                    function(err, results){
-                        fileStream.emit('Done', 'ready');
-                    });
-            });
-        }
-        else if(Files[Name]['Data'].length > 10485760){ //If the Data Buffer reaches 10MB
-            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
-                Files[Name]['Data'] = ""; //Reset The Buffer
-                var Place = Files[Name]['Downloaded'] / 10487;
-                var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
-                fileStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
-            });
-        }
-        else
-        {
-            var Place = Files[Name]['Downloaded'] / 10487;
-            var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
-            fileStream.emit('MoreData', { 'Place' : Place, 'Percent' :  Percent});
-        }
+                }else{
+                    callback(null,fileState);
+                }
+            }
+        ],function(err,results){
+            if(err) console.log(err);
+            if(file.downloaded == file.size)results.uploaded = true;
+            if(results.uploaded==true){
+                fs.exists('public/uploaded/'+userId+'/'+toType+'/mini_'+title, function (exists) {
+                    if(!exists){
+                        var rr = fs.createReadStream('public/uploaded/'+userId+'/'+toType+'/'+title);
+                        var w =  fs.createWriteStream('public/uploaded/'+userId+'/'+toType+'/mini_'+title);
+                        gm(rr).resize(300)
+                            .stream(function (err, stdout, stderr) {
+                                stdout.pipe(w);
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    socket.emit('Done');
+                                }
+                            });
+                    }else{
+                        socket.emit('Done');
+                    }
+                });
+            }else{
+                fs.appendFile('public/uploaded/'+userId+'/'+toType+'/'+title, data['Data'],{encoding : 'binary'},function(err){
+                    if(err) console.log(err);
+                    file.downloaded+=data['Data'].length;
+                    var Place = file.downloaded/10487;
+                    var Percent = (file.downloaded / file.size) * 100;
+                    socket.emit('moreData', { 'Place' : Place, 'Percent' :  Percent});
+                });
+            }
+        })
+    });
+
+    socket.on('UploadVideo',function(data){
+        async.waterfall([
+            function(callback){
+                if(data.startData!='empty'){
+                    if(fileExists){
+                        var dataStart = btoa(data.startData);
+                        fs.createReadStream('public/uploaded/'+userId+'/'+toType+'/'+title, {
+                            'flags': 'r',
+                            'encoding': 'binary',
+                            'mode': 0666,
+                            'start':100,
+                            'end':200
+                        }).addListener( "data", function(chunk) {
+                            var chunkData = btoa(chunk);
+                            if(chunkData==dataStart){
+                                var Stat = fs.statSync('public/uploaded/'+userId+'/'+toType+'/'+title);
+                                if(file.size==Stat.size){
+                                    socket.emit('Done');
+                                    callback(null,{title:title,useDB:true,uploaded:true});
+                                }else{
+                                    file.downloaded = Stat.size;
+                                    callback(null,{title:title,useDB:false,uploaded:false});
+                                }
+                            }else{
+                                var newTitle = title.splice('.');
+                                var formatFile = newTitle.pop();
+                                newTitle = title.splice(formatFile);
+                                newTitle = newTitle[0]+1;
+                                title = newTitle+'.'+formatFile;
+                                callback(null,{title:title,useDB:true,uploaded:false});
+                            }
+                        })
+                    }else{
+                        callback(null,{title:title,useDB:true,uploaded:false});
+                    }
+                }else{
+                    callback(null,{title:title,useDB:false,uploaded:false});
+                }
+            },function(fileState,callback){
+                if(fileState.useDB){
+                    if(toType=='user'){
+                        var objFile = {folder:folder,title:title};
+                        db.userDBModel.update({_id:userId},{$push:{videos:objFile}},{upsert:true},function(err){
+                            if(err) return next(err);
+                            callback(null,fileState);
+                        });
+                    }else{
+                        var objFile = {folder:folder,title:title};
+                        db.eventsDBModel.update({owner:userId,title:additionalTitle},{$push:{videos:objFile}},{upsert:true},function(err){
+                            if(err) return next(err);
+                            db.executedDBModel.update({owner:userId,title:additionalTitle},{$push:{videos:objFile}},{upsert:true},function(err){
+                                if(err) return next(err);
+                                callback(null,fileState);
+                            });
+                        });
+                    }
+                }else{
+                    callback(null,fileState);
+                }
+            }
+        ],function(err,results){
+            if(err) console.log(err);
+            if(file.downloaded == file.size)results.uploaded = true;
+            if(results.uploaded==true){
+                socket.emit('Done');
+            }else{
+                fs.appendFile('public/uploaded/'+userId+'/'+toType+'/'+title, data['Data'],{encoding : 'binary'},function(err){
+                    if(err) console.log(err);
+                    file.downloaded+=data['Data'].length;
+                    var Place = file.downloaded/10487;
+                    var Percent = (file.downloaded / file.size) * 100;
+                    socket.emit('moreData', { 'Place' : Place, 'Percent' :  Percent});
+                });
+            }
+        })
+    });
+
+    socket.on('UploadAudio',function(data){
+        async.waterfall([
+            function(callback){
+                if(data.startData!='empty'){
+                    if(fileExists){
+                        var dataStart = btoa(data.startData);
+                        fs.createReadStream('public/uploaded/'+userId+'/'+toType+'/'+title, {
+                            'flags': 'r',
+                            'encoding': 'binary',
+                            'mode': 0666,
+                            'start':100,
+                            'end':200
+                        }).addListener( "data", function(chunk) {
+                            var chunkData = btoa(chunk);
+                            if(chunkData==dataStart){
+                                var Stat = fs.statSync('public/uploaded/'+userId+'/'+toType+'/'+title);
+                                if(file.size==Stat.size){
+                                    socket.emit('Done');
+                                    callback(null,{title:title,useDB:true,uploaded:true});
+                                }else{
+                                    file.downloaded = Stat.size;
+                                    callback(null,{title:title,useDB:false,uploaded:false});
+                                }
+                            }else{
+                                var newTitle = title.splice('.');
+                                var formatFile = newTitle.pop();
+                                newTitle = title.splice(formatFile);
+                                newTitle = newTitle[0]+1;
+                                title = newTitle+'.'+formatFile;
+                                callback(null,{title:title,useDB:true,uploaded:false});
+                            }
+                        })
+                    }else{
+                        callback(null,{title:title,useDB:true,uploaded:false});
+                    }
+                }else{
+                    callback(null,{title:title,useDB:false,uploaded:false});
+                }
+            },function(fileState,callback){
+                if(fileState.useDB){
+                    if(toType=='user'){
+                        var objFile = {folder:folder,title:title};
+                        db.userDBModel.update({_id:userId},{$push:{audio:objFile}},{upsert:true},function(err){
+                            if(err) return next(err);
+                            callback(null,fileState);
+                        });
+                    }else{
+                        var objFile = {folder:folder,title:title};
+                        db.eventsDBModel.update({owner:userId,title:additionalTitle},{$push:{audio:objFile}},{upsert:true},function(err){
+                            if(err) return next(err);
+                            db.executedDBModel.update({owner:userId,title:additionalTitle},{$push:{audio:objFile}},{upsert:true},function(err){
+                                if(err) return next(err);
+                                callback(null,fileState);
+                            });
+                        });
+                    }
+                }else{
+                    callback(null,fileState);
+                }
+            }
+        ],function(err,results){
+            if(err) console.log(err);
+            if(file.downloaded == file.size)results.uploaded = true;
+            if(results.uploaded==true){
+                socket.emit('Done');
+            }else{
+                fs.appendFile('public/uploaded/'+userId+'/'+toType+'/'+title, data['Data'],{encoding : 'binary'},function(err){
+                    if(err) console.log(err);
+                    file.downloaded+=data['Data'].length;
+                    var Place = file.downloaded/10487;
+                    var Percent = (file.downloaded / file.size) * 100;
+                    socket.emit('moreData', { 'Place' : Place, 'Percent' :  Percent});
+                });
+            }
+        })
     });
 });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -375,15 +612,18 @@ app.get('/getUnsetMsgs/:userId',api.getUnsetMsgs);
 //Msgs
 
 //Manipulation with stuff
-app.post('/setAva/user',api.setAvaToUser);
+//app.post('/setAva/user',api.setAvaToUser);
+
+
 app.post('/saveUserData', api.saveUserData);
 app.post('/getUserInfo',api.getUserInfo);
 app.post('/changeAvaUser',api.changeAvaUser);
-app.post('/insertAvaUser',api.insertAvaUser);
-app.post('/insertPicturesUser',api.insertPicturesUser);
-app.get('/deleteAva/:file',api.deleteAvaFromUser);
+//app.post('/insertAvaUser',api.insertAvaUser);
+//app.post('/insertPicturesUser',api.insertPicturesUser);
 app.get('/checkEmailExist/:email',api.checkEmailExist);
 app.post('/deleteAva',api.deleteAva);
+
+
 app.post('/deleteMe',api.deleteMe);
 
 
@@ -391,11 +631,20 @@ app.post('/deleteMe',api.deleteMe);
 
 app.get('/foldersList/:userId',api.foldersList);
 app.get('/picsInFolder/:userId/:folder',api.picsInFolder);
-app.get('/deletePic/:userId/:folder/:picture',api.deletePic);
+
+
+app.get('/deletePicUser/:userId/:folder/:picture',api.deletePicUser);
+
+
 app.get('/foldersVideo/:userId',api.foldersVideo);
-app.post('/insertVideosUser',api.insertVideosUser);
-app.get('/videosInFolder/:userId/:folder',api.videosInFolder);
-app.get('/deleteVideo/:userId/:folder/:video',api.deleteVideo);
+//app.post('/insertVideosUser',api.insertVideosUser);
+//app.get('/videosInFolder/:userId/:folder',api.videosInFolder);
+
+
+app.get('/deleteVideoUser/:userId/:folder/:video',api.deleteVideoUser);
+app.get('/deleteAudioUser/:userId/:folder/:audio',api.deleteAudioUser);
+
+
 app.post('/searchPerson',api.searchPerson);
 app.get('/searchPersonByName/:name',api.searchPersonByName);
 app.post('/addToFriends',api.addToFriends);
@@ -502,11 +751,12 @@ app.get('/getEventsStart/:userId',api.getEventsStart);
 app.get('/getMyEvents/:userId',api.getMyEvents);
 app.get('/deleteEvent/:userId/:title',api.deleteMyEvent);
 app.post('/createEvent',api.createEvent);
-app.post('/insertPicturesEvent',api.insertPicturesEvent);
-app.post('/deletePicEvent',api.deletePicEvent);
-app.post('/deleteVideoEvent',api.deleteVideoEvent);
-app.post('/insertVideosEvent',api.insertVideosEvent(io));
+app.get('/deletePicEvent/:userId/:title/:picture',api.deletePicEvent);
+app.get('/deleteVideoEvent/:userId/:title/:video',api.deleteVideoEvent);
+app.get('/deleteAudioEvent/:userId/:title/:audio',api.deleteAudioEvent);
 app.get('/addMeToEvent/:userId/:eventTitle',api.addMeToEvent);
+
+
 app.get('/deleteMeFromEvent/:userId/:eventId',api.deleteMeFromEvent);
 app.get('/infoEvent/:eventId',api.infoEvent);
 app.get('/searchEvents/:location',api.searchEvents);
@@ -532,24 +782,6 @@ app.get('*',function(req, res) {
 
 
 
-
-
-
-
-//app.get('/',function(req,res,next){
-//    res.send('KUKU');
-//})
-
-
-
-
-
-
-
-
-
-
-
 //handlers
 function logErrors(err, req, res, next) {
     console.error(err.stack);
@@ -557,7 +789,8 @@ function logErrors(err, req, res, next) {
 }
 function clientErrorHandler(err, req, res, next) {
     if (req.xhr) {
-        res.status(500).send({ error: 'Something blew up!' });
+        res.status(500);
+        res.render('error');
     } else {
         next(err);
     }
@@ -567,6 +800,6 @@ function errorHandler(err, req, res, next) {
     res.render('error', { error: err });
 }
 
-http.listen(8080, '104.236.220.176',function(){
-    console.log('listening on 8080');
+http.listen(8080,'104.236.220.176',function(){
+    console.log('listen on 8080');
 });

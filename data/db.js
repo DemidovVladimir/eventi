@@ -32,7 +32,7 @@ var usersDB = new mongoose.Schema({
     about: {type:String},
     skype: String,
     phone: String,
-    ava: String,
+    ava: mongoose.Schema.Types.Mixed,
     rating: Number,
     facebook: String,
     vk: String,
@@ -47,6 +47,7 @@ var usersDB = new mongoose.Schema({
     videos: [],//{name: who took, video: url}
     audio:[],
     changesFound:[],
+    ballance :mongoose.Schema.Types.Mixed,
     complaints: []//{name: who created, msg: body}
 })
 
@@ -80,17 +81,42 @@ var eventsDB = new mongoose.Schema({
     photos: [],//{name: who took, photo: url}
     videos: [],//{name: who took, video: url}
     audio: [],//{name: who took, video: url}
+    slider:[],
 //    complaints: [],//{name: who created, msg: body}
 //    comments: [],//{name: who commented, msg: body, date: when was created}
     destination: String,//Destination of event for search engine
     addressInCity: String,
     phone: String,
-    coords:[]//Coordinates of event
+    coords:[]//Coordinates of event,
 })
 //Every event exists in DB for a year not longer
-eventsDB.index({ date_exec: 1 }, { expireAfterSeconds : 10 });
+eventsDB.index({ date_exec: 1 }, { expireAfterSeconds : 30 });
 
 exports.eventsDBModel = mongoose.model('event',eventsDB);
+
+
+var executedDB = new mongoose.Schema({
+    title: String,
+    banned: Boolean,
+    date_created: {type: Date, default: Date.now},
+    date_exec: Date,
+    about: String,
+    owner: String,//[who created this event id]
+    party: [],//[who have entered this event]
+    photos: [],//{name: who took, photo: url}
+    videos: [],//{name: who took, video: url}
+    audio: [],//{name: who took, video: url}
+    slider:[],
+//    complaints: [],//{name: who created, msg: body}
+//    comments: [],//{name: who commented, msg: body, date: when was created}
+    destination: String,//Destination of event for search engine
+    addressInCity: String,
+    phone: String,
+    coords:[]//Coordinates of event,
+})
+//Every event exists in DB for a year not longer
+exports.executedDBModel = mongoose.model('executed',executedDB);
+
 
 var changesDB = new mongoose.Schema({
     eventId: String,
@@ -142,6 +168,13 @@ var middlersDB = new mongoose.Schema({
 middlersDB.index({ date_created: 1 }, { expireAfterSeconds : 60*60*24*365 });
 
 exports.middlersDBModel = mongoose.model('middler',middlersDB);
+
+
+
+
+
+
+
 
 
 

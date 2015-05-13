@@ -345,11 +345,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.folders.push(item);
                 $scope.foldersToSelect.push(item.folder);
             });
-
-
-
-
-            //some here
+            if(!$scope.currentFolder && data.audio.length!=0){
+                $scope.audioAvailable = true;
+            }else{
+                $scope.audioAvailable = false;
+            }
         }
         if(data.answer){
             $window.localStorage.clear('session');
@@ -381,7 +381,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.resFoldersVideo = queVideo;
             });
 // Deal with log off page
-            var socket = io('/maintainUser');
+            var socket = io('http://104.236.220.176:8080/maintainUser');
             if(!$scope.info.email || !$scope.info.password){
                 socket.emit('connect me',$routeParams.user);
             }
@@ -415,6 +415,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
                 $scope.videosAvailable = true;
             }
         });
+        $scope.dataUser.audio.forEach(function(item){
+            if(item.folder == folder){
+                $scope.audioAvailable = true;
+            }
+        });
         $scope.$digest();
     }
 
@@ -429,6 +434,11 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
             $scope.videosAvailable = true;
         }else{
             $scope.videosAvailable = false;
+        }
+        if($scope.dataUser.audio.length!=0){
+            $scope.audioAvailable = true;
+        }else{
+            $scope.audioAvailable = false;
         }
     }
 
@@ -558,7 +568,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     }
 //    query.userId = $routeParams.user
 //Files input block
-    var fileStream = io('/fileTransfer');
+    var fileStream = io('http://104.236.220.176:8080/fileTransfer');
     var FReader;
     var Name;
     $scope.selectedFile;
@@ -566,50 +576,92 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     $('.filesInput').on('change',function (evnt){
         $scope.$apply(function(){
             $scope.selectedFile = evnt;
+            $scope.inputFileTo = 'default';
         });
     });
+    $('.avaInput').on('change',function (evnt){
+        $scope.$apply(function(){
+            $scope.selectedFile = evnt;
+            $scope.inputFileTo = 'ava';
+        });
+    });
+
+
     $scope.pasteFiles = function(){
         if($scope.selectedFile){
+            var i = 0;
             $scope.pleaseInfo = null;
             $scope.progressFile = 1;
             FReader = new FileReader();
             Name = $scope.selectedFile.target.files[0].name;
-            FReader.onload = function(evnt){
-                $scope.$apply(function(){
-                    if(!$scope.folder){
-                        $scope.folder = 'default';
-                    }
-                    fileStream.emit('Upload', {
-                        'Name' : Name,
-                        'UserId' : $routeParams.user,
-                        'toType' : 'user',
-                        additionalAttrs:{title :$scope.folder},
-                        'Type' : $scope.selectedFile.target.files[0].type,
-                        'Data' : evnt.target.result
-                    });
-                });
-            }
-            if(!$scope.folder){
-                $scope.folder = 'default';
-            }
+
             fileStream.emit('Start', {
                 'Name' : Name,
                 'Folder' : $scope.folder,
-                'UserId' :$routeParams.user,
+                "orderSlider":$scope.orderSlider,
+                'UserId' :$scope.userId,
                 'toType' : 'user',
-                additionalAttrs:{title : $scope.folder},
+                additionalAttrs:{destination : $scope.inputFileTo},
                 'Size' : $scope.selectedFile.target.files[0].size,
                 'Type' : $scope.selectedFile.target.files[0].type
             });
+
+            if($scope.selectedFile.target.files[0].type.split('/')[0]=='image'){
+                FReader.onload = function(evnt){
+                    $scope.$apply(function(){
+                        if(i==0){
+                            $scope.startData = evnt.target.result.substr(100,101);
+                        }else{
+                            $scope.startData = 'empty';
+                        }
+                        fileStream.emit('UploadImage', {
+                            'Data' : evnt.target.result,
+                            'startData': $scope.startData
+                        });
+                        i++;
+                    });
+                }
+            }else if($scope.selectedFile.target.files[0].type.split('/')[0]=='video'){
+                FReader.onload = function(evnt){
+                    $scope.$apply(function(){
+                        if(i==0){
+                            $scope.startData = evnt.target.result.substr(100,101);
+                        }else{
+                            $scope.startData = 'empty';
+                        }
+                        fileStream.emit('UploadVideo', {
+                            'Data' : evnt.target.result,
+                            'startData': $scope.startData
+                        });
+                        i++;
+                    });
+                }
+            }else if($scope.selectedFile.target.files[0].type.split('/')[0]=='audio'){
+                FReader.onload = function(evnt){
+                    $scope.$apply(function(){
+                        if(i==0){
+                            $scope.startData = evnt.target.result.substr(100,101);
+                        }else{
+                            $scope.startData = 'empty';
+                        }
+                        fileStream.emit('UploadAudio', {
+                            'Data' : evnt.target.result,
+                            'startData': $scope.startData
+                        });
+                        i++;
+                    });
+                }
+            }else{
+                $scope.pleaseInfo = 'Please use picture, video or audio files only';
+            }
         }else{
             $scope.pleaseInfo = 'Please select a file';
         }
     }
 
 
-//"photos":[{"folder":"first","title":"car4.jpg"}
 
-    fileStream.on('MoreData', function (data){
+    fileStream.on('moreData', function (data){
         $scope.progressFile = Math.round(data['Percent']);
         var Place = data['Place'] * 10487; //The Next Blocks Starting Position
         var NewFile; //The Variable that will hold the new Block of Data
@@ -619,13 +671,14 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
     });
 
 
-    fileStream.on('Done', function (data){
+    fileStream.on('Done', function (){
         $scope.progressFile = 100;
+        $scope.$digest();
         $route.reload();
 //        $scope.$digest();
     });
 
-    fileStream.on('wrongFormat',function(data){
+    fileStream.on('dropError',function(data){
         $scope.pleaseInfo = data.answer;
         $scope.progressFile = null;
         $scope.$digest();
@@ -637,212 +690,37 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    $scope.avaProcess = false;
-//    $scope.onAvaChange = function(files){
-//        $scope.avaProcess = true;
-//        files.forEach(function(item){
-//            $scope.upload = $upload.upload({
-//                url: '/changeAvaUser',
-//                data: {userId: $routeParams.user,
-//                    oldAva: $scope.info.ava
-//                },
-//                file: item
-//            }).progress(function(evt) {
-//                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-//                    $scope.progress = progress;
-//                    $scope.avaProcess = true;
-//                    $scope.info.ava = undefined;
-//
-//                }).success(function(data, status, headers, config) {
-//                    if(data!='wrong' && data!='error'){
-//                        $scope.info.ava = data;
-//                        $scope.avaProcess = false;
-//                        $scope.avaError = false;
-//                    }else{
-//                        $scope.avaProcess = false;
-//                        $scope.avaError = data;
-//                    }
-//                });
-//        });
-//    };
-//    $scope.deleteAva = function(){
-//        var address = $resource('/deleteAva');
-//        var query = new address();
-//        query.userId = $routeParams.user;
-//        query.ava = $scope.info.ava;
-//        query.$save(function(){
+    $scope.deleteAva = function(){
+        var address = $resource('/deleteAva');
+        var query = new address();
+        query.userId = $routeParams.user;
+        query.ava = $scope.info.ava;
+        query.$save(function(){
+            $window.location.reload();
 //            $scope.info.ava = undefined;
-//        });
-//    }
-//    $scope.avaProcess = false;
-//    $scope.onAvaInsert = function(files){
-//        files.forEach(function(item){
-//            $scope.upload = $upload.upload({
-//                url: '/insertAvaUser',
-//                data: {userId: $routeParams.user
-//                },
-//                file: item
-//            }).progress(function(evt) {
-//                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-//                    $scope.progress = progress;
-//                    $scope.avaProcess = true;
-//
-//                }).success(function(data, status, headers, config) {
-//                    $scope.test = data;
-//                    if(data!='wrong' && data!='error'){
-//                        $scope.info.ava = data;
-//                        $scope.avaProcess = false;
-//                        $scope.avaError = false;
-//                    }else{
-//                        $scope.avaError = data;
-//                        $scope.avaProcess = false;
-//                    }
-//                });
-//        });
-//    };
-//
-//
-//    $scope.picsProcess = false;
-//    $scope.onPicSelect = function($files){
-//        $scope.picsProcess = true;
-//        var files = $files;
-//        files.forEach(function(item){
-//            $scope.upload = $upload.upload({
-//                url: '/insertPicturesUser',
-//                data: {userId: $scope.info._id,
-//                    folder: $scope.currentPicFolder
-//                },
-//                file: item
-//            }).progress(function(evt) {
-//                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-//                    $scope.progress = progress;
-//                    $scope.picsProcess = true;
-//                }).success(function(data, status, headers, config) {
-//                    //make result visible
-//                    $scope.resultInputPicture = data;
-//                    var addr = $resource('/foldersList/'+$scope.info._id);
-//                    var que = addr.query(function(){
-//                        $scope.resFolders = que;
-//                        $scope.firstPicFolderSelect = 0;
-//                        $scope.selectFolder($scope.currentPicFolder);
-//                        $scope.picsProcess = false;
-//                    });
-//                });
-//        });
-//    };
-//    $scope.firstPicFolderSelect = 0;
-//    $scope.selectFolder = function(folder){
-//        if($scope.currentPicFolder!=folder){
-//            $scope.firstPicFolderSelect = 0;
-//        }
-//        $scope.currentPicFolder = folder;
-//        var addr = $resource('/picsInFolder/'+$scope.info._id+'/'+folder);
-//        var que = addr.query(function(){
-//            $scope.folderPics = que;
-//            ++$scope.firstPicFolderSelect;
-//        });
-//    };
-//    $scope.deletePic = function(pic,folder){
-//        var addr = $resource('/deletePic/'+$scope.info._id+'/'+folder+'/'+pic);
-//        var que = addr.get(function(){
-//            var addr2 = $resource('/foldersList/'+$scope.info._id);
-//            var que2 = addr2.query(function(){
-//                $scope.resFolders = que2;
-//            });
-//        });
-//        var num = $scope.folderPics[0].photos.indexOf(pic);
-//        $scope.folderPics[0].photos.splice(num,1);
-//    }
-//    $scope.videoProcess = false;
-//    $scope.onVideoSelect = function(files){
-//        $scope.videoProcess = true;
-//        files.forEach(function(item){
-//            $scope.upload = $upload.upload({
-//                url: '/insertVideosUser',
-//                data: {userId: $scope.info._id,
-//                    folder: $scope.currentVideoFolder
-//                },
-//                file: item
-//            }).progress(function(evt) {
-//                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-//                    $scope.progress = progress;
-//                    $scope.videoProcess = true;
-//                }).success(function(data, status, headers, config) {
-//                    //make result visible
-//                    $scope.resultInputVideo = data;
-//                    var addr = $resource('/foldersVideo/'+$scope.info._id);
-//                    var que = addr.query(function(){
-//                        $scope.resFoldersVideo = que;
-//                        $scope.firstVideoFolderSelect = 0;
-//                        $scope.selectFolderVideo($scope.currentVideoFolder);
-//                        $scope.videoProcess = false;
-//                    });
-//                });
-//        });
-//    };
-//    $scope.firstVideoFolderSelect = 0;
-//    $scope.selectFolderVideo = function(folder){
-//        if($scope.currentVideoFolder!=folder){
-//            $scope.firstVideoFolderSelect = 0;
-//        }
-//        $scope.currentVideoFolder = folder;
-//        var addr = $resource('/videosInFolder/'+$scope.info._id+'/'+folder);
-//        var que = addr.query(function(){
-//            $scope.folderVideos = que;
-//            ++$scope.firstVideoFolderSelect;
-//        });
-//    };
-//    $scope.deleteVideo = function(video,folder){
-//        var addr = $resource('/deleteVideo/'+$scope.info._id+'/'+folder+'/'+video);
-//        var que = addr.get(function(){
-//            var addr2 = $resource('/foldersVideo/'+$scope.info._id);
-//            var que2 = addr2.query(function(){
-//                $scope.resFoldersVideo = que2;
-//            });
-//        });
-//        var num = $scope.folderVideos[0].videos.indexOf(video);
-//        $scope.folderVideos[0].videos.splice(num,1);
-//    }
+        });
+    }
 
+    $scope.deletePic = function(folder,pic){
+        var addr = $resource('/deletePicUser/'+$scope.info._id+'/'+folder+'/'+pic);
+        var que = addr.get(function(){
+            $window.location.reload();
+        });
+    }
 
+    $scope.deleteVideo = function(folder,video){
+        var addr = $resource('/deleteVideoUser/'+$scope.info._id+'/'+folder+'/'+video);
+        var que = addr.get(function(){
+            $window.location.reload();
+        });
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $scope.deleteAudio = function(folder,audio){
+        var addr = $resource('/deleteAudioUser/'+$scope.info._id+'/'+folder+'/'+audio);
+        var que = addr.get(function(){
+            $window.location.reload();
+        });
+    }
 
 
 
@@ -943,7 +821,7 @@ app.controller('maintainUser',function($scope,$routeParams,$resource,$upload,$wi
 //        });
 });
 
-app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route){
+app.controller('createEvent',function($scope,$rootScope,$resource,$window,$timeout,$route){
     $scope.session = JSON.parse($window.localStorage.getItem('session'));
     $scope.userId = $scope.session.id;
     $scope.userName = $scope.session.name;
@@ -958,12 +836,7 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
     var que = adr.query(function(){
         $scope.eventsExists = que;
     });
-    $scope.deleteEvent = function(title,owner){
-        var adr = $resource('/deleteEvent/'+owner+'/'+title);
-        var que = adr.get(function(){
-            $route.reload();
-        });
-    }
+
 
 //    var yearNow = new Date();
 //    yearNow = yearNow.getFullYear();
@@ -1049,74 +922,6 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
             $anchorScroll();
             $location.hash('');
         }
-        $scope.resultPics = [];
-        $scope.resultVids = [];
-        $scope.pictureProgress = false;
-        $scope.onPicSelect = function($files){
-            var miss = $scope.resultPics.indexOf('wrong format');
-            if(miss!='-1') $scope.resultPics.splice(miss,1);
-            var files = $files;
-                files.forEach(function(item){
-                    $scope.upload = $upload.upload({
-                        url: '/insertPicturesEvent',
-                        data: {userId: $scope.userId,
-                            eventTitle: $scope.title
-                        },
-                        file: item
-                    }).progress(function(evt) {
-                            var progress = parseInt(100.0 * evt.loaded / evt.total);
-                            $scope.progress = progress;
-                            $scope.pictureProgress = true;
-
-                        }).success(function(data, status, headers, config) {
-                            $scope.resultPics.push(data);
-                            $scope.pictureProgress = false;
-                        });
-                });
-        };
-        $scope.deletePic = function(pic){
-                var adr = $resource('/deletePicEvent');
-                var que = new adr();
-                que.userId = $scope.userId;
-                que.picture = pic;
-                que.title = $scope.title;
-                que.$save(function(){
-                    var oop = $scope.resultPics.indexOf(pic);
-                    $scope.resultPics.splice(oop,1);
-                });
-        }
-
-        $scope.videoProgress = false;
-        $scope.onVideoSelect = function($files){
-            var files = $files;
-            files.forEach(function(item){
-                $scope.upload = $upload.upload({
-                    url: '/insertVideosEvent',
-                    data: {userId: $scope.userId,
-                        eventTitle: $scope.title
-                    },
-                    file: item
-                }).progress(function(evt) {
-                        var progress = parseInt(100.0 * evt.loaded / evt.total);
-                        $scope.progress = progress;
-                        $scope.videoProgress = true;
-                    }).success(function(data, status, headers, config) {
-                        $scope.resultVids.push(data);
-                        $scope.videoProgress = false;
-                    });
-            });
-        };
-        $scope.deleteVideo = function(video){
-            var adr = $resource('/deleteVideoEvent');
-            var que = new adr();
-            que.userId = $scope.userId;
-            que.video = video;
-            que.title = $scope.title;
-            que.$save(function(){
-                var oop = $scope.resultVids.indexOf(video);
-                $scope.resultVids.splice(oop,1);
-            });
-        }
     $scope.submit = function(){
         var adr = $resource('/createEvent');
         var que = new adr();
@@ -1137,6 +942,10 @@ app.controller('createEvent',function($scope,$rootScope,$resource,$upload,$windo
 
 
 app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$location,$anchorScroll,$route){
+    $scope.session = JSON.parse($window.localStorage.getItem('session'));
+//    if(!$scope.session){
+//        $window.location.href = '/';
+//    }
 
     var scrollTo = function(id) {
         $location.hash(id);
@@ -1244,7 +1053,6 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
             obj.id = data.res[0]._id;
             obj.name = data.res[0].name;
             $window.localStorage.setItem('session',JSON.stringify(obj));
-            $scope.session = JSON.parse($window.localStorage.getItem('session'));
             var adr2 = $resource('/getEventsStart/'+data.res[0]._id);
             var que2 = adr2.query(function(){
                 var arrayOfEvents = que2;
@@ -1499,6 +1307,7 @@ app.controller('loggedUser',function($scope,$routeParams,$resource,$window,$loca
 });
 
 app.controller('infoUser',function($scope,$resource,$routeParams,$window){
+    $scope.dataUser = true;
     var men = $routeParams.userId;
     var getMsgs = $resource('/getUnsetMsgs/'+$scope.userId);
     var queMsgs = getMsgs.query(function(){
@@ -1514,7 +1323,7 @@ app.controller('infoUser',function($scope,$resource,$routeParams,$window){
     });
 
 
-    var socket = io('/chat');
+    var socket = io('http://104.236.220.176:8080/chat');
     socket.emit('connect me',$scope.userId);
 //    socket.connect();
 
@@ -1523,7 +1332,7 @@ app.controller('infoUser',function($scope,$resource,$routeParams,$window){
     que.userId = men;
     que.$save(function(data){
         $scope.aboutUser = data;
-
+        $scope.dataUser = $scope.aboutUser;
 
 
         $scope.userToName = data.name;
@@ -1655,7 +1464,7 @@ app.controller('infoEvent',function($scope,$resource,$routeParams,$window){
     var adr = $resource('/infoEvent/'+$scope.eventId);
     var que = adr.query(function(){
         $scope.info = que;
-
+        $scope.infoEvent = $scope.info;
 
 
 
@@ -1699,7 +1508,7 @@ app.controller('infoEvent',function($scope,$resource,$routeParams,$window){
                 $scope.newData = data;
                 if(data.date_ofBirth){
                     var date = new Date(data.date_ofBirth);
-                    var year = date.getFullYear()
+                    var year = date.getFullYear();
                     var month = date.getMonth()+1;
                     var day = date.getDate();
                     $scope.newData.date_ofBirth = year+'/'+month+'/'+day;
@@ -1794,6 +1603,16 @@ app.controller('infoEvent',function($scope,$resource,$routeParams,$window){
 
 app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$window,$timeout,$route,$routeParams){
     var session = JSON.parse($window.localStorage.getItem('session'));
+    $scope.inputFileTo = 'default';
+    $scope.userData = '';
+    if(session){
+        var adr = $resource('/getUserInfo');
+        var que = new adr();
+        que.userId = session.id;
+        que.$save(function(data){
+            $scope.userData = data;
+        });
+    }
     $scope.userName = session.name;
     $scope.userId = session.id;
     $scope.eventId = $routeParams.eventId;
@@ -1835,6 +1654,11 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
             $scope.videosAvailable = true;
         }else{
             $scope.videosAvailable = false;
+        }
+        if(!$scope.currentFolder && $scope.infoEvent[0].audio.length!=0){
+            $scope.audioAvailable = true;
+        }else{
+            $scope.audioAvailable = false;
         }
 
 
@@ -1941,50 +1765,11 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 
 
 
-//    $scope.resultPics = [];
-//    $scope.resultVids = [];
-//    $scope.pictureProgress = false;
-//    $scope.onPicSelect = function($files){
-//        var miss = $scope.resultPics.indexOf('wrong format');
-//        if(miss!='-1') $scope.resultPics.splice(miss,1);
-//        var files = $files;
-//        files.forEach(function(item){
-//            $scope.upload = $upload.upload({
-//                url: '/insertPicturesEvent',
-//                data: {userId: $scope.userId,
-//                    eventTitle: $scope.title
-//                },
-//                file: item
-//            }).progress(function(evt) {
-//                    var progress = parseInt(100.0 * evt.loaded / evt.total);
-//                    $scope.progress = progress;
-//                    $scope.pictureProgress = true;
-//
-//                }).success(function(data, status, headers, config) {
-//                    $scope.resultPics.push(data);
-//                    $scope.pictureProgress = false;
-//                });
-//        });
-//    };
-//    $scope.deletedPics = [];
-//    $scope.deletePic = function(pic,title){
-//        $scope.deletedPics.push(pic);
-//        var adr = $resource('/deletePicEvent');
-//        var que = new adr();
-//        que.userId = $scope.userId;
-//        que.picture = pic;
-//        que.title = title;
-//        que.$save(function(){
-//            var oop = $scope.resultPics.indexOf(pic);
-//            $scope.resultPics.splice(oop,1);
-//        });
-//    }
-
 
 
 
 //Files input block
-    var fileStream = io('/fileTransfer');
+    var fileStream = io.connect('http://104.236.220.176:8080/fileTransfer');
     var FReader;
     var Name;
     $scope.selectedFile;
@@ -1999,40 +1784,79 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 
     $scope.pasteFiles = function(){
         if($scope.selectedFile){
+            var i = 0;
             $scope.pleaseInfo = null;
             $scope.progressFile = 1;
             FReader = new FileReader();
             Name = $scope.selectedFile.target.files[0].name;
-            FReader.onload = function(evnt){
-                $scope.$apply(function(){
-                    fileStream.emit('Upload', {
-                        'Name' : Name,
-                        'UserId' : $scope.userId,
-                        'toType' : 'event',
-                        additionalAttrs:{title : $scope.title},
-                        'Type' : $scope.selectedFile.target.files[0].type,
-                        'Data' : evnt.target.result
-                    });
-                });
-            }
+
             fileStream.emit('Start', {
                 'Name' : Name,
                 'Folder' : $scope.folder,
+                "orderSlider":$scope.orderSlider,
                 'UserId' :$scope.userId,
                 'toType' : 'event',
-                additionalAttrs:{title : $scope.title},
+                additionalAttrs:{title : $scope.title, destination : $scope.inputFileTo},
                 'Size' : $scope.selectedFile.target.files[0].size,
                 'Type' : $scope.selectedFile.target.files[0].type
             });
+
+            if($scope.selectedFile.target.files[0].type.split('/')[0]=='image'){
+                FReader.onload = function(evnt){
+                    $scope.$apply(function(){
+                        if(i==0){
+                            $scope.startData = evnt.target.result.substr(100,101);
+                        }else{
+                            $scope.startData = 'empty';
+                        }
+                        fileStream.emit('UploadImage', {
+                            'Data' : evnt.target.result,
+                            'startData': $scope.startData
+                        });
+                        i++;
+                    });
+                }
+            }else if($scope.selectedFile.target.files[0].type.split('/')[0]=='video'){
+                FReader.onload = function(evnt){
+                    $scope.$apply(function(){
+                        if(i==0){
+                            $scope.startData = evnt.target.result.substr(100,101);
+                        }else{
+                            $scope.startData = 'empty';
+                        }
+                        fileStream.emit('UploadVideo', {
+                            'Data' : evnt.target.result,
+                            'startData': $scope.startData
+                        });
+                        i++;
+                    });
+                }
+            }else if($scope.selectedFile.target.files[0].type.split('/')[0]=='audio'){
+                FReader.onload = function(evnt){
+                    $scope.$apply(function(){
+                        if(i==0){
+                            $scope.startData = evnt.target.result.substr(100,101);
+                        }else{
+                            $scope.startData = 'empty';
+                        }
+                        fileStream.emit('UploadAudio', {
+                            'Data' : evnt.target.result,
+                            'startData': $scope.startData
+                        });
+                        i++;
+                    });
+                }
+            }else{
+                $scope.pleaseInfo = 'Please use picture, video or audio files only';
+            }
         }else{
             $scope.pleaseInfo = 'Please select a file';
         }
     }
 
 
-//"photos":[{"folder":"first","title":"car4.jpg"}
 
-    fileStream.on('MoreData', function (data){
+    fileStream.on('moreData', function (data){
         $scope.progressFile = Math.round(data['Percent']);
         var Place = data['Place'] * 10487; //The Next Blocks Starting Position
         var NewFile; //The Variable that will hold the new Block of Data
@@ -2042,13 +1866,12 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
     });
 
 
-    fileStream.on('Done', function (data){
+    fileStream.on('Done', function (){
         $scope.progressFile = 100;
-        $route.reload();
-//        $scope.$digest();
+        $window.location.reload();
     });
 
-    fileStream.on('wrongFormat',function(data){
+    fileStream.on('dropError',function(data){
         $scope.pleaseInfo = data.answer;
         $scope.progressFile = null;
         $scope.$digest();
@@ -2070,6 +1893,11 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
                 $scope.videosAvailable = true;
             }
         });
+        $scope.infoEvent[0].audio.forEach(function(item){
+            if(item.folder == folder){
+                $scope.audioAvailable = true;
+            }
+        });
         $scope.$digest();
     }
 
@@ -2084,6 +1912,11 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
             $scope.videosAvailable = true;
         }else{
             $scope.videosAvailable = false;
+        }
+        if($scope.infoEvent[0].audio.length!=0){
+            $scope.audioAvailable = true;
+        }else{
+            $scope.audioAvailable = false;
         }
     }
 
@@ -2148,6 +1981,34 @@ app.controller('makeChangesEvent',function($scope,$rootScope,$resource,$upload,$
 //        });
 //    }
 
+
+    $scope.deletePic = function(title,pic){
+        var addr = $resource('/deletePicEvent/'+$scope.userId+'/'+title+'/'+pic);
+        var que = addr.get(function(){
+            $window.location.reload();
+        });
+    }
+
+    $scope.deleteVideo = function(title,video){
+        var addr = $resource('/deleteVideoEvent/'+$scope.userId+'/'+title+'/'+video);
+        var que = addr.get(function(){
+            $window.location.reload();
+        });
+    }
+
+    $scope.deleteAudio = function(title,audio){
+        var addr = $resource('/deleteAudioEvent/'+$scope.userId+'/'+title+'/'+audio);
+        var que = addr.get(function(){
+            $window.location.reload();
+        });
+    }
+
+    $scope.deleteParty = function(){
+        var adr = $resource('/deleteEvent/'+$scope.infoEvent[0].owner+'/'+$scope.infoEvent[0].title);
+        var que = adr.get(function(){
+            $window.location.href = '/maintainEvents';
+        });
+    }
 
 
     $scope.submit = function(){
@@ -2247,12 +2108,7 @@ app.controller('maintainEvents',function($scope,$resource,$window,$route, $locat
 //        $scope.mapOptions.refresh();
 //    });
 
-    $scope.deleteEvent = function(title){
-        var adr = $resource('/deleteEvent/'+$scope.userId+'/'+title);
-        var que = adr.get(function(){
-            $route.reload();
-        });
-    }
+
 
     $scope.signOut = function(){
         $window.localStorage.clear('session')
@@ -2289,7 +2145,7 @@ app.controller('myMessages',function($scope,$resource,$routeParams,$route,$windo
         $scope.countMsgs = queMsgs.length;
     });
     $scope.messages = [];
-    var socket = io('/chat');
+    var socket = io('http://104.236.220.176:8080/chat');
 //    socket.connect();
 //    socket.emit('connect me',$scope.userId);
     $scope.$watch('messages', function(newValue, oldValue) {
